@@ -1,0 +1,30 @@
+return {}
+
+-- -- lua/plugins/twilight.lua
+-- return {
+--   {
+--     "folke/twilight.nvim",
+--     lazy = false,
+--     opts = {
+--       dimming = {
+--         alpha = 0.25,
+--         color = { "Normal", "#ffffff" },
+--         term_bg = "#000000",
+--         inactive = false,
+--       },
+--       context = 10,
+--       treesitter = true,
+--       expand = {
+--         "function",
+--         "method",
+--         "table",
+--         "if_statement",
+--       },
+--       exclude = {},
+--     },
+--     config = function(_, opts)
+--       require("twilight").setup(opts)
+--       vim.cmd("TwilightEnable") -- ✅ called after setup
+--     end,
+--   },
+-- }
