@@ -1,15 +1,17 @@
 return {
   -- "linkarzu/snipe.nvim",
+  -- https://google.co.uk
   "leath-dub/snipe.nvim",
-  keys = {
-    {
-      "<S-l>",
-      function()
-        require("snipe").open_buffer_menu()
-      end,
-      desc = "Open Snipe buffer menu",
-    },
-  },
+  -- Moved into the keymaps.lua
+  -- keys = {
+  --   {
+  --     "<S-l>",
+  --     function()
+  --       require("snipe").open_buffer_menu()
+  --     end,
+  --     desc = "Open Snipe buffer menu",
+  --   },
+  -- },
   config = function()
     local snipe = require("snipe")
     snipe.setup({
@@ -17,14 +19,14 @@ return {
         -- Charaters to use for hints
         -- make sure they don't collide with the navigation keymaps
         -- If you remove `j` and `k` from below, you can navigate in the plugin
-        dictionary = "sadflewcmpghio",
+        dictionary = "saflewcmpghio",
         -- dictionary = "asfghl;wertyuiop",
       },
       navigate = {
         -- In case you changed your mind, provide a keybind that lets you
         -- cancel the snipe and close the window.
-        cancel_snipe = "<esc>",
-        -- cancel_snipe = "q",
+        -- cancel_snipe = "<esc>",
+        cancel_snipe = "q",
 
         -- Remove "j" and "k" from your dictionary to navigate easier to delete
         -- Close the buffer under the cursor
