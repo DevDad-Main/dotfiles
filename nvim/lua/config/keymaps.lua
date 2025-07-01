@@ -12,9 +12,15 @@ keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>")
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
+-- Snipe Config -> Opens the snipe menu.
+-- Navigate with j and k, d for deleting buffers and q to close menu
 keymap.set("n", "<S-l>", function()
   require("snipe").open_buffer_menu()
 end, { desc = "Open Snipe buffer menu" })
+
+-- Example keybindings
+keymap.set("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>')
+keymap.set("t", "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 --Codeium toggle
 keymap.set("n", "<C-t>", "<cmd> Codeium Toggle<CR>")
