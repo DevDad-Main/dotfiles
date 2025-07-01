@@ -14,6 +14,13 @@
 return {
   {
     "folke/snacks.nvim",
+    -- Stupidly i was trying to get this functionality working below in the the actualy Snacks.explorer setup but easier to define it here
+    -- and let it auto_close automatically when i open a new file
+    sources = {
+      explorer = {
+        auto_close = true,
+      },
+    },
     keys = {
       -- I use this keymap with mini.files, but snacks explorer was taking over
       -- https://github.com/folke/snacks.nvim/discussions/949
@@ -144,33 +151,21 @@ return {
         end,
         desc = "Find Files",
       },
-
       {
         -- Uses alt l to Open the file explorer from the cwd root folder
         "<M-l>",
         function()
           Snacks.explorer({
-            -- Need this to get the current directory we are in, removes this to hav everything from the root
             cwd = LazyVim.root(),
-            -- I always want my buffers picker to start in normal mode
-            on_show = function()
-              vim.cmd.stopinsert()
-            end,
-            -- Whether to show hidden files
             hidden = true,
             unloaded = true,
             current = true,
             sort_lastused = true,
-            win = {
-              input = {
-                keys = {
-                  ["d"] = "bufdelete",
-                },
-              },
-              list = { keys = { ["d"] = "bufdelete" } },
-            },
-            -- In case you want to override the layout for this keymap
             layout = "vscode",
+            -- Allows us to keep navigating with j and k etc, and doesn't immediately go to insert mode
+            on_show = function()
+              vim.cmd.stopinsert()
+            end,
           })
         end,
         desc = "[P]Snacks Explorer",
@@ -237,7 +232,8 @@ return {
         -- I like the "ivy" layout, so I set it as the default globaly, you can
         -- still override it in different keymaps
         layout = {
-          preset = "ivy",
+          -- preset = "ivy",
+          preset = "vscode",
           -- When reaching the bottom of the results in the picker, I don't want
           -- it to cycle and go back to the top
           cycle = false,
@@ -261,6 +257,26 @@ return {
               border = "top",
               title = " {title} {live} {flags}",
               title_pos = "left",
+              { win = "input", height = 1, border = "bottom" },
+              {
+                box = "horizontal",
+                { win = "list", border = "none" },
+                { win = "preview", title = "{preview}", width = 0.5, border = "left" },
+              },
+            },
+          },
+          vscode = {
+            layout = {
+              backdrop = false,
+              width = 0.4,
+              -- min_width = 30,
+              height = 0.6, -- Increase vertical height here (0.0 to 1.0)
+              align = "top",
+              -- min_height = 30, -- Or set a minimum
+              box = "vertical",
+              border = "rounded",
+              title = "{title} {live} {flags}",
+              title_pos = "center",
               { win = "input", height = 1, border = "bottom" },
               {
                 box = "horizontal",
