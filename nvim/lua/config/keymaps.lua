@@ -18,6 +18,16 @@ keymap.set("n", "<S-l>", function()
   require("snipe").open_buffer_menu()
 end, { desc = "Open Snipe buffer menu" })
 
+-- Live Server Used mainly with Html projects etc
+keymap.set("n", "<leader>ls", "<cmd>LiveServerStart<cr>", { desc = "Start Live Server" })
+keymap.set("n", "<leader>lS", "<cmd>LiveServerStop<cr>", { desc = "Stop Live Server" })
+
+-- Used mainly for markdown files as markdown-preview is outdated and has security issues
+keymap.set("n", "<leader>lp", "<cmd>LivePreview start<cr>", { desc = "Start Live Preview" })
+
+-- Stops Live Preview
+keymap.set("n", "<leader>lP", "<cmd>LivePreview close<cr>", { desc = "Stop Live Preview" })
+
 -- Example keybindings
 keymap.set("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>')
 keymap.set("t", "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
