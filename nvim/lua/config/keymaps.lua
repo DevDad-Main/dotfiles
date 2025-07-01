@@ -12,6 +12,10 @@ keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>")
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
+keymap.set("n", "<S-l>", function()
+  require("snipe").open_buffer_menu()
+end, { desc = "Open Snipe buffer menu" })
+
 --Codeium toggle
 keymap.set("n", "<C-t>", "<cmd> Codeium Toggle<CR>")
 
