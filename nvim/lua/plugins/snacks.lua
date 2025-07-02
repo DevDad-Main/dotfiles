@@ -16,11 +16,11 @@ return {
     "folke/snacks.nvim",
     -- Stupidly i was trying to get this functionality working below in the the actualy Snacks.explorer setup but easier to define it here
     -- and let it auto_close automatically when i open a new file
-    sources = {
-      explorer = {
-        auto_close = true,
-      },
-    },
+    -- sources = {
+    --   explorer = {
+    --     auto_close = true,
+    --   },
+    -- },
     keys = {
       -- I use this keymap with mini.files, but snacks explorer was taking over
       -- https://github.com/folke/snacks.nvim/discussions/949
@@ -151,25 +151,26 @@ return {
         end,
         desc = "Find Files",
       },
-      {
-        -- Uses alt l to Open the file explorer from the cwd root folder
-        "<M-l>",
-        function()
-          Snacks.explorer({
-            cwd = LazyVim.root(),
-            hidden = true,
-            unloaded = true,
-            current = true,
-            sort_lastused = true,
-            layout = "vscode",
-            -- Allows us to keep navigating with j and k etc, and doesn't immediately go to insert mode
-            on_show = function()
-              vim.cmd.stopinsert()
-            end,
-          })
-        end,
-        desc = "[P]Snacks Explorer",
-      },
+      -- Commented this out as we will be using mini-files as an explorer
+      -- {
+      --   -- Uses alt l to Open the file explorer from the cwd root folder
+      --   "<M-l>",
+      --   function()
+      --     Snacks.explorer({
+      --       cwd = LazyVim.root(),
+      --       hidden = true,
+      --       unloaded = true,
+      --       current = true,
+      --       sort_lastused = true,
+      --       layout = "vscode",
+      --       -- Allows us to keep navigating with j and k etc, and doesn't immediately go to insert mode
+      --       on_show = function()
+      --         vim.cmd.stopinsert()
+      --       end,
+      --     })
+      --   end,
+      --   desc = "[P]Snacks Explorer",
+      -- },
       -- Navigate my buffers
       {
         -- Uses alt h to swap buffers
