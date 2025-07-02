@@ -126,7 +126,8 @@ return {
       -- Sometimes I need to see if a keymap is already taken or not
       {
         -- Uses alt - k
-        "<M-k>",
+        -- "<M-k>",
+        "<leader>sk",
         function()
           Snacks.picker.keymaps({
             layout = "vertical",

@@ -14,11 +14,11 @@ return {
         --   filetypes = { "cs", "vb", "csproj", "sln", "slnx", "props", "csx", "targets", "tproj", "slngen", "fproj" },
         -- },
         cssls = {},
-        tailwindcss = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
-        },
+        -- tailwindcss = {
+        --   root_dir = function(...)
+        --     return require("lspconfig.util").root_pattern(".git")(...)
+        --   end,
+        -- },
         tsserver = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
@@ -118,6 +118,7 @@ return {
       },
       setup = {},
     },
+    -- vim.filetype.add({ extension = { ejs = "ejs" } }),
   },
   {
     "nvim-cmp",

@@ -23,7 +23,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "lazyvim.plugins.extras.ui.edgy" },
     { import = "lazyvim.plugins.extras.linting.eslint" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
+    -- { import = "lazyvim.plugins.extras.lang.yaml" },
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
     -- { import = "lazyvim.plugins.extras.ui.alpha" },
@@ -62,4 +62,5 @@ require("lazy").setup({
     },
   },
   vim.cmd("autocmd BufNewFile,BufRead *.ejs set filetype=html"),
+  vim.filetype.add({ extension = { ejs = "ejs" } }),
 })
