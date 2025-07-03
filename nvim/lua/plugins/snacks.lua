@@ -371,6 +371,7 @@ return {
         doc = {
           -- Personally I set this to false, I don't want to render all the
           -- images in the file, only when I hover over them
+          --
           -- render the image inline in the buffer
           -- if your env doesn't support unicode placeholders, this will be disabled
           -- takes precedence over `opts.float` on supported terminals
@@ -411,8 +412,7 @@ return {
               action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
             },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-
-            --         { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+            { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
             -- { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
             { icon = " ", key = "<esc>", desc = "Quit", action = ":qa" },
           },
@@ -430,6 +430,7 @@ return {
  ░ ░  ░    ░       ░░      ░ ░  ░   ░   ▒    ░ ░  ░ 
    ░       ░  ░     ░        ░          ░  ░   ░    
  ░                 ░       ░                 ░      
+ [Github@DevDad-Main]
           ]],
         },
       },
