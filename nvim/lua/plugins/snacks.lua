@@ -147,7 +147,7 @@ return {
             show_empty = true,
             supports_live = true,
             -- In case you want to override the layout for this keymap
-            layout = "vscode",
+            layout = "ivy",
           })
         end,
         desc = "Find Files",
@@ -235,7 +235,7 @@ return {
         -- still override it in different keymaps
         layout = {
           -- preset = "ivy",
-          preset = "vscode",
+          preset = "ivy",
           -- When reaching the bottom of the results in the picker, I don't want
           -- it to cycle and go back to the top
           cycle = false,
@@ -411,6 +411,8 @@ return {
               action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
             },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+
+            --         { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
             -- { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
             { icon = " ", key = "<esc>", desc = "Quit", action = ":qa" },
           },

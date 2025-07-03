@@ -3,6 +3,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      diagnostics = {
+        virtual_text = false,
+      },
       inlay_hints = { enabled = true },
       ---@type lspconfig.options
       servers = {
@@ -25,17 +28,17 @@ return {
           end,
           single_file_support = false,
           settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "literal",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
+            -- typescript = {
+            --   inlayHints = {
+            --     includeInlayParameterNameHints = "literal",
+            --     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            --     includeInlayFunctionParameterTypeHints = true,
+            --     includeInlayVariableTypeHints = false,
+            --     includeInlayPropertyDeclarationTypeHints = true,
+            --     includeInlayFunctionLikeReturnTypeHints = true,
+            --     includeInlayEnumMemberValueHints = true,
+            --   },
+            -- },
             javascript = {
               inlayHints = {
                 includeInlayParameterNameHints = "all",
@@ -118,7 +121,11 @@ return {
       },
       setup = {},
     },
-    -- vim.filetype.add({ extension = { ejs = "ejs" } }),
+    -- REMOVE THIS LINE IF WE WANT TO USE REGULAR LSP DIAGNOSTICS
+    -- Disable virtual_text since it's redundant due to lsp_lines.
+    -- vim.diagnostic.config({
+    --   virtual_text = false,
+    -- }),
   },
   {
     "nvim-cmp",
