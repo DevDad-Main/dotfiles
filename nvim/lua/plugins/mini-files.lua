@@ -118,6 +118,9 @@ return {
     -- Load custom keymaps
     mini_files_km.setup(opts)
 
+    if vim.g.neovide then
+      vim.g.neovide_window_blurred = true
+    end
     -- Load Git integration
     -- git config is slowing mini.files too much, so disabling it
     mini_files_git.setup()
