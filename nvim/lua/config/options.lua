@@ -106,8 +106,8 @@ if vim.g.neovide then
   -- vim.g.neovide_cursor_vfx_mode = "railgun"
   -- vim.g.neovide_cursor_vfx_mode = "torpedo"
   -- vim.g.neovide_cursor_vfx_mode = "pixiedust"
-  -- vim.g.neovide_cursor_vfx_mode = "sonicboom"
-  vim.g.neovide_cursor_vfx_mode = ""
+  vim.g.neovide_cursor_vfx_mode = "sonicboom"
+  -- vim.g.neovide_cursor_vfx_mode = ""
   -- vim.g.neovide_cursor_vfx_mode = "ripple"
   -- vim.g.neovide_cursor_vfx_mode = "wireframe"
 
