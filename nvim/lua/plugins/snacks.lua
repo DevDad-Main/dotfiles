@@ -175,7 +175,10 @@ return {
       -- Navigate my buffers
       {
         -- Uses alt h to swap buffers
-        "<M-h>",
+        --WARN: Overriding TAB key to bring up the buffers menu
+        -- "<M-h>",
+        --NOTE: We had to remove the bufferline keymaps in keymaps.lua for this to work
+        "<Tab>",
         function()
           Snacks.picker.buffers({
             -- I always want my buffers picker to start in normal mode

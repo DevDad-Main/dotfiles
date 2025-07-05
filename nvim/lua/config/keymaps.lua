@@ -6,8 +6,8 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 --BufferLine -> Use Tabs to cycle through Buffers
-keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>")
-keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>")
+-- keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>")
+-- keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>")
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
