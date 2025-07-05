@@ -17,9 +17,11 @@ return {
     -- Create trigger transformation function
     local function auto_semicolon(context)
       if type(context) == "string" then
-        return { trig = ";" .. context }
+        --WARN: Removed the ; from inside the quotes as it was interfering with my JS, put it back if we have issues
+        return { trig = "" .. context }
       end
-      return vim.tbl_extend("keep", { trig = ";" .. context.trig }, context)
+      --WARN: Removed the ; from inside the quotes as it was interfering with my JS, put it back if we have issues
+      return vim.tbl_extend("keep", { trig = "" .. context.trig }, context)
     end
     -- Register and apply decorator properly
     extend_decorator.register(ls.s, {
