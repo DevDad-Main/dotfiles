@@ -1,5 +1,9 @@
 [mgr]
 show_hidden = true
+# Takes up 1/8, 2/8, then the rest is 5/8 -> Better for code readbility, .md etc
+ratio = [1,2, 5]
+
+
 
 [opener]
 # -- Opens files with neovim
