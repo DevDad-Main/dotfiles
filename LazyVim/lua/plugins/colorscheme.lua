@@ -17,6 +17,7 @@ return {
     priority = 1000,
     config = function()
       require("astrotheme").setup({ style = "dark" })
+      vim.cmd("colorscheme astrodark")
     end,
   },
 }
