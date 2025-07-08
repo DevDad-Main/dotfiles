@@ -4,6 +4,7 @@
 -- Credit: glepnir
 return {
   "nvim-lualine/lualine.nvim",
+  enabled = false, -- Uncommment this to disable lualine plugin
   config = function()
     -- Color table for highlights
     local colors = {

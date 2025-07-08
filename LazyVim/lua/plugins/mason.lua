@@ -2,6 +2,9 @@
 return {
   "williamboman/mason.nvim",
   opts = {
+    ui = {
+      border = "rounded",
+    },
     -- List of tools to install via mason
     ensure_installed = {
       -- LSPs

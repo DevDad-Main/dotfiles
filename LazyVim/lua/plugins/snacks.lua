@@ -414,8 +414,18 @@ return {
               desc = "Config",
               action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
             },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+            {
+              icon = " ",
+              key = "s",
+              desc = "Restore Session",
+              section = "session",
+              --WARN: This is the keybind to restore last session.
+              -- This works for now, but change it if it dosent work later
+              action = "ql",
+            },
+
+            { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+            -- { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
             -- { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
