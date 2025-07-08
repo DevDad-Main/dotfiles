@@ -82,15 +82,15 @@ return {
       --   desc = "Find Files (Root Dir)",
       -- },
       {
-        "<leader>ff",
+        "<leader><space>",
         "<cmd>Telescope frecency workspace=CWD theme=ivy<cr>",
         desc = "Find Files (Root Dir)",
       },
       { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (cwd)" },
       { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (Root Dir)" },
       {
-        "<leader><space>",
-        "<cmd>Telescope buffers theme=ivy<cr>",
+        "<Tab>",
+        "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>",
         desc = "Alternate buffer",
       },
       {
