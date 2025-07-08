@@ -423,9 +423,8 @@ return {
               -- This works for now, but change it if it dosent work later
               action = "ql",
             },
-
-            { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-            -- { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+            -- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+            { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
             -- { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
