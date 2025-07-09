@@ -12,11 +12,11 @@ local opts = { noremap = true, silent = true }
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
--- Snipe Config -> Opens the snipe menu.
--- Navigate with j and k, d for deleting buffers and q to close menu
-keymap.set("n", "<S-l>", function()
-  require("snipe").open_buffer_menu()
-end, { desc = "Open Snipe buffer menu" })
+-- -- Snipe Config -> Opens the snipe menu.
+-- -- Navigate with j and k, d for deleting buffers and q to close menu
+-- keymap.set("n", "<S-l>", function()
+--   require("snipe").open_buffer_menu()
+-- end, { desc = "Open Snipe buffer menu" })
 
 -- Live Server Used mainly with Html projects etc
 keymap.set("n", "<leader>ls", "<cmd>LiveServerStart<cr>", { desc = "Start Live Server" })
