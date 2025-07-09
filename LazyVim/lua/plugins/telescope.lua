@@ -83,7 +83,7 @@ return {
       -- },
       {
         "<leader><space>",
-        "<cmd>Telescope frecency workspace=CWD initial_mode=normal theme=ivy<cr>",
+        "<cmd>Telescope frecency workspace=CWD theme=ivy<cr>",
         desc = "Find Files (Root Dir)",
       },
       { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (cwd)" },
