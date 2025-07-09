@@ -7,7 +7,6 @@ local actions = require("telescope.actions")
 return {
   {
     "nvim-telescope/telescope.nvim",
-    -- priority = 1000,
     opts = function()
       return {
         defaults = {
@@ -24,6 +23,12 @@ return {
               -- Allow us to move up and down with j k
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
+              --INFO: Don't need this as Ctrl-c closes the window when in insert mode for both fzf and buffers
+              -- ["<C-q>"] = actions.close, -- Closes the Window when in insert mode
+            },
+            n = {
+              ["q"] = actions.close, -- Closes the Window when in normal mode
+              ["d"] = actions.delete_buffer, -- Delete buffer in insert mode
             },
           },
           require("telescope").setup({
