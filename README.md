@@ -37,6 +37,16 @@ To get a local copy up and running follow these simple example steps.
   - alacritty (Linux, Macos & Windows)
   - iterm2 (Macos)
 
+### 🖼️ Preview
+
+## Mini.Files
+
+![mini-files plugin](./previews/mini-files.png)
+
+## Telescope & Telescope-Frecency
+
+![mini-files plugin](./previews/telescope-with-frecency.png)
+
 ### Recommended Packages
 
 - Required for some LazyVim plugins, Mason, LSPs.
