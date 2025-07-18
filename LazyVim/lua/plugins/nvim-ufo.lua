@@ -49,7 +49,7 @@ return {
           default = { "imports", "comment" },
           json = { "array" },
           c = { "comment", "region" },
-          javascript = { "region" },
+          javascript = { "region", "comment" },
         },
       })
     end,

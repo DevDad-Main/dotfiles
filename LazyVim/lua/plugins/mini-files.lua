@@ -1,16 +1,3 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/mini-files.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/mini-files.lua
---
--- https://github.com/echasnovski/mini.files
---
--- I got this configuration from LazyVim.org
--- http://www.lazyvim.org/extras/editor/mini-files
-
--- I migrated my custom keymaps config and also the git status config to
--- separate files, as this file was growing too big
--- I also use this file as a centralized place for all the different keymaps,
--- including my custom ones
---
 -- Load external modules first
 local mini_files_km = require("config.modules.mini-files-km")
 
@@ -77,6 +64,7 @@ return {
       -- ~/.local/share/neobean/mini.files/trash
       permanent_delete = false,
     })
+
     return opts
   end,
 
