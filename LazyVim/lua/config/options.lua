@@ -31,6 +31,8 @@ vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
+vim.opt.spelllang = "en_ngb"
+-- vim.opt.spell = true
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })
@@ -53,6 +55,7 @@ vim.opt.formatoptions:append({ "r" })
 -- The copy and paste sections were found on:
 -- https://neovide.dev/faq.html#how-can-i-use-cmd-ccmd-v-to-copy-and-paste
 if vim.g.neovide then
+  vim.o.cmdheight = 0
   vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
   vim.keymap.set("v", "<D-c>", '"+y') -- Copy
   vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode

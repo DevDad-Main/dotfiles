@@ -9,6 +9,16 @@ return {
       inlay_hints = { enabled = true },
       ---@type lspconfig.options
       servers = {
+        -- harper_ls = {
+        --   filetypes = {
+        --     "javascript",
+        --     "javascriptreact",
+        --     "typescript",
+        --     "typescriptreact",
+        --     "markdown",
+        --     "gitcommit",
+        --   },
+        -- },
         -- omnisharp = {
         --   enable_roslyn_analysers = true,
         --   enable_import_completion = true,
@@ -28,6 +38,21 @@ return {
           end,
           single_file_support = false,
           settings = {
+            -- ["harper-ls"] = {
+            --   linters = {
+            --     spell_check = true,
+            --     repeated_words = true,
+            --     weasel_words = true,
+            --     profanities = true, -- optional
+            --     custom_word_list = {
+            --       deny = {
+            --         "creater",
+            --         -- add more personal "anti-patterns" here
+            --       },
+            --     },
+            --   },
+            -- },
+
             -- typescript = {
             --   inlayHints = {
             --     includeInlayParameterNameHints = "literal",

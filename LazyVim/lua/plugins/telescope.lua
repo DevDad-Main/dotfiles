@@ -21,8 +21,8 @@ return {
               ["<C-u>"] = actions.preview_scrolling_up,
               ["<C-d>"] = actions.preview_scrolling_down,
               -- Allow us to move up and down with j k
-              ["<C-j>"] = actions.move_selection_next,
-              ["<C-k>"] = actions.move_selection_previous,
+              -- ["<C-j>"] = actions.move_selection_next,
+              -- ["<C-k>"] = actions.move_selection_previous,
               --INFO: Don't need this as Ctrl-c closes the window when in insert mode for both fzf and buffers
               -- ["<C-q>"] = actions.close, -- Closes the Window when in insert mode
             },

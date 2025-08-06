@@ -11,9 +11,11 @@ local opts = { noremap = true, silent = true }
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
-
+-- Paste when in insert mode
+keymap.set("i", "<C-v>", "<C-o>p")
 -- Replaces the Ctrl c to go to normal mode as it is hard for me using touch typing, plus f i dont use, i will use s for leap anyways
-keymap.set({ "i", "v" }, "f", "<C-c>")
+-- keymap.set({ "i", "v" }, "f", "<C-c>")
+
 -- -- Snipe Config -> Opens the snipe menu.
 -- -- Navigate with j and k, d for deleting buffers and q to close menu
 -- keymap.set("n", "<S-l>", function()

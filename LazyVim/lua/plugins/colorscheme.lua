@@ -11,6 +11,46 @@
 --   },
 -- }
 return {}
+
+-- return {
+--   {
+--     "catppuccin/nvim",
+--     name = "catppuccin",
+--     lazy = false, -- load during startup
+--     priority = 1000, -- load before other plugins
+--     config = function()
+--       require("catppuccin").setup({
+--         flavour = "mocha", -- Options: latte, frappe, macchiato, mocha
+--         transparent_background = false,
+--         integrations = {
+--           cmp = true,
+--           gitsigns = true,
+--           nvimtree = true,
+--           telescope = true,
+--           treesitter = true,
+--           native_lsp = {
+--             enabled = true,
+--             virtual_text = {
+--               errors = { "italic" },
+--               hints = { "italic" },
+--               warnings = { "italic" },
+--               information = { "italic" },
+--             },
+--             underlines = {
+--               errors = { "underline" },
+--               hints = { "underline" },
+--               warnings = { "underline" },
+--               information = { "underline" },
+--             },
+--           },
+--         },
+--       })
+--
+--       -- Set colorscheme
+--       vim.cmd.colorscheme("catppuccin")
+--     end,
+--   },
+-- }
 -- return {
 --   {
 --     "AstroNvim/astrotheme",
