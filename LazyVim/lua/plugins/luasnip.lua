@@ -151,6 +151,19 @@ return {
       })
     )
 
+    table.insert(
+      js_snippets,
+      s({
+        trig = "/*",
+        name = "React Comment",
+        desc = "React component comment",
+      }, {
+        t("/* "),
+        i(1, "Comment"),
+        t(" */"),
+      })
+    )
+
     ls.add_snippets("javascript", js_snippets)
 
     local ejs_snippets = {}

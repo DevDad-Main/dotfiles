@@ -31,7 +31,7 @@ vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
-vim.opt.spelllang = "en_ngb"
+vim.opt.spelllang = "en_gb"
 -- vim.opt.spell = true
 
 -- Add asterisks in block comments

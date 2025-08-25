@@ -2,6 +2,7 @@
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
+-- return {}
 return {
   "nvim-lualine/lualine.nvim",
   enabled = false, -- Uncommment this to disable lualine plugin
