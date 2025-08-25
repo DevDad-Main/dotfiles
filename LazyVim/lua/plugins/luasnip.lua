@@ -164,8 +164,8 @@ return {
         desc = "React component comment",
       }, {
         t("{/* "),
-        i(1, "Comment"),
-        t(" */}"),
+        i(1, "Comment Goes Here..."),
+        t(" */"),
       })
     )
 
