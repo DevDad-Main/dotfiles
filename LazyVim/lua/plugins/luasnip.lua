@@ -75,6 +75,7 @@ return {
       "templ",
       "php",
       "ejs",
+      "javascriptreact",
     }
 
     -- Generate snippets for all languages
@@ -151,20 +152,24 @@ return {
       })
     )
 
+    ls.add_snippets("javascript", js_snippets)
+
+    local react_snippets = {}
+
     table.insert(
-      js_snippets,
+      react_snippets,
       s({
-        trig = "/*",
+        trig = "{",
         name = "React Comment",
         desc = "React component comment",
       }, {
-        t("/* "),
+        t("{/* "),
         i(1, "Comment"),
-        t(" */"),
+        t(" */}"),
       })
     )
 
-    ls.add_snippets("javascript", js_snippets)
+    ls.add_snippets("javascriptreact", react_snippets)
 
     local ejs_snippets = {}
 
