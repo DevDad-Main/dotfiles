@@ -159,13 +159,13 @@ return {
     table.insert(
       react_snippets,
       s({
-        trig = "{/",
+        trig = "rcom",
         name = "React Comment",
         desc = "React component comment",
       }, {
         t("{/* "),
         i(1, "Comment Goes Here..."),
-        t(" */"),
+        t(" */}"),
       })
     )
 
