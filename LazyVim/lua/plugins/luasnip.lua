@@ -169,6 +169,19 @@ return {
       })
     )
 
+    table.insert(
+      react_snippets,
+      s({
+        trig = "rcn",
+        name = "Tailwind CSS Class Name",
+        desc = "Tailwind/React className for elements",
+      }, {
+        t('className="'),
+        i(1, "CSS"),
+        t('"'),
+      })
+    )
+
     ls.add_snippets("javascriptreact", react_snippets)
 
     local ejs_snippets = {}
