@@ -159,7 +159,7 @@ return {
     table.insert(
       react_snippets,
       s({
-        trig = "{",
+        trig = "{/",
         name = "React Comment",
         desc = "React component comment",
       }, {
