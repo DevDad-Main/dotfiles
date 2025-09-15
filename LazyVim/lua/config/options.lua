@@ -32,6 +32,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
 vim.opt.spelllang = "en_gb"
+vim.o.hidden = true
 -- vim.opt.spell = true
 
 -- Add asterisks in block comments
