@@ -22,22 +22,8 @@ keymap.set("i", "<C-v>", "<C-o>p")
 --   require("snipe").open_buffer_menu()
 -- end, { desc = "Open Snipe buffer menu" })
 
-keymap.set("n", "<leader>ta", ":$tabnew<CR>", { desc = "Open New Tab" })
-
--- -- new tab with horizontal split
--- keymap.set("n", "<leader>th", ":tabnew | split<CR>", { desc = "New Tab with Horizontal Split" })
---
--- -- new tab with vertical split
--- keymap.set("n", "<leader>tv", ":tabnew | vsplit<CR>", { desc = "New Tab with Vertical Split" })
-
-keymap.set("n", "<leader>tc", ":tabclose<CR>", { desc = "Closes Current Tab" })
-keymap.set("n", "<leader>to", ":tabonly<CR>", { desc = "Closes all tabs except current" })
-keymap.set("n", "<leader>tn", ":tabn<CR>", { desc = "Opens Next Tab" })
-keymap.set("n", "<leader>tp", ":tabp<CR>", { desc = "Opens Previous Tab" })
--- move current tab to previous position
-keymap.set("n", "<leader>tmp", ":-tabmove<CR>", { desc = "Moves Tab to Previous Position" })
--- move current tab to next position
-keymap.set("n", "<leader>tmn", ":+tabmove<CR>", { desc = "Moves Tab to Next Position" })
+-- Create a JsDoc comment when hovering over a function
+keymap.set("n", "<leader><C-l>", "<Plug>(jsdoc)", { desc = "Create JsDoc Comment" })
 
 -- Live Server Used mainly with Html projects etc
 keymap.set("n", "<leader>ls", "<cmd>LiveServerStart<cr>", { desc = "Start Live Server" })

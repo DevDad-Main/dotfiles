@@ -1,6 +1,6 @@
 return {}
 
--- -- lua/plugins/twilight.lua
+-- lua/plugins/twilight.lua
 -- return {
 --   {
 --     "folke/twilight.nvim",

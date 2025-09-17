@@ -73,7 +73,8 @@ return {
 
     ins_left({
       function()
-        return "💩"
+        -- return "💩"
+        return ""
       end,
       color = function()
         local mode_color = {
@@ -104,12 +105,29 @@ return {
     })
 
     ins_left({
-      "filename",
-      cond = conditions.buffer_not_empty,
-      color = { fg = colors.magenta, gui = "bold" },
+      "branch",
+      icon = " ",
+      color = { fg = colors.violet, gui = "bold" },
     })
 
     ins_left({
+      "diff",
+      symbols = { added = " ", modified = "󰝤 ", removed = " " },
+      diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+      },
+      cond = conditions.hide_in_width,
+    })
+
+    -- ins_left({
+    --   "filename",
+    --   cond = conditions.buffer_not_empty,
+    --   color = { fg = colors.magenta, gui = "bold" },
+    -- })
+
+    ins_right({
       "diagnostics",
       sources = { "nvim_diagnostic" },
       symbols = { error = " ", warn = " ", info = " " },
@@ -120,13 +138,13 @@ return {
       },
     })
 
-    ins_left({
+    ins_right({
       function()
         return "%="
       end,
     })
 
-    ins_left({
+    ins_right({
       function()
         local msg = "No Active Lsp"
         local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
@@ -144,23 +162,6 @@ return {
       end,
       icon = " LSP:",
       color = { fg = "#ffffff", gui = "bold" },
-    })
-
-    ins_right({
-      "branch",
-      icon = " ",
-      color = { fg = colors.violet, gui = "bold" },
-    })
-
-    ins_right({
-      "diff",
-      symbols = { added = " ", modified = "󰝤 ", removed = " " },
-      diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
-      },
-      cond = conditions.hide_in_width,
     })
 
     require("lualine").setup(config)
