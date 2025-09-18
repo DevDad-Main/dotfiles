@@ -274,14 +274,14 @@ vim.keymap.set('n', '<C-j>', '<cmd> TmuxNavigateDown<CR>')
 vim.keymap.set('n', '<C-k>', '<cmd> TmuxNavigateUp<CR>')
 
 -- Split window
-vim.keymap.set('n', 'sv', ':split<Return>')
-vim.keymap.set('n', 'ss', ':vsplit<Return')
+vim.keymap.set('n', 'sv', '<cmd>split<CR>')
+vim.keymap.set('n', 'ss', '<cmd>vsplit<CR>')
 
--- Resize window
-vim.keymap.set('n', '<C-S-h>', '<C-w><')
-vim.keymap.set('n', '<C-S-l>', '<C-w>>')
-vim.keymap.set('n', '<C-S-k>', '<C-w>+')
-vim.keymap.set('n', '<C-S-j>', '<C-w>-')
+-- Resize window -> Now uses Ctrl and Alt
+vim.keymap.set('n', '<C-A-h>', '<C-w><')
+vim.keymap.set('n', '<C-A-l>', '<C-w>>')
+vim.keymap.set('n', '<C-A-k>', '<C-w>+')
+vim.keymap.set('n', '<C-A-j>', '<C-w>-')
 
 -- Allows to move to the beginning of a line and end of a line
 vim.keymap.set('i', '<C-a>', '<Home>')
@@ -878,11 +878,12 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        -- javascript = { 'prettier', stop_after_first = true },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -909,12 +910,15 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            -- optional config for friendly-snippets
+            config = function()
+              -- load all friendly-snippets (vscode style)
+              require('luasnip.loaders.from_vscode').lazy_load()
+              -- also load custom snippets from your config/snippets folder
+            end,
+          },
         },
         opts = {},
       },
@@ -945,7 +949,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'enter',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -1084,7 +1088,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
+  -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
