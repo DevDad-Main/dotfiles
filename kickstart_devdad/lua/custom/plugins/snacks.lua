@@ -11,136 +11,139 @@
 -- resolve it
 -- https://github.com/folke/snacks.nvim/issues/812
 
-local Snacks = require 'snacks'
-
 return {
   {
     'folke/snacks.nvim',
-    keys = {
-      { '<leader>e', false },
-      {
-        '<leader>sg',
-        function()
-          Snacks.picker.grep {
-            exclude = { 'dictionaries/words.txt' },
-          }
-        end,
-        desc = 'Grep',
-      },
-      {
-        '<leader>gl',
-        function()
-          Snacks.picker.git_log {
-            finder = 'git_log',
-            format = 'git_log',
-            preview = 'git_show',
-            confirm = 'git_checkout',
-            layout = 'vertical',
-          }
-        end,
-        desc = 'Git Log',
-      },
-      {
-        '<leader>tt',
-        function()
-          Snacks.picker.grep {
-            prompt = ' ',
-            search = '^\\s*- \\[ \\]',
-            regex = true,
-            live = false,
-            dirs = { vim.fn.getcwd() },
-            args = { '--no-ignore' },
-            on_show = function()
-              vim.cmd.stopinsert()
-            end,
-            finder = 'grep',
-            format = 'file',
-            show_empty = true,
-            supports_live = false,
-            layout = 'ivy',
-          }
-        end,
-        desc = '[P]Search for incomplete tasks',
-      },
-      {
-        '<leader>tc',
-        function()
-          Snacks.picker.grep {
-            prompt = ' ',
-            search = '^\\s*- \\[x\\] `done:',
-            regex = true,
-            live = false,
-            dirs = { vim.fn.getcwd() },
-            args = { '--no-ignore' },
-            on_show = function()
-              vim.cmd.stopinsert()
-            end,
-            finder = 'grep',
-            format = 'file',
-            show_empty = true,
-            supports_live = false,
-            layout = 'ivy',
-          }
-        end,
-        desc = '[P]Search for complete tasks',
-      },
-      {
-        '<M-b>',
-        function()
-          Snacks.picker.git_branches {
-            layout = 'select',
-          }
-        end,
-        desc = 'Branches',
-      },
-      {
-        '<leader>sk',
-        function()
-          Snacks.picker.keymaps {
-            layout = 'vertical',
-          }
-        end,
-        desc = 'Keymaps',
-      },
-      {
-        '<leader><space>',
-        function()
-          Snacks.picker.files {
-            finder = 'files',
-            format = 'file',
-            hidden = false,
-            show_empty = true,
-            supports_live = true,
-            layout = 'ivy',
-          }
-        end,
-        desc = 'Find Files',
-      },
-      {
-        '<Tab>',
-        function()
-          Snacks.picker.buffers {
-            on_show = function()
-              vim.cmd.stopinsert()
-            end,
-            finder = 'buffers',
-            format = 'buffer',
-            hidden = false,
-            unloaded = true,
-            current = true,
-            sort_lastused = true,
-            win = {
-              input = {
-                keys = { ['d'] = 'bufdelete' },
+    lazy = false, -- load on startup so require("snacks") always works
+    priority = 1000,
+    keys = function()
+      local Snacks = require 'snacks'
+      return {
+        { '<leader>e', false },
+        {
+          '<leader>sg',
+          function()
+            Snacks.picker.grep {
+              exclude = { 'dictionaries/words.txt' },
+            }
+          end,
+          desc = 'Grep',
+        },
+        {
+          '<leader>gl',
+          function()
+            Snacks.picker.git_log {
+              finder = 'git_log',
+              format = 'git_log',
+              preview = 'git_show',
+              confirm = 'git_checkout',
+              layout = 'vertical',
+            }
+          end,
+          desc = 'Git Log',
+        },
+        {
+          '<leader>tt',
+          function()
+            Snacks.picker.grep {
+              prompt = ' ',
+              search = '^\\s*- \\[ \\]',
+              regex = true,
+              live = false,
+              dirs = { vim.fn.getcwd() },
+              args = { '--no-ignore' },
+              on_show = function()
+                vim.cmd.stopinsert()
+              end,
+              finder = 'grep',
+              format = 'file',
+              show_empty = true,
+              supports_live = false,
+              layout = 'ivy',
+            }
+          end,
+          desc = '[P]Search for incomplete tasks',
+        },
+        {
+          '<leader>tc',
+          function()
+            Snacks.picker.grep {
+              prompt = ' ',
+              search = '^\\s*- \\[x\\] `done:',
+              regex = true,
+              live = false,
+              dirs = { vim.fn.getcwd() },
+              args = { '--no-ignore' },
+              on_show = function()
+                vim.cmd.stopinsert()
+              end,
+              finder = 'grep',
+              format = 'file',
+              show_empty = true,
+              supports_live = false,
+              layout = 'ivy',
+            }
+          end,
+          desc = '[P]Search for complete tasks',
+        },
+        {
+          '<M-b>',
+          function()
+            Snacks.picker.git_branches {
+              layout = 'select',
+            }
+          end,
+          desc = 'Branches',
+        },
+        {
+          '<leader>sk',
+          function()
+            Snacks.picker.keymaps {
+              layout = 'vertical',
+            }
+          end,
+          desc = 'Keymaps',
+        },
+        {
+          '<leader><space>',
+          function()
+            Snacks.picker.files {
+              finder = 'files',
+              format = 'file',
+              hidden = false,
+              show_empty = true,
+              supports_live = true,
+              layout = 'ivy',
+            }
+          end,
+          desc = 'Find Files',
+        },
+        {
+          '<Tab>',
+          function()
+            Snacks.picker.buffers {
+              on_show = function()
+                vim.cmd.stopinsert()
+              end,
+              finder = 'buffers',
+              format = 'buffer',
+              hidden = false,
+              unloaded = true,
+              current = true,
+              sort_lastused = true,
+              win = {
+                input = {
+                  keys = { ['d'] = 'bufdelete' },
+                },
+                list = { keys = { ['d'] = 'bufdelete' } },
               },
-              list = { keys = { ['d'] = 'bufdelete' } },
-            },
-            layout = 'vscode',
-          }
-        end,
-        desc = '[P]Snacks picker buffers',
-      },
-    },
+              layout = 'vscode',
+            }
+          end,
+          desc = '[P]Snacks picker buffers',
+        },
+      }
+    end,
     opts = {
       picker = {
         transform = function(item)
