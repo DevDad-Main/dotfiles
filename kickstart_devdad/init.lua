@@ -264,7 +264,7 @@ vim.keymap.set('i', '<C-v>', '<C-c>p')
 vim.keymap.set('n', '<leader><C-l>', '<Plug>(jsdoc)', { desc = 'Create JsDoc Comment' })
 
 -- FTerm Toggle Open and Close Floating terminal window
-vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('n', '<A-i>', '<cmd>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 -- TMUX Navigation
@@ -1086,7 +1086,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
