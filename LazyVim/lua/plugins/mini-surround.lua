@@ -1,5 +1,5 @@
 return {
-  "echasnovski/mini.surround",
+  "nvim-mini/mini.surround",
   event = "VeryLazy",
   config = function()
     require("mini.surround").setup({
