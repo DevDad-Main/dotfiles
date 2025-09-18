@@ -12,7 +12,7 @@ local opts = { noremap = true, silent = true }
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 -- Paste when in insert mode
-keymap.set("i", "<C-v>", "<C-o>p")
+keymap.set("i", "<C-v>", "<C-c>p")
 -- Replaces the Ctrl c to go to normal mode as it is hard for me using touch typing, plus f i dont use, i will use s for leap anyways
 -- keymap.set({ "i", "v" }, "f", "<C-c>")
 
