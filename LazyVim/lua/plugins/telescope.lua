@@ -3,17 +3,13 @@
 --
 -- https://github.com/nvim-telescope/telescope.nvim
 
-local actions = require("telescope.actions")
 return {
   {
     "nvim-telescope/telescope.nvim",
     opts = function()
+      local actions = require("telescope.actions")
       return {
         defaults = {
-          -- I'm adding this `find_command` based on this reddit discussion
-          -- https://www.reddit.com/r/neovim/comments/1egczrs/comment/lfsotjx/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-          -- However, it doesn't work, also tried without the setup function
-
           mappings = {
             i = {
               --INFO: Ctrl - c closes the window
@@ -31,13 +27,6 @@ return {
               ["d"] = actions.delete_buffer, -- Delete buffer in insert mode
             },
           },
-          require("telescope").setup({
-            pickers = {
-              find_files = {
-                find_command = { "rg", "--files", "--sortr=modified" },
-              },
-            },
-          }),
           -- When I search for stuff in telescope, I want the path to be shown
           -- first, this helps in files that are very deep in the tree and I
           -- cannot see their name.
@@ -47,6 +36,11 @@ return {
             filename_first = {
               reverse_directories = true,
             },
+          },
+        },
+        pickers = {
+          find_files = {
+            find_command = { "rg", "--files", "--sortr=modified" },
           },
         },
       }
@@ -78,8 +72,14 @@ return {
       -- I also tried overwriting this keymap in keymaps.lua but it was always
       -- overriden by this telescope.lua file
       -- http://www.lazyvim.org/extras/editor/telescope#telescopenvim
-      -- { "<leader>fF", LazyVim.pick("auto"), desc = "Find Files (cwd)" },
-      { "<leader>fz", LazyVim.pick("auto", { root = false }), desc = "Find Files (Root Dir)" },
+      {
+        "<leader>fz",
+        function()
+          local builtin = require("telescope.builtin")
+          builtin.find_files({ cwd = vim.loop.cwd() })
+        end,
+        desc = "Find Files (Root Dir)",
+      },
       { "<leader>fF", "<cmd>Telescope frecency<cr>", desc = "Find Files (cwd)" },
       -- {
       --   "<leader>ff",
@@ -91,8 +91,20 @@ return {
         "<cmd>Telescope frecency workspace=CWD theme=ivy<cr>",
         desc = "Find Files (Root Dir)",
       },
-      { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (cwd)" },
-      { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (Root Dir)" },
+      {
+        "<leader>sG",
+        function()
+          local builtin = require("telescope.builtin")
+          builtin.live_grep({ cwd = vim.loop.cwd() })
+        end,
+        desc = "Grep (cwd)",
+      },
+      -- { "<leader>sg",
+      --   function ()
+      --     local builtin = require("telescope.builtin")
+      --     builtin.live_grep
+      --   end,
+      --   desc = "Grep (Root Dir)" },
       {
         "<Tab>",
         "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>",

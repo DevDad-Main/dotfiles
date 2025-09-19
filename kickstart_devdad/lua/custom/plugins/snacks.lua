@@ -230,6 +230,8 @@ return {
           },
         },
       },
+      signature = { enabled = false },
+      hover = { enabled = true },
       lazygit = {
         theme = { selectedLineBgColor = { bg = 'CursorLine' } },
         win = { width = 0, height = 0 },

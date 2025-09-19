@@ -8,6 +8,9 @@ return {
         html = { 'prettier' },
         css = { 'prettier' },
         javascript = { 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       },
       -- -- This will allow us to have prettier used with our EJS files
       -- formatters = {

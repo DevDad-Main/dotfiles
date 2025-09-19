@@ -8,6 +8,7 @@ return {
           dark = 'astrodark',
           float = true, -- enable floating window background
           border = true, -- enable floating window border
+          transparent = false, -- Disable transparent background
         },
         palettes = {
           astrodark = {
@@ -20,6 +21,7 @@ return {
             NormalFloat = { bg = '#1a1b26' }, -- lighter float bg
           },
         },
+        termguicolors = true,
       }
       vim.cmd 'colorscheme astrodark'
     end,
