@@ -74,4 +74,5 @@ To get a local copy up and running follow these simple example steps.
   ln -s ~/.config/dotfiles/tmux ~/.config/tmux
   ln -s ~/.config/dotfiles/yazi ~/.config/yazi
   ln -s ~/.config/dotfiles/neovide ~/.config/neovide
+  ln -s ~/.config/dotfiles/neoterm ~/.config/neoterm
   ```
