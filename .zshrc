@@ -44,6 +44,7 @@ alias vi="NVIM_APPNAME=nvim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
 alias nvim-chad="NVIM_APPNAME=NvChad nvim"
 alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
+alias neoterm="neovide -- -u '~/.config/neoterm/neoterm.lua'"
 
 function nvims() {
   # items=("default" "kickstart" "nvim" "NvChad" "AstroNvim")
