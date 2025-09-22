@@ -22,8 +22,9 @@ keymap.set("i", "<C-v>", "<C-c>p")
 --   require("snipe").open_buffer_menu()
 -- end, { desc = "Open Snipe buffer menu" })
 
--- Create a JsDoc comment when hovering over a function
-keymap.set("n", "<leader><C-l>", "<Plug>(jsdoc)", { desc = "Create JsDoc Comment" })
+-- Create a Neogen JsDocs Comment for functions
+keymap.set("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+keymap.set("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", opts)
 
 -- Live Server Used mainly with Html projects etc
 keymap.set("n", "<leader>ls", "<cmd>LiveServerStart<cr>", { desc = "Start Live Server" })
