@@ -1,4 +1,4 @@
---#region
+--#region Arctic -> VS CODE
 -- return {
 --   {
 --     "rockyzhang24/arctic.nvim",
@@ -55,21 +55,56 @@
 -- }
 --#endregion
 
+-- return {
+--   {
+--     "EdenEast/nightfox.nvim",
+--     priority = 1000,
+--     config = function()
+--       require("nightfox").setup({
+--         transparent = true,
+--         float = true,
+--       })
+--       vim.cmd("colorscheme nordfox")
+--     end,
+--   },
+-- }
+
+--#region GruvBox
 return {
   {
-    "EdenEast/nightfox.nvim",
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function()
-      require("nightfox").setup({
-        transparent = true,
-        float = true,
+      require("gruvbox").setup({
+        terminal_colors = true, -- add neovim terminal colors
+        undercurl = true,
+        underline = true,
+        bold = true,
+        background = "dark",
+        italic = {
+          strings = true,
+          emphasis = true,
+          comments = true,
+          operators = false,
+          folds = true,
+        },
+        strikethrough = true,
+        invert_selection = false,
+        invert_signs = false,
+        invert_tabline = false,
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "", -- can be "hard", "soft" or empty string
+        palette_overrides = {},
+        overrides = {},
+        dim_inactive = false,
+        transparent_mode = true,
       })
-      vim.cmd("colorscheme nordfox")
+      vim.cmd("colorscheme gruvbox")
     end,
   },
 }
+--#endregion
 
---#region
 -- return {
 --   {
 --     "EdenEast/nightfox.nvim",
@@ -105,9 +140,10 @@ return {
 --       require("astrotheme").setup({
 --         style = {
 --           dark = "astrodark",
---           float = false, -- enable floating window background
+--           float = true, -- enable floating window background
 --           border = true, -- enable floating window border
 --           transparent = true,
+--           background = false,
 --         },
 --         palettes = {
 --           astrodark = {

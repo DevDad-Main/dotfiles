@@ -12,3 +12,8 @@ hash = "f970182bee3543831796629ccf078553"
 use = "956MB/vscode-dark-plus"
 rev = "113cc48"
 hash = "fb2175ea2b78bff55fa83d0661d77407"
+
+[[flavor.deps]]
+use = "bennyyip/gruvbox-dark"
+rev = "e5e1aef"
+hash = "eb88137cf13a796225254344bf6def2c"
