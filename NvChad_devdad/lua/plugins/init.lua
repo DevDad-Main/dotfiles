@@ -929,4 +929,9 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end,
   },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+    
+  },
 }

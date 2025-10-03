@@ -595,3 +595,29 @@ map("v", "gl", "$h", { desc = "[P]Go to the end of the line" })
 map("n", "<leader><leader>x", ":%bd|e#|bd#<cr>|'\"<CR>", { desc = "Buffer close except current" }) --https://stackoverflow.com/a/60948057
 -- grug far current file
 -- require('grug-far').grug_far({ prefills = { paths = vim.fn.expand("%") } })
+
+-- Map Save even when in insert mode
+map("i", "<C-S>", "<Cmd>w<CR><ESC>", { desc = "Save file" })
+
+-- TMUX Navigation
+map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
+map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
+map("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>")
+map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
+
+-- Split window
+map("n", "<leader>sv", ":split<Return>", opts)
+map("n", "<leader>ss", ":vsplit<Return>", opts)
+
+-- Resize window
+map("n", "<C-S-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-S-j>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<C-S-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<C-S-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+
+-- Delete a word infront
+map("i", "<C-d>", "<C-o>dw")
+
+-- Move Cursor Right one character
+map("i", "<C-l>", "<Right>")
+map("i", "<C-h>", "<Left>")
