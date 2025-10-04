@@ -250,6 +250,9 @@ local function find_files()
     },
     results_title = false,
     previewer = false,
+
+    -- 👇 this shows hidden files like .env
+    hidden = true,
   }
 
   opts.show_untracked = true
@@ -441,7 +444,7 @@ end, { desc = "Lazy Git" })
 map("n", "<C-z>", "<CMD>u<CR>", { desc = "󰕌 Undo" })
 map("n", "<BS>", "<C-o>", { desc = "Return" })
 map("n", "<C-x>", "x", { desc = "󰆐 Cut" })
-map("n", "<C-v>", "p`[v`]=", { desc = "󰆒 Paste" })
+map({ "n", "i" }, "<C-v>", "<ESC>p`[v`]=", { desc = "󰆒 Paste" })
 map("n", "<C-c>", "y", { desc = " Copy" })
 map("n", "p", "p`[v`]=", { desc = "󰆒 Paste" })
 map("n", "<S-CR>", "o<ESC>", { desc = " New line" })
@@ -509,18 +512,18 @@ map("v", "<leader>mlt", function()
 end, { desc = "[P]Convert to link (new tab)" })
 
 --------------------------------------------------- Movements ---------------------------------------------------
-map({ "n", "i" }, "<C-h>", function()
-  move_or_create_win "h"
-end, { desc = "Split left" })
-map({ "n", "i" }, "<C-l>", function()
-  move_or_create_win "l"
-end, { desc = "Split right" })
-map({ "n", "i" }, "<C-k>", function()
-  move_or_create_win "k"
-end, { desc = "Split up" })
-map({ "n", "i" }, "<C-j>", function()
-  move_or_create_win "j"
-end, { desc = "Split down" })
+-- map({ "n", "i" }, "<C-h>", function()
+--   move_or_create_win "h"
+-- end, { desc = "Split left" })
+-- map({ "n", "i" }, "<C-l>", function()
+--   move_or_create_win "l"
+-- end, { desc = "Split right" })
+-- map({ "n", "i" }, "<C-k>", function()
+--   move_or_create_win "k"
+-- end, { desc = "Split up" })
+-- map({ "n", "i" }, "<C-j>", function()
+--   move_or_create_win "j"
+-- end, { desc = "Split down" })
 
 -- Better Down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Better Down", expr = true, silent = true })
@@ -621,3 +624,16 @@ map("i", "<C-d>", "<C-o>dw")
 -- Move Cursor Right one character
 map("i", "<C-l>", "<Right>")
 map("i", "<C-h>", "<Left>")
+
+map("n", "<A-k>", "<CMD>m .-2<CR>==", { desc = "󰜸 Move line up" })
+map("n", "<A-j>", "<CMD>m .+1<CR>==", { desc = "󰜯 Move line down" })
+-- ["<C-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
+
+map("n", "<Tab>", "<cmd>Telescope buffers<CR>", { desc = "󰼛 Telescope Show Buffers" })
+-- in your keymaps.lua or init.lua
+map("n", "<leader><leader>", function()
+  require("telescope.builtin").find_files {
+    hidden = true,
+    no_ignore = true, -- optional: include files from .gitignore too
+  }
+end, { desc = "Telescope find all files" })
