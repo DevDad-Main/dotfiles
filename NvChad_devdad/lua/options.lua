@@ -14,7 +14,7 @@ opt.backup = false --- Recommended by coc
 opt.swapfile = false
 opt.scrolloff = 10 -- always show minimum n lines after current line
 opt.relativenumber = false -- Show relative numberline
-opt.wrap = false
+opt.wrap = true
 opt.iskeyword:append "-"
 opt.termguicolors = true -- True color support
 opt.autoindent = true --- Good auto indent

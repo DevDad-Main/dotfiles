@@ -627,13 +627,20 @@ map("i", "<C-h>", "<Left>")
 
 map("n", "<A-k>", "<CMD>m .-2<CR>==", { desc = "󰜸 Move line up" })
 map("n", "<A-j>", "<CMD>m .+1<CR>==", { desc = "󰜯 Move line down" })
--- ["<C-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
 
-map("n", "<Tab>", "<cmd>Telescope buffers<CR>", { desc = "󰼛 Telescope Show Buffers" })
+map(
+  "n",
+  "<Tab>",
+  "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal<CR>",
+  { desc = "󰼛 Telescope Show Buffers" }
+)
+
 -- in your keymaps.lua or init.lua
-map("n", "<leader><leader>", function()
-  require("telescope.builtin").find_files {
-    hidden = true,
-    no_ignore = true, -- optional: include files from .gitignore too
-  }
-end, { desc = "Telescope find all files" })
+-- map("n", "<leader><leader>", function()
+--   require("telescope.builtin").find_files {
+--     hidden = true,
+--     no_ignore = true, -- optional: include files from .gitignore too
+--   }
+-- end, { desc = "Telescope find all files" })
+
+map("n", "<leader><leader>", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "Telescope find all files" })
