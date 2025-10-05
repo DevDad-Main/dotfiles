@@ -1,6 +1,13 @@
-alias vim="nvim"
-#Can do this or simply \vim to ignore the aliases above
-alias oldvim="vim"
+plugins=(
+  git
+  fzf-tab # Faster and better fuzzy finder completion
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  fast-syntax-highlighting
+  # zsh-autocomplete
+)
+
+source $ZSH/oh-my-zsh.sh
 
 # We make the ls list command return lsd which has icones for a nice aesthetic
 alias ls="lsd"
@@ -17,9 +24,8 @@ alias tms="tmux new-session -s"     # => Start a new tmux session.
 # Lazy Git Simple Alias
 alias lg="lazygit"
 
-alias vi="NVIM_APPNAME=nvim nvim"
 alias neoterm="neovide -- -u '~/.config/neoterm/neoterm.lua'"
-alias nvl="NVIM_APPNAME=nvim nvim"
+alias nvl="NVIM_APPNAME=LazyVim nvim"
 alias nvk="NVIM_APPNAME=kickstart nvim"
 alias nvc="NVIM_APPNAME=NvChad nvim"
 alias nva="NVIM_APPNAME=AstroNvim nvim"
