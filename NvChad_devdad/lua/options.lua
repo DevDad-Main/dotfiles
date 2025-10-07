@@ -14,7 +14,7 @@ opt.backup = false --- Recommended by coc
 opt.swapfile = false
 opt.scrolloff = 10 -- always show minimum n lines after current line
 opt.relativenumber = false -- Show relative numberline
-opt.wrap = true
+opt.wrap = false
 opt.iskeyword:append "-"
 opt.termguicolors = true -- True color support
 opt.autoindent = true --- Good auto indent
@@ -51,7 +51,7 @@ opt.shortmess:append "sI"
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
-opt.timeoutlen = 400
+opt.timeoutlen = 200
 opt.undofile = true
 
 -- interval for writing swap file to disk, also used by gitsigns
