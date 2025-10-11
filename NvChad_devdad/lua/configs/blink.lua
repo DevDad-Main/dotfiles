@@ -24,7 +24,7 @@ M.blink = {
       show_without_menu = false,
     },
     list = {
-      max_items = 5,
+      max_items = 15,
       selection = {
         preselect = false,
         auto_insert = false,
@@ -149,8 +149,11 @@ M.blink = {
   },
   keymap = {
     -- preset = "enter",
-    ["<Up>"] = { "select_prev", "fallback" },
-    ["<Down>"] = { "select_next", "fallback" },
+    -- ["<Up>"] = { "select_prev", "fallback" },
+    -- ["<Down>"] = { "select_next", "fallback" },
+
+    ["<C-k>"] = { "select_prev", "fallback" },
+    ["<C-j>"] = { "select_next", "fallback" },
     ["<Tab>"] = {
       function()
         if not has_words_before() then

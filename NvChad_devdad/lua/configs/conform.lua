@@ -16,10 +16,10 @@ end
 conform.setup {
   notify_on_error = false,
   formatters_by_ft = {
-    javascript = { "prettier" },
-    typescript = { "prettier" },
-    javascriptreact = { "prettier" },
-    typescriptreact = { "prettier" },
+    javascript = { "prettierd" },
+    typescript = { "prettierd" },
+    javascriptreact = { "prettierd" },
+    typescriptreact = { "prettierd" },
     json = { "prettier" },
     jsonc = { "prettier" },
     css = { "prettier" },

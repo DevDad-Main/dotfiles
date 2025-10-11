@@ -152,28 +152,28 @@ return {
     --   virtual_text = false,
     -- }),
   },
-  -- {
-  --   "Saghen/blink.cmp",
-  --   event = "InsertEnter",
-  --   dependencies = {
-  --     "hrsh7th/cmp-emoji",
-  --     "rafamadriz/friendly-snippets", -- optional
-  --     "onsails/lspkind.nvim", -- optional icons
-  --   },
-  --   opts = {
-  --     completion = { keyword_length = 1, autocomplete = true, auto_show = false },
-  --     sources = { default = { "lsp", "path", "buffer", "emoji" } },
-  --     keymap = { preset = "default" }, -- can be "super-tab", "default", etc
-  --     appearance = {
-  --       nerd_font_variant = "mono",
-  --     },
-  --     -- completion = {
-  --     --   documentation = { auto_show = false },
-  --     -- },
-  --     fuzzy = { implementation = "prefer_rust_with_warning" },
-  --   },
-  --   opts_extend = { "sources.default" },
-  -- },
+  {
+    "Saghen/blink.cmp",
+    event = "InsertEnter",
+    dependencies = {
+      -- "hrsh7th/cmp-emoji",
+      "rafamadriz/friendly-snippets", -- optional
+      "onsails/lspkind.nvim", -- optional icons
+    },
+    opts = {
+      completion = { keyword_length = 1, autocomplete = true, auto_show = false },
+      sources = { default = { "lsp", "path", "buffer", "emoji" } },
+      keymap = { preset = "default" }, -- can be "super-tab", "default", etc
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      -- completion = {
+      --   documentation = { auto_show = false },
+      -- },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    },
+    opts_extend = { "sources.default" },
+  },
   -- {
   --   "nvim-cmp",
   --   dependencies = { "hrsh7th/cmp-emoji" },
