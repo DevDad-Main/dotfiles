@@ -608,9 +608,9 @@ map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
 map("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>")
 map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
 
--- Split window
-map("n", "<leader>sv", ":split<Return>", opts)
-map("n", "<leader>ss", ":vsplit<Return>", opts)
+-- -- Split window
+-- map("n", "<leader>sv", ":split<Return>", opts)
+-- map("n", "<leader>ss", ":vsplit<Return>", opts)
 
 -- Resize window
 map("n", "<C-S-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
