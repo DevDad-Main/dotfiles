@@ -644,3 +644,6 @@ map(
 -- end, { desc = "Telescope find all files" })
 
 map("n", "<leader><leader>", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "Telescope find all files" })
+
+
+map({ "n", "t" }, "<A-v>", "<cmd>FloatermToggle<cr>", { desc = "Toggle Floaterm" })
