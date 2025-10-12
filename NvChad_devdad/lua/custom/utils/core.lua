@@ -439,56 +439,30 @@ end
 M.nvdash = {
   buttons = function()
     local layout = {
-
-      {
-        multicolumn = true,
-        pad = 3,
-        content = "fit",
-        { txt = "  Update [u]", hl = "changed", keys = "u", cmd = ":Lazy sync <cr>" },
+      -- 🔹 Main buttons row
+        -- multicolumn = true,
+        -- pad = 2,
+        content = "center",
+        { txt = "  Update [u]", hl = "changed", keys = "u", cmd = ":Lazy update <cr>" },
         { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
         { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
-        { txt = "󱥚  Themes [t]", keys = "t", cmd = ":Telescope themes <cr>" },
-      },
+        { txt = "󱥚  Themes [t]", hl = "String", keys = "t", cmd = ":Telescope themes <cr>" },
 
+
+      -- 🔹 Lazy stats below buttons
       {
         txt = function()
           local stats = require("lazy").stats()
           local ms = math.floor(stats.startuptime) .. " ms"
           return "  Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms
         end,
-        hl = "comment",
-        content = "fit",
+        hl = "Comment",
+        align = "center",
+        pad = 2,
       },
-
-      {
-        txt = "  Most Recent files",
-        hl = "floatborder",
-        no_gap = true,
-        group = "recent_files",
-      },
-
-      { txt = "─", hl = "comment", no_gap = true, rep = true, group = "recent_files", content = "fit" },
     }
 
-    set_recent_files(layout)
-    table.insert(layout, { txt = "", no_gap = true })
-
-    table.insert(layout, {
-      txt = "  Recent Projects",
-      hl = "String",
-      no_gap = true,
-      group = "recent_files",
-    })
-
-    table.insert(
-      layout,
-      { txt = "─", hl = "comment", no_gap = true, rep = true, group = "recent_files", content = "fit" }
-    )
-
-    set_recent_folders(layout)
-
-    return layout
-  end,
+    return layout  end,
   load_on_startup = true,
   -- buttons = {
   --   { txt = "  Find File", keys ="Spc f f",cmd = "Telescope find_files" },
@@ -496,7 +470,6 @@ M.nvdash = {
   --   { txt = "󰈭  Find Word", keys ="Spc f w",cmd = "Telescope live_grep" },
   --   { txt = "  Themes", keys ="Spc t h", cmd ="Telescope themes" },
   --   { txt = "  Mappings",keys = "Spc c h",cmd = "NvCheatsheet" },
-
   -- function()
   --   local stats = require("lazy").stats()
   --   local plugins = "  Loaded " .. stats.count .. " plugins in "

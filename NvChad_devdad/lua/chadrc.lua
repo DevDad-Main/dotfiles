@@ -6,8 +6,15 @@ local core = require "custom.utils.core"
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 M.ui = {
-  statusline = core.statusline,
+  -- statusline = core.statusline,
   tabufline = core.tabufline,
+
+  statusline = {
+    theme = "minimal",
+    separator_style = "round",
+   -- order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "xyz", "abc" },
+  },
+
 
   cmp = {
     icons = true,
@@ -38,7 +45,7 @@ M.mason = {
     "css-lsp",
     "html-lsp",
     "typescript-language-server",
-    "prettier",
+    "prettierd",
     "eslint-lsp",
     "eslint_d",
     "emmet-ls",
@@ -111,10 +118,12 @@ M.term = {
   sizes = { sp = 0.3, vsp = 0.2, ["bo sp"] = 0.3, ["bo vsp"] = 0.2 },
   float = {
     relative = "editor",
-    row = 0.3,
-    col = 0.25,
-    width = 0.5,
-    height = 0.4,
+    row = 0.1,
+    col = 0.1,
+    -- width = 0.5,
+    -- height = 0.4,
+    width = 0.8,
+    height = 0.8,
     border = "single",
   },
 }
