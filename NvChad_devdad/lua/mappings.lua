@@ -613,10 +613,10 @@ map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
 -- map("n", "<leader>ss", ":vsplit<Return>", opts)
 
 -- Resize window
-map("n", "<C-S-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-S-j>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-S-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-map("n", "<C-S-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<A-S-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<A-S-j>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<A-S-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<A-S-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 
 -- Delete a word infront
 map("i", "<C-d>", "<C-o>dw")

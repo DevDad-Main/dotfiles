@@ -187,13 +187,13 @@ return {
     },
   },
   ----------------------------------------- enhance plugins ------------------------------------------
-  {
-    "okuuva/auto-save.nvim",
-    event = { "InsertLeave", "TextChanged" },
-    config = function()
-      require "configs.autosave"
-    end,
-  },
+  -- {
+  --   "okuuva/auto-save.nvim",
+  --   event = { "InsertLeave", "TextChanged" },
+  --   config = function()
+  --     require "configs.autosave"
+  --   end,
+  -- },
   {
     "soulis-1256/eagle.nvim",
     opts = {},
@@ -822,7 +822,8 @@ return {
   {
     "nvzone/floaterm",
     dependencies = "nvzone/volt",
-    opts = {},
+    opts = {border = true},
+    -- opts = {},
     cmd = "FloatermToggle",
   },
 

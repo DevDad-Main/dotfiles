@@ -10,7 +10,7 @@ M.ui = {
   tabufline = core.tabufline,
 
   statusline = {
-    theme = "minimal",
+    theme = "default",
     separator_style = "round",
    -- order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "xyz", "abc" },
   },
