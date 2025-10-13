@@ -443,8 +443,12 @@ end, { desc = "Lazy Git" })
 --------------------------------------------------- Text ---------------------------------------------------
 map("n", "<C-z>", "<CMD>u<CR>", { desc = "󰕌 Undo" })
 map("n", "<BS>", "<C-o>", { desc = "Return" })
-map("n", "<C-x>", "x", { desc = "󰆐 Cut" })
-map("n", "<C-v>", '"+p', { desc = "󰆒 Paste" })
+
+map("v", "yd", '"+d', { desc = "󰆐 Cut" })
+
+map("i", "<C-v>", '<Esc>"+pa', { desc = "󰆒 Paste (Insert mode)" })
+map("n", "<C-v>", '"+p', { desc = "󰆒 Paste (Normal mode)" })
+
 map("n", "<C-c>", "y", { desc = " Copy" })
 map("n", "p", "p`[v`]=", { desc = "󰆒 Paste" })
 map("n", "<S-CR>", "o<ESC>", { desc = " New line" })
@@ -615,8 +619,8 @@ map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
 -- Resize window
 map("n", "<A-S-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 map("n", "<A-S-j>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<A-S-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-map("n", "<A-S-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<A-S-h>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<A-S-l>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 
 -- Delete a word infront
 map("i", "<C-d>", "<C-o>dw")
