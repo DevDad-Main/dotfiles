@@ -250,17 +250,19 @@ local function find_files()
     },
     results_title = false,
     previewer = false,
-
-    -- 👇 this shows hidden files like .env
     hidden = true,
+    show_untracked = true,
   }
 
-  opts.show_untracked = true
-
-  local succ = pcall(require("telescope.builtin").git_files, opts)
-
-  if not succ then
-    require("telescope.builtin").find_files(opts)
+  -- Try to use Telescope frecency first, fallback to git_files / find_files
+  local has_telescope, telescope = pcall(require, "telescope")
+  if has_telescope and telescope.extensions and telescope.extensions.frecency then
+    telescope.extensions.frecency.frecency(vim.tbl_extend("force", opts, { workspace = "CWD", theme = "dropdown" }))
+  else
+    local ok = pcall(require("telescope.builtin").git_files, opts)
+    if not ok then
+      require("telescope.builtin").find_files(opts)
+    end
   end
 end
 
@@ -647,4 +649,15 @@ map(
 --   }
 -- end, { desc = "Telescope find all files" })
 
-map("n", "<leader><leader>", "<cmd>Telescope frecency workspace=CWD<cr>", { desc = "Telescope find all files" })
+-- map(
+--   "n",
+--   "<leader><leader>",
+--   "<cmd>Telescope frecency workspace=CWD theme=dropdown<cr>",
+--   { desc = "Telescope find all files" }
+-- )
+
+map({ "n", "i", "v" }, "<leader><leader>", function()
+  find_files()
+end, { desc = "Telescope find all files" })
+
+map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
