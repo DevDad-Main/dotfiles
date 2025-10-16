@@ -186,6 +186,19 @@ return {
       },
     },
   },
+  {
+    "https://git.sr.ht/~havi/telescope-toggleterm.nvim",
+    event = "TermOpen",
+    requires = {
+      "akinsho/nvim-toggleterm.lua",
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("telescope").load_extension "toggleterm"
+    end,
+  },
   ----------------------------------------- enhance plugins ------------------------------------------
   -- {
   --   "okuuva/auto-save.nvim",
@@ -776,7 +789,7 @@ return {
       require("telescope").load_extension "ui-select"
     end,
   },
-{
+  {
     "akinsho/toggleterm.nvim",
     keys = { [[<C-\>]] },
     cmd = { "ToggleTerm", "ToggleTermOpenAll", "ToggleTermCloseAll" },
@@ -787,7 +800,7 @@ return {
         -- elseif term.direction == "vertical" then
         --   return 0.25 * vim.api.nvim_win_get_width(0)
         if term.direction == "float" then
-        -- elseif term.direction == "float" then
+          -- elseif term.direction == "float" then
           return 85
         end
       end,
@@ -819,13 +832,6 @@ return {
     "Bekaboo/dropbar.nvim",
     event = "BufReadPost",
     opts = {},
-  },
-  {
-    "nvzone/floaterm",
-    dependencies = "nvzone/volt",
-    opts = {border = true},
-    -- opts = {},
-    cmd = "FloatermToggle",
   },
   ----------------------------------------- language plugins ------------------------------------------
   {
