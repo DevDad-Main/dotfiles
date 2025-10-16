@@ -321,12 +321,12 @@ M.tabufline = {
 
   n = {
     -- cycle through buffers
-    ["<Tab>"] = {
-      function()
-        require("nvchad.tabufline").next()
-      end,
-      " Goto next buffer",
-    },
+    -- ["<Tab>"] = {
+    --   function()
+    --     require("nvchad.tabufline").next()
+    --   end,
+    --   " Goto next buffer",
+    -- },
 
     ["<S-Tab>"] = {
       function()
