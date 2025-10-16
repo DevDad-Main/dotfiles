@@ -324,7 +324,7 @@ autocmd({ "TermOpen", "BufEnter" }, {
   group = term_augroup,
   pattern = "term://*", --> only applicable for "BufEnter", an ignored Lua table key when evaluating TermOpen
   callback = function()
-    vim.cmd "startinsert"
+    -- vim.cmd "startinsert"
   end,
 })
 
