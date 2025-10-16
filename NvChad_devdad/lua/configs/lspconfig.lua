@@ -153,6 +153,7 @@ local servers = {
   -- "yamlls",
   "terraformls",
   "vtsls",
+  "typescript-language-server",
   "gopls",
   "kulala_ls",
   "eslint",
@@ -255,6 +256,43 @@ vim.lsp.config("eslint", {
     useESLintClass = false,
     validate = "on",
     workingDirectory = { mode = "location" },
+  },
+})
+vim.lsp.config("typescript-language-server", { on_attach = custom_on_attach }, { filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  cmd = { "typescript-language-server", "--stdio" },
+  init_options = {
+    hostInfo = "neovim",
+    preferences = {
+      includeCompletionsForModuleExports = true,
+      includeCompletionsWithInsertText = true,
+      importModuleSpecifierPreference = "relative",
+      quotePreference = "auto",
+    },
+  },
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayVariableTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayVariableTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+      },
+    },
   },
 })
 vim.lsp.config("vtsls", {

@@ -304,8 +304,8 @@ M.telescope = {
       theme = "dropdown",
       previewer = false,
       mappings = {
-        i = {
-          ["<c-d>"] = "delete_buffer",
+        n = {
+          ["d"] = "delete_buffer",
         },
       },
     },

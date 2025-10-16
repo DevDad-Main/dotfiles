@@ -782,11 +782,12 @@ return {
     cmd = { "ToggleTerm", "ToggleTermOpenAll", "ToggleTermCloseAll" },
     opts = {
       size = function(term)
-        if term.direction == "horizontal" then
-          return 0.25 * vim.api.nvim_win_get_height(0)
-        elseif term.direction == "vertical" then
-          return 0.25 * vim.api.nvim_win_get_width(0)
-        elseif term.direction == "float" then
+        -- if term.direction == "horizontal" then
+        --   return 0.25 * vim.api.nvim_win_get_height(0)
+        -- elseif term.direction == "vertical" then
+        --   return 0.25 * vim.api.nvim_win_get_width(0)
+        if term.direction == "float" then
+        -- elseif term.direction == "float" then
           return 85
         end
       end,
@@ -826,7 +827,6 @@ return {
     -- opts = {},
     cmd = "FloatermToggle",
   },
-
   ----------------------------------------- language plugins ------------------------------------------
   {
     "nvim-neotest/neotest",

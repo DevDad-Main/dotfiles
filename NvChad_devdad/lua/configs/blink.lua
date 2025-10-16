@@ -41,7 +41,7 @@ M.blink = {
     },
     trigger = {
       prefetch_on_insert = true,
-      show_on_keyword = false,
+      show_on_keyword = true,
     },
     documentation = {
       auto_show = true,

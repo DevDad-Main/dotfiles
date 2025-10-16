@@ -325,6 +325,7 @@ autocmd({ "TermOpen", "BufEnter" }, {
   pattern = "term://*", --> only applicable for "BufEnter", an ignored Lua table key when evaluating TermOpen
   callback = function()
     vim.cmd "startinsert"
+    vim.bo.buflisted = true
   end,
 })
 
