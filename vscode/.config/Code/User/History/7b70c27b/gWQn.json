@@ -1,0 +1,8 @@
+// Place your key bindings in this file to override the defaults
+[
+    // Use Tab to switch between open files in Normal mode
+    
+    "key": "Tab",
+    "command": "workbench.action.showAllEditors",
+    "when": "vim.mode === 'Normal && editorTextFocus"
+]

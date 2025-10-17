@@ -318,6 +318,8 @@ autocmd({ "BufRead", "BufNewFile" }, {
 
 -- Switch to insert mode when terminal is open
 local term_augroup = vim.api.nvim_create_augroup("Terminal", { clear = true })
+
+-- TODO: Refactor this into a better solution
 autocmd({ "TermOpen", "BufEnter" }, {
   -- TermOpen: for when terminal is opened for the first time
   -- BufEnter: when you navigate to an existing terminal buffer

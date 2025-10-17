@@ -656,7 +656,7 @@ map(
 --   { desc = "Telescope find all files" }
 -- )
 
-map({ "n", "i", "v" }, "<leader><leader>", function()
+map({ "n", "i", "v" }, ";", function()
   find_files()
 end, { desc = "Telescope find all files" })
 

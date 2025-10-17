@@ -1,0 +1,10 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "gruvbox-material-icon-theme",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "terminal.integrated.allowChords": false
+}
