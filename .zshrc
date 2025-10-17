@@ -1,3 +1,9 @@
+# If you come from bash you might have to change you
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+
+
 plugins=(
   git
   fzf-tab # Faster and better fuzzy finder completion
