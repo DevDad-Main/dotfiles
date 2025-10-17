@@ -1,8 +1,0 @@
-[
-    // Use Tab to switch between open files in Normal mode
-    {
-        "key": "tab",
-        "command": "workbench.action.showAllEditors",
-        "when": "vim.mode == 'Normal' && editorTextFocus"
-    },
-]
