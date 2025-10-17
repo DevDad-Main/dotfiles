@@ -75,13 +75,13 @@ To get a local copy up and running follow these simple example steps.
   ln -s ~/.config/dotfiles/kickstart_devdad/ ~/.config/kickstart
   ln -s ~/.config/dotfiles/tmux ~/.config/tmux
   ln -s ~/.config/dotfiles/yazi ~/.config/yazi
-  ln -s ~/.config/dotfiles/vscode/.config/Code/User/ ~/.config/Code/User/
+  ln -s ~/.config/dotfiles/vscode/.config/Code/User/ ~/.config/Code/
   ```
 
 
 #### 3. For Vscode config:
 
-- We need to now installt the extensions from the extenstions.txt file
+- We need to now install the extensions from the extenstions.txt file
 
 ```bash
 cat ~/.config/dotfiles/vscode/.config/Code/User/extensions.txt | xargs -L 1 code --install-extension
