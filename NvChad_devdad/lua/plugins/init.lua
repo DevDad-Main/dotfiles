@@ -1103,4 +1103,31 @@ return {
       require("telescope").load_extension "frecency"
     end,
   },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    event = "VeryLazy",
+    config = function()
+      require("mason-tool-installer").setup {
+        ensure_installed = {
+          "eslint_d",
+          "prettierd",
+          "stylua",
+          "typescript-language-server",
+          "vtsls",
+          "jsonlint",
+        },
+      }
+    end,
+    -- NOTE: Uncomment this to install the fool list of packages in the custom.chadrc -> uncomment and run :MasonToolsInstall
+    --   config = function()
+    --   require("mason-tool-installer").setup {
+    --     ensure_installed = require("custom.chadrc").mason.pkgs,   -- reuse the existing list
+    --     auto_update = false,
+    --     run_on_start = true,
+    --     start_delay = 2000,
+    --     debounce_hours = 5,
+    --   }
+    -- end,
+  },
 }

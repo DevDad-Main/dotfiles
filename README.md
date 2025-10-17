@@ -9,7 +9,7 @@ Home repo for all my dotfiles.
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-# Pre-requisites - LazyVim
+# Pre-requisites - DevDadVim
 
 ## ✨ Features
 
@@ -52,7 +52,7 @@ To get a local copy up and running follow these simple example steps.
 - Required for some LazyVim plugins, Mason, LSPs.
 
   ```bash
-  sudo pacman -S clang yarn luarocks nodejs npm go
+  sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd
   ```
 
 # Installation
@@ -70,9 +70,19 @@ To get a local copy up and running follow these simple example steps.
 - Due to how the $XDG_CONFIG_HOME is set, we need to create symlinks
 
   ```bash
-  ln -s ~/.config/dotfiles/nvim ~/.config/nvim
+  ln -s ~/.config/dotfiles/NvChad_devdad ~/.config/NvChad
+  ln -s ~/.config/dotfiles/LazyVim ~/.config/LazyVim
+  ln -s ~/.config/dotfiles/kickstart_devdad/ ~/.config/kickstart
   ln -s ~/.config/dotfiles/tmux ~/.config/tmux
   ln -s ~/.config/dotfiles/yazi ~/.config/yazi
-  ln -s ~/.config/dotfiles/neovide ~/.config/neovide
-  ln -s ~/.config/dotfiles/neoterm ~/.config/neoterm
+  ln -s ~/.config/dotfiles/vscode/.config/Code/User/ ~/.config/Code/User/
   ```
+
+
+#### 3. For Vscode config:
+
+- We need to now installt the extensions from the extenstions.txt file
+
+```bash
+cat ~/.config/dotfiles/vscode/.config/Code/User/extensions.txt | xargs -L 1 code --install-extension
+```
