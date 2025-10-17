@@ -11,7 +11,7 @@ M.ui = {
 
   statusline = {
     theme = "minimal",
-    separator_style = "round",
+    -- separator_style = " ",
     -- order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "xyz", "abc" },
   },
 
