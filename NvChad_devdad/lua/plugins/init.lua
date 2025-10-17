@@ -840,7 +840,7 @@ return {
       -- -- When I press <leader>r I want to show the current file in neo-tree,
       -- -- But if neo-tree is open it, close it, to work like a toggle
       {
-        "<leader>r",
+        "<C-p>p",
         function()
           local buf_name = vim.api.nvim_buf_get_name(0)
           -- Function to check if NeoTree is open in any window

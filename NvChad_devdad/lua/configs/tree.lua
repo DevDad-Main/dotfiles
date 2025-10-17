@@ -116,7 +116,6 @@ local function on_attach(bufnr)
       api.tree.change_root_to_parent()
     end
   end, opts "Close Folder / Go Up")
-
 end
 
 -- =========================
@@ -169,7 +168,7 @@ return {
         local columns = vim.o.columns
         local lines = vim.o.lines
         local width = math.floor(columns * 0.4)
-        local height = math.floor(lines * 0.7)
+        local height = math.floor(lines * 0.8)
         local row = math.floor((lines - height) / 2)
         local col = math.floor((columns - width) / 2)
         return {
