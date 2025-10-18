@@ -440,14 +440,14 @@ M.nvdash = {
   buttons = function()
     local layout = {
       -- 🔹 Main buttons row
-        -- multicolumn = true,
-        -- pad = 2,
-        content = "center",
-        { txt = "  Update [u]", hl = "changed", keys = "u", cmd = ":Lazy update <cr>" },
-        { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
-        { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
-        { txt = "󱥚  Themes [t]", hl = "String", keys = "t", cmd = ":Telescope themes <cr>" },
-
+      -- multicolumn = true,
+      -- pad = 2,
+      content = "center",
+      { txt = "  Update [u]", hl = "changed", keys = "u", cmd = ":Lazy update <cr>" },
+      { txt = "  Files [f]", hl = "Added", keys = "f", cmd = ":Telescope find_files <cr>" },
+      { txt = "  Config [c]", hl = "nviminternalError", keys = "c", cmd = ":e ~/.config/nvim/init.lua <cr>" },
+      { txt = "󱥚  Themes [t]", hl = "String", keys = "t", cmd = ":Telescope themes <cr>" },
+      { txt = "  Quit [q]", hl = "String", keys = "q", cmd = ":qa" },
 
       -- 🔹 Lazy stats below buttons
       {
@@ -462,7 +462,8 @@ M.nvdash = {
       },
     }
 
-    return layout  end,
+    return layout
+  end,
   load_on_startup = true,
   -- buttons = {
   --   { txt = "  Find File", keys ="Spc f f",cmd = "Telescope find_files" },
