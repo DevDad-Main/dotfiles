@@ -258,7 +258,8 @@ vim.lsp.config("eslint", {
     workingDirectory = { mode = "location" },
   },
 })
-vim.lsp.config("typescript-language-server", { on_attach = custom_on_attach }, { filetypes = {
+vim.lsp.config("typescript-language-server", { on_attach = custom_on_attach }, {
+  filetypes = {
     "javascript",
     "javascriptreact",
     "javascript.jsx",

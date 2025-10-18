@@ -1116,6 +1116,7 @@ return {
           "typescript-language-server",
           "vtsls",
           "jsonlint",
+          "html-lsp",
         },
       }
     end,
