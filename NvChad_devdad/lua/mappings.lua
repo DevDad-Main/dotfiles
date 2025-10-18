@@ -631,8 +631,11 @@ map("i", "<C-d>", "<C-o>dw")
 map("i", "<C-l>", "<Right>")
 map("i", "<C-h>", "<Left>")
 
-map("n", "<A-k>", "<CMD>m .-2<CR>==", { desc = "󰜸 Move line up" })
-map("n", "<A-j>", "<CMD>m .+1<CR>==", { desc = "󰜯 Move line down" })
+map({ "n" }, "<A-k>", "<CMD>m .-2<CR>==", { desc = "󰜸 Move line up" })
+map({ "n" }, "<A-j>", "<CMD>m .+1<CR>==", { desc = "󰜯 Move line down" })
+-- Visual mode: move block of lines up/down
+map("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "󰜸 Move block up" })
+map("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "󰜯 Move block down" })
 
 map(
   "n",
