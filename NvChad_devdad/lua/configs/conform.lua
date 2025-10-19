@@ -17,6 +17,7 @@ conform.setup {
   notify_on_error = false,
   formatters_by_ft = {
     javascript = { "prettierd" },
+    c_sharp = { "csharpier" },
     typescript = { "prettierd" },
     javascriptreact = { "prettierd" },
     typescriptreact = { "prettierd" },
