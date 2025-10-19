@@ -49,7 +49,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## Telescope & Telescope-Frecency
 
-[telescope-with-frecency plugin](./previews/telescope-with-frecency.png)
+![telescope-with-frecency plugin](./previews/telescope-with-frecency.png)
 
 ## Grug Far
 
