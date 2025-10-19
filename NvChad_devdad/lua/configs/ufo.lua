@@ -31,8 +31,12 @@ end
 -- }
 
 require("ufo").setup {
+  -- NOTE: Uncomment to enable folding for other Filetypes
   close_fold_kinds_for_ft = {
-    default = { "imports" },
+    default = { "imports", "comment", "region" },
+    json = { "array" },
+    c = { "comment", "region" },
+    javascript = { "region", "comment" },
   },
   fold_virt_text_handler = handler,
   open_fold_hl_timeout = 0,
