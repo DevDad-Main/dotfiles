@@ -74,6 +74,12 @@ M.override = {
   NvimTreeGitDirty = { fg = "yellow" },
   NvimTreeGitDeleted = { fg = "red" },
   NvimTreeCursorLine = { bg = "one_bg3" },
+
+  -- TODO: Added this to fix the nvimtree background color with gruvbox theme (Only theme i use). May work with other themes. NOT TESTED
+  NvimTreeNormal = { bg = "black" },
+  NvimTreeNormalNC = { bg = "black" },
+  NvimTreeEndOfBuffer = { bg = "black" },
+  NvimTreeVertSplit = { bg = "black", fg = "black" },
 }
 
 M.add = {
@@ -100,7 +106,7 @@ M.add = {
 
   NvimTreeOpenedFolderName = { fg = "purple", bold = true },
   NvimTreeOpenedFile = { fg = "green", bold = true },
-  NvimTreeOpenedHL = { fg = "green", bold = true },
+  -- NvimTreeOpenedHL = { fg = "green", bold = true },
   NvimTreeFileIcon = { fg = "purple" },
 
   CoverageCovered = { fg = "green" },
