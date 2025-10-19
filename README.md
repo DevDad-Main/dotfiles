@@ -73,10 +73,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## Blazing Fast Development - Blink.nvim
 
-https://github.com/user-attachments/assets/b5b8088b-3824-4aed-97f8-d5e5da8466ff
-
-
-
+![telescope-find-keymaps plugin](./previews/blazing-fast-dev.gif)
 
 ### Recommended Packages
 
