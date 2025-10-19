@@ -1,5 +1,6 @@
 {
-    "workbench.colorTheme": "Gruvbox Dark Hard",
+  "update.mode": "none",
+    "workbench.colorTheme": "Gruvbox Dark Medium",
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
