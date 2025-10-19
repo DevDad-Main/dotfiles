@@ -1103,4 +1103,8 @@ return {
       }
     end,
   },
+  {
+    "brianhuster/live-preview.nvim",
+    event = "VeryLazy",
+  },
 }
