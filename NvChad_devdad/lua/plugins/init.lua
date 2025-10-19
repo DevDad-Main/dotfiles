@@ -1074,6 +1074,9 @@ return {
           "vtsls",
           "jsonlint",
           "html-lsp",
+          -- NOTE: If On Arch or other linux distros ensure to install mono/mono-msbuild/dotnet-sdk
+          "omnisharp-mono",
+          "csharpier",
         },
       }
     end,
