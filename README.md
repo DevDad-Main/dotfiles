@@ -39,13 +39,37 @@ To get a local copy up and running follow these simple example steps.
 
 ### 🖼️ Preview
 
-## Mini.Files
+## NvDash - DevDad
 
-![mini-files plugin](./previews/mini-files.png)
+![nvdash plugin](./previews/nv-dash.png)
+
+## Nvim-Tree
+
+![nvim-tree plugin](./previews/nvim-tree.png)
 
 ## Telescope & Telescope-Frecency
 
-![mini-files plugin](./previews/telescope-with-frecency.png)
+[telescope-with-frecency plugin](./previews/telescope-with-frecency.png)
+
+## Grug Far
+
+![grug-far plugin](./previews/grug-far.png)
+
+## Telescope Buffers With Terminals via builtin :term
+
+![telescope-buffer-terms plugin](./previews/buffers-with-term.png)
+
+## Telescope Fzf Todos
+
+![telescope-fzf-todos plugin](./previews/telescope-fzf-todos.png)
+
+## ToggleTerm Vscode Style Terminals
+
+![toggle-term-vscode plugin](./previews/vert-terminal-vscode.png)
+
+## Telescope Keymaps
+
+![telescope-find-keymaps plugin](./previews/telescope-keymaps.png)
 
 ### Recommended Packages
 
@@ -77,7 +101,6 @@ To get a local copy up and running follow these simple example steps.
   ln -s ~/.config/dotfiles/yazi ~/.config/yazi
   ln -s ~/.config/dotfiles/vscode/.config/Code/User/ ~/.config/Code/
   ```
-
 
 #### 3. For Vscode config:
 
