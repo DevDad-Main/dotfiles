@@ -264,7 +264,7 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.lsp"
 local pid = vim.fn.getpid()
 
-lspconfig.omnisharp.config {
+vim.lsp.config("omnisharp-mono", {
   cmd = {
     vim.fn.stdpath "data" .. "/mason/packages/omnisharp-mono/run",
     "--languageserver",
@@ -281,7 +281,7 @@ lspconfig.omnisharp.config {
   organize_imports_on_format = true,
   enable_import_completion = true,
   enable_decompilation_support = true,
-}
+})
 -- vim.lsp.config("omnisharp-mono", {
 --   cmd = {
 --     "omnisharp-mono",
