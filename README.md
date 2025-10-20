@@ -71,9 +71,9 @@ To get a local copy up and running follow these simple example steps.
 
 ![telescope-find-keymaps plugin](./previews/telescope-keymaps.png)
 
-## Blazing Fast Development - Blink.nvim
+## Tmux
 
-![telescope-find-keymaps plugin](./previews/blazing-fast-dev.gif)
+![tmux](./previews/tmux.png)
 
 ### Recommended Packages
 
