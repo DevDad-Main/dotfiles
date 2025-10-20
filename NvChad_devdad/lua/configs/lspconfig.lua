@@ -264,32 +264,38 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.lsp"
 local pid = vim.fn.getpid()
 
-vim.lsp.config("omnisharp-mono", {
-  cmd = { "omnisharp-mono", "--languageserver", "--hostPID", tostring(pid) },
+lspconfig.omnisharp.config {
+  cmd = {
+    vim.fn.stdpath "data" .. "/mason/packages/omnisharp-mono/run",
+    "--languageserver",
+    "--hostPID",
+    tostring(pid),
+  },
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  filetypes = { "cs", "vb" }, -- 🧠 this line fixes the warning
+  filetypes = { "cs", "vb" },
+  root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj"),
   enable_editorconfig_support = true,
-  enable_ms_build_load_projects_on_demand = false,
   enable_roslyn_analyzers = true,
   organize_imports_on_format = true,
   enable_import_completion = true,
-  sdk_include_prereleases = true,
-  analyze_open_documents_only = false,
-  handlers = {
-    ["textDocument/definition"] = function(_, result)
-      if not result or vim.tbl_isempty(result) then
-        return
-      end
-      if vim.tbl_islist(result) then
-        vim.lsp.util.jump_to_location(result[1], "utf-8")
-      else
-        vim.lsp.util.jump_to_location(result, "utf-8")
-      end
-    end,
-  },
-})
+  enable_decompilation_support = true,
+}
+-- vim.lsp.config("omnisharp-mono", {
+--   cmd = {
+--     "omnisharp-mono",
+--     "--languageserver",
+--     "--hostPID",
+--     tostring(pid),
+--     "dotnet",
+--     vim.fn.stdpath "data" .. "\\mason\\packages\\omnisharp\\libexec\\OmniSharp.dll",
+--   },
+--   on_attach = nvlsp.on_attach,
+--   on_init = nvlsp.on_init,
+--   capabilities = nvlsp.capabilities,
+--   filetypes = { "cs", "vb" }, -- 🧠 this line fixes the warning
+-- })
 
 vim.lsp.config("typescript-language-server", { on_attach = custom_on_attach }, {
   filetypes = {

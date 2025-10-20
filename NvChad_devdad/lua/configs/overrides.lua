@@ -136,6 +136,7 @@ M.treesitter = {
     "dockerfile",
     "regex",
     "toml",
+    "c_sharp",
 
     "gitcommit",
     "git_config",
