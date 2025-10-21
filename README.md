@@ -77,11 +77,60 @@ To get a local copy up and running follow these simple example steps.
 
 ### Recommended Packages
 
-- Required for some LazyVim plugins, Mason, LSPs.
+> Required for some LazyVim plugins, Mason, LSPs.
+
+```bash
+sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd
+```
+
+## Installation for .zshrc and custom fzf functions
+
+<details>
+
+<summary>Zsh - OhMyZsh </summary>
+
+```bash
+sudo pacman -Syu zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+- autosuggesions plugin
 
   ```bash
-  sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
   ```
+
+- zsh-syntax-highlighting plugin
+
+  ```bash
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+  ```
+
+- zsh-fast-syntax-highlighting plugin
+
+  ```bash
+  git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+  ```
+
+- zsh-autocomplete plugin
+
+  ```bash
+  git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
+  ```
+
+- zsh-fsf plugin
+  ```bash
+  git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+  ```
+
+> Remove the ~/zshrc file and replace it with the one in this repo
+
+```bash
+
+ln -s ~/.config/dotfiles/.zshrc ~/
+```
+
+</details>
 
 # Installation
 

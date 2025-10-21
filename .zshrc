@@ -36,16 +36,26 @@ alias nvk="NVIM_APPNAME=kickstart nvim"
 alias nvc="NVIM_APPNAME=NvChad nvim"
 alias nva="NVIM_APPNAME=AstroNvim nvim"
 
-function nvims() {
-  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
-  if [[ -z $config ]]; then
-    echo "Nothing selected"
-    return 0
-  elif [[ $config == "default" ]]; then
-    config=""
-  fi
-  NVIM_APPNAME=$config nvim $@
+# Fuzzy cd into a directory
+cdf() {
+  local dir
+  dir=$(fd . -type d \
+    -not -path '*/\.git*' \
+    -not -path '*/node_modules*' \
+    -not -path '*/dist*' \
+    -not -path '*/build*' \
+    -print 2> /dev/null | fzf --height 40% --reverse --border --preview 'tree -C {} | head -100') \
+    && cd "$dir"
 }
 
-bindkey -s '^N' "nvims\n"
+# Fuzzy open a file with nvim
+vf() {
+  local file
+  file=$(fd . -type f \
+    -not -path '*/\.git*' \
+    -not -path '*/node_modules*' \
+    -not -path '*/dist*' \
+    -not -path '*/build*' \
+    -print 2> /dev/null | fzf --height 40% --reverse --border --preview 'bat --style=numbers --color=always {} || cat {}') \
+    && nvc "$file"
+}
