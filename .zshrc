@@ -37,6 +37,10 @@ alias nvc="NVIM_APPNAME=NvChad nvim"
 alias nva="NVIM_APPNAME=AstroNvim nvim"
 
 
+alias nt="npm run test"
+alias ntw="npm run test:watch"
+alias ntc="npm run test:coverage"
+
 # I Like the 70 percent height so i can see alot more but this is due to my monitor so i have more screen real estate, change this to your desire values - 40% works great as a default.
 # Fuzzy cd into a directory
 cdf() {
@@ -62,4 +66,26 @@ vf() {
     . | fzf --height 70% --reverse --border \
             --preview 'bat --style=numbers --color=always {} || cat {}') \
     && nvc "$file"
+}
+
+
+
+pk() {
+  local pid
+  pid=$(ps -eo pid,ppid,user,%cpu,%mem,etime,tty,cmd --sort=-%cpu | \
+    fzf --header="Select process to kill (Press ESC to cancel)" \
+        --height=70% --reverse --border=rounded \
+        --preview 'pid=$(echo {} | awk "{print \$1}");
+                   echo -e "\033[1;34m### PROCESS INFO ###\033[0m";
+                   ps -p $pid -o pid,ppid,user,%cpu,%mem,etime,tty,cmd;
+                   echo;
+                   echo -e "\033[1;34m### CHILD PROCESSES ###\033[0m";
+                   pstree -p $pid 2>/dev/null || echo "No child processes."'
+  )
+
+  # If user pressed ESC or nothing selected, return
+  [[ -z "$pid" ]] && return
+
+  # Extract PID and kill the process
+  echo "$pid" | awk '{print $1}' | xargs -r kill -9
 }

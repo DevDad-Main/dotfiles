@@ -275,7 +275,7 @@ vim.lsp.config("omnisharp-mono", {
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
   filetypes = { "cs", "vb" },
-  root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj"),
+  -- root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj"),
   enable_editorconfig_support = true,
   enable_roslyn_analyzers = true,
   organize_imports_on_format = true,
