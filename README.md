@@ -75,6 +75,13 @@ To get a local copy up and running follow these simple example steps.
 
 ![tmux](./previews/tmux.png)
 
+## Custom Fzf Functions
+
+> cd quicker than cd with fzf
+> ![fzf-cd](./previews/custom-fzf-cd-func.png)
+> find files quicker than find with fzf and open them with your favourite editor
+> ![fzf-file-picker](./previews/custom-fzf-file-picker.png)
+
 ### Recommended Packages
 
 > Required for some LazyVim plugins, Mason, LSPs.
