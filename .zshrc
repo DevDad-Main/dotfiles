@@ -36,26 +36,30 @@ alias nvk="NVIM_APPNAME=kickstart nvim"
 alias nvc="NVIM_APPNAME=NvChad nvim"
 alias nva="NVIM_APPNAME=AstroNvim nvim"
 
+
+# I Like the 70 percent height so i can see alot more but this is due to my monitor so i have more screen real estate, change this to your desire values - 40% works great as a default.
 # Fuzzy cd into a directory
 cdf() {
   local dir
-  dir=$(fd . -type d \
-    -not -path '*/\.git*' \
-    -not -path '*/node_modules*' \
-    -not -path '*/dist*' \
-    -not -path '*/build*' \
-    -print 2> /dev/null | fzf --height 40% --reverse --border --preview 'tree -C {} | head -100') \
+  dir=$(fd --type d --hidden --follow \
+    --exclude .git \
+    --exclude node_modules \
+    --exclude dist \
+    --exclude build \
+    . | fzf --height 70% --reverse --border \
+            --preview 'tree -C {} | head -100') \
     && cd "$dir"
 }
 
-# Fuzzy open a file with nvim
+# Fuzzy open a file with nvim - Change the nvc below to your alias of choice of use default nvim
 vf() {
   local file
-  file=$(fd . -type f \
-    -not -path '*/\.git*' \
-    -not -path '*/node_modules*' \
-    -not -path '*/dist*' \
-    -not -path '*/build*' \
-    -print 2> /dev/null | fzf --height 40% --reverse --border --preview 'bat --style=numbers --color=always {} || cat {}') \
+  file=$(fd --type f --hidden --follow \
+    --exclude .git \
+    --exclude node_modules \
+    --exclude dist \
+    --exclude build \
+    . | fzf --height 70% --reverse --border \
+            --preview 'bat --style=numbers --color=always {} || cat {}') \
     && nvc "$file"
 }
