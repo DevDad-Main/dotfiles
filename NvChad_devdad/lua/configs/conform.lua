@@ -21,6 +21,7 @@ conform.setup {
     typescript = { "prettierd" },
     javascriptreact = { "prettierd" },
     typescriptreact = { "prettierd" },
+    python = { "black" },
     json = { "prettierd" },
     jsonc = { "prettier" },
     css = { "prettierd" },

@@ -160,6 +160,7 @@ local servers = {
   "kulala_ls",
   "eslint",
   "copilot",
+  "python-lsp-server",
 }
 vim.lsp.enable(servers)
 
@@ -191,6 +192,7 @@ vim.lsp.config("copilot", { on_attach = custom_on_attach })
 vim.lsp.config("dockerls", { on_attach = custom_on_attach })
 vim.lsp.config("dockerfile-language-server", { on_attach = custom_on_attach })
 vim.lsp.config("docker-compose-language-service", { on_attach = custom_on_attach })
+vim.lsp.config("python-lsp-server", { on_attach = custom_on_attach })
 vim.lsp.config("jsonls", {
   on_attach = custom_on_attach,
   settings = { json = { schemas = require("schemastore").json.schemas(), validate = { enable = true } } },
