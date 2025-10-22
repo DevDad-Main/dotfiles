@@ -147,7 +147,8 @@ local servers = {
   "emmet_ls",
   "jsonls",
   "dockerls",
-  "docker_compose_language_service",
+  "dockerfile-language-server",
+  "docker-compose-language-service",
   "lua_ls",
   "vuels",
   -- "yamlls",
@@ -188,7 +189,8 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("kulala_ls", { on_attach = custom_on_attach })
 vim.lsp.config("copilot", { on_attach = custom_on_attach })
 vim.lsp.config("dockerls", { on_attach = custom_on_attach })
-vim.lsp.config("docker_compose_language_service", { on_attach = custom_on_attach })
+vim.lsp.config("dockerfile-language-server", { on_attach = custom_on_attach })
+vim.lsp.config("docker-compose-language-service", { on_attach = custom_on_attach })
 vim.lsp.config("jsonls", {
   on_attach = custom_on_attach,
   settings = { json = { schemas = require("schemastore").json.schemas(), validate = { enable = true } } },

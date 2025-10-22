@@ -1077,6 +1077,9 @@ return {
           -- NOTE: If On Arch or other linux distros ensure to install mono/mono-msbuild/dotnet-sdk
           "omnisharp-mono",
           "csharpier",
+          "dockerfile-language-server",
+          "docker-compose-language-service",
+          "hadolint",
         },
       }
     end,
@@ -1127,5 +1130,11 @@ return {
       { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
       { "<leader>lc", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGitCurrentFile" },
     },
+  },
+  {
+    "nvzone/typr",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = { "Typr", "TyprStats" },
   },
 }
