@@ -956,7 +956,9 @@ return {
   {
     "barrett-ruth/live-server.nvim",
     -- build = "npm install -g live-server", -- Installs live-server globally if needed
+    event = "VeryLazy",
     ft = { "html", "css", "javascript", "typescript", "markdown" }, -- Optional, only loads for these filetypes
+    cmd = { "LiveServerStart", "LiveServerStop" }, -- Optional, only loads for these commands
     config = function()
       require("live-server").setup {
         -- Optional settings
