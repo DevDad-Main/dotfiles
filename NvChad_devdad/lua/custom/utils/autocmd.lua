@@ -331,11 +331,15 @@ autocmd({ "TermOpen", "BufEnter" }, {
 })
 
 -- Automatically close terminal unless exit code isn't 0
-autocmd("TermClose", {
+vim.api.nvim_create_autocmd("TermClose", {
   group = term_augroup,
   callback = function()
+    local name = vim.api.nvim_buf_get_name(0)
+    if name:match "lazygit" then
+      return -- skip notification for LazyGit
+    end
+
     if vim.v.event.status == 0 then
-      vim.api.nvim_buf_delete(0, {})
       vim.notify_once "Previous terminal job was successful!"
     else
       vim.notify_once "Error code detected in the current terminal job!"
@@ -523,3 +527,13 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
+
+-- CUSTOM:
+
+-- vim.g.transparency_enabled = true
+--
+-- vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+--   callback = function()
+--     require("base46").toggle_transparency(true)
+--   end,
+-- })

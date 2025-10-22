@@ -438,10 +438,11 @@ map("n", "<leader>qq", "<<CMD>qa!<CR>", { desc = "󰗼 Exit" })
 map({ "n" }, "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "󰔱 Toggle nvimtree" })
 map({ "n", "i" }, "<C-b>", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle nvimtree" })
 
-map({ "n" }, "<leader>lg", function()
-  Snacks.terminal "lazygit"
-end, { desc = "Lazy Git" })
+-- map({ "n" }, "<leader>lg", function()
+--   Snacks.terminal "lazygit"
+-- end, { desc = "Lazy Git" })
 
+map({ "n" }, "<leader>lg", "<cmd>LazyGit<CR>", { desc = "Lazy Git" })
 --------------------------------------------------- Text ---------------------------------------------------
 map("n", "<C-z>", "<CMD>u<CR>", { desc = "󰕌 Undo" })
 map("n", "<BS>", "<C-o>", { desc = "Return" })
