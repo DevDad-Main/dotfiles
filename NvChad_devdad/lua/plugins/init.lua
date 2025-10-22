@@ -936,7 +936,7 @@ return {
           "dockerfile-language-server",
           "docker-compose-language-service",
           "hadolint",
-          "python-lsp-server",
+          "pyright",
           "black",
           "flake8",
         },
