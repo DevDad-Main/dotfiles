@@ -275,7 +275,7 @@ return {
   view = {
     preserve_window_proportions = true,
     width = {
-      min = 20,
+      min = 40,
       padding = 1,
     },
     signcolumn = "no",

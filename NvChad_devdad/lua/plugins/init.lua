@@ -998,4 +998,18 @@ return {
     opts = {},
     cmd = { "Typr", "TyprStats" },
   },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional, for icons
+    config = function()
+      require("fzf-lua").setup {
+        winopts = {
+          height = 0.85,
+          width = 0.80,
+          border = "rounded",
+          backdrop = 100,
+        },
+      }
+    end,
+  },
 }

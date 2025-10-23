@@ -550,12 +550,47 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- CUSTOM:
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "NvimTree",
+  callback = function()
+    local ok_fzf, fzf = pcall(require, "fzf-lua")
+    if not ok_fzf then
+      vim.notify("fzf-lua not found!", vim.log.levels.ERROR)
+      return
+    end
 
--- vim.g.transparency_enabled = true
---
--- vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
---   callback = function()
---     require("base46").toggle_transparency(true)
---   end,
--- })
+    local ok_api, api = pcall(require, "nvim-tree.api")
+    if not ok_api then
+      vim.notify("nvim-tree not found!", vim.log.levels.ERROR)
+      return
+    end
+
+    vim.keymap.set("n", "/", function()
+      -- get current tree width dynamically
+      local tree_win = vim.api.nvim_get_current_win()
+      local tree_width = vim.api.nvim_win_get_width(tree_win)
+
+      fzf.fzf_exec("fd -H -t f -E '.git/'", {
+        prompt = ":",
+        fzf_opts = { ["--padding"] = "5%,5%,15%,5%" },
+        winopts = {
+          height = 0.3,
+          width = vim.fn.winwidth(0) - 2,
+          row = 0.98, -- Not the full 1 as that will set exactly at the bottom and i want it to sit ontop of the statusline, looks cleaner and atleast i can still the statusbar - TODO: Change this to your hearts desire
+          -- col = tree_width, -- start FZF right next to the tree
+          col = 0, -- start FZF inside the tree
+          title = " Search Tree ",
+          winblend = 0,
+        },
+        actions = {
+          ["default"] = {
+            fn = function(selected)
+              api.tree.find_file(selected[1])
+            end,
+            desc = "fuzzy find in tree",
+          },
+        },
+      })
+    end, { buffer = true, desc = "Fuzzy find a file in tree" })
+  end,
+})
