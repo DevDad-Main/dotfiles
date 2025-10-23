@@ -71,6 +71,14 @@ To get a local copy up and running follow these simple example steps.
 
 ![telescope-find-keymaps plugin](./previews/telescope-keymaps.png)
 
+## NvimTree - Custom Fzf File Picker
+
+![nvimtree plugin](./previews/nvimtree-fzf-file.png)
+
+## NvimTree - Custom Fzf Directory Picker (Majorly needed for NvimTree/Neovide)
+
+![nvimtree plugin](./previews/nvimtree-fzf-dir.png)
+
 ## Tmux
 
 ![tmux](./previews/tmux.png)
