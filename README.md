@@ -39,6 +39,10 @@ To get a local copy up and running follow these simple example steps.
 
 ### 🖼️ Preview
 
+<details>
+
+<summary>NvChad - DevDad</summary>
+
 ## NvDash - DevDad
 
 ![nvdash plugin](./previews/nv-dash.png)
@@ -82,6 +86,8 @@ To get a local copy up and running follow these simple example steps.
 ## Tmux
 
 ![tmux](./previews/tmux.png)
+
+</details>
 
 ## Custom Fzf Functions
 
