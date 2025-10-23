@@ -375,6 +375,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "dapui_scopes",
     "checkhealth",
     "lazy",
+    "terminal",
   },
   callback = function()
     require("ufo").detach()
