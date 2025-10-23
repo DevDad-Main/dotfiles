@@ -565,32 +565,68 @@ vim.api.nvim_create_autocmd("FileType", {
       return
     end
 
-    vim.keymap.set("n", "/", function()
-      -- get current tree width dynamically
+    -- FZF for files
+    vim.keymap.set("n", "<leader>f", function()
       local tree_win = vim.api.nvim_get_current_win()
-      local tree_width = vim.api.nvim_win_get_width(tree_win)
 
-      fzf.fzf_exec("fd -H -t f -E '.git/'", {
-        prompt = ":",
-        fzf_opts = { ["--padding"] = "5%,5%,15%,5%" },
-        winopts = {
-          height = 0.3,
-          width = vim.fn.winwidth(0) - 2,
-          row = 0.98, -- Not the full 1 as that will set exactly at the bottom and i want it to sit ontop of the statusline, looks cleaner and atleast i can still the statusbar - TODO: Change this to your hearts desire
-          -- col = tree_width, -- start FZF right next to the tree
-          col = 0, -- start FZF inside the tree
-          title = " Search Tree ",
-          winblend = 0,
-        },
-        actions = {
-          ["default"] = {
-            fn = function(selected)
-              api.tree.find_file(selected[1])
-            end,
-            desc = "fuzzy find in tree",
+      fzf.fzf_exec(
+        "fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude dist --exclude build",
+        {
+          prompt = ":",
+          winopts = {
+            height = 0.3,
+            width = vim.fn.winwidth(0) - 2,
+            row = 0.98,
+            col = 0,
+            title = " Search Files ",
+            winblend = 0,
           },
-        },
-      })
-    end, { buffer = true, desc = "Fuzzy find a file in tree" })
+          -- preview = "bat --style=numbers --color=always --line-range :100 {}",
+          actions = {
+            ["default"] = {
+              fn = function(selected)
+                if selected[1] then
+                  vim.cmd("edit " .. vim.fn.fnameescape(selected[1]))
+                end
+              end,
+              desc = "Open file",
+            },
+          },
+        }
+      )
+    end, { buffer = true, desc = "Fuzzy find and open file" })
+
+    -- FZF for directories
+    vim.keymap.set("n", "<leader>d", function()
+      local tree_win = vim.api.nvim_get_current_win()
+
+      fzf.fzf_exec(
+        "fd --type d --hidden --follow --exclude .git --exclude node_modules --exclude dist --exclude build",
+        {
+          prompt = ":",
+          winopts = {
+            height = 0.3,
+            width = vim.fn.winwidth(0) - 2,
+            row = 0.98,
+            col = 0,
+            title = " Search Directories ",
+            winblend = 0,
+          },
+          actions = {
+            ["default"] = {
+              fn = function(selected)
+                if selected[1] then
+                  -- Change Neovim working directory
+                  vim.cmd("cd " .. vim.fn.fnameescape(selected[1]))
+                  -- Optional: make nvim-tree jump to the new dir
+                  api.tree.change_root(selected[1])
+                end
+              end,
+              desc = "Change directory",
+            },
+          },
+        }
+      )
+    end, { buffer = true, desc = "Fuzzy find and cd to directory" })
   end,
 })
