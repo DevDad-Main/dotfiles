@@ -665,41 +665,4 @@ map("n", ";", function()
 end, { desc = "Telescope find all files" })
 
 map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
-
--- map("n", "/", function()
---   local ok, fzf = pcall(require, "fzf-lua")
---   if not ok then
---     vim.notify("fzf-lua not found!", vim.log.levels.ERROR)
---     return
---   end
---
---   local ok_tree, api = pcall(require, "nvim-tree.api")
---   if not ok_tree then
---     vim.notify("nvim-tree not found!", vim.log.levels.ERROR)
---     return
---   end
---
---   fzf.fzf_exec("fd -H -t f -E '.git/'", {
---     prompt = ":",
---     fzf_opts = { ["--padding"] = "5%,5%,15%,5%" },
---     winopts = {
---       height = 0.3,
---       width = vim.fn.winwidth(0) - 2,
---       row = 1,
---       col = 0, -- ⬅️ start from left edge instead of right
---       title = "Search Tree ",
---     },
---     actions = {
---       ["default"] = {
---         fn = function(selected)
---           if vim.bo.filetype == "NvimTree" then
---             api.tree.find_file(selected[1])
---           else
---             vim.cmd "NvimTreeFindFile"
---           end
---         end,
---         desc = "fuzzy find in tree",
---       },
---     },
---   })
--- end, { desc = "fuzzy find in tree" })
+map("n", "<leader>lp", "<cmd>LiveServerToggle<cr>", { desc = "Live Server Toggle" })
