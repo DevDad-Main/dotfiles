@@ -105,7 +105,7 @@ M.base46 = {
   theme_toggle = { "gruvbox", "one_light" }, ---@diagnostic disable-line
 
   -- NOTE: Remove this if you don't want transparency for statusline, tabbuf and nvimtree
-  -- FIX: Messes with the yank highlights
+  -- FIXME: Messes with the yank highlights
   -- transparency = true,
 
   hl_override = highlights.override,
@@ -118,7 +118,8 @@ M.term = {
     number = false,
     relativenumber = false,
   },
-  sizes = { sp = 0.3, vsp = 0.2, ["bo sp"] = 0.3, ["bo vsp"] = 0.2 },
+  -- INFO: Change the height and width of the splits/vsplit via these sizes 1 = 100%, 0.9 = 90%, 0.8 = 80%, etc.
+  sizes = { sp = 0.4, vsp = 0.2, ["bo sp"] = 0.4, ["bo vsp"] = 0.2 },
   float = {
     relative = "editor",
     row = 0.1,
