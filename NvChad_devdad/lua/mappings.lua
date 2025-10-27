@@ -666,3 +666,9 @@ end, { desc = "Telescope find all files" })
 
 map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
 map("n", "<leader>lp", "<cmd>LiveServerToggle<cr>", { desc = "Live Server Toggle" })
+map(
+  "n",
+  "<leader>dd",
+  "<cmd>Trouble diagnostics toggle focus=true win.position=right<cr>",
+  { desc = "Diagnostics (Trouble)" }
+)

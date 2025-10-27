@@ -469,6 +469,10 @@ return {
     cmd = "Trouble",
     config = function()
       require("trouble").setup {
+        win = {
+          position = "right",
+          relative = "win", -- Or 'editor'
+        },
         modes = {
           project_diagnostics = {
             mode = "diagnostics",
