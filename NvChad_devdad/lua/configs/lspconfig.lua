@@ -161,6 +161,8 @@ local servers = {
   "eslint",
   "copilot",
   "pyright",
+  "postgrestools",
+  "prismals",
 }
 vim.lsp.enable(servers)
 
@@ -193,6 +195,21 @@ vim.lsp.config("dockerls", { on_attach = custom_on_attach })
 vim.lsp.config("dockerfile-language-server", { on_attach = custom_on_attach })
 vim.lsp.config("docker-compose-language-service", { on_attach = custom_on_attach })
 vim.lsp.config("pyright", { on_attach = custom_on_attach, capabilities = capabilities })
+vim.lsp.config("postgresstools", { on_attach = custom_on_attach, capabilities = capabilities })
+
+vim.lsp.config("prismals", {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+  filetypes = { "prisma" }, -- This is CRITICAL
+  cmd = { "prisma-language-server", "--stdio" },
+  root_dir = require("lspconfig.util").root_pattern("package.json", "prisma/schema.prisma", ".git"),
+  settings = {
+    prisma = {
+      prismaFmtBinPath = "", -- Let it auto-detect
+    },
+  },
+})
+
 vim.lsp.config("jsonls", {
   on_attach = custom_on_attach,
   settings = { json = { schemas = require("schemastore").json.schemas(), validate = { enable = true } } },

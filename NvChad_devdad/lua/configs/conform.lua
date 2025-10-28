@@ -30,14 +30,15 @@ conform.setup {
     query = { "format-queries" },
     lua = { "stylua" },
     http = { "kulala-fmt" },
-    sql = { "sqlfmt" },
+    -- sql = { "sqlfmt" },
+    sql = { "pgformatter" },
     go = function(bufnr)
       return { first(bufnr, "goimports", "gofumpt") }
     end,
     ["vue"] = { "prettier" },
     ["scss"] = { "prettier" },
     ["less"] = { "prettier" },
-    ["yaml"] = { "prettier" },
+    ["yaml"] = { "prettierd" },
     ["markdown.mdx"] = { "prettier" },
     ["graphql"] = { "prettier" },
     ["handlebars"] = { "prettier" },

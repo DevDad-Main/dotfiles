@@ -943,6 +943,9 @@ return {
           "pyright",
           "black",
           "flake8",
+          "pgformatter",
+          "postgrestools",
+          "prisma-language-server",
         },
       }
     end,

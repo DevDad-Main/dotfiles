@@ -630,3 +630,39 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { buffer = true, desc = "Fuzzy find and cd to directory" })
   end,
 })
+
+-- -- Auto-load .env file when entering a project with schema.prisma
+-- vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
+--   pattern = "schema.prisma",
+--   callback = function()
+--     local env_file = vim.fn.getcwd() .. "/.env"
+--     if vim.fn.filereadable(env_file) == 1 then
+--       for _, line in ipairs(vim.fn.readfile(env_file)) do
+--         local key, value = line:match "^%s*([^=]+)%s*=%s*(.+)%s*$"
+--         if key and value then
+--           -- Remove quotes from value
+--           value = value:gsub("^[\"']", ""):gsub("[\"']$", "")
+--           vim.env[key] = value
+--         end
+--       end
+--       print "Loaded .env for Prisma LSP"
+--     end
+--   end,
+-- })
+--
+-- Auto-load .env when opening schema.prisma
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "schema.prisma",
+  once = true,
+  callback = function()
+    local env_file = vim.fn.getcwd() .. "/.env"
+    if vim.fn.filereadable(env_file) == 1 then
+      for _, line in ipairs(vim.fn.readfile(env_file)) do
+        local key, value = line:match "^%s*([^=]+)%s*=%s*[\"']?(.-)[\"']?$"
+        if key and value then
+          vim.env[key] = value
+        end
+      end
+    end
+  end,
+})
