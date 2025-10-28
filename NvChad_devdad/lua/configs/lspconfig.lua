@@ -158,7 +158,7 @@ local servers = {
   "omnisharp-mono",
   "gopls",
   "kulala_ls",
-  "eslint",
+  "eslint_d",
   "copilot",
   "pyright",
   "postgrestools",
@@ -195,6 +195,7 @@ vim.lsp.config("dockerls", { on_attach = custom_on_attach })
 vim.lsp.config("dockerfile-language-server", { on_attach = custom_on_attach })
 vim.lsp.config("docker-compose-language-service", { on_attach = custom_on_attach })
 vim.lsp.config("pyright", { on_attach = custom_on_attach, capabilities = capabilities })
+vim.lsp.config("clangd", { on_attach = custom_on_attach, capabilities = capabilities })
 vim.lsp.config("postgresstools", { on_attach = custom_on_attach, capabilities = capabilities })
 
 vim.lsp.config("prismals", {

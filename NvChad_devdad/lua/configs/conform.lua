@@ -30,6 +30,7 @@ conform.setup {
     query = { "format-queries" },
     lua = { "stylua" },
     http = { "kulala-fmt" },
+    cpp = { "clang-format" },
     -- sql = { "sqlfmt" },
     sql = { "pgformatter" },
     go = function(bufnr)

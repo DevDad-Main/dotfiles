@@ -946,6 +946,8 @@ return {
           "pgformatter",
           "postgrestools",
           "prisma-language-server",
+          "clangd",
+          "clang-format",
         },
       }
     end,
