@@ -651,7 +651,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- })
 --
 -- Auto-load .env when opening schema.prisma
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {
   pattern = "schema.prisma",
   once = true,
   callback = function()
