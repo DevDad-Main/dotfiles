@@ -45,7 +45,7 @@ alias ntc="npm run test:coverage"
 # Fuzzy cd into a directory
 cdf() {
   local dir
-  dir=$(fd --type d --hidden --follow \
+  dir=$(fd --type d --max-depth 2 --hidden --follow \
     --exclude .git \
     --exclude node_modules \
     --exclude dist \

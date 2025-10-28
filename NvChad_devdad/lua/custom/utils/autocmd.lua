@@ -601,7 +601,7 @@ vim.api.nvim_create_autocmd("FileType", {
       local tree_win = vim.api.nvim_get_current_win()
 
       fzf.fzf_exec(
-        "fd --type d --hidden --follow --exclude .git --exclude node_modules --exclude dist --exclude build",
+        "fd --type d --max-depth 2 --hidden --follow --exclude .git --exclude node_modules --exclude dist --exclude build",
         {
           prompt = ":",
           winopts = {
