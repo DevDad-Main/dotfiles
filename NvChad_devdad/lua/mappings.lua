@@ -1,6 +1,18 @@
 require "nvchad.mappings"
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true, buffer = 0 }
+local betterTerm = require "betterTerm"
+local fzf = require "fzf-lua"
+
+local real_open = betterTerm.open
+local last_term = 1
+
+betterTerm.open = function(id, opts)
+  if id then
+    last_term = id
+  end
+  real_open(id, opts)
+end
 
 local function handle_copy()
   local mode = vim.fn.mode()
@@ -252,6 +264,7 @@ local function find_files()
     previewer = false,
     hidden = true,
     show_untracked = true,
+    path_display = { shorten = { len = 15 } },
   }
 
   -- Try to use Telescope frecency first, fallback to git_files / find_files
@@ -423,8 +436,9 @@ map("n", "<leader>gxx", function()
 end, { desc = "Resolve conflict" })
 
 -- GitSigns
-map("n", "]c", "<cmd>Gitsigns next_hunk<CR>", { desc = "Next hunk" })
-map("n", "[c", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Previous hunk" })
+map("n", "<leader>hn", "<cmd>Gitsigns next_hunk<CR>", { desc = "Next hunk" })
+map("n", "<leader>hp", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Previous hunk" })
+map("n", "<S-p>", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" }) -- INFO: To match the key bind of Shit K for lsp documentation
 
 map({ "n" }, "<ESC>", function()
   vim.cmd "noh"
@@ -660,15 +674,30 @@ map(
 --   { desc = "Telescope find all files" }
 -- )
 
-map("n", ";", function()
+-- Custom Find Files via Telescope w/ Frecency
+map("n", "<leader>ff", function()
   find_files()
 end, { desc = "Telescope find all files" })
 
+-- Alternative to Enter Normal Mode - Much faster
 map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
+
+-- Markdown
 map("n", "<leader>lp", "<cmd>LiveServerToggle<cr>", { desc = "Live Server Toggle" })
-map(
-  "n",
-  "<leader>dd",
-  "<cmd>Trouble diagnostics toggle focus=true win.position=right<cr>",
-  { desc = "Diagnostics (Trouble)" }
-)
+
+-- Better Diagnostics Window (Trouble)
+map("n", "<leader>dd", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diagnostics (Trouble)" })
+
+-- Better Terminal via BetterTerm
+map("n", "<C-;>", function()
+  betterTerm.open(last_term)
+end, { desc = "Toggle last terminal" })
+map({ "n", "t" }, "<C-l>", betterTerm.select, { desc = "Select Terminal" })
+
+-- Rename the current terminal
+map({ "n", "t" }, "<leader>tr", betterTerm.rename, { desc = "Rename Terminal" })
+
+-- Hide the current terminal in terminal mode
+map("t", "<C-;>", function()
+  vim.cmd "close"
+end, { desc = "Hide Terminal" })

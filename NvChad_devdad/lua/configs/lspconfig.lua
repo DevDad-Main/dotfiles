@@ -161,13 +161,14 @@ local servers = {
   "eslint_d",
   "copilot",
   "pyright",
-  "postgrestools",
+  "postgres-language-server",
   "prismals",
+  "lua-language-server",
 }
 vim.lsp.enable(servers)
 
 -- Customize LSP configurations
-vim.lsp.config("lua_ls", {
+vim.lsp.config("lua-language-server", {
   on_attach = custom_on_attach,
   settings = {
     Lua = {
@@ -196,7 +197,7 @@ vim.lsp.config("dockerfile-language-server", { on_attach = custom_on_attach })
 vim.lsp.config("docker-compose-language-service", { on_attach = custom_on_attach })
 vim.lsp.config("pyright", { on_attach = custom_on_attach, capabilities = capabilities })
 vim.lsp.config("clangd", { on_attach = custom_on_attach, capabilities = capabilities })
-vim.lsp.config("postgresstools", { on_attach = custom_on_attach, capabilities = capabilities })
+vim.lsp.config("postgres-language-server", { on_attach = custom_on_attach, capabilities = capabilities })
 
 vim.lsp.config("prismals", {
   on_attach = custom_on_attach,

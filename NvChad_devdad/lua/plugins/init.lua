@@ -944,10 +944,11 @@ return {
           "black",
           "flake8",
           "pgformatter",
-          "postgrestools",
+          "postgres-language-server",
           "prisma-language-server",
           "clangd",
           "clang-format",
+          "lua-language-server",
         },
       }
     end,
@@ -1065,5 +1066,16 @@ return {
       -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
       vim.g.loaded_netrwPlugin = 1
     end,
+  },
+  {
+    "CRAG666/betterTerm.nvim",
+    opts = {
+      prefix = "Term ", -- names like “Term 1”, “Term 2”
+      startInserted = true, -- start in insert mode like VSCode
+      position = "bot", -- bottom split
+      size = 15,
+      jump_tab_mapping = "<A-$tab>",
+      index_base = 1,
+    },
   },
 }

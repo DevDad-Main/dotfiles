@@ -123,6 +123,7 @@ else
 end
 
 if g.neovide then
+  -- #region Old Neovide
   opt.guifont = "JetbrainsMono Nerd Font:h9"
   -- opt.guifont = "JetbrainsMono Nerd Font:h12"
   g.neovide_refresh_rate = 120
@@ -145,6 +146,7 @@ if g.neovide then
   g.neovide_hide_mouse_when_typing = true
   g.neovide_underline_automatic_scaling = true
   g.neovide_floating_corner_radius = 10.0
+  g.neovide_cursor_vfx_mode = "pixiedust"
 
   -- vim.g.neovide_floating_shadow = true
   -- vim.g.neovide_floating_z_height = 10
@@ -179,3 +181,4 @@ if g.neovide then
     end,
   })
 end
+-- #endregion
