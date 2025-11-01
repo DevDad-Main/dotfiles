@@ -686,7 +686,14 @@ map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
 map("n", "<leader>lp", "<cmd>LiveServerToggle<cr>", { desc = "Live Server Toggle" })
 
 -- Better Diagnostics Window (Trouble)
-map("n", "<leader>dd", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diagnostics (Trouble)" })
+map("n", "<leader>dd", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diagnostics (Trouble) Diagnostics" })
+map("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<cr>", { desc = "Diagnostics (Trouble) References" })
+map(
+  "n",
+  "gi",
+  "<cmd>Trouble lsp_implementations toggle focus=true<cr>",
+  { desc = "Diagnostics (Trouble) Implementations" }
+)
 
 -- Better Terminal via BetterTerm
 map("n", "<C-;>", function()
