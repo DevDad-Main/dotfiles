@@ -623,13 +623,17 @@ return {
   {
     "lewis6991/hover.nvim",
     config = function()
-      require("hover").setup {
-        init = function()
-          require "hover.providers.lsp"
-          require "hover.providers.dap"
-          require "hover.providers.fold_preview"
-          require "hover.providers.diagnostic"
-        end,
+      require("hover").config {
+        providers = {
+          "hover.providers.lsp",
+          "hover.providers.dap",
+          "hover.providers.fold_preview",
+          "hover.providers.diagnostic",
+          "hover.providers.gh",
+          -- Test Link Commit: #1
+          -- Test Commit SHA: 23ccafeedab29f80eb1ed0af32efdbccd03a493c
+          -- Test Link issue: https://github.com/DevDad-Main/dotfiles/issues/1
+        },
         preview_opts = {
           border = "single",
         },
