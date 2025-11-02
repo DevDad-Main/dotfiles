@@ -1074,12 +1074,23 @@ return {
   {
     "CRAG666/betterTerm.nvim",
     opts = {
-      prefix = "Term ", -- names like “Term 1”, “Term 2”
+      prefix = "Backend - ", -- names like “Term 1”, “Term 2”
       startInserted = true, -- start in insert mode like VSCode
       position = "bot", -- bottom split
       size = 15,
       jump_tab_mapping = "<A-$tab>",
       index_base = 1,
     },
+  },
+  {
+    "rhysd/git-messenger.vim",
+    cmd = { "GitMessenger" }, -- only load when the command is used
+    config = function()
+      -- example customisation of behaviour
+      vim.g.git_messenger_include_diff = "current" -- show diff for current file
+      vim.g.git_messenger_max_popup_width = 80 -- limit width of window
+      vim.g.git_messenger_floating_win_opts = { border = "single" }
+      -- you can add more config here if you like
+    end,
   },
 }

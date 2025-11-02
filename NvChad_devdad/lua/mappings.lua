@@ -708,3 +708,6 @@ map({ "n", "t" }, "<leader>tr", betterTerm.rename, { desc = "Rename Terminal" })
 map("t", "<C-;>", function()
   vim.cmd "close"
 end, { desc = "Hide Terminal" })
+
+-- map("n", "gm", "<Plug>(git-messenger)", { desc = "GitMessenger" })
+map("n", "gm", "<cmd>:GitMessenger<cr>", { desc = "GitMessenger" })

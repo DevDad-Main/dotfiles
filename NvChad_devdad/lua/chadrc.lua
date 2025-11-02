@@ -10,8 +10,8 @@ M.ui = {
   -- tabufline = core.tabufline,
 
   statusline = {
-    theme = "default",
-    -- separator_style = " ",
+    theme = "minimal",
+    separator_style = "round",
     -- order = { "mode", "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd", "xyz", "abc" },
   },
 
@@ -101,8 +101,8 @@ M.base46 = {
     "notify",
   },
 
-  theme = "onenord", ---@diagnostic disable-line
-  theme_toggle = { "onenord", "one_light" }, ---@diagnostic disable-line
+  theme = "chocolate", ---@diagnostic disable-line
+  theme_toggle = { "chocolate", "one_light" }, ---@diagnostic disable-line
 
   -- NOTE: Remove this if you don't want transparency for statusline, tabbuf and nvimtree
   -- FIXME: Messes with the yank highlights
