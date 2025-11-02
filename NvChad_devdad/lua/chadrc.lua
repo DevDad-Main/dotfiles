@@ -7,7 +7,7 @@ local core = require "custom.utils.core"
 local highlights = require "custom.highlights"
 M.ui = {
   -- statusline = core.statusline,
-  tabufline = core.tabufline,
+  -- tabufline = core.tabufline,
 
   statusline = {
     theme = "default",
