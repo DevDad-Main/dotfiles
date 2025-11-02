@@ -693,10 +693,10 @@ return {
     opts = {
       fix_win_height = vim.fn.has "nvim-0.10.0" == 0,
       bottom = {
-        {
-          ft = "toggleterm",
-          size = { height = 0.1 },
-        },
+        -- {
+        --   ft = "toggleterm",
+        --   size = { height = 0.1 },
+        -- },
         { ft = "qf", title = "QuickFix" },
         { ft = "dap-repl", size = { height = 0.2 }, title = " Debug REPL" },
         { ft = "dapui_console", size = { height = 0.2 }, title = "Debug Console" },
@@ -749,7 +749,7 @@ return {
         {
           ft = "grug-far",
           title = "Replace",
-          size = { width = 0.2 },
+          size = { width = 0.3 },
         },
         {
           ft = "neotest-summary",
@@ -819,7 +819,7 @@ return {
       },
       float_opts = {
         border = "rounded",
-        winblend = 0,
+        winblend = 75,
       },
     },
   },

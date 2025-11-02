@@ -124,7 +124,8 @@ end
 
 if g.neovide then
   -- #region Old Neovide
-  opt.guifont = "JetbrainsMono Nerd Font:h9"
+  opt.guifont = "VictorMono Nerd Font:h10"
+  -- opt.guifont = "JetbrainsMono Nerd Font:h9"
   -- opt.guifont = "JetbrainsMono Nerd Font:h12"
   g.neovide_refresh_rate = 120
   g.neovide_remember_window_size = true
