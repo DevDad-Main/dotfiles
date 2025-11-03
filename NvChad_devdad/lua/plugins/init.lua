@@ -196,7 +196,10 @@ return {
   -- },
   {
     "soulis-1256/eagle.nvim",
-    opts = {},
+    opts = {
+      keyboard_mode = true,
+      border = "single",
+    },
   },
   {
     "gbprod/cutlass.nvim",

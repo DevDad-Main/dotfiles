@@ -32,7 +32,7 @@ M.ui = {
 
 M.nvdash = core.nvdash
 
-M.lsp = { signature = false }
+M.lsp = { signature = true }
 
 M.mason = {
   pkgs = {
