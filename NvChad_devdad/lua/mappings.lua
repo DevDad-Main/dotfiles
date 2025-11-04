@@ -699,7 +699,9 @@ map(
 map("n", "<C-;>", function()
   betterTerm.open(last_term)
 end, { desc = "Toggle last terminal" })
-map({ "n", "t" }, "<C-l>", betterTerm.select, { desc = "Select Terminal" })
+
+-- FIX: Remove this mapping as this messes with our navigation when trying to go to the next panes
+-- map({ "n", "t" }, "<C-l>", betterTerm.select, { desc = "Select Terminal" })
 
 -- Rename the current terminal
 map({ "n", "t" }, "<leader>tr", betterTerm.rename, { desc = "Rename Terminal" })
