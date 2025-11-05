@@ -716,3 +716,5 @@ map("n", "gm", "<cmd>:GitMessenger<cr>", { desc = "GitMessenger" })
 map("n", "he", function()
   require("hover").enter()
 end, { desc = "hover.nvim (enter)" })
+
+map("n", "<leader>ng", "<cmd>Neogit<cr>", { desc = "Neogit" })
