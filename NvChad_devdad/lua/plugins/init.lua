@@ -1097,12 +1097,7 @@ return {
     end,
   },
   {
-    "NeogitOrg/neogit",
+    "tpope/vim-fugitive",
     event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
-      "ibhagwan/fzf-lua", -- optional
-    },
   },
 }
