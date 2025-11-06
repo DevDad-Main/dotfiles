@@ -1086,17 +1086,6 @@ return {
     },
   },
   {
-    "rhysd/git-messenger.vim",
-    cmd = { "GitMessenger" }, -- only load when the command is used
-    config = function()
-      -- example customisation of behaviour
-      vim.g.git_messenger_include_diff = "current" -- show diff for current file
-      vim.g.git_messenger_max_popup_width = 80 -- limit width of window
-      vim.g.git_messenger_floating_win_opts = { border = "single" }
-      -- you can add more config here if you like
-    end,
-  },
-  {
     "tpope/vim-fugitive",
     event = "VeryLazy",
   },

@@ -711,8 +711,6 @@ map("t", "<C-;>", function()
   vim.cmd "close"
 end, { desc = "Hide Terminal" })
 
--- map("n", "gm", "<Plug>(git-messenger)", { desc = "GitMessenger" })
-map("n", "gm", "<cmd>:GitMessenger<cr>", { desc = "GitMessenger" })
 map("n", "he", function()
   require("hover").enter()
 end, { desc = "hover.nvim (enter)" })
