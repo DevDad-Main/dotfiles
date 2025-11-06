@@ -65,3 +65,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Better indenting
 keymap.set('v', '<', '<gv')
 keymap.set('v', '>', '>gv')
+
+-- Return to normal mode
+keymap.set(
+  'i',
+  'jj',
+  '<ESC><ESC>',
+  { desc = 'Alternative to Enter Normal Mode' }
+)

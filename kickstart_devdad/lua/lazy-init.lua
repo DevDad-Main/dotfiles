@@ -16,6 +16,7 @@ require('lazy').setup({
     { import = 'plugins.coding.todo-comments' },
     { import = 'plugins.coding.treesitter' },
     { import = 'plugins.coding.trouble' },
+    { import = 'plugins.coding.supermaven' },
     { import = 'plugins.dap.core' },
     -- { import = 'plugins.editor.fzf' },
     { import = 'plugins.editor.gitsigns' },

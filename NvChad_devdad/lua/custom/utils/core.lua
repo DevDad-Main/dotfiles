@@ -185,7 +185,7 @@ M.lazy = {
 
 M.tabufline = {
   show_numbers = false,
-  enabled = true,
+  enabled = false,
   lazyload = true,
   modules = {
     buttons = function()

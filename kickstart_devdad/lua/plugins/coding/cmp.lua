@@ -39,6 +39,7 @@ return {
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      -- local lspkind = require 'lspkind'
       luasnip.config.setup {}
 
       cmp.setup {
@@ -48,6 +49,13 @@ return {
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
+
+        window = {
+          -- completion = cmp.config.window.bordered(),
+          -- documentation = cmp.config.window.bordered(),
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -109,6 +117,7 @@ return {
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'supermaven' },
           { name = 'path' },
         },
       }

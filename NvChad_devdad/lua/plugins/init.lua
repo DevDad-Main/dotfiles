@@ -1097,5 +1097,18 @@ return {
       "sindrets/diffview.nvim", -- optional - Diff integration
       "ibhagwan/fzf-lua", -- optional
     },
+    opts = {
+      kind = "floating", -- main Neogit UI
+      commit_popup = {
+        kind = "floating", -- commit menu stays floating
+      },
+      popup = {
+        kind = "floating", -- rebase, stash, reset, etc.
+      },
+      signs = {
+        section = { "", "" },
+        item = { "", "" },
+      },
+    },
   },
 }
