@@ -36,7 +36,6 @@ alias nvk="NVIM_APPNAME=kickstart nvim"
 alias nvc="NVIM_APPNAME=NvChad nvim"
 alias nva="NVIM_APPNAME=AstroNvim nvim"
 
-
 alias nt="npm run test"
 alias ntw="npm run test:watch"
 alias ntc="npm run test:coverage"
