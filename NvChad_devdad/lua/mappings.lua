@@ -719,3 +719,6 @@ end, { desc = "hover.nvim (enter)" })
 
 -- Reference to Commit (#e13f9c9) -- Remove Neogit as we're using LazyGit - With the keybind below we can now commits via #
 map("n", "<leader>oc", [[:execute 'Git show ' . expand('<cword>')<CR>]], { noremap = true, silent = true })
+
+-- Reintroduce Neogit - Never actually gave it a proper try, but it's a good plugin
+map("n", "<leader>ng", "<cmd>Neogit<cr>", { desc = "Neogit" })
