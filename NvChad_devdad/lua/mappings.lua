@@ -721,6 +721,10 @@ map("n", "<leader>oc", [[:execute 'Git show ' . expand('<cword>')<CR>]], { norem
 -- Reintroduce Neogit - Never actually gave it a proper try, but it's a good plugin
 -- INFO: Old Mapping to just open Neogit by defualt in a seperate tab. - New Flaoting window works much better
 -- map("n", "<leader>ng", "<cmd>Neogit<cr>", { desc = "Neogit" })
+-- map("n", "<leader>ng", function()
+--   require("neogit").open { kind = "floating" }
+-- end, { desc = "Open Neogit in floating window" })
+
 map("n", "<leader>ng", function()
-  require("neogit").open { kind = "floating" }
+  require("neogit").open()
 end, { desc = "Open Neogit in floating window" })
