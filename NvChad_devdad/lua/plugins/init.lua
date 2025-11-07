@@ -1100,9 +1100,14 @@ return {
     },
     opts = {
       kind = "floating", -- main Neogit UI
+      integrations = {
+        diffview = true,
+      },
       commit_editor = {
         kind = "floating", -- commit menu stays floating
-        show_staged_diff = "true",
+        show_staged_diff = true,
+        staged_diff_split_kind = "split",
+        spell_check = true,
       },
       commit_select_view = {
         kind = "floating", -- commit menu stays floating
