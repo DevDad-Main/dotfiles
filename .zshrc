@@ -24,6 +24,7 @@ alias tmat="tmux attach-session -t" # => Attach to a tmux session with name.
 alias tmks="tmux kill-session -a"   # => Kill all tmux sessions.
 alias tml="tmux list-sessions"      # => List tmux sessions.
 alias tmn="tmux new-session"        # => Start a new tmux session.
+alias tmnw="tmux new-window -n"     # => Start a new tmux window with name.
 alias tmns="tmux new -s"            # => Start a new tmux session with name.
 alias tms="tmux new-session -s"     # => Start a new tmux session.
 
