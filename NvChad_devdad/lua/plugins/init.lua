@@ -1090,6 +1090,7 @@ return {
     event = "VeryLazy",
   },
   {
+    --  #d2b79ab Reference to this commit where we re-add Neogit
     "NeogitOrg/neogit",
     event = "VeryLazy",
     dependencies = {
@@ -1099,7 +1100,14 @@ return {
     },
     opts = {
       kind = "floating", -- main Neogit UI
-      commit_popup = {
+      commit_editor = {
+        kind = "floating", -- commit menu stays floating
+        show_staged_diff = "true",
+      },
+      commit_select_view = {
+        kind = "floating", -- commit menu stays floating
+      },
+      commit_view = {
         kind = "floating", -- commit menu stays floating
       },
       popup = {
