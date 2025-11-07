@@ -728,3 +728,5 @@ map("n", "<leader>oc", [[:execute 'Git show ' . expand('<cword>')<CR>]], { norem
 map("n", "<leader>ng", function()
   require("neogit").open()
 end, { desc = "Open Neogit in floating window" })
+
+map("n", "<leader>smt", "<cmd>:SupermavenToggle<cr>", { desc = "Supermave Toggle" })
