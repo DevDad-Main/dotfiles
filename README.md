@@ -153,6 +153,50 @@ ln -s ~/.config/dotfiles/.zshrc ~/
 
 </details>
 
+<details>
+
+<summary>Niri - Installation/Setup</summary>
+
+> I'm using arch linux so you may need to change some things depeding on your distro
+
+### 1. Install Niri
+
+> Niri is needed and after those are the additional packages suggested by the [Niri AUR](https://wiki.archlinux.org/title/Niri)
+
+```bash
+yay -S niri fuzzel mako waybar xdg-desktop-portal-gtk alacritty swaybg swayidle swaylock xwayland-satellite udiskie
+```
+
+### 2. Install Noctalia-Shell Dependencies
+
+> Nocatlia shell is a choice of mine but waybar and other bar managers can be used - refer to the [noctalia-shell](https://github.com/noctali/noctalia-shell) repo for more info.
+
+```bash
+# Core dependencies (required)
+yay -S quickshell ttf-roboto inter-font gpu-screen-recorder brightnessctl
+
+# Desktop monitor brightness (may cause instability with some monitors)
+yay -S ddcutil
+
+# Optional dependencies
+yay -S cliphist matugen-git cava wlsunset xdg-desktop-portal python3 evolution-data-server
+
+# Polkit agent (can be any other agent)
+yay -S polkit-kde-agent
+```
+
+### 3. Install Noctalia-Shell
+
+> The configuration files are saved in ~/.config/noctalia/ and the cache files are saved in ~/.cache/noctalia/.
+
+```bash
+mkdir -p ~/.config/quickshell/noctalia-shell && \
+curl -sL https://github.com/noctalia-dev/noctalia-shell/releases/latest/download/noctalia-latest.tar.gz | \
+tar -xz --strip-components=1 -C ~/.config/quickshell/noctalia-shell
+```
+
+</details>
+
 # Installation
 
 #### 1. Clone the repo:
