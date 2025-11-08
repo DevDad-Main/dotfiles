@@ -111,12 +111,22 @@ output "eDP-1" {
     position x=0 y=0
 }
 
+output "HDMI-A-1" {
+  mode "1920x1080@60"
+
+  scale 1.2
+
+  transform "normal"
+
+  position x=0 y=0
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set uuuuuaround windows in logical pixels.
-    gaps 6
+    gaps 10
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -321,7 +331,7 @@ animations {
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {
-  opacity 0.9
+  opacity 0.95
 }
 window-rule {
     // This regular expression is intentionally made as specific as possible,

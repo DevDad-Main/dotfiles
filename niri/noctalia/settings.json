@@ -6,7 +6,7 @@
         "enableClipboardHistory": false,
         "pinnedExecs": [
         ],
-        "position": "center",
+        "position": "top_center",
         "sortByMostUsed": true,
         "terminalCommand": "xterm -e",
         "useApp2Unit": false
@@ -21,12 +21,12 @@
         "volumeStep": 5
     },
     "bar": {
-        "backgroundOpacity": 0.3,
+        "backgroundOpacity": 1,
         "density": "compact",
         "exclusive": true,
         "floating": true,
         "marginHorizontal": 0.25,
-        "marginVertical": 0.25,
+        "marginVertical": 0,
         "monitors": [
         ],
         "outerCorners": false,
@@ -208,7 +208,7 @@
         "size": 1
     },
     "general": {
-        "animationDisabled": false,
+        "animationDisabled": true,
         "animationSpeed": 1,
         "avatarImage": "/home/devdad/.face",
         "compactLockScreen": false,
@@ -322,7 +322,7 @@
     "wallpaper": {
         "defaultWallpaper": "/home/devdad/.config/quickshell/noctalia-shell/Assets/Wallpaper/noctalia.png",
         "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
-        "enableMultiMonitorDirectories": false,
+        "enableMultiMonitorDirectories": true,
         "enabled": true,
         "fillColor": "#000000",
         "fillMode": "crop",
@@ -330,14 +330,19 @@
             {
                 "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
                 "name": "eDP-1",
-                "wallpaper": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds/clouds-3.jpg"
+                "wallpaper": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds/ruins.jpg"
+            },
+            {
+                "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
+                "name": "HDMI-A-1",
+                "wallpaper": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds/ruins.jpg"
             }
         ],
         "overviewEnabled": false,
         "panelPosition": "follow_bar",
         "randomEnabled": false,
         "randomIntervalSec": 300,
-        "recursiveSearch": false,
+        "recursiveSearch": true,
         "setWallpaperOnAllMonitors": true,
         "transitionDuration": 1500,
         "transitionEdgeSmoothness": 0.05,

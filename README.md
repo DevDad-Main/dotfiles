@@ -219,10 +219,10 @@ tar -xz --strip-components=1 -C ~/.config/quickshell/noctalia-shell
   ln -s ~/.config/dotfiles/yazi ~/.config/yazi
 
   # Niri Related
-  ln -s ~/.config/dotfiles/.niri/niri  ~/.config/niri
-  ln -s ~/.config/dotfiles/.niri/noctalia  ~/.config/noctalia
+  ln -s ~/.config/dotfiles/niri/niri  ~/.config/niri
+  ln -s ~/.config/dotfiles/niri/noctalia  ~/.config/noctalia
   # Remove the default quickshell install and replace it with the one in this repo (optional)
-  rm -rf ~/.config/quickshell && ln -s ~/.config/dotfiles/.niri/quickshell ~/.config/quickshell
+  rm -rf ~/.config/quickshell && ln -s ~/.config/dotfiles/niri/quickshell ~/.config/quickshell
   ```
 
 #### 3. For Vscode config:
