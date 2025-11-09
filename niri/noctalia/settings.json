@@ -6,7 +6,7 @@
         "enableClipboardHistory": false,
         "pinnedExecs": [
         ],
-        "position": "top_center",
+        "position": "top_left",
         "sortByMostUsed": true,
         "terminalCommand": "xterm -e",
         "useApp2Unit": false
@@ -134,8 +134,8 @@
         "generateTemplatesForPredefined": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "matugenSchemeType": "scheme-fruit-salad",
-        "predefinedScheme": "Catppuccin",
+        "matugenSchemeType": "scheme-rainbow",
+        "predefinedScheme": "Gruvbox",
         "schedulingMode": "off",
         "useWallpaperColors": false
     },
@@ -233,7 +233,7 @@
     "location": {
         "analogClockInCalendar": false,
         "firstDayOfWeek": -1,
-        "name": "Tokyo",
+        "name": "Słupsk",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
@@ -248,7 +248,7 @@
         "autoSchedule": true,
         "dayTemp": "6500",
         "enabled": true,
-        "forced": true,
+        "forced": false,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "nightTemp": "4000"
@@ -288,7 +288,7 @@
     "settingsVersion": 20,
     "setupCompleted": true,
     "templates": {
-        "alacritty": false,
+        "alacritty": true,
         "code": false,
         "discord": false,
         "discord_armcord": false,
@@ -299,7 +299,7 @@
         "discord_webcord": false,
         "enableUserTemplates": false,
         "foot": false,
-        "fuzzel": false,
+        "fuzzel": true,
         "ghostty": false,
         "gtk": false,
         "kcolorscheme": false,
@@ -321,7 +321,7 @@
     },
     "wallpaper": {
         "defaultWallpaper": "/home/devdad/.config/quickshell/noctalia-shell/Assets/Wallpaper/noctalia.png",
-        "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
+        "directory": "/home/devdad/Olly/Wallpapers",
         "enableMultiMonitorDirectories": true,
         "enabled": true,
         "fillColor": "#000000",
@@ -330,12 +330,12 @@
             {
                 "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
                 "name": "eDP-1",
-                "wallpaper": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds/clouds-3.jpg"
+                "wallpaper": "/home/devdad/Olly/Wallpapers/wallpapers/gruv-dev-minimal.png"
             },
             {
-                "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
+                "directory": "/home/devdad/Olly/Wallpapers",
                 "name": "HDMI-A-1",
-                "wallpaper": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds/clouds-3.jpg"
+                "wallpaper": "/home/devdad/Olly/Wallpapers/wallpapers/gruv-dev-minimal.png"
             }
         ],
         "overviewEnabled": false,
