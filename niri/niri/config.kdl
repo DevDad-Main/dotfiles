@@ -660,6 +660,8 @@ binds {
     // Mod+Shift+Space { switch-layout "prev"; }
 
     Print { screenshot; }
+    //NOTE: Remember this ->  Handy for my reddragon k617 where i dont have a print screen key
+    Mod+P { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
