@@ -36,7 +36,7 @@
             "center": [
                 {
                     "characterCount": 2,
-                    "hideUnoccupied": false,
+                    "hideUnoccupied": true,
                     "id": "Workspace",
                     "labelMode": "index"
                 }
@@ -59,15 +59,6 @@
                     "usePrimaryColor": false
                 },
                 {
-                    "colorizeIcons": false,
-                    "hideMode": "hidden",
-                    "id": "ActiveWindow",
-                    "maxWidth": 145,
-                    "scrollingMode": "hover",
-                    "showIcon": true,
-                    "useFixedWidth": false
-                },
-                {
                     "hideMode": "hidden",
                     "hideWhenIdle": false,
                     "id": "MediaMini",
@@ -77,21 +68,15 @@
                     "showVisualizer": false,
                     "useFixedWidth": false,
                     "visualizerType": "linear"
+                },
+                {
+                    "colorName": "primary",
+                    "hideWhenIdle": false,
+                    "id": "AudioVisualizer",
+                    "width": 200
                 }
             ],
             "right": [
-                {
-                    "id": "ScreenRecorder"
-                },
-                {
-                    "blacklist": [
-                    ],
-                    "colorizeIcons": false,
-                    "drawerEnabled": true,
-                    "favorites": [
-                    ],
-                    "id": "Tray"
-                },
                 {
                     "hideWhenZero": true,
                     "id": "NotificationHistory",
@@ -109,6 +94,12 @@
                 {
                     "displayMode": "onhover",
                     "id": "Brightness"
+                },
+                {
+                    "id": "KeepAwake"
+                },
+                {
+                    "id": "NightLight"
                 },
                 {
                     "customFont": "",
