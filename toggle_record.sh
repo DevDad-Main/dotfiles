@@ -11,7 +11,8 @@ PID=$(pgrep -f "gpu-screen-recorder -w screen")
 if [ -z "$PID" ]; then
   # Not running → start recording in background
   mkdir -p "$OUTPUT_DIR"
-  gpu-screen-recorder -w screen -c mp4 -f 60 -encoder cpu -o "$OUTPUT_PATH" &
+  # Using 30fps here as i mostly use it for github gifs and anything above is super slow - 30FPS plays at a standard rate. Change to 60 if you wish
+  gpu-screen-recorder -w screen -c mp4 -f 30 -encoder cpu -o "$OUTPUT_PATH" &
   notify-send "Recording started..." "Recording to $OUTPUT_PATH"
 else
   notify-send "Recording stopped.." "Recording saved to $OUTPUT_PATH"
