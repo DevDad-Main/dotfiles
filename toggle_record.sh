@@ -14,7 +14,7 @@ if [ -z "$PID" ]; then
   gpu-screen-recorder -w screen -c mp4 -f 60 -encoder cpu -o "$OUTPUT_PATH" &
   notify-send "Recording started..." "Recording to $OUTPUT_PATH"
 else
+  notify-send "Recording stopped.." "Recording saved to $OUTPUT_PATH"
   # Running → kill the process (stop recording)
   kill $PID &
-  notify-send "Recording stopped.." "Recording saved to $OUTPUT_PATH"
 fi
