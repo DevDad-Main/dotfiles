@@ -405,7 +405,19 @@ binds {
 
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
+
+
+
+
+
     Mod+Shift+Slash { show-hotkey-overlay; }
+    //NOTE: Custom Keybinds
+
+    Mod+Shift+Return cooldown-ms=1000 hotkey-overlay-title="Toggle Screen Recording" { spawn-sh "~/.config/dotfiles/toggle_record.sh"; }
+
+
+
+
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
