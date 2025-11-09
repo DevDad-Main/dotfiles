@@ -10,8 +10,9 @@ prefer-no-csd
 // https://yalter.github.io/niri/Configuration:-Input
 input {
     keyboard {
-      // repeat-rate 25
-      // repeat-delay 200
+      repeat-rate 25
+      repeat-delay 200
+
 
         xkb {
             // You can set rules, model, layout, variant and options.
