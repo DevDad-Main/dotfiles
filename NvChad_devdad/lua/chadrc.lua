@@ -103,8 +103,8 @@ M.base46 = {
     "notify",
   },
 
-  theme = "catppuccin", ---@diagnostic disable-line
-  theme_toggle = { "catppuccin", "one_light" }, ---@diagnostic disable-line
+  theme = "gruvbox", ---@diagnostic disable-line
+  theme_toggle = { "gruvbox", "one_light" }, ---@diagnostic disable-line
 
   -- NOTE: Remove this if you don't want transparency for statusline, tabbuf and nvimtree
   -- FIXME: Messes with the yank highlights

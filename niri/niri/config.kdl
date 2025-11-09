@@ -213,7 +213,7 @@ layout {
         // If you enable the border, you probably want to disable the focus ring.
         // on
         width 2
-        active-color "#7fc8ff"
+        active-color "#ffc87f"
         inactive-color "#505050"
 
         // Color of the border around windows that request your attention.
@@ -289,7 +289,7 @@ spawn-at-startup "noctalia-shell"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 spawn-sh-at-startup "qs -c ~/.config/quickshell/noctalia-shell"
-spawn-sh-at-startup "swaybg -i ~/Olly/Wallpapers/hyprland/backgrounds/dragon.jpg"
+// spawn-sh-at-startup "swaybg -i ~/Olly/Wallpapers/hyprland/backgrounds/dragon.jpg"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -344,7 +344,7 @@ window-rule {
     match is-focused=true
     // This is needed to make the borders not blend with the window
     draw-border-with-background false
-    opacity 0.8
+    opacity 0.98
 
     // border {
     //   on
@@ -387,7 +387,7 @@ window-rule {
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 5
     clip-to-geometry true
 }
 

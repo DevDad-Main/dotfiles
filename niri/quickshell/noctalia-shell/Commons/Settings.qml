@@ -28,7 +28,7 @@ Singleton {
   property string cacheDirImagesNotifications: cacheDir + "images/notifications/"
   property string settingsFile: Quickshell.env("NOCTALIA_SETTINGS_FILE") || (configDir + "settings.json")
 
-  property string defaultLocation: "Tokyo"
+  property string defaultLocation: "Słupsk"
   property string defaultAvatar: Quickshell.env("HOME") + "/.face"
   property string defaultVideosDirectory: Quickshell.env("HOME") + "/Videos"
   property string defaultWallpapersDirectory: Quickshell.env("HOME") + "/Pictures/Wallpapers"
