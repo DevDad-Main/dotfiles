@@ -12,9 +12,9 @@ if [ -z "$PID" ]; then
   # Not running → start recording in background
   mkdir -p "$OUTPUT_DIR"
   gpu-screen-recorder -w screen -c mp4 -f 60 -encoder cpu -o "$OUTPUT_PATH" &
-  notify-send "Recording started to $OUTPUT_PATH"
+  notify-send "Recording started..." "Recording to $OUTPUT_PATH"
 else
   # Running → kill the process (stop recording)
   kill $PID &
-  notify-send "Recording stopped and saved to $OUTPUT_PATH"
+  notify-send "Recording stopped.." "Recording saved to $OUTPUT_PATH"
 fi
