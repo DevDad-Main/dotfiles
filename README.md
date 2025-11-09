@@ -157,6 +157,10 @@ ln -s ~/.config/dotfiles/.zshrc ~/
 
 <summary>Niri - Installation/Setup</summary>
 
+
+https://github.com/user-attachments/assets/82de8725-0603-4ca5-9985-a4f21939c1d6
+
+
 > I'm using arch linux so you may need to change some things depeding on your distro
 
 ### 1. Install Niri
