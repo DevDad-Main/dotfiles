@@ -319,9 +319,9 @@
         "fillMode": "crop",
         "monitors": [
             {
-                "directory": "/home/devdad/Olly/Wallpapers/hyprland/backgrounds",
+                "directory": "/home/devdad/Olly/Wallpapers",
                 "name": "eDP-1",
-                "wallpaper": "/home/devdad/Olly/Wallpapers/wallpapers/gruv-dev-minimal.png"
+                "wallpaper": "/home/devdad/Olly/Wallpapers/hyprland/gruvbox/gruv-vim.png"
             },
             {
                 "directory": "/home/devdad/Olly/Wallpapers",
