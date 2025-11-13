@@ -24,7 +24,7 @@ M.blink = {
       show_without_menu = false,
     },
     list = {
-      max_items = 15,
+      max_items = 50,
       selection = {
         preselect = false,
         auto_insert = false,
@@ -48,6 +48,8 @@ M.blink = {
       auto_show_delay_ms = 500,
     },
     menu = {
+      min_width = 25,
+      max_height = 30,
       draw = {
         align_to = "cursor",
         columns = { { "kind_icon" }, { "label", gap = 1 }, { "kind" } },
@@ -86,18 +88,19 @@ M.blink = {
       snippets = {
         name = "snippets",
         enabled = true,
-        max_items = 15,
+        max_items = 20,
         min_keyword_length = 2,
         module = "blink.cmp.sources.snippets",
         score_offset = 85, -- the higher the number, the higher the priority
         -- Only show snippets if I type the trigger_text characters, so
         -- to expand the "bash" snippet, if the trigger_text is ";" I have to
-        should_show_items = function()
-          local col = vim.api.nvim_win_get_cursor(0)[2]
-          local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
-          -- NOTE: remember that `trigger_text` is modified at the top of the file
-          return before_cursor:match(trigger_text .. "%w*$") ~= nil
-        end,
+        -- FIX: This function only lets you have snippets when you type ; then the snippet - I don't want that as i want everything alwasys accessible
+        -- should_show_items = function()
+        --   local col = vim.api.nvim_win_get_cursor(0)[2]
+        --   local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
+        --   -- NOTE: remember that `trigger_text` is modified at the top of the file
+        --   return before_cursor:match(trigger_text .. "%w*$") ~= nil
+        -- end,
         -- After accepting the completion, delete the trigger_text characters
         -- from the final inserted text
         -- Modified transform_items function based on suggestion by `synic` so

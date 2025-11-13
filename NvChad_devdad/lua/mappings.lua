@@ -680,6 +680,9 @@ map("n", "<leader>ff", function()
 end, { desc = "Telescope find all files" })
 
 -- Alternative to Enter Normal Mode - Much faster
+-- FIX: Not working as intended - Need to add a fucntion check to see if we are in Visual Block MOde
+map({ "i", "v" }, "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
+
 map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
 
 -- Markdown

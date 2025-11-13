@@ -228,11 +228,3 @@ tar -xz --strip-components=1 -C ~/.config/quickshell/noctalia-shell
   # Remove the default quickshell install and replace it with the one in this repo (optional)
   rm -rf ~/.config/quickshell && ln -s ~/.config/dotfiles/niri/quickshell ~/.config/quickshell
   ```
-
-#### 3. For Vscode config:
-
-- We need to now install the extensions from the extenstions.txt file
-
-```bash
-cat ~/.config/dotfiles/vscode/.config/Code/User/extensions.txt | xargs -L 1 code --install-extension
-```
