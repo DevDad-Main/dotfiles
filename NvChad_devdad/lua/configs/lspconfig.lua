@@ -154,7 +154,6 @@ local servers = {
   -- "yamlls",
   "terraformls",
   "vtsls",
-  "typescript-language-server",
   "omnisharp-mono",
   "gopls",
   "kulala_ls",
@@ -283,7 +282,6 @@ vim.lsp.config("eslint", {
   },
 })
 
-local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.lsp"
 local pid = vim.fn.getpid()
 
@@ -305,22 +303,40 @@ vim.lsp.config("omnisharp-mono", {
   enable_import_completion = true,
   enable_decompilation_support = true,
 })
--- vim.lsp.config("omnisharp-mono", {
---   cmd = {
---     "omnisharp-mono",
---     "--languageserver",
---     "--hostPID",
---     tostring(pid),
---     "dotnet",
---     vim.fn.stdpath "data" .. "\\mason\\packages\\omnisharp\\libexec\\OmniSharp.dll",
---   },
---   on_attach = nvlsp.on_attach,
---   on_init = nvlsp.on_init,
---   capabilities = nvlsp.capabilities,
---   filetypes = { "cs", "vb" }, -- 🧠 this line fixes the warning
--- })
 
-vim.lsp.config("typescript-language-server", { on_attach = custom_on_attach }, {
+-- #region Old Way of doing lsp configs
+-- local lsp_config = require "lspconfig"
+--
+-- lsp_config.vtsls.setup {
+--   capabilities = capabilities,
+--   on_attach = custom_on_attach,
+--   -- flags = lsp_flags,
+--   settings = {
+--     typescript = {
+--       inlayHints = {
+--         parameterNames = { enabled = "all" },
+--         parameterTypes = { enabled = true },
+--         variableTypes = { enabled = true },
+--         propertyDeclarationTypes = { enabled = true },
+--         functionLikeReturnTypes = { enabled = true },
+--         enumMemberValues = { enabled = true },
+--       },
+--       javascript = {
+--         parameterNames = { enabled = "all" },
+--         parameterTypes = { enabled = true },
+--         variableTypes = { enabled = true },
+--         propertyDeclarationTypes = { enabled = true },
+--         functionLikeReturnTypes = { enabled = true },
+--         enumMemberValues = { enabled = true },
+--       },
+--     },
+--   },
+-- }
+--#endregion
+
+vim.lsp.config.vtsls = {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -329,74 +345,30 @@ vim.lsp.config("typescript-language-server", { on_attach = custom_on_attach }, {
     "typescriptreact",
     "typescript.tsx",
   },
-  cmd = { "typescript-language-server", "--stdio" },
-  init_options = {
-    hostInfo = "neovim",
-    preferences = {
-      includeCompletionsForModuleExports = true,
-      includeCompletionsWithInsertText = true,
-      importModuleSpecifierPreference = "relative",
-      quotePreference = "auto",
-    },
-  },
   settings = {
     typescript = {
       inlayHints = {
-        includeInlayParameterNameHints = "all",
-        includeInlayVariableTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
+        parameterNames = { enabled = "all" },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true },
       },
     },
     javascript = {
       inlayHints = {
-        includeInlayParameterNameHints = "all",
-        includeInlayVariableTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-      },
-    },
-  },
-})
-vim.lsp.config("vtsls", {
-  on_attach = custom_on_attach,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-    -- "astro",
-  },
-  settings = {
-    complete_function_calls = true,
-    vtsls = {
-      enableMoveToFileCodeAction = true,
-      autoUseWorkspaceTsdk = true,
-      experimental = { completion = { enableServerSideFuzzyMatch = true, entriesLimit = 50 } },
-    },
-    javascript = { updateImportsOnFileMove = { enabled = "always" }, suggest = { completeFunctionCalls = true } },
-    typescript = {
-      format = { indentSize = vim.o.shiftwidth, convertTabsToSpaces = vim.o.expandtab, tabSize = vim.o.tabstop },
-      preferences = {
-        importModuleSpecifier = "non-relative",
-        includePackageJsonAutoImports = "off",
-        autoImportFileExcludePatterns = { ".git", "node_modules" },
-      },
-      updateImportsOnFileMove = { enabled = "always" },
-      suggest = { completeFunctionCalls = true },
-      inlayHints = {
-        enumMemberValues = { enabled = true },
-        functionLikeReturnTypes = { enabled = false },
         parameterNames = { enabled = "all" },
-        parameterTypes = { enabled = false },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
         propertyDeclarationTypes = { enabled = true },
-        variableTypes = { enabled = false },
+        functionLikeReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true },
       },
     },
   },
-})
+}
+
 vim.lsp.config("gopls", {
   on_attach = go_on_attach,
   capabilities = capabilities,

@@ -733,3 +733,8 @@ map("n", "<leader>ng", function()
 end, { desc = "Open Neogit in floating window" })
 
 map("n", "<leader>smt", "<cmd>:SupermavenToggle<cr>", { desc = "Supermave Toggle" })
+
+map("n", "<leader>h", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hitns Disabled")
+end)

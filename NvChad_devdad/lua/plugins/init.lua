@@ -937,7 +937,6 @@ return {
           "eslint_d",
           "prettierd",
           "stylua",
-          "typescript-language-server",
           "vtsls",
           "jsonlint",
           "html-lsp",
@@ -1121,5 +1120,14 @@ return {
         item = { "", "" },
       },
     },
+  },
+  {
+
+    "MysticalDevil/inlay-hints.nvim",
+    event = "LspAttach",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("inlay-hints").setup()
+    end,
   },
 }
