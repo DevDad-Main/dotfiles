@@ -9,6 +9,7 @@ require("neotest").setup {
       -- args = { "-count=1", "-coverprofile coverage.out", "-covermode=count" },
       args = { "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out" },
     },
+    require "neotest-vitest",
   },
   diagnostic = {
     enabled = true,
@@ -50,6 +51,7 @@ require("neotest").setup {
       width = 120,
     },
   },
+  -- NOTE: Neo Test Mappings
   summary = {
     enabled = true,
     expand_errors = true,
@@ -63,6 +65,7 @@ require("neotest").setup {
       run = "r",
       short = "O",
       stop = "u",
+      watch = "w",
     },
   },
 }

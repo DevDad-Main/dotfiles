@@ -838,6 +838,7 @@ return {
     dependencies = {
       "nvim-neotest/neotest-go",
       "nvim-neotest/nvim-nio",
+      "marilari88/neotest-vitest",
     },
     config = function()
       ---@diagnostic disable-next-line: different-requires

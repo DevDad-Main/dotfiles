@@ -566,12 +566,17 @@ map("n", "<C-ScrollWheelDown>", "<C-o>", { noremap = true, silent = true })
 map("n", "<leader>nt", function()
   require("neotest").run.run(vim.fn.expand "%")
   require("coverage").load(true)
-end, { desc = "󰤑 Run neotest" })
+end, { desc = "󰤑 Run All Tests via Neotest" })
 
 map("n", "<leader>rt", function()
   require("neotest").run.run()
   require("coverage").load(true)
-end, { desc = "󰤑 Run neotest" })
+end, { desc = "󰤑 Run A Singular Neotest" })
+
+map("n", "<leader>nto", "<cmd>:Neotest summary<cr>", { desc = "󰤑 Open the Neotest Summary" })
+map("n", "<leader>nts", function()
+  require("neotest").run.stop(vim.fn.expand "%")
+end, { desc = "󰤑 Open the Neotest Summary" })
 
 map("n", "<leader>tc", "<cmd>CoverageToggle<cr>", { desc = "Coverage in gutter" })
 map("n", "<leader><leader>c", "<cmd>CoverageLoad<cr><cmd>CoverageSummary<cr>", { desc = "Coverage summary" })
@@ -586,10 +591,10 @@ map("n", "K", function()
 end, { desc = "hover.nvim" })
 
 map("n", "<leader>k", function()
-  require("hover").hover()
+  require("hover").open()
 end, { desc = "LSP Hover" })
 
-map("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+-- map("n", "gK", require("hover").select(), { desc = "hover.nvim (select)" })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "<C-n>", function()
   require("hover").hover_switch "next"
@@ -734,7 +739,9 @@ end, { desc = "Open Neogit in floating window" })
 
 map("n", "<leader>smt", "<cmd>:SupermavenToggle<cr>", { desc = "Supermave Toggle" })
 
-map("n", "<leader>h", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-  vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hitns Disabled")
-end)
+-- map("n", "<leader>h", function()
+--   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+--   vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hitns Disabled")
+-- end)
+
+map("n", "<leader>h", "<cmd>:ToggleInlayHints<cr>", { desc = "Toggle Inlay Hints" })
