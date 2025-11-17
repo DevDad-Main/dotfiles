@@ -1130,4 +1130,9 @@ return {
       require("inlay-hints").setup()
     end,
   },
+  {
+    "ravibrock/spellwarn.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
 }

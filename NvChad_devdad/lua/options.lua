@@ -5,6 +5,8 @@ local g = vim.g
 local o = vim.o
 
 -- vim.wo.statuscolumn = ""
+opt.spell = true
+opt.spelllang = "en"
 
 o.mousemoveevent = true
 o.diffopt = "internal,filler,closeoff,linematch:60"
