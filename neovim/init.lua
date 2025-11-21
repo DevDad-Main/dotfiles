@@ -36,3 +36,4 @@ require("lazy").setup({
 require("options")
 require("setup.spelling")
 require("mappings")
+require("usercmd")
