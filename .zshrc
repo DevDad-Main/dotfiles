@@ -18,6 +18,7 @@ source $ZSH/oh-my-zsh.sh
 # We make the ls list command return lsd which has icones for a nice aesthetic
 alias ls="lsd"
 
+alias v="nvim"
 alias tm="tmux"                     # => Start tmux.
 alias tma="tmux attach-session"     # => Attach to a tmux session.
 alias tmat="tmux attach-session -t" # => Attach to a tmux session with name.
