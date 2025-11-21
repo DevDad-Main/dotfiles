@@ -2,18 +2,18 @@ local km = vim.keymap
 
 -- Here is a utility function that closes any floating windows when you press escape
 local function close_floating()
-	for _, win in pairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative == "win" then
-			vim.api.nvim_win_close(win, false)
-		end
-	end
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative == "win" then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
 end
 
 --  ┌                                                                              ┐
 --  │ These define common comment styles like this                                 │
 --  └                                                                              ┘
-km.set({ "n", "v" }, "<leader>x1", ":CBlbox12<cr>", { desc = "Comment - single side" })
-km.set({ "n", "v" }, "<leader>x2", ":CBlbox18<cr>", { desc = "Comment - both sides" })
+km.set({ "n", "v" }, "<leader>x1", ":CBlabox<cr>", { desc = "Comment - Box Around Code" })
+-- km.set({ "n", "v" }, "<leader>x2", ":CBlbox18<cr>", { desc = "Comment - both sides" })
 km.set("n", "<leader>x3", "CBline3<cr>", { desc = "Centered Line" })
 km.set("n", "<leader>x4", "CBline5<cr>", { desc = "Centered Line Weighted" })
 
@@ -42,17 +42,17 @@ km.set({ "n", "i" }, "<F1>", "<Esc>")
 km.set({ "n" }, "<leader>xb", ":lua require('nvim-navbuddy').open()<cr>", { desc = "Nav Buddy" })
 
 km.set("n", "<esc>", function()
-	close_floating()
-	vim.cmd(":noh")
+  close_floating()
+  vim.cmd(":noh")
 end, { silent = true, desc = "Remove Search Highlighting, Dismiss Popups" })
 
 -- Easy add date/time
 function date()
-	local pos = vim.api.nvim_win_get_cursor(0)[2]
-	local line = vim.api.nvim_get_current_line()
-	local nline = line:sub(0, pos) .. "# " .. os.date("%d.%m.%y") .. line:sub(pos + 1)
-	vim.api.nvim_set_current_line(nline)
-	vim.api.nvim_feedkeys("o", "n", true)
+  local pos = vim.api.nvim_win_get_cursor(0)[2]
+  local line = vim.api.nvim_get_current_line()
+  local nline = line:sub(0, pos) .. "# " .. os.date("%d.%m.%y") .. line:sub(pos + 1)
+  vim.api.nvim_set_current_line(nline)
+  vim.api.nvim_feedkeys("o", "n", true)
 end
 
 km.set("n", "<Leader>xd", "<cmd>lua date()<cr>", { desc = "Insert Date" })
@@ -90,38 +90,38 @@ km.set("n", "<leader>s", require("fzf-lua").spell_suggest, { desc = "Spelling Su
 km.set("n", "<leader>cj", require("fzf-lua").lsp_definitions, { desc = "Jump to Definition" })
 
 km.set(
-	"n",
-	"<leader>cs",
-	":lua require'fzf-lua'.lsp_document_symbols({winopts = {preview={wrap='wrap'}}})<cr>",
-	{ desc = "Document Symbols" }
+  "n",
+  "<leader>cs",
+  ":lua require'fzf-lua'.lsp_document_symbols({winopts = {preview={wrap='wrap'}}})<cr>",
+  { desc = "Document Symbols" }
 )
 
 km.set("n", "<leader>cr", require("fzf-lua").lsp_references, { desc = "LSP References" })
 
 km.set(
-	"n",
-	"<leader>cd",
-	":lua require'fzf-lua'.diagnostics_document({fzf_opts = { ['--wrap'] = true }})<cr>",
-	{ desc = "Document Diagnostics" }
+  "n",
+  "<leader>cd",
+  ":lua require'fzf-lua'.diagnostics_document({fzf_opts = { ['--wrap'] = true }})<cr>",
+  { desc = "Document Diagnostics" }
 )
 
 km.set(
-	"n",
-	"<leader>ca",
-	":lua require'fzf-lua'.lsp_code_actions({ winopts = {relative='cursor',row=1.01, col=0, height=0.2, width=0.4} })<cr>",
-	{ desc = "Code Actions" }
+  "n",
+  "<leader>ca",
+  ":lua require'fzf-lua'.lsp_code_actions({ winopts = {relative='cursor',row=1.01, col=0, height=0.2, width=0.4} })<cr>",
+  { desc = "Code Actions" }
 )
 
 km.set("n", "<leader>ch", function()
-	vim.lsp.buf.hover()
+  vim.lsp.buf.hover()
 end, { desc = "Code Hover" })
 
 km.set("n", "<leader>cl", function()
-	vim.diagnostic.open_float(0, { scope = "line" })
+  vim.diagnostic.open_float(0, { scope = "line" })
 end, { desc = "Line Diagnostics" })
 
 km.set({ "v", "n" }, "<leader>cn", function()
-	vim.lsp.buf.rename()
+  vim.lsp.buf.rename()
 end, { noremap = true, silent = true, desc = "Code Rename" })
 
 km.set("n", "<Leader><Down>", "<C-W><C-J>", { silent = true, desc = "Window Down" })
@@ -134,9 +134,9 @@ km.set("n", "<Leader>=", "<C-W>=", { silent = true, desc = "Window Equalise" })
 -- Easier window switching with leader + Number
 -- Creates mappings like this: km.set("n", "<Leader>2", "2<C-W>w", { desc = "Move to Window 2" })
 for i = 1, 4 do
-	local lhs = "<Leader>" .. i
-	local rhs = i .. "<C-W>w"
-	km.set("n", lhs, rhs, { desc = "Move to Window " .. i })
+  local lhs = "<Leader>" .. i
+  local rhs = i .. "<C-W>w"
+  km.set("n", lhs, rhs, { desc = "Move to Window " .. i })
 end
 
 km.set({ "n", "v" }, "h", ":Pounce<CR>", { silent = true, desc = "Pounce" })
@@ -152,10 +152,10 @@ km.set("n", "<leader>gr", ":Gitsigns reset_hunk<cr>", { desc = "Get reset hunk" 
 km.set("n", "<Leader>xs", ":SearchSession<CR>", { desc = "Search Sessions" })
 
 km.set(
-	"v",
-	"<leader>xp",
-	":'<,'> w !pandoc --no-highlight --wrap=none | pbcopy <CR>",
-	{ silent = true, desc = "Pandoc Export" }
+  "v",
+  "<leader>xp",
+  ":'<,'> w !pandoc --no-highlight --wrap=none | pbcopy <CR>",
+  { silent = true, desc = "Pandoc Export" }
 )
 
 km.set("n", "<Leader>xn", ":let @+=@%<cr>", { desc = "Copy Buffer name and path" })
@@ -169,7 +169,7 @@ km.set({ "n", "x" }, "]p", '<Cmd>exe "put "  . v:register<CR>', { desc = "Paste 
 
 -- This allows you to select, and paste over contents, without that pasted over contents going into the register, that means you can paste again without it inserting the thing you pasted over the last time
 km.set("x", "p", function()
-	return 'pgv"' .. vim.v.register .. "y"
+  return 'pgv"' .. vim.v.register .. "y"
 end, { remap = false, expr = true })
 
 km.set({ "n", "x" }, "<Bslash>", "<C-6>", { desc = "Alternate File" })
@@ -189,35 +189,35 @@ km.set({ "n" }, "<Leader>ws", "<CMD>new<CR>", { desc = "New split below" })
 km.set({ "n" }, "<Leader>wv", "<CMD>vnew<CR>", { desc = "New split right" })
 
 km.set({ "n" }, "<Leader>xw", function()
-	return Snacks.notify.notify(wordCount.getWords(), {
-		zindex = 1000,
-		title = "Word Count",
-		timeout = 3000,
-		icon = "󰆙 ",
-	})
+  return Snacks.notify.notify(wordCount.getWords(), {
+    zindex = 1000,
+    title = "Word Count",
+    timeout = 3000,
+    icon = "󰆙 ",
+  })
 end, { desc = "Word Count" })
 
 -- get the file format of the current file
 km.set({ "n" }, "<Leader>xt", function()
-	local symbols = {
-		unix = " LF",
-		dos = " CRLF",
-		mac = " CR",
-	}
+  local symbols = {
+    unix = " LF",
+    dos = " CRLF",
+    mac = " CR",
+  }
 
-	local ft = vim.bo.fileformat
-	local output = string.format("%s%s", ft, symbols[ft])
-	return Snacks.notify.notify(output, {
-		icon = " ",
-		title = "File Type",
-		timeout = 2000,
-		zindex = 1000,
-	})
+  local ft = vim.bo.fileformat
+  local output = string.format("%s%s", ft, symbols[ft])
+  return Snacks.notify.notify(output, {
+    icon = " ",
+    title = "File Type",
+    timeout = 2000,
+    zindex = 1000,
+  })
 end, { desc = "Show File Format" })
 
 -- Toggle Terminal, thanks https://www.reddit.com/r/neovim/comments/1bjhadj/efficiently_switching_between_neovim_and_terminal/
 exitTerm = function()
-	vim.cmd(":lua Snacks.terminal.toggle()")
+  vim.cmd(":lua Snacks.terminal.toggle()")
 end
 km.set({ "n" }, "<C-t>", ":lua Snacks.terminal.toggle()<cr>", { desc = "Toggle Terminal" })
 km.set({ "t" }, "<C-t>", exitTerm)
@@ -243,3 +243,13 @@ km.set("i", "<C-S>", "<Cmd>w<CR><ESC>", { desc = "Save file" })
 
 -- Togggle Lsp Inlay hints with custom Command -> usercmd.lua
 km.set("n", "<leader>h", "<cmd>ToggleInlayHints<cr>", { desc = "Toggle Inlay Hints" })
+
+km.set("n", "<leader>nt", function()
+  require("neotest").run.run(vim.fn.expand("%"))
+  require("coverage").load(true)
+end, { desc = "󰤑 Run neotest" })
+
+km.set("n", "<leader>rt", function()
+  require("neotest").run.run()
+  require("coverage").load(true)
+end, { desc = "󰤑 Run neotest" })

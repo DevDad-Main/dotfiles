@@ -111,4 +111,40 @@ return {
     "mason-org/mason.nvim",
     opts = {},
   },
+  {
+    "nvim-neotest/neotest",
+    ft = { "go", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+    dependencies = {
+      "nvim-neotest/neotest-go",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function()
+      ---@diagnostic disable-next-line: different-requires
+      require("configs.neotest")
+    end,
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    event = "VeryLazy",
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "eslint_d",
+          "prettierd",
+          "stylua",
+          "vtsls",
+          "jsonlint",
+          "html-lsp",
+          "dockerfile-language-server",
+          "docker-compose-language-service",
+          "hadolint", -- Docker Linter
+          "pgformatter",
+          "postgres-language-server",
+          "prisma-language-server",
+          "lua-language-server",
+        },
+      })
+    end,
+  },
 }
