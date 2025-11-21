@@ -244,12 +244,19 @@ km.set("i", "<C-S>", "<Cmd>w<CR><ESC>", { desc = "Save file" })
 -- Togggle Lsp Inlay hints with custom Command -> usercmd.lua
 km.set("n", "<leader>h", "<cmd>ToggleInlayHints<cr>", { desc = "Toggle Inlay Hints" })
 
+-- Neo Test - Whole File
 km.set("n", "<leader>nt", function()
   require("neotest").run.run(vim.fn.expand("%"))
   require("coverage").load(true)
 end, { desc = "󰤑 Run neotest" })
 
+-- Neo Test - Run Hovered Over Test
 km.set("n", "<leader>rt", function()
   require("neotest").run.run()
   require("coverage").load(true)
 end, { desc = "󰤑 Run neotest" })
+
+-- Toggle Open Oil
+km.set("n", "<leader>e", function()
+  vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
+end)
