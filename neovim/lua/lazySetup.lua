@@ -83,10 +83,10 @@ return {
 		end,
 	},
 	-- NOTE: Themes
-	{ "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
+	{ "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
 	{ "EdenEast/nightfox.nvim", config = get_setup("themes.nightfox"), enabled = false },
 	{ "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
-    { "ellisonleao/gruvbox.nvim",   config = get_setup("themes.gruvbox"),priority = 1000, lazy = false,  enabled =true},
+    { "ellisonleao/gruvbox.nvim",   config = get_setup("themes.gruvbox"),priority = 1000, lazy = false,  enabled =false},
 	{ "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
 	{
 		"zenbones-theme/zenbones.nvim",
