@@ -51,7 +51,7 @@ return {
         {
           "supermaven-inc/supermaven-nvim",
           opts = {
-            disable_keymaps = true,
+            disable_keymaps = false, -- Allows us to use the default supermaven keymaps - Tab or C-]
             ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
           },
         },

@@ -1,6 +1,22 @@
-local capabilities = require("blink.cmp").get_lsp_capabilities()
+-- local capabilities = require("blink.cmp").get_lsp_capabilities()
 
--- Give me rounded borders everywhere
+-- lua/setup/lsp.lua
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+-- blink.cmp – safely get capabilities, with fallback
+local ok_blink, blink = pcall(require, "blink.cmp")
+if ok_blink and blink and blink.get_lsp_capabilities then
+  -- blink.cmp expects the base capabilities as argument
+  capabilities = blink.get_lsp_capabilities(capabilities)
+else
+  -- Optional: warn once so you know it's missing
+  vim.schedule(function()
+    vim.notify_once("blink.cmp not fully initialized yet – using fallback LSP capabilities", vim.log.levels.WARN)
+  end)
+end
+
+-- Now use `capabilities` in all your LSP setups below
+-- (keep the rest of your file exactly as it is)
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
@@ -99,16 +115,28 @@ require("lspconfig").vtsls.setup({
   },
 })
 
-vim.lsp.config("dockerls", {
+require("lspconfig").dockerls.setup({
+  capabilities = capabilities,
   on_attach = function(client)
     client.server_capabilities.document_formatting = false
   end,
 })
 
--- vim.lsp.config("dockerfile-language-server", { on_attach = custom_on_attach })
--- vim.lsp.config("docker-compose-language-service", { on_attach = custom_on_attach })
--- vim.lsp.config("postgres-language-server", { on_attach = custom_on_attach, capabilities = capabilities })
+require("lspconfig").docker_compose_language_service.setup({
+  on_attach = function(client)
+    client.server_capabilities.document_formatting = false
+  end,
+  capabilities = capabilities,
+})
 
+require("lspconfig").postgres_lsp.setup({
+  on_attach = function(client)
+    client.server_capabilities.document_formatting = false
+  end,
+  capabilities = capabilities,
+})
+
+--TODO:
 require("lspconfig").lua_ls.setup({
   on_attach = function(client)
     client.server_capabilities.document_formatting = false
