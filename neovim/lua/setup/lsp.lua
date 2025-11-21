@@ -52,12 +52,12 @@ require("lspconfig").cssls.setup({
   end,
 })
 
-require("lspconfig").ts_ls.setup({
-  capabilities = capabilities,
-  on_attach = function(client)
-    client.server_capabilities.document_formatting = false
-  end,
-})
+-- require("lspconfig").ts_ls.setup({
+--   capabilities = capabilities,
+--   on_attach = function(client)
+--     client.server_capabilities.document_formatting = false
+--   end,
+-- })
 
 require("lspconfig").html.setup({
   capabilities = capabilities,
