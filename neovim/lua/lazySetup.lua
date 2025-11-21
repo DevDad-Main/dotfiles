@@ -17,7 +17,7 @@ return {
 	},
 	{ "mbbill/undotree" },
 	{ "LudoPinelli/comment-box.nvim", event = "VeryLazy" },
-	{ "numToStr/Comment.nvim", lazy = false, config = get_setup("setup/Comment") },
+	{ "numToStr/Comment.nvim", lazy = false, config = get_setup("comment") },
 	{ "rlane/pounce.nvim", config = get_setup("pounce") },
 	{
 		"nvim-lualine/lualine.nvim",
