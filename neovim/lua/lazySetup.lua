@@ -151,4 +151,11 @@ return {
       })
     end,
   },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufReadPost",
+    config = function()
+      require("configs.todo")
+    end,
+  },
 }

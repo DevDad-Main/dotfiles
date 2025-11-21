@@ -51,12 +51,13 @@ require("lspconfig").cssls.setup({
     client.server_capabilities.document_formatting = false
   end,
 })
--- require("lspconfig").ts_ls.setup({
--- 	capabilities = capabilities,
--- 	on_attach = function(client)
--- 		client.server_capabilities.document_formatting = false
--- 	end,
--- })
+
+require("lspconfig").ts_ls.setup({
+  capabilities = capabilities,
+  on_attach = function(client)
+    client.server_capabilities.document_formatting = false
+  end,
+})
 
 require("lspconfig").html.setup({
   capabilities = capabilities,
@@ -136,7 +137,6 @@ require("lspconfig").postgres_lsp.setup({
   capabilities = capabilities,
 })
 
---TODO:
 require("lspconfig").lua_ls.setup({
   on_attach = function(client)
     client.server_capabilities.document_formatting = false

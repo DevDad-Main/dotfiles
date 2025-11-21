@@ -264,3 +264,13 @@ end, { desc = "󰤑 Run neotest" })
 km.set("n", "<leader>e", function()
   vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
 end, { desc = "Toggle Open Oil" })
+
+-- Use FZF-lua to search for TODOs
+km.set(
+  "n",
+  "<leader>t",
+  "<cmd>:lua require('fzf-lua').grep({search='TODO|HACK|PERF|NOTE|FIX', no_esc=true}) <cr>",
+  { desc = "FZF Grep TODOs" }
+)
+
+--TODO:
