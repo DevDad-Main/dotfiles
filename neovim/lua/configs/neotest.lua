@@ -9,6 +9,11 @@ require("neotest").setup({
       -- args = { "-count=1", "-coverprofile coverage.out", "-covermode=count" },
       args = { "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out" },
     }),
+    require("neotest-vitest")({
+      filter_dir = function(name)
+        return name ~= "node_modules"
+      end,
+    }),
   },
   diagnostic = {
     enabled = true,

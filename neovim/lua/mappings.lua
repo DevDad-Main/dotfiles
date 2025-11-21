@@ -173,7 +173,6 @@ km.set("x", "p", function()
 end, { remap = false, expr = true })
 
 km.set({ "n", "x" }, "<Bslash>", "<C-6>", { desc = "Alternate File" })
-km.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- This sets the ability to surround words with brackets and quotes with one key in visual mode
 -- local v_chars = { "(", ")", "[", "]", "{", "}", "'", '"' }
 -- for _, char in pairs(v_chars) do
@@ -247,16 +246,21 @@ km.set("n", "<leader>h", "<cmd>ToggleInlayHints<cr>", { desc = "Toggle Inlay Hin
 -- Neo Test - Whole File
 km.set("n", "<leader>nt", function()
   require("neotest").run.run(vim.fn.expand("%"))
-  require("coverage").load(true)
 end, { desc = "󰤑 Run neotest" })
+
+-- Neo Test - Whole File
+km.set("n", "<leader>nts", function()
+  require("neotest").run.stop()
+end, { desc = "󰤑 Stop Nearest Neotest" })
+
+km.set("n", "<leader>nto", "<cmd>Neotest summary<cr>", { desc = "󰤑 Open Neotest Summary" })
 
 -- Neo Test - Run Hovered Over Test
 km.set("n", "<leader>rt", function()
   require("neotest").run.run()
-  require("coverage").load(true)
 end, { desc = "󰤑 Run neotest" })
 
 -- Toggle Open Oil
 km.set("n", "<leader>e", function()
   vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
-end)
+end, { desc = "Toggle Open Oil" })
