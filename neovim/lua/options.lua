@@ -25,10 +25,16 @@ vim.o.shortmess = vim.o.shortmess .. "S" -- stops display of currentsearch match
 opt.equalalways = true -- make windows the same width when closing one
 opt.cursorlineopt = "both" -- should get cursorline in number too
 
+-- opt.expandtab = true
+-- opt.shiftwidth = indent
+-- opt.softtabstop = indent
+-- opt.tabstop = indent
+
 opt.expandtab = true
-opt.shiftwidth = indent
-opt.softtabstop = indent
-opt.tabstop = indent
+opt.shiftwidth = 2
+opt.smartindent = true
+opt.tabstop = 2
+opt.softtabstop = 2
 
 opt.showmode = false -- Don't display mode
 opt.scrolloff = 8 -- Lines of context
@@ -48,7 +54,7 @@ opt.wrap = true
 -- opt.cc = "80"
 opt.mouse = "a"
 opt.guicursor =
-	"n-v-c-sm:block-nCursor-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
+  "n-v-c-sm:block-nCursor-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
 opt.undodir = vim.fn.stdpath("config") .. "/undo"
 opt.undofile = true
 -- vim.notify = require("notify")
@@ -66,31 +72,31 @@ local api = vim.api
 -- Highlight on yank
 local yankGrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 api.nvim_create_autocmd("TextYankPost", {
-	group = yankGrp,
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	desc = "Highlight yank",
+  group = yankGrp,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  desc = "Highlight yank",
 })
 
 -- show cursor line only in active window
 local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
 api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { pattern = "*", command = "set cursorline", group = cursorGrp })
 api.nvim_create_autocmd(
-	{ "InsertEnter", "WinLeave" },
-	{ pattern = "*", command = "set nocursorline", group = cursorGrp }
+  { "InsertEnter", "WinLeave" },
+  { pattern = "*", command = "set nocursorline", group = cursorGrp }
 )
 
 -- show cursor col line only in active window
 local cursorColGrp = api.nvim_create_augroup("CursorColumn", { clear = true })
 api.nvim_create_autocmd(
-	{ "InsertLeave", "WinEnter" },
-	{ pattern = "*", command = "set cursorcolumn", group = cursorColGrp }
+  { "InsertLeave", "WinEnter" },
+  { pattern = "*", command = "set cursorcolumn", group = cursorColGrp }
 )
 api.nvim_create_autocmd(
-	{ "InsertEnter", "WinLeave" },
-	{ pattern = "*", command = "set nocursorcolumn", group = cursorColGrp }
+  { "InsertEnter", "WinLeave" },
+  { pattern = "*", command = "set nocursorcolumn", group = cursorColGrp }
 )
 
 -- show Blank Line only in active window
@@ -108,8 +114,8 @@ api.nvim_create_autocmd(
 -- https://unix.stackexchange.com/a/383044
 vim.o.autoread = true
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-	command = "if mode() != 'c' | checktime | endif",
-	pattern = { "*" },
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
 })
 
 -- Don't want relative no on inactive Windows
@@ -138,20 +144,20 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
 -- This is global settings for diagnostics
 vim.o.updatetime = 250
 vim.diagnostic.config({
-	virtual_text = false,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = false,
-	-- virtual_lines = {
-	--   current_line = true,
-	-- },
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅚 ",
-			[vim.diagnostic.severity.WARN] = "󰳦 ",
-			[vim.diagnostic.severity.HINT] = "󱡄 ",
-			[vim.diagnostic.severity.INFO] = " ",
-		},
-	},
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = false,
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅚 ",
+      [vim.diagnostic.severity.WARN] = "󰳦 ",
+      [vim.diagnostic.severity.HINT] = "󱡄 ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
 })
