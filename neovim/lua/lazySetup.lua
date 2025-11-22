@@ -51,12 +51,13 @@ return {
         {
           "supermaven-inc/supermaven-nvim",
           opts = {
-            disable_keymaps = false, -- Allows us to use the default supermaven keymaps - Tab or C-]
+            disable_keymaps = true, -- Allows us to use the default supermaven keymaps - Tab or C-]
             ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
           },
         },
       },
       "rafamadriz/friendly-snippets",
+      "saghen/blink.compat",
     },
     version = "*",
     opts = require("setup.blink"),
@@ -97,7 +98,13 @@ return {
   { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
   { "EdenEast/nightfox.nvim", config = get_setup("themes.nightfox"), enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
-  { "ellisonleao/gruvbox.nvim", config = get_setup("themes.gruvbox"), priority = 1000, lazy = false, enabled = false },
+  {
+    "ellisonleao/gruvbox.nvim",
+    config = get_setup("themes.gruvbox"),
+    priority = 1000,
+    lazy = false,
+    enabled = false,
+  },
   { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
   {
     "zenbones-theme/zenbones.nvim",
@@ -157,5 +164,34 @@ return {
     config = function()
       require("configs.todo")
     end,
+  },
+  {
+    --Note: Needed for blink.cmp menu
+    "xzbdmw/colorful-menu.nvim",
+    opts = {
+      ls = {
+        lua_ls = {
+          arguments_hl = "@comment",
+        },
+        gopls = {
+          align_type_to_right = true,
+        },
+      },
+    },
+  },
+
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    dependencies = { "DrKJeff16/wezterm-types" },
+    opts = {
+      library = {
+        {
+          path = vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types",
+          words = { "ChadrcConfig", "NvPluginSpec" },
+        },
+        { path = "wezterm-types", mods = { "wezterm" } },
+      },
+    },
   },
 }
