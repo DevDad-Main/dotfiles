@@ -1,19 +1,19 @@
--- local capabilities = require("blink.cmp").get_lsp_capabilities()
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 
--- lua/setup/lsp.lua
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
--- blink.cmp – safely get capabilities, with fallback
-local ok_blink, blink = pcall(require, "blink.cmp")
-if ok_blink and blink and blink.get_lsp_capabilities then
-  -- blink.cmp expects the base capabilities as argument
-  capabilities = blink.get_lsp_capabilities(capabilities)
-else
-  -- Optional: warn once so you know it's missing
-  vim.schedule(function()
-    vim.notify_once("blink.cmp not fully initialized yet – using fallback LSP capabilities", vim.log.levels.WARN)
-  end)
-end
+-- -- lua/setup/lsp.lua
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+--
+-- -- blink.cmp – safely get capabilities, with fallback
+-- local ok_blink, blink = pcall(require, "blink.cmp")
+-- if ok_blink and blink and blink.get_lsp_capabilities then
+--   -- blink.cmp expects the base capabilities as argument
+--   capabilities = blink.get_lsp_capabilities(capabilities)
+-- else
+--   -- Optional: warn once so you know it's missing
+--   vim.schedule(function()
+--     vim.notify_once("blink.cmp not fully initialized yet – using fallback LSP capabilities", vim.log.levels.WARN)
+--   end)
+-- end
 
 -- Now use `capabilities` in all your LSP setups below
 -- (keep the rest of your file exactly as it is)
