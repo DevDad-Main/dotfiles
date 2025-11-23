@@ -82,7 +82,7 @@ return {
       winblend = 5,
       winhighlight = "Normal:CmpNormal",
     },
-    ghost_text = { enabled = true },
+    ghost_text = { enabled = false },
     list = {
       selection = {
         preselect = function(ctx)
