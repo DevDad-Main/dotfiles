@@ -22,6 +22,7 @@ require("nvim-treesitter.configs").setup({
     "yaml",
     "vim",
     "toml",
+    "prisma",
   },
   highlight = { enable = true },
   incremental_selection = {

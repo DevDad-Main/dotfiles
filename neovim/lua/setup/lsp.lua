@@ -137,6 +137,21 @@ require("lspconfig").postgres_lsp.setup({
   capabilities = capabilities,
 })
 
+require("lspconfig").prismals.setup({
+  on_attach = function(client)
+    client.server_capabilities.document_formatting = false
+  end,
+  capabilities = capabilities,
+  filetypes = { "prisma" }, -- This is CRITICAL
+  cmd = { "prisma-language-server", "--stdio" },
+  root_dir = require("lspconfig.util").root_pattern("package.json", "prisma/schema.prisma", ".git"),
+  settings = {
+    prisma = {
+      prismaFmtBinPath = "", -- Let it auto-detect
+    },
+  },
+})
+
 require("lspconfig").lua_ls.setup({
   on_attach = function(client)
     client.server_capabilities.document_formatting = false

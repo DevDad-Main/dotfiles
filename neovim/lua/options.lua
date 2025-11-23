@@ -1,5 +1,7 @@
 local indent = 4
 local opt = vim.opt -- to set options
+local g = vim.g
+
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
@@ -161,3 +163,65 @@ vim.diagnostic.config({
     },
   },
 })
+
+if g.neovide then
+  -- #region Old Neovide
+  opt.guifont = "VictorMono Nerd Font:h10"
+  -- opt.guifont = "JetbrainsMono Nerd Font:h9"
+  -- opt.guifont = "JetbrainsMono Nerd Font:h12"
+  g.neovide_refresh_rate = 120
+  g.neovide_remember_window_size = true
+  g.neovide_cursor_antialiasing = true
+  g.neovide_input_macos_option_key_is_meta = "both"
+  g.neovide_input_use_logo = false
+  g.neovide_padding_top = 0
+  g.neovide_padding_bottom = 0
+  g.neovide_padding_right = 0
+  g.neovide_padding_left = 0
+  g.neovide_floating_blur_amount_x = 0.0
+  g.neovide_floating_blur_amount_y = 0.0
+  g.neovide_floating_shadow = false
+  g.neovide_floating_z_height = 40
+  g.neovide_light_angle_degrees = 45
+  g.neovide_light_radius = 10
+  g.neovide_scroll_animation_length = 0.5
+  g.neovide_scroll_animation_far_lines = 1
+  g.neovide_hide_mouse_when_typing = true
+  g.neovide_underline_automatic_scaling = true
+  g.neovide_floating_corner_radius = 10.0
+  g.neovide_cursor_vfx_mode = "pixiedust"
+
+  -- vim.g.neovide_floating_shadow = true
+  -- vim.g.neovide_floating_z_height = 10
+  -- vim.g.neovide_light_angle_degrees = 45
+  -- vim.g.neovide_light_radius = 5
+
+  -- g.neovide_increment_scale_factor = 0.1
+  -- g.neovide_scale_factor = 1
+  -- g.neovide_scale_factor = 1
+  -- g.neovide_max_scale_factor = 2.0
+  -- g.neovide_min_scale_factor = 0.7
+
+  -- See https://github.com/neovide/neovide/issues/2330
+  vim.schedule(function()
+    vim.cmd("NeovideFocus")
+  end)
+
+  -- https://github.com/neovide/neovide/issues/1771
+  vim.api.nvim_create_autocmd({ "BufLeave", "BufNew" }, {
+    callback = function()
+      vim.g.neovide_scroll_animation_length = 0
+      vim.g.neovide_cursor_animation_length = 0
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({ "BufEnter", "BufNew" }, {
+    callback = function()
+      vim.fn.timer_start(32, function()
+        vim.g.neovide_scroll_animation_length = 0.3
+        vim.g.neovide_cursor_animation_length = 0.08
+      end)
+    end,
+  })
+end
+-- #endregion
