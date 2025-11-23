@@ -61,7 +61,8 @@ km.set("n", "<Leader>v", "gea", { desc = "Edit after last word" })
 
 km.set("n", "j", [[(v:count > 5 ? "m'" . v:count : "") . 'j']], { expr = true, desc = "if j > 5 add to jumplist" })
 
-km.set("n", "<leader>p", require("fzf-lua").files, { desc = "FZF Files" })
+-- Original was p -> This feels more natural
+km.set("n", "<leader>f", require("fzf-lua").files, { desc = "FZF Files" })
 
 km.set("n", "<leader><leader>", require("fzf-lua").resume, { desc = "FZF Resume" })
 
@@ -71,7 +72,8 @@ km.set("n", "<leader>m", require("fzf-lua").marks, { desc = "Marks" })
 
 km.set("n", "<leader>k", require("fzf-lua").keymaps, { desc = "Keymaps" })
 
-km.set("n", "<leader>f", require("fzf-lua").live_grep, { desc = "FZF Grep" })
+-- Original was f -> This feels more natural
+km.set("n", "<leader>z", require("fzf-lua").live_grep, { desc = "FZF Grep" })
 
 km.set("n", "<leader>b", require("fzf-lua").buffers, { desc = "FZF Buffers" })
 
@@ -227,8 +229,8 @@ km.set("n", "<leader>l", ":lua Snacks.lazygit.open()<cr>", { silent = true, desc
 -- Easy delete buffer without losing window split
 km.set("n", "<leader>d", ":lua Snacks.bufdelete.delete()<cr>", { silent = true, desc = "Buffer Delete" })
 
--- Zen Mode
-Snacks.toggle.zen():map("<leader>z")
+-- Zen Mode -- NOTE: Uncomment if you want to use it
+-- Snacks.toggle.zen():map("<leader>z")
 
 -- Show Notifier history
 km.set("n", "<leader>xh", ":lua Snacks.notifier.show_history()<cr>", { silent = true, desc = "Notifier history" })

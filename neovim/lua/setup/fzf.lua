@@ -40,9 +40,9 @@ require("fzf-lua").setup({
     end,
   },
   defaults = {
-    git_icons = false,
-    file_icons = false,
-    color_icons = false,
+    git_icons = true,
+    file_icons = true,
+    color_icons = true,
     formatter = "path.filename_first",
   },
   actions = {
@@ -52,3 +52,7 @@ require("fzf-lua").setup({
     },
   },
 })
+
+-- register fzf-lua as the vim.ui.select backend to stop us receiving that warning.
+-- HACK: If this breaks anything, in our mapping for ,ca then we can just add silent = true
+require("fzf-lua").register_ui_select()
