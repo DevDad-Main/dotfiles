@@ -9,6 +9,21 @@ local function close_floating()
   end
 end
 
+local function open_minifiles_in_cwd()
+  local buf_name = vim.api.nvim_buf_get_name(0)
+  local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+  if vim.fn.filereadable(buf_name) == 1 then
+    -- Pass the full file path to highlight the file
+    require("mini.files").open(buf_name, true)
+  elseif vim.fn.isdirectory(dir_name) == 1 then
+    -- If the directory exists but the file doesn't, open the directory
+    require("mini.files").open(dir_name, true)
+  else
+    -- If neither exists, fallback to the current working directory
+    require("mini.files").open(vim.uv.cwd(), true)
+  end
+end
+
 --  ┌                                                                              ┐
 --  │ These define common comment styles like this                                 │
 --  └                                                                              ┘
@@ -263,7 +278,7 @@ km.set("n", "<leader>rt", function()
 end, { desc = "󰤑 Run neotest" })
 
 -- Toggle Open Oil
-km.set("n", "<leader>e", function()
+km.set("n", "-", function()
   vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
 end, { desc = "Toggle Open Oil" })
 
@@ -275,4 +290,6 @@ km.set(
   { desc = "FZF Grep TODOs" }
 )
 
-km.set("n", "-", "<cmd>:lua MiniFiles.open()<cr>", { desc = "Open MiniFiles" })
+km.set("n", "<leader>e", function()
+  open_minifiles_in_cwd()
+end, { desc = "Open MiniFiles" })
