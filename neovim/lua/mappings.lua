@@ -263,7 +263,7 @@ km.set("n", "<leader>h", "<cmd>ToggleInlayHints<cr>", { desc = "Toggle Inlay Hin
 -- Neo Test - Whole File
 km.set("n", "<leader>nt", function()
   require("neotest").run.run(vim.fn.expand("%"))
-end, { desc = "󰤑 Run neotest" })
+end, { desc = "󰤑 Run All Tests In File" })
 
 -- Neo Test - Whole File
 km.set("n", "<leader>nts", function()
@@ -275,7 +275,7 @@ km.set("n", "<leader>nto", "<cmd>Neotest summary<cr>", { desc = "󰤑 Open Neote
 -- Neo Test - Run Hovered Over Test
 km.set("n", "<leader>rt", function()
   require("neotest").run.run()
-end, { desc = "󰤑 Run neotest" })
+end, { desc = "󰤑 Run Nearest Test" })
 
 -- Toggle Open Oil
 km.set("n", "-", function()
@@ -290,6 +290,7 @@ km.set(
   { desc = "FZF Grep TODOs" }
 )
 
+-- Open Mini.files where your file is - cwd
 km.set("n", "<leader>e", function()
   open_minifiles_in_cwd()
 end, { desc = "Open MiniFiles" })
