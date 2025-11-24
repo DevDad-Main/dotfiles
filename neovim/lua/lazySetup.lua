@@ -225,4 +225,5 @@ return {
     ---@type render.md.UserConfig
     opts = {},
   },
+  { "nvim-mini/mini.files", version = false, config = get_setup("mini-files") },
 }

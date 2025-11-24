@@ -5,8 +5,10 @@ local g = vim.g
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
-opt.cursorline = true
-opt.cursorcolumn = true
+
+opt.cursorline = false
+opt.cursorcolumn = false
+
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
 opt.foldenable = true
 opt.foldmethod = "manual"
@@ -82,24 +84,26 @@ api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight yank",
 })
 
--- show cursor line only in active window
-local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
-api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { pattern = "*", command = "set cursorline", group = cursorGrp })
-api.nvim_create_autocmd(
-  { "InsertEnter", "WinLeave" },
-  { pattern = "*", command = "set nocursorline", group = cursorGrp }
-)
-
--- show cursor col line only in active window
-local cursorColGrp = api.nvim_create_augroup("CursorColumn", { clear = true })
-api.nvim_create_autocmd(
-  { "InsertLeave", "WinEnter" },
-  { pattern = "*", command = "set cursorcolumn", group = cursorColGrp }
-)
-api.nvim_create_autocmd(
-  { "InsertEnter", "WinLeave" },
-  { pattern = "*", command = "set nocursorcolumn", group = cursorColGrp }
-)
+-- #region CursorLine AutoCommands to show the vertical Line
+---- show cursor line only in active window
+-- local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
+-- api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { pattern = "*", command = "set cursorline", group = cursorGrp })
+-- api.nvim_create_autocmd(
+--   { "InsertEnter", "WinLeave" },
+--   { pattern = "*", command = "set nocursorline", group = cursorGrp }
+-- )
+--
+-- -- show cursor col line only in active window
+-- local cursorColGrp = api.nvim_create_augroup("CursorColumn", { clear = true })
+-- api.nvim_create_autocmd(
+--   { "InsertLeave", "WinEnter" },
+--   { pattern = "*", command = "set cursorcolumn", group = cursorColGrp }
+-- )
+-- api.nvim_create_autocmd(
+--   { "InsertEnter", "WinLeave" },
+--   { pattern = "*", command = "set nocursorcolumn", group = cursorColGrp }
+-- )
+-- #endregion
 
 -- show Blank Line only in active window
 -- local blanklineGrp = api.nvim_create_augroup("BlankLine", { clear = true })

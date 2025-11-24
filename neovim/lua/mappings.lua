@@ -275,4 +275,4 @@ km.set(
   { desc = "FZF Grep TODOs" }
 )
 
---TODO:
+km.set("n", "-", "<cmd>:lua MiniFiles.open()<cr>", { desc = "Open MiniFiles" })
