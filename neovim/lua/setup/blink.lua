@@ -31,8 +31,8 @@ return {
       "lsp",
       "path",
       "snippets",
-      "buffer",
       "supermaven",
+      "buffer",
     },
     providers = {
       lsp = { fallbacks = { "lazydev" } },
