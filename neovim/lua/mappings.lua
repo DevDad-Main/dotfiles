@@ -294,3 +294,7 @@ km.set(
 km.set("n", "<leader>e", function()
   open_minifiles_in_cwd()
 end, { desc = "Open MiniFiles" })
+
+km.set("n", "<leader>-", function()
+  require("fyler").open({ kind = "split_left_most" })
+end, { desc = "Open Fyler View" })

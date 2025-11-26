@@ -98,13 +98,6 @@ return {
   { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
   { "EdenEast/nightfox.nvim", config = get_setup("themes.nightfox"), enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
-  {
-    "ellisonleao/gruvbox.nvim",
-    config = get_setup("themes.gruvbox"),
-    priority = 1000,
-    lazy = false,
-    enabled = false,
-  },
   { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
   {
     "zenbones-theme/zenbones.nvim",
@@ -226,4 +219,11 @@ return {
     opts = {},
   },
   { "nvim-mini/mini.files", version = false, config = get_setup("mini-files") },
+  {
+    "A7Lavinraj/fyler.nvim",
+    dependencies = { "nvim-mini/mini.icons" },
+    branch = "stable", -- Use stable branch for production
+    lazy = false, -- Necessary for `default_explorer` to work properly
+    opts = {},
+  },
 }

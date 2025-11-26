@@ -20,4 +20,11 @@ require("mini.files").setup({
     trim_left = "<",
     trim_right = ">",
   },
+  windows = {
+    preview = true,
+    width_preview = 60,
+    width_focus = 40,
+    -- Width of non-focused window
+    width_nofocus = 30,
+  },
 })
