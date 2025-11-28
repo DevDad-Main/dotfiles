@@ -95,10 +95,10 @@ return {
     end,
   },
   -- NOTE: Themes
-  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
+  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
   { "EdenEast/nightfox.nvim", config = get_setup("themes.nightfox"), enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
-  { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = true },
+  { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
   {
     "zenbones-theme/zenbones.nvim",
     dependencies = "rktjmp/lush.nvim",
@@ -225,5 +225,13 @@ return {
     branch = "stable", -- Use stable branch for production
     lazy = false, -- Necessary for `default_explorer` to work properly
     opts = {},
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    lazy = false,
+    dependencies = "kevinhwang91/promise-async",
+    config = function()
+      require("configs.ufo")
+    end,
   },
 }

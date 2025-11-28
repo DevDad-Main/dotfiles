@@ -10,8 +10,15 @@ opt.cursorline = false
 opt.cursorcolumn = false
 
 opt.encoding = "utf-8" -- Set default encoding to UTF-8
+-- opt.foldenable = true
+--
+opt.foldcolumn = "1" -- '0' is not bad
+opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldmethod = "manual"
+--
+--
 -- opt.formatoptions = "l"
 opt.hidden = true -- Enable background buffers
 opt.hlsearch = true -- Highlight found searches
@@ -71,6 +78,9 @@ opt.ph = 15 -- the number is the number of entries to show before scrollbars, no
 opt.cmdheight = 0
 opt.virtualedit = "block" -- allows using visual blocks beyond the end of a line
 vim.g.editorconfig = false -- disable editor config as VSCode does not have it on by default
+
+--- use Neovim nightly branch
+-- opt.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:"
 
 local api = vim.api
 -- Highlight on yank

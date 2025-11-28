@@ -125,7 +125,8 @@ km.set(
 km.set(
   "n",
   "<leader>ca",
-  ":lua require'fzf-lua'.lsp_code_actions({ winopts = {relative='cursor',row=1.01, col=0, height=0.2, width=0.4} })<cr>",
+  -- ":lua require'fzf-lua'.lsp_code_actions({ winopts = {relative='cursor',row=1.01, col=0, height=0.2, width=0.4} })<cr>",
+  ":lua require'fzf-lua'.lsp_code_actions({ winopts = {preview={wrap='wrap'}}})<cr>",
   { desc = "Code Actions" }
 )
 
