@@ -299,3 +299,11 @@ end, { desc = "Open MiniFiles" })
 km.set("n", "<leader>-", function()
   require("fyler").toggle({ kind = "split_left_most" })
 end, { desc = "Open Fyler View" })
+
+km.set("n", "<leader>Rs", function()
+  require("kulala").run()
+end, { desc = "Kulala Send Request" })
+
+km.set("n", "<leader>Ra", function()
+  require("kulala").run_all()
+end, { desc = "Kulala Open Scratchpad" })

@@ -134,6 +134,19 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
   pattern = { "*" },
 })
 
+-- auto resize splits when the terminals window is resized
+vim.api.nvim_create_autocmd("VimResized", {
+  command = "wincmd =",
+})
+
+--no auto continue comments on new line
+vim.api.nvim_create_autocmd("fileType", {
+  group = vim.api.nvim_create_augroup("no_auto_comment", {}),
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  end,
+})
+
 -- Don't want relative no on inactive Windows
 -- local relativeNo = api.nvim_create_augroup("RelativeNo", { clear = true })
 --
