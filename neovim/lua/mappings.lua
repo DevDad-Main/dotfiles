@@ -302,7 +302,7 @@ km.set("n", "<leader>e", function()
 end, { desc = "Open MiniFiles" })
 
 -- Toggle tree
-km.set("n", "<leader>-", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
+km.set("n", "<leader>-", ":NvimTreeFindFileToggle<CR>", { desc = "Toggle NvimTree" })
 
 km.set("n", "<leader>Rs", function()
   require("kulala").run()
