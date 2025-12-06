@@ -139,6 +139,12 @@ vim.api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
 })
 
+-- auto resize panes when resizing nvim window
+vim.api.nvim_create_autocmd(
+  "VimResized",
+  { desc = "Auto resize panes when resizing nvim window", pattern = "*", command = "tabdo wincmd =" }
+)
+
 --no auto continue comments on new line
 vim.api.nvim_create_autocmd("fileType", {
   group = vim.api.nvim_create_augroup("no_auto_comment", {}),

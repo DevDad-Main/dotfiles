@@ -142,10 +142,15 @@ km.set({ "v", "n" }, "<leader>cn", function()
   vim.lsp.buf.rename()
 end, { noremap = true, silent = true, desc = "Code Rename" })
 
-km.set("n", "<Leader><Down>", "<C-W><C-J>", { silent = true, desc = "Window Down" })
-km.set("n", "<Leader><Up>", "<C-W><C-K>", { silent = true, desc = "Window Up" })
-km.set("n", "<Leader><Right>", "<C-W><C-L>", { silent = true, desc = "Window Right" })
-km.set("n", "<Leader><Left>", "<C-W><C-H>", { silent = true, desc = "Window Left" })
+km.set("n", "<C-h>", "<C-w>h", { silent = true, desc = "Window Left" })
+km.set("n", "<C-j>", "<C-w>j", { silent = true, desc = "Window Down" })
+km.set("n", "<C-k>", "<C-w>k", { silent = true, desc = "Window Up" })
+km.set("n", "<C-l>", "<C-w>l", { silent = true, desc = "Window Right" })
+-- NOTE: For Users who like to use arrow keys
+-- km.set("n", "<Leader><Down>", "<C-W><C-J>", { silent = true, desc = "Window Down" })
+-- km.set("n", "<Leader><Up>", "<C-W><C-K>", { silent = true, desc = "Window Up" })
+-- km.set("n", "<Leader><Right>", "<C-W><C-L>", { silent = true, desc = "Window Right" })
+-- km.set("n", "<Leader><Left>", "<C-W><C-H>", { silent = true, desc = "Window Left" })
 km.set("n", "<Leader>wr", "<C-W>R", { silent = true, desc = "Window Resize" })
 km.set("n", "<Leader>=", "<C-W>=", { silent = true, desc = "Window Equalise" })
 
@@ -296,14 +301,9 @@ km.set("n", "<leader>e", function()
   open_minifiles_in_cwd()
 end, { desc = "Open MiniFiles" })
 
-km.set("n", "<leader>-", function()
-  require("fyler").toggle({ kind = "split_left_most" })
-end, { desc = "Open Fyler View" })
+-- Toggle tree
+km.set("n", "<leader>-", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 
 km.set("n", "<leader>Rs", function()
   require("kulala").run()
 end, { desc = "Kulala Send Request" })
-
-km.set("n", "<leader>Ra", function()
-  require("kulala").run_all()
-end, { desc = "Kulala Open Scratchpad" })

@@ -95,18 +95,20 @@ return {
     end,
   },
   -- NOTE: Themes
-  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
+  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
   { "EdenEast/nightfox.nvim", config = get_setup("themes.nightfox"), enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
   { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
   {
-    "zenbones-theme/zenbones.nvim",
-    dependencies = "rktjmp/lush.nvim",
-    config = get_setup("themes.zenbones"),
-    priority = 1000,
+    "shaunsingh/nord.nvim",
     lazy = false,
-    enabled = false,
+    priority = 1000,
+    enabled = true,
+    config = function()
+      vim.cmd("colorscheme nord")
+    end,
   },
+  --NOTE: End of Themes
   {
     "mason-org/mason.nvim",
     opts = {},
@@ -220,13 +222,6 @@ return {
   },
   { "nvim-mini/mini.files", version = false, config = get_setup("mini-files") },
   {
-    "A7Lavinraj/fyler.nvim",
-    dependencies = { "nvim-mini/mini.icons" },
-    branch = "stable", -- Use stable branch for production
-    lazy = false, -- Necessary for `default_explorer` to work properly
-    opts = {},
-  },
-  {
     "kevinhwang91/nvim-ufo",
     lazy = false,
     dependencies = "kevinhwang91/promise-async",
@@ -245,5 +240,53 @@ return {
       global_keymaps_prefix = "<leader>R",
       kulala_keymaps_prefix = "",
     },
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require("nvim-tree").setup({
+        sort = {
+          sorter = "case_sensitive",
+        },
+
+        view = {
+          width = 35,
+          side = "left",
+          preserve_window_proportions = true,
+        },
+
+        renderer = {
+          group_empty = true,
+          highlight_git = true,
+          icons = {
+            git_placement = "after",
+            show = {
+              git = true,
+              file = true,
+              folder = true,
+              folder_arrow = true,
+            },
+          },
+        },
+
+        filters = {
+          dotfiles = false, -- show dotfiles
+          git_ignored = false, -- show .gitignored files
+        },
+
+        git = {
+          enable = true,
+          ignore = false,
+          show_on_dirs = true,
+        },
+
+        actions = {
+          open_file = {
+            resize_window = true, -- auto-resize window
+            quit_on_open = true, -- close tree open when opening file
+          },
+        },
+      })
+    end,
   },
 }
