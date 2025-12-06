@@ -95,7 +95,7 @@ return {
     end,
   },
   -- NOTE: Themes
-  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
+  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
   { "EdenEast/nightfox.nvim", config = get_setup("themes.nightfox"), enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
   { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
@@ -106,6 +106,15 @@ return {
     enabled = false,
     config = function()
       vim.cmd("colorscheme nord")
+    end,
+  },
+  {
+    "rmehri01/onenord.nvim",
+    lazy = false,
+    priority = 1000,
+    enabled = true,
+    config = function()
+      vim.cmd("colorscheme onenord")
     end,
   },
   --NOTE: End of Themes
