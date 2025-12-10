@@ -39,10 +39,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "@property", { fg = nord.nord10, italic = true })         -- Properties - original dark blue, italic
         
         -- Enhanced function differentiation
-        vim.api.nvim_set_hl(0, "@function", { fg = "#7A9E9D", bold = true })            -- Functions - darker cyan, bold
-        vim.api.nvim_set_hl(0, "@function.builtin", { fg = "#7A9E9D", bold = true })    -- Built-in functions - darker cyan, bold
-        vim.api.nvim_set_hl(0, "@method", { fg = "#7A9E9D", italic = true })           -- Methods - darker cyan, italic
-        vim.api.nvim_set_hl(0, "@method.call", { fg = "#7A9E9D", italic = true })       -- Method calls - darker cyan, italic
+        vim.api.nvim_set_hl(0, "@function", { fg = nord.nord10, bold = true })            -- Functions - original dark blue, bold
+        vim.api.nvim_set_hl(0, "@function.builtin", { fg = nord.nord10, bold = true })    -- Built-in functions - original dark blue, bold
+        vim.api.nvim_set_hl(0, "@method", { fg = nord.nord10, italic = true })           -- Methods - original dark blue, italic
+        vim.api.nvim_set_hl(0, "@method.call", { fg = nord.nord10, italic = true })       -- Method calls - original dark blue, italic
         vim.api.nvim_set_hl(0, "@constructor", { fg = nord.nord9, bold = true })         -- Constructors - blue, bold
         
         -- Enhanced type differentiation
