@@ -17,8 +17,8 @@ opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrea
 opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldmethod = "manual"
---
---
+
+
 -- opt.formatoptions = "l"
 opt.hidden = true -- Enable background buffers
 opt.hlsearch = true -- Highlight found searches
@@ -29,7 +29,15 @@ opt.joinspaces = false -- No double spaces with join
 vim.o.lazyredraw = true
 opt.linebreak = true -- Stop words being broken on wrap
 opt.number = true -- Show line numbers
-opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
+-- opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
+opt.listchars = {
+  tab = '❘-',
+  trail = '·',
+  lead = '·',
+  extends = '»',
+  precedes = '«',
+  nbsp = '×',
+}
 opt.list = true -- Show some invisible characters
 opt.relativenumber = true
 vim.o.shortmess = vim.o.shortmess .. "S" -- stops display of currentsearch match in cmdline area

@@ -37,6 +37,7 @@ alias nvl="NVIM_APPNAME=LazyVim nvim"
 alias nvk="NVIM_APPNAME=kickstart nvim"
 alias nvc="NVIM_APPNAME=NvChad nvim"
 alias nva="NVIM_APPNAME=AstroNvim nvim"
+alias nvtest="NVIM_APPNAME=CosmicNvim nvim"
 
 alias nt="npm run test"
 alias ntw="npm run test:watch"
@@ -46,7 +47,7 @@ alias ntc="npm run test:coverage"
 # Fuzzy cd into a directory
 cdf() {
   local dir
-  dir=$(fd --type d --max-depth 2 --hidden --follow \
+  dir=$(fd --type d --max-depth 3 --hidden --follow \
     --exclude .git \
     --exclude node_modules \
     --exclude dist \
