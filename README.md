@@ -55,7 +55,27 @@ sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python pytho
 
 ## 🖼️ Screenshots
 
-> Screenshots are currently being updated. Check back soon for visual previews of the configuration!
+### 📁 File Management & Navigation
+
+#### Nvim Tree File Explorer
+| File Browser | File Preview |
+|--------------|--------------|
+| ![Nvim Tree](previews/nvim-tree.png) | ![Nvim Tree Preview](previews/nvim-tree-preview.png) |
+
+#### Mini Files Plugin
+![Mini Files](previews/mini-files.png)
+
+### 🔍 Fuzzy Finding & Search
+
+#### Custom FZF Functions
+| CD Function | File Picker |
+|-------------|-------------|
+| ![Custom FZF CD](previews/custom-fzf-cd-func.png) | ![Custom FZF File Picker](previews/custom-fzf-file-picker.png) |
+
+#### FZF-Lua Integration
+| Files | Buffers | Keymaps | Todos |
+|-------|---------|---------|-------|
+| ![FZF-Lua Files](previews/fzf-lua-files.png) | ![FZF-Lua Buffers](previews/fzf-lua-buffers.png) | ![FZF-Lua Keymaps](previews/fzf-lua-keymaps.png) | ![FZF-Lua Todos](previews/fzf-lua-todos.png) |
 
 ### Recommended Packages
 
