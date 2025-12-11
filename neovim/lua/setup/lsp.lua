@@ -52,12 +52,12 @@ require("lspconfig").cssls.setup({
   end,
 })
 
--- require("lspconfig").ts_ls.setup({
---   capabilities = capabilities,
---   on_attach = function(client)
---     client.server_capabilities.document_formatting = false
---   end,
--- })
+require("lspconfig").ts_ls.setup({
+  capabilities = capabilities,
+  on_attach = function(client)
+    client.server_capabilities.document_formatting = false
+  end,
+})
 
 require("lspconfig").html.setup({
   capabilities = capabilities,
@@ -79,42 +79,42 @@ require("lspconfig").stylelint_lsp.setup({
   end,
 })
 
-require("lspconfig").vtsls.setup({
-  on_attach = function(client)
-    client.server_capabilities.document_formatting = false
-  end,
-  capabilities = capabilities,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-  },
-  settings = {
-    typescript = {
-      inlayHints = {
-        parameterNames = { enabled = "all" },
-        parameterTypes = { enabled = true },
-        variableTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        enumMemberValues = { enabled = true },
-      },
-    },
-    javascript = {
-      inlayHints = {
-        parameterNames = { enabled = "all" },
-        parameterTypes = { enabled = true },
-        variableTypes = { enabled = true },
-        propertyDeclarationTypes = { enabled = true },
-        functionLikeReturnTypes = { enabled = true },
-        enumMemberValues = { enabled = true },
-      },
-    },
-  },
-})
+-- require("lspconfig").vtsls.setup({
+--   on_attach = function(client)
+--     client.server_capabilities.document_formatting = false
+--   end,
+--   capabilities = capabilities,
+--   filetypes = {
+--     "javascript",
+--     "javascriptreact",
+--     "javascript.jsx",
+--     "typescript",
+--     "typescriptreact",
+--     "typescript.tsx",
+--   },
+--   settings = {
+--     typescript = {
+--       inlayHints = {
+--         parameterNames = { enabled = "all" },
+--         parameterTypes = { enabled = true },
+--         variableTypes = { enabled = true },
+--         propertyDeclarationTypes = { enabled = true },
+--         functionLikeReturnTypes = { enabled = true },
+--         enumMemberValues = { enabled = true },
+--       },
+--     },
+--     javascript = {
+--       inlayHints = {
+--         parameterNames = { enabled = "all" },
+--         parameterTypes = { enabled = true },
+--         variableTypes = { enabled = true },
+--         propertyDeclarationTypes = { enabled = true },
+--         functionLikeReturnTypes = { enabled = true },
+--         enumMemberValues = { enabled = true },
+--       },
+--     },
+--   },
+-- })
 
 require("lspconfig").dockerls.setup({
   capabilities = capabilities,

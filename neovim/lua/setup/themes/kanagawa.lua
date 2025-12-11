@@ -1,6 +1,7 @@
 require("kanagawa").setup({
   compile = true,
   dimInactive = true,
+  transparent = true,
   overrides = function(colors)
     local theme = colors.theme
     local palette = colors.palette

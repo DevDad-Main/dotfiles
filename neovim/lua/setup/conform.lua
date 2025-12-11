@@ -40,5 +40,5 @@ require("conform").setup({
   },
   -- Set up format-on-save
   -- don't want it formatting with lsp if Prettier isn't available
-  format_on_save = { timeout_ms = 1500, lsp_format = "never" },
+  format_on_save = { timeout_ms = 1500, lsp_format = "true" },
 })

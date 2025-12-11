@@ -8,7 +8,7 @@ end
 
 return {
   -- { "stevearc/dressing.nvim", event = "VeryLazy" },
-  { "stevearc/oil.nvim", event = "VeryLazy", config = get_setup("oil") },
+  { "stevearc/oil.nvim",            event = "VeryLazy",          config = get_setup("oil") },
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
@@ -17,8 +17,8 @@ return {
   },
   { "mbbill/undotree" },
   { "LudoPinelli/comment-box.nvim", event = "VeryLazy" },
-  { "numToStr/Comment.nvim", lazy = false, config = get_setup("comment") },
-  { "rlane/pounce.nvim", config = get_setup("pounce") },
+  { "numToStr/Comment.nvim",        lazy = false,                config = get_setup("comment") },
+  { "rlane/pounce.nvim",            config = get_setup("pounce") },
   {
     "nvim-lualine/lualine.nvim",
     config = get_setup("lualine"),
@@ -78,11 +78,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = get_setup("fzf"),
   },
-  { "rmagatti/auto-session", config = get_setup("auto-session") },
-  { "echasnovski/mini.ai", config = get_setup("mini-ai"), version = false },
-  { "echasnovski/mini.bracketed", config = get_setup("mini-bracketed"), version = false },
-  { "echasnovski/mini.move", config = get_setup("mini-move"), version = false },
-  { "windwp/nvim-ts-autotag", event = "InsertEnter" },
+  { "rmagatti/auto-session",              config = get_setup("auto-session") },
+  { "echasnovski/mini.ai",                config = get_setup("mini-ai"),         version = false },
+  { "echasnovski/mini.bracketed",         config = get_setup("mini-bracketed"),  version = false },
+  { "echasnovski/mini.move",              config = get_setup("mini-move"),       version = false },
+  { "windwp/nvim-ts-autotag",             event = "InsertEnter" },
   {
     "windwp/nvim-autopairs",
     config = get_setup("autopairs"),
@@ -95,9 +95,9 @@ return {
     end,
   },
   -- NOTE: Themes
-  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
+  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"),   priority = 1000,                         lazy = false,   enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
-  { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
+  { "catppuccin/nvim",       name = "catppuccin",                     config = get_setup("themes.catppuccin"), enabled = false },
   {
     "shaunsingh/nord.nvim",
     lazy = false,
@@ -137,6 +137,7 @@ return {
           "prettierd",
           "stylua",
           "vtsls",
+          "typescript-language-server",
           "jsonlint",
           "html-lsp",
           "dockerfile-language-server",
@@ -263,5 +264,15 @@ return {
     },
     lazy = false,
     opts = {},
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "saghen/blink.cmp",
+      "neovim/nvim-lspconfig",
+
+    },
   },
 }
