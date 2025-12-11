@@ -1,4 +1,46 @@
 require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+
+  view = {
+    width = 40,
+    side = "left",
+    preserve_window_proportions = true,
+  },
+
+  renderer = {
+    group_empty = true,
+    highlight_git = true,
+    icons = {
+      git_placement = "after",
+      show = {
+        git = true,
+        file = true,
+        folder = true,
+        folder_arrow = true,
+      },
+    },
+  },
+
+  filters = {
+    dotfiles = true, -- show dotfiles
+    git_ignored = true, -- show .gitignored files
+  },
+
+  git = {
+    enable = true,
+    ignore = false,
+    show_on_dirs = true,
+  },
+
+  actions = {
+    open_file = {
+      resize_window = true, -- auto-resize window
+      quit_on_open = true, -- close tree open when opening file
+    },
+  },
+
   on_attach = function(bufnr)
     local api = require("nvim-tree.api")
 

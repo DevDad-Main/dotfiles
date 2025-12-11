@@ -95,14 +95,14 @@ return {
     end,
   },
   -- NOTE: Themes
-  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
+  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
   { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
   {
     "shaunsingh/nord.nvim",
     lazy = false,
     priority = 1000,
-    enabled = false,
+    enabled = true,
     config = get_setup("themes.nord")
   },
   --NOTE: End of Themes
@@ -240,51 +240,7 @@ return {
   },
   {
     "nvim-tree/nvim-tree.lua",
-    config = function()
-      require("nvim-tree").setup({
-        sort = {
-          sorter = "case_sensitive",
-        },
-
-        view = {
-          width = 35,
-          side = "left",
-          preserve_window_proportions = true,
-        },
-
-        renderer = {
-          group_empty = true,
-          highlight_git = true,
-          icons = {
-            git_placement = "after",
-            show = {
-              git = true,
-              file = true,
-              folder = true,
-              folder_arrow = true,
-            },
-          },
-        },
-
-        filters = {
-          dotfiles = false, -- show dotfiles
-          git_ignored = false, -- show .gitignored files
-        },
-
-        git = {
-          enable = true,
-          ignore = false,
-          show_on_dirs = true,
-        },
-
-        actions = {
-          open_file = {
-            resize_window = true, -- auto-resize window
-            quit_on_open = true, -- close tree open when opening file
-          },
-        },
-      })
-    end,
+    config = get_setup("nvim-tree"),
   },
   {
     "kyazdani42/nvim-tree.lua",
