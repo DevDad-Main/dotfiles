@@ -105,15 +105,6 @@ return {
     enabled = true,
     config = get_setup("themes.nord")
   },
-  {
-    "rmehri01/onenord.nvim",
-    lazy = false,
-    priority = 1000,
-    enabled = false,
-    config = function()
-      vim.cmd("colorscheme onenord")
-    end,
-  },
   --NOTE: End of Themes
   {
     "mason-org/mason.nvim",
@@ -307,5 +298,14 @@ return {
         },
       },
     },
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    lazy = false,
+    opts = {},
   },
 }
