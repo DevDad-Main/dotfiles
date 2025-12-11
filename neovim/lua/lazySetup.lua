@@ -95,14 +95,14 @@ return {
     end,
   },
   -- NOTE: Themes
-  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = false },
+  { "rebelot/kanagawa.nvim", config = get_setup("themes.kanagawa"), priority = 1000, lazy = false, enabled = true },
   { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
   { "catppuccin/nvim", name = "catppuccin", config = get_setup("themes.catppuccin"), enabled = false },
   {
     "shaunsingh/nord.nvim",
     lazy = false,
     priority = 1000,
-    enabled = true,
+    enabled = false,
     config = get_setup("themes.nord")
   },
   --NOTE: End of Themes
