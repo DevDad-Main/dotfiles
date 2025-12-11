@@ -1,100 +1,61 @@
-# DevDad Dotfiles
+# 🚀 DevDad Dotfiles
 
-<!-- ## About The Project -->
+> A comprehensive collection of configuration files for a productive development environment
 
-Home repo for all my dotfiles.
+## 📋 Overview
 
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-# Pre-requisites - DevDadVim
+Welcome to my personal dotfiles repository! This collection includes configurations for Neovim, Tmux, Niri (Wayland compositor), Yazi file manager, and various shell tools. These configurations are designed to create a cohesive, efficient, and visually appealing development workflow.
 
 ## ✨ Features
 
-- 🔥 Transform your Neovim into a full-fledged IDE
-- 💤 Easily customize and extend your config with lazy.nvim
-- 🚀 Blazingly fast
-- 🧹 Sane default settings for options, autocmds, and keymaps
-- 📦 Comes with a wealth of plugins pre-configured and ready to use
+### 🎯 Neovim Configurations
+- **Multiple Configurations**: NvChad and custom Neovim variants
+- 🔥 Full-fledged IDE experience with modern plugins
+- 💤 Extensible with lazy.nvim plugin manager
+- 🚀 Blazingly fast startup and performance
+- 🧹 Sane defaults for options, autocmds, and keymaps
+- 📦 Pre-configured plugins for productivity
 
-## ⚡️ Requirements
+### 🛠️ Development Tools
+- **Tmux**: Productive terminal multiplexer with plugins
+- **Yazi**: Modern file manager with custom plugins
+- **FZF**: Enhanced fuzzy finding with custom functions
+- **Shell**: Optimized Zsh configuration with useful plugins
 
-- Neovim >= 0.9.0 (needs to be built with LuaJIT)
-- Git >= 2.19.0 (for partial clones support)
-- a Nerd Font(v3.0 or greater) (optional, but needed to display some icons)
-- lazygit (optional)
-- a C compiler for nvim-treesitter. See here
-- curl for blink.cmp (completion engine)
-- for fzf-lua (optional)
-- fzf: fzf (v0.25.1 or greater)
-- live grep: ripgrep
-- find files: fd
-- a terminal that supports true color and undercurl:
-  - kitty (Linux & Macos)
-  - wezterm (Linux, Macos & Windows)
-  - alacritty (Linux, Macos & Windows)
-  - iterm2 (Macos)
+### 🖥️ Desktop Environment
+- **QuickShell**: Modern desktop shell with Noctalia theme
+- **Waybar**: Custom status bar configuration
 
-### 🖼️ Preview
+## ⚙️ System Requirements
 
-<details>
+### Core Dependencies
+- **Neovim** >= 0.9.0 (built with LuaJIT)
+- **Git** >= 2.19.0 (for partial clones support)
+- **Nerd Font** v3.0+ (for icon display)
+- **C Compiler** (for nvim-treesitter compilation)
 
-<summary>NvChad - DevDad</summary>
+### Recommended Tools
+- **lazygit** (Git UI)
+- **curl** (for blink.cmp completion)
+- **fzf** v0.25.1+ (fuzzy finding)
+- **ripgrep** (live grep)
+- **fd** (file finding)
 
-## NvDash - DevDad
+### Terminal Requirements
+A terminal supporting true color and undercurl:
+- **kitty** (Linux & macOS)
+- **wezterm** (Linux, macOS & Windows)
+- **alacritty** (Linux, macOS & Windows)
+- **iterm2** (macOS)
 
-![nvdash plugin](./previews/nv-dash.png)
+### Package Installation (Arch Linux)
+```bash
+sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd fzf
+```
 
-## Nvim-Tree
+## 🖼️ Screenshots
 
-![nvim-tree plugin](./previews/nvim-tree.png)
-
-## Telescope & Telescope-Frecency
-
-![telescope-with-frecency plugin](./previews/telescope-with-frecency.png)
-
-## Grug Far
-
-![grug-far plugin](./previews/grug-far.png)
-
-## Telescope Buffers With Terminals via builtin :term
-
-![telescope-buffer-terms plugin](./previews/buffers-with-term.png)
-
-## Telescope Fzf Todos
-
-![telescope-fzf-todos plugin](./previews/telescope-fzf-todos.png)
-
-## ToggleTerm Vscode Style Terminals
-
-![toggle-term-vscode plugin](./previews/vert-terminal-vscode.png)
-
-## Telescope Keymaps
-
-![telescope-find-keymaps plugin](./previews/telescope-keymaps.png)
-
-## NvimTree - Custom Fzf File Picker
-
-![nvimtree plugin](./previews/nvimtree-fzf-file.png)
-
-## NvimTree - Custom Fzf Directory Picker (Majorly needed for NvimTree/Neovide)
-
-![nvimtree plugin](./previews/nvimtree-fzf-dir.png)
-
-## Tmux
-
-![tmux](./previews/tmux.png)
-
-</details>
-
-## Custom Fzf Functions
-
-> cd quicker than cd with fzf
-> ![fzf-cd](./previews/custom-fzf-cd-func.png)
-> find files quicker than find with fzf and open them with your favourite editor
-> ![fzf-file-picker](./previews/custom-fzf-file-picker.png)
+> Screenshots are currently being updated. Check back soon for visual previews of the configuration!
 
 ### Recommended Packages
 
@@ -104,93 +65,82 @@ To get a local copy up and running follow these simple example steps.
 sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd
 ```
 
-## Installation for .zshrc and custom fzf functions
+## 🛠️ Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/DevDad-Main/dotfiles.git ~/.config/
+```
+
+### 2. Shell Setup (Zsh + Oh My Zsh)
 
 <details>
+<summary>📚 Zsh Configuration</summary>
 
-<summary>Zsh - OhMyZsh </summary>
-
+#### Install Zsh and Oh My Zsh
 ```bash
 sudo pacman -Syu zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-- autosuggesions plugin
-
-  ```bash
-  git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-  ```
-
-- zsh-syntax-highlighting plugin
-
-  ```bash
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-  ```
-
-- zsh-fast-syntax-highlighting plugin
-
-  ```bash
-  git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-  ```
-
-- zsh-autocomplete plugin
-
-  ```bash
-  git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
-  ```
-
-- zsh-fsf plugin
-  ```bash
-  git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-  ```
-
-> Remove the ~/zshrc file and replace it with the one in this repo
-
+#### Install Essential Plugins
 ```bash
+# Auto-suggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
+# Syntax highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+# Fast syntax highlighting
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+
+# Auto-completion
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
+
+# FZF tab completion
+git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+```
+
+#### Link Custom Zsh Configuration
+```bash
+# Backup existing .zshrc if needed
+mv ~/.zshrc ~/.zshrc.backup
+
+# Link the custom configuration
 ln -s ~/.config/dotfiles/.zshrc ~/
 ```
 
 </details>
 
+### 3. Desktop Environment (Niri + Wayland)
+
 <details>
+<summary>🖥️ Niri Wayland Compositor Setup</summary>
 
-<summary>Niri - Installation/Setup</summary>
+> **Note**: These instructions are for Arch Linux. Adjust package names for your distribution.
 
-https://github.com/user-attachments/assets/82de8725-0603-4ca5-9985-a4f21939c1d6
-
-> I'm using arch linux so you may need to change some things depeding on your distro
-
-### 1. Install Niri
-
-> Niri is needed and after those are the additional packages suggested by the [Niri AUR](https://wiki.archlinux.org/title/Niri)
-
+#### Install Niri and Essential Packages
 ```bash
 yay -S niri fuzzel mako waybar xdg-desktop-portal-gtk alacritty swaybg swayidle swaylock xwayland-satellite udiskie
 ```
 
-### 2. Install Noctalia-Shell Dependencies
-
-> Nocatlia shell is a choice of mine but waybar and other bar managers can be used - refer to the [noctalia-shell](https://github.com/noctali/noctalia-shell) repo for more info.
-
+#### Install Noctalia-Shell Dependencies
 ```bash
 # Core dependencies (required)
 yay -S quickshell ttf-roboto inter-font gpu-screen-recorder brightnessctl
 
-# Desktop monitor brightness (may cause instability with some monitors)
+# Desktop monitor brightness (optional, may cause instability with some monitors)
 yay -S ddcutil
 
-# Optional dependencies
+# Optional dependencies for enhanced functionality
 yay -S cliphist matugen-git cava wlsunset xdg-desktop-portal python3 evolution-data-server
 
 # Polkit agent (can be any other agent)
 yay -S polkit-kde-agent
 ```
 
-### 3. Install Noctalia-Shell
-
-> The configuration files are saved in ~/.config/noctalia/ and the cache files are saved in ~/.cache/noctalia/.
-
+#### Install Noctalia-Shell
 ```bash
 mkdir -p ~/.config/quickshell/noctalia-shell && \
 curl -sL https://github.com/noctalia-dev/noctalia-shell/releases/latest/download/noctalia-latest.tar.gz | \
@@ -199,30 +149,69 @@ tar -xz --strip-components=1 -C ~/.config/quickshell/noctalia-shell
 
 </details>
 
-# Installation
+### 4. Create Configuration Symlinks
 
-#### 1. Clone the repo:
+<details>
+<summary>🔗 Link All Configurations</summary>
 
-- Optionally if you are downloading the repo manually just place everything that is inside of the dotfiles directory into the ~./config directory and you can skip the next steps.
+```bash
+# Neovim Configurations
+ln -s ~/.config/dotfiles/NvChad_devdad ~/.config/NvChad
+ln -s ~/.config/dotfiles/neovim ~/.config/neovim
 
-  ```bash
-  git clone https://github.com/DevDad-Main/dotfiles.git ~/.config/
-  ```
+# Development Tools
+ln -s ~/.config/dotfiles/tmux ~/.config/tmux
+ln -s ~/.config/dotfiles/yazi ~/.config/yazi
 
-#### 2. Create symlinks to the repo:
+# Desktop Environment
+ln -s ~/.config/dotfiles/niri/quickshell ~/.config/quickshell
+ln -s ~/.config/dotfiles/omarchy/config/waybar ~/.config/waybar
+```
 
-- Due to how the $XDG_CONFIG_HOME is set, we need to create symlinks
+</details>
 
-  ```bash
-  ln -s ~/.config/dotfiles/NvChad_devdad ~/.config/NvChad
-  ln -s ~/.config/dotfiles/LazyVim ~/.config/LazyVim
-  ln -s ~/.config/dotfiles/kickstart_devdad/ ~/.config/kickstart
-  ln -s ~/.config/dotfiles/tmux ~/.config/tmux
-  ln -s ~/.config/dotfiles/yazi ~/.config/yazi
+## 📁 Project Structure
 
-  # Niri Related
-  ln -s ~/.config/dotfiles/niri/niri  ~/.config/niri
-  ln -s ~/.config/dotfiles/niri/noctalia  ~/.config/noctalia
-  # Remove the default quickshell install and replace it with the one in this repo (optional)
-  rm -rf ~/.config/quickshell && ln -s ~/.config/dotfiles/niri/quickshell ~/.config/quickshell
-  ```
+```
+dotfiles/
+├── 📁 NvChad_devdad/           # NvChad-based Neovim config
+├── 📁 neovim/                  # Custom Neovim configuration
+├── 📁 tmux/                    # Tmux configuration and plugins
+├── 📁 yazi/                    # Yazi file manager config
+├── 📁 niri/                    # QuickShell and desktop configs
+│   └── 📁 quickshell/         # QuickShell with Noctalia theme
+├── 📁 omarchy/                # Additional configs (Waybar, etc.)
+├── 📄 .zshrc                   # Zsh shell configuration
+├── 📄 toggle_record.sh         # Utility script
+└── 📄 README.md               # This file
+```
+
+## 🎯 Key Features
+
+### Neovim Configurations
+- **NvChad_devdad**: Feature-rich configuration with custom themes and plugins
+- **neovim**: Custom configuration with modern plugins and productivity tools
+
+### Productivity Tools
+- **Custom FZF Functions**: Enhanced directory navigation and file picking
+- **Tmux Setup**: Productive terminal multiplexing with useful plugins
+- **Yazi Configuration**: Modern file manager with custom plugins
+
+### Desktop Environment
+- **QuickShell**: Modern desktop shell with Noctalia theme integration
+- **Waybar**: Custom status bar for desktop environment
+- **Integrated Workflow**: Seamless integration between all components
+
+## 🤝 Contributing
+
+Feel free to fork this repository, customize it for your needs, or open issues for suggestions and improvements!
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+**Made with ❤️ by [DevDad](https://github.com/DevDad-Main)**
+
+> ⭐ If you find this useful, consider giving it a star!

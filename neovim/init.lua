@@ -38,9 +38,11 @@ require("setup.spelling")
 require("mappings")
 require("usercmd")
 
--- NOTE: Uncomment this if you want to use the midnight theme -> custom theme
--- -- Add themes directory to runtime path
--- vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/lua/setup/themes")
+-- ╭────────────────────────────────────────────────────────────────────────────╮
+-- │ NOTE: Uncomment this if you want to use the midnight theme -> custom theme │
+-- ╰────────────────────────────────────────────────────────────────────────────╯
+--  Add themes directory to runtime path
+--  vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/lua/setup/themes")
 --
 -- -- Load midnight theme
 -- require("setup.themes.midnight").setup()
