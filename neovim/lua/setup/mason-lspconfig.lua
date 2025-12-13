@@ -9,6 +9,7 @@ require("mason-lspconfig").setup({
     "postgres_lsp",
     "prismals",
     "lua_ls",
+    "eslint",
   },
   handlers = {
     function(server_name)
@@ -85,8 +86,60 @@ require("mason-lspconfig").setup({
       require("lspconfig").ts_ls.setup({
         capabilities = capabilities,
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        settings = {
+          typescript = {
+            preferences = {
+              includeCompletionsForModuleExports = true,
+              includeCompletionsWithInsertText = true,
+            },
+          },
+          javascript = {
+            preferences = {
+              includeCompletionsForModuleExports = true,
+              includeCompletionsWithInsertText = true,
+            },
+            suggest = {
+              autoImports = true,
+            },
+          },
+        },
         on_attach = function(client)
           client.server_capabilities.document_formatting = false
+        end,
+      })
+    end,
+    ["eslint"] = function()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      require("lspconfig").eslint.setup({
+        capabilities = capabilities,
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+        root_dir = require("lspconfig").util.root_pattern(".git", "package.json"),
+        settings = {
+          codeAction = {
+            disableRuleComment = { enable = false },
+            showDocumentation = { enable = true },
+          },
+          codeActionOnSave = {
+            enable = true,
+            mode = "all",
+          },
+          format = true,
+          nodePath = "",
+          onIgnoredFiles = "off",
+          packageManager = "npm",
+          quiet = false,
+          rulesCustomizations = {},
+          run = "onType",
+          useESLintClass = false,
+          validate = "on",
+          workingDirectory = { mode = "location" },
+        },
+        on_attach = function(client, bufnr)
+          client.server_capabilities.document_formatting = true
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
         end,
       })
     end,

@@ -187,6 +187,7 @@ km.set("n", "<Leader>xc", ":g/console.lo/d<cr>", { desc = "Remove console.log" }
 
 km.set("v", "<leader>o", "zA", { desc = "Toggle Fold" })
 
+
 km.set({ "n", "x" }, "[p", '<Cmd>exe "put! " . v:register<CR>', { desc = "Paste Above" })
 km.set({ "n", "x" }, "]p", '<Cmd>exe "put "  . v:register<CR>', { desc = "Paste Below" })
 
@@ -304,6 +305,15 @@ end, { desc = "Open MiniFiles" })
 -- Toggle tree
 km.set("n", "<leader>-", ":NvimTreeFindFileToggle<CR>", { desc = "Toggle NvimTree" })
 
-km.set("n", "<leader>Rs", function()
-  require("kulala").run()
-end, { desc = "Kulala Send Request" })
+km.set("n", "<leader>gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+  { desc = "Goto Preview Definition" })
+km.set("n", "<leader>gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+  { desc = "Goto Preview Type Definition" })
+km.set("n", "<leader>gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+  { desc = "Goto Preview Implementation" })
+km.set("n", "<leader>gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+  { desc = "Goto Preview Declaration" })
+km.set("n", "<leader>gP", "<cmd>lua require('goto-preview').close_all_win()<CR>",
+  { desc = "Goto Preview Close All Windows" })
+km.set("n", "<leader>gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+  { desc = "Goto Preview References" })

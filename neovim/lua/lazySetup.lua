@@ -8,7 +8,7 @@ end
 
 return {
   -- { "stevearc/dressing.nvim", event = "VeryLazy" },
-  { "stevearc/oil.nvim", event = "VeryLazy", config = get_setup("oil") },
+  { "stevearc/oil.nvim",            event = "VeryLazy",          config = get_setup("oil") },
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
@@ -17,8 +17,8 @@ return {
   },
   { "mbbill/undotree" },
   { "LudoPinelli/comment-box.nvim", event = "VeryLazy" },
-  { "numToStr/Comment.nvim", lazy = false, config = get_setup("comment") },
-  { "rlane/pounce.nvim", config = get_setup("pounce") },
+  { "numToStr/Comment.nvim",        lazy = false,                config = get_setup("comment") },
+  { "rlane/pounce.nvim",            config = get_setup("pounce") },
   {
     "nvim-lualine/lualine.nvim",
     config = get_setup("lualine"),
@@ -48,19 +48,20 @@ return {
     -- optional: provides snippets for the snippet source
     dependencies = {
       {
-        {
-          "supermaven-inc/supermaven-nvim",
-          opts = {
-            disable_keymaps = true, -- Allows us to use the default supermaven keymaps - Tab or C-]
-            ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
-          },
+        "supermaven-inc/supermaven-nvim",
+        opts = {
+          disable_keymaps = true, -- Allows us to use the default supermaven keymaps - Tab or C-]
+          ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
         },
       },
-      -- "rafamadriz/friendly-snippets",
+      "rafamadriz/friendly-snippets",
       "saghen/blink.compat",
+      { "Kaiser-Yang/blink-cmp-git" },
+      { "Kaiser-Yang/blink-cmp-dictionary" },
     },
-    version = "*",
+    version = "1.*",
     opts = require("setup.blink"),
+    opts_extend = { "sources.default" },
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -78,11 +79,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = get_setup("fzf"),
   },
-  { "rmagatti/auto-session", config = get_setup("auto-session") },
-  { "echasnovski/mini.ai", config = get_setup("mini-ai"), version = false },
-  { "echasnovski/mini.bracketed", config = get_setup("mini-bracketed"), version = false },
-  { "echasnovski/mini.move", config = get_setup("mini-move"), version = false },
-  { "windwp/nvim-ts-autotag", event = "InsertEnter" },
+  { "rmagatti/auto-session",              config = get_setup("auto-session") },
+  { "echasnovski/mini.ai",                config = get_setup("mini-ai"),         version = false },
+  { "echasnovski/mini.bracketed",         config = get_setup("mini-bracketed"),  version = false },
+  { "echasnovski/mini.move",              config = get_setup("mini-move"),       version = false },
+  { "windwp/nvim-ts-autotag",             event = "InsertEnter" },
   {
     "windwp/nvim-autopairs",
     config = get_setup("autopairs"),
@@ -115,6 +116,13 @@ return {
     priority = 1000,
     enabled = true,
     config = get_setup("themes.nord"),
+  },
+  {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    enabled = false,
+    config = get_setup("themes.nordic"),
   },
   --NOTE: End of Themes
   {
@@ -229,7 +237,7 @@ return {
     ---@type render.md.UserConfig
     opts = {},
   },
-  { "nvim-mini/mini.files", version = false, config = get_setup("mini-files") },
+  { "nvim-mini/mini.files",  version = false,                         config = get_setup("mini-files") },
   {
     "kevinhwang91/nvim-ufo",
     lazy = false,
@@ -284,5 +292,11 @@ return {
       "saghen/blink.cmp",
       "neovim/nvim-lspconfig",
     },
+  },
+  {
+    "rmagatti/goto-preview",
+    dependencies = { "rmagatti/logger.nvim" },
+    event = "BufEnter",
+    config = get_setup("goto-preview"), -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
   },
 }
