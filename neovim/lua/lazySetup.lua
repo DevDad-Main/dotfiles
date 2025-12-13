@@ -48,20 +48,19 @@ return {
     -- optional: provides snippets for the snippet source
     dependencies = {
       {
-        "supermaven-inc/supermaven-nvim",
-        opts = {
-          disable_keymaps = true, -- Allows us to use the default supermaven keymaps - Tab or C-]
-          ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
+        {
+          "supermaven-inc/supermaven-nvim",
+          opts = {
+            disable_keymaps = true, -- Allows us to use the default supermaven keymaps - Tab or C-]
+            ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
+          },
         },
       },
-      "rafamadriz/friendly-snippets",
+      -- "rafamadriz/friendly-snippets",
       "saghen/blink.compat",
-      { "Kaiser-Yang/blink-cmp-git" },
-      { "Kaiser-Yang/blink-cmp-dictionary" },
     },
-    version = "1.*",
+    version = "*",
     opts = require("setup.blink"),
-    opts_extend = { "sources.default" },
   },
   {
     "lewis6991/gitsigns.nvim",

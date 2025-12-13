@@ -1,6 +1,7 @@
 -- TODO: Move this to each individual theme so we can have custom CmpNormal bgs for each theme.
 vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#202029" })
 
+
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   if col == 0 then
@@ -12,62 +13,50 @@ end
 
 return {
   appearance = {
+    use_nvim_cmp_as_default = true,
     nerd_font_variant = "mono",
   },
+  sources = {
+    default = {
+      "lsp",
+      "path",
+      "snippets",
+      "supermaven",
+      "buffer",
+    },
+    providers = {
+      lsp = { fallbacks = { "lazydev" } },
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
+      supermaven = {
+        module = "blink.compat.source",
+        score_offset = 80,
+        async = true,
+      },
+      snippets = { preset = "luasnip" },
+    },
+    per_filetype = {
+      lua = { inherit_defaults = true, "lazydev" },
+    },
+  },
   completion = {
-    ghost_text = { enabled = false }, -- Supermaven handles this better
-    list = {
-      selection = {
-        preselect = function(ctx)
-          return ctx.mode ~= "cmdline"
-        end,
-        auto_insert = false,
-      },
-      max_items = 40,
-      cycle = {
-        from_bottom = true,
-        from_top = true,
-      },
-    },
-    trigger = {
-      show_on_trigger_character = true,
-    },
-    documentation = { 
-      auto_show = true, 
-      auto_show_delay_ms = 300,
-      window = { 
+    documentation = {
+      window = {
         border = "rounded",
         winblend = 15,
-        winhighlight = "Normal:NormalFloat",
-      } 
+      },
     },
     menu = {
-      border = "rounded",
-      winblend = 5,
-      winhighlight = "Normal:CmpNormal",
-      min_width = 30,
-      max_height = 25,
+      min_width = 25,
+      max_height = 30,
+      -- draw = { treesitter = { "lsp" } },
       draw = {
-        padding = 0,
-        columns = { 
-          { "kind_icon", gap = 1 }, 
-          { gap = 1, "label" }, 
-          { "kind", gap = 2 } 
-        },
+        align_to = "cursor",
+        columns = { { "kind_icon" }, { "label", gap = 1 }, { "kind" } },
         components = {
-          kind_icon = {
-            text = function(ctx)
-              return " " .. ctx.kind_icon .. " "
-            end,
-            highlight = function(ctx)
-              return "BlinkCmpKindIcon" .. ctx.kind
-            end,
-          },
-          kind = {
-            text = function(ctx)
-              return " " .. ctx.kind .. " "
-            end,
-          },
           label = {
             text = function(ctx)
               return require("colorful-menu").blink_components_text(ctx)
@@ -78,77 +67,40 @@ return {
           },
         },
       },
+      scrollbar = false,
+      border = "rounded",
+      winblend = 5,
+      winhighlight = "Normal:CmpNormal",
+    },
+    ghost_text = { enabled = false },
+    list = {
+      selection = {
+        preselect = function(ctx)
+          return ctx.mode ~= "cmdline"
+        end,
+        -- auto_insert = function(ctx)
+        --   return ctx.mode ~= "cmdline"
+        -- end,
+        auto_insert = false,
+      },
+      max_items = 50,
+      cycle = {
+        from_bottom = true,
+        from_top = true,
+      },
     },
   },
-  sources = {
-    default = { "git", "dictionary", "lsp", "supermaven", "snippets", "path", "buffer" },
-    providers = {
-      git = {
-        module = "blink-cmp-git",
-        name = "Git",
-        enabled = function()
-          return vim.tbl_contains({ "octo", "gitcommit", "markdown" }, vim.bo.filetype)
-        end,
-        opts = {},
-        score_offset = 120,
-      },
-      dictionary = {
-        module = "blink-cmp-dictionary",
-        name = "Dict",
-        min_keyword_length = 3,
-        opts = {},
-        score_offset = 80,
-      },
-      lsp = { 
-        fallbacks = { "lazydev" },
-        min_keyword_length = 1,
-        score_offset = 200, -- Highest priority
-      },
-      supermaven = {
-        module = "blink.compat.source",
-        score_offset = 150, -- High priority
-        async = true,
-      },
-      snippets = { 
-        preset = "luasnip",
-        score_offset = 100,
-      },
-      path = {
-        min_keyword_length = 2,
-        fallback = false,
-        score_offset = 50,
-      },
-      buffer = {
-        min_keyword_length = 2,
-        fallback = false,
-        score_offset = 0,
-      },
-      lazydev = {
-        name = "LazyDev",
-        module = "lazydev.integrations.blink",
-        score_offset = 180,
-      },
-    },
-    per_filetype = {
-      lua = { 
-        inherit_defaults = true, 
-        "lazydev" 
-      },
-    },
+  documentation = {
+    auto_show = true,
+    auto_show_delay_ms = 500,
   },
   signature = {
     enabled = true,
     window = {
       border = "rounded",
       winblend = 15,
-      winhighlight = "Normal:NormalFloat",
-    },
-    trigger = {
-      show_on_insert = true,
-      show_on_trigger_character = true,
     },
   },
-  fuzzy = { implementation = "prefer_rust" },
   keymap = {
     -- ╭─────────────────────────────────────────────────────────╮
     -- │ Allows us to press enter to accept the suggestion       │
