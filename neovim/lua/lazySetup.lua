@@ -19,11 +19,12 @@ return {
   { "LudoPinelli/comment-box.nvim", event = "VeryLazy" },
   { "numToStr/Comment.nvim",        lazy = false,                config = get_setup("comment") },
   { "rlane/pounce.nvim",            config = get_setup("pounce") },
-  {
-    "nvim-lualine/lualine.nvim",
-    config = get_setup("lualine"),
-    event = "VeryLazy",
-  },
+  -- NOTE: Comment as we use nvchad UI to handle the ui
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   config = get_setup("lualine"),
+  --   event = "VeryLazy",
+  -- },
   {
     "folke/which-key.nvim",
     config = get_setup("which-key"),
@@ -297,5 +298,26 @@ return {
     dependencies = { "rmagatti/logger.nvim" },
     event = "BufEnter",
     config = get_setup("goto-preview"), -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+  },
+  -- NvChad UI and Base46
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+  },
+  {
+    "nvchad/ui",
+    config = function()
+      require "nvchad"
+    end,
+  },
+  {
+    "nvchad/base46",
+    lazy = true,
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+  },
+  {
+    "nvchad/volt", -- optional, needed for theme switcher
   },
 }

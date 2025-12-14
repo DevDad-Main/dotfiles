@@ -5,6 +5,9 @@ vim.g.nord_disable_background = false
 vim.g.nord_italic = true
 vim.g.nord_bold = true
 
+-- Set up NvChad theme integration
+vim.g.nvchad_theme = "nord"
+
 
 -- Custom highlights for better variable differentiation
 local nord = {

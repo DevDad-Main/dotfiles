@@ -1,6 +1,9 @@
 -- Map leader to comma. This lets me do a lot of shortcuts using both hands
 vim.g.mapleader = ","
 
+-- Base46 cache setup for NvChad/ui
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -38,11 +41,10 @@ require("setup.spelling")
 require("mappings")
 require("usercmd")
 
--- ╭────────────────────────────────────────────────────────────────────────────╮
--- │ NOTE: Uncomment this if you want to use the midnight theme -> custom theme │
--- ╰────────────────────────────────────────────────────────────────────────────╯
---  Add themes directory to runtime path
---  vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/lua/setup/themes")
---
--- -- Load midnight theme
--- require("setup.themes.midnight").setup()
+-- (method 1, For heavy lazyloaders)
+dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "statusline")
+dofile(vim.g.base46_cache .. "syntax")
+dofile(vim.g.base46_cache .. "treesitter")
+-- Initialize NvChad UI if available
+pcall(require, "nvchad.ui")

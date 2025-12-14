@@ -44,6 +44,22 @@ km.set("v", "y", "ygv<Esc>", { desc = "Yank and reposition cursor" })
 km.set("n", "<Delete>", "<cmd>:w<CR>", { desc = "Save file" })
 
 km.set("n", "<leader>xu", ":UndotreeToggle<cr>", { desc = "Undo Tree" })
+
+-- NvChad theme picker
+km.set("n", "<leader>tp", function()
+  require("nvchad.themes").open()
+end, { desc = "NvChad Theme Picker" })
+
+-- Theme toggling mappings
+km.set("n", "<leader>tt", function()
+  require("configs.nvchad").toggle_theme()
+end, { desc = "Toggle Theme" })
+
+km.set("n", "<leader>tn", function()
+  require("configs.nvchad").set_theme("nord")
+end, { desc = "Set Nord Theme" })
+
+
 -- More molecular undo of text
 km.set("i", ".", ".<c-g>u")
 km.set("i", "!", "!<c-g>u")
