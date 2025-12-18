@@ -60,7 +60,7 @@ cdf() {
 # Fuzzy open a file with nvim - Change the nvc below to your alias of choice of use default nvim
 vf() {
   local file
-  file=$(fd --type f --hidden --follow \
+  file=$(fdfind --type f --hidden --follow \
     --exclude .git \
     --exclude node_modules \
     --exclude dist \
