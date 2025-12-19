@@ -11,8 +11,6 @@ require("mason-lspconfig").setup({
     "lua_ls",
     "eslint",
     "jdtls",
-    "java-debug-adapter",
-    "java-test",
   },
   handlers = {
     function(server_name)

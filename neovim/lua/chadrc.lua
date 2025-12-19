@@ -6,8 +6,8 @@ local M = {}
 
 -- Base46 theme configuration
 M.base46 = {
-  theme = "onedark", -- your theme
-  theme_toggle = { "onedark", "catppuccin" },
+  theme = "everforest", -- your theme
+  theme_toggle = { "everforest", "catppuccin" },
 
   -- Overriding highlights
   hl_override = {
@@ -30,7 +30,7 @@ M.ui = {
     separator_style = "default",
   },
 
-  tabline = {
+  tabufline = {
     enabled = false,
     show_numbers = false,
     show_filename_only = true,
