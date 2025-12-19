@@ -320,4 +320,5 @@ return {
   {
     "nvchad/volt", -- optional, needed for theme switcher
   },
+  { "typicode/bg.nvim", lazy = false }
 }
