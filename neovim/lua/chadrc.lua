@@ -6,8 +6,8 @@ local M = {}
 
 -- Base46 theme configuration
 M.base46 = {
-  theme = "everforest", -- your theme
-  theme_toggle = { "everforest", "catppuccin" },
+  theme = "gruvbox", -- your theme
+  theme_toggle = { "gruvbox", "catppuccin" },
 
   -- Overriding highlights
   hl_override = {

@@ -1,7 +1,6 @@
 -- TODO: Move this to each individual theme so we can have custom CmpNormal bgs for each theme.
 vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#202029" })
 
-
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   if col == 0 then
@@ -22,7 +21,7 @@ return {
       "path",
       "snippets",
       "supermaven",
-      "buffer",
+      -- "buffer",
     },
     providers = {
       lsp = { fallbacks = { "lazydev" } },
