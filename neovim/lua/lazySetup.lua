@@ -166,6 +166,10 @@ return {
           "postgres-language-server",
           "prisma-language-server",
           "lua-language-server",
+          "java-debug-adapter",
+          "java-test",
+          "jdtls",
+
         },
       })
     end,
@@ -320,5 +324,6 @@ return {
   {
     "nvchad/volt", -- optional, needed for theme switcher
   },
-  { "typicode/bg.nvim", lazy = false }
+  { "typicode/bg.nvim", lazy = false },
+
 }

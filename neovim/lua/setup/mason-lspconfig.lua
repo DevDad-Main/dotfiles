@@ -10,6 +10,9 @@ require("mason-lspconfig").setup({
     "prismals",
     "lua_ls",
     "eslint",
+    "jdtls",
+    "java-debug-adapter",
+    "java-test",
   },
   handlers = {
     function(server_name)
@@ -141,6 +144,37 @@ require("mason-lspconfig").setup({
             command = "EslintFixAll",
           })
         end,
+      })
+    end,
+
+    ["jdtls"] = function()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
+      require("lspconfig").jdtls.setup({
+        capabilities = capabilities,
+        filetypes = { "java" },
+        root_dir = require("lspconfig").util.root_pattern("pom.xml", "build.gradle", ".git"),
+        on_attach = function(client)
+          client.server_capabilities.document_formatting = false
+        end,
+        settings = {
+          java = {
+            format = {
+              enabled = true,
+              settings = {
+                profile = "GoogleStyle",
+              },
+            },
+            completion = {
+              enabled = true,
+              favoriteStaticMembers = {
+                "org.junit.Assert.*",
+                "org.junit.jupiter.api.Assertions.*",
+                "org.mockito.Mockito.*",
+              },
+            },
+            signatureHelp = { enabled = true },
+          },
+        },
       })
     end,
     ["lua_ls"] = function()

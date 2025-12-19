@@ -103,8 +103,8 @@ M.base46 = {
     "notify",
   },
 
-  theme = "nord", ---@diagnostic disable-line
-  theme_toggle = { "nord", "one_light" }, ---@diagnostic disable-line
+  theme = "onedark", ---@diagnostic disable-line
+  theme_toggle = { "onedark", "one_light" }, ---@diagnostic disable-line
 
   -- NOTE: Remove this if you don't want transparency for statusline, tabbuf and nvimtree
   -- FIXME: Messes with the yank highlights
