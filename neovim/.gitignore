@@ -1,4 +1,5 @@
 /undo
+undo/
 .repro
 .DS_Store
 lazy-lock.json

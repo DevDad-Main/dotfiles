@@ -1,9 +1,6 @@
 -- Map leader to comma. This lets me do a lot of shortcuts using both hands
 vim.g.mapleader = ","
 
--- Base46 cache setup for NvChad/ui
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -40,11 +37,3 @@ require("options")
 require("setup.spelling")
 require("mappings")
 require("usercmd")
-
--- (method 1, For heavy lazyloaders)
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-dofile(vim.g.base46_cache .. "syntax")
-dofile(vim.g.base46_cache .. "treesitter")
--- Initialize NvChad UI if available
-pcall(require, "nvchad.ui")

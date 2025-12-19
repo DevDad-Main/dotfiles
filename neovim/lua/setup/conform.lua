@@ -1,10 +1,11 @@
 require("conform").setup({
   formatters_by_ft = {
     lua = { "stylua" },
-    javascript = { "prettierd", "prettier", stop_after_first = true },
-    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-    typescript = { "prettierd", "prettier", stop_after_first = true },
+    javascript = { "prettierd", "prettier" },
+    javascriptreact = { "prettierd", stop_after_first = true },
+    typescriptreact = { "prettierd", stop_after_first = true },
+    typescript = { "prettierd", "prettier" },
+    java = { "google-java-format", stop_after_first = true },
     css = { "prettierd", "prettier" },
     scss = { "prettierd", "prettier" },
     markdown = { "prettierd", "prettier" },
@@ -40,5 +41,5 @@ require("conform").setup({
   },
   -- Set up format-on-save
   -- don't want it formatting with lsp if Prettier isn't available
-  format_on_save = { timeout_ms = 1500, lsp_format = "true" },
+  format_on_save = { timeout_ms = 1500, lsp_format = "never" },
 })

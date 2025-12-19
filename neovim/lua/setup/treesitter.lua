@@ -1,4 +1,4 @@
-require("nvim-treesitter").setup({
+require("nvim-treesitter.configs").setup({
   autotag = {
     enable = true,
     filetypes = {
@@ -22,9 +22,11 @@ require("nvim-treesitter").setup({
     "yaml",
     "vim",
     "toml",
-    "prisma",
+    "java",
   },
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+  },
   incremental_selection = {
     enable = true,
     keymaps = {

@@ -7,6 +7,8 @@ function get_setup(name)
 end
 
 return {
+  { "rebelot/kanagawa.nvim", config = get_setup("themes/kanagawa"), priority = 1000, lazy = false },
+
   -- { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "stevearc/oil.nvim", event = "VeryLazy", config = get_setup("oil") },
   {
@@ -19,23 +21,81 @@ return {
   { "LudoPinelli/comment-box.nvim", event = "VeryLazy" },
   { "numToStr/Comment.nvim", lazy = false, config = get_setup("comment") },
   { "rlane/pounce.nvim", config = get_setup("pounce") },
-  -- NOTE: Comment as we use nvchad UI to handle the ui
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   config = get_setup("lualine"),
-  --   event = "VeryLazy",
-  -- },
+  {
+    "nvim-lualine/lualine.nvim",
+    config = get_setup("lualine"),
+    event = "VeryLazy",
+  },
   {
     "folke/which-key.nvim",
     config = get_setup("which-key"),
     event = "VeryLazy",
   },
   { "brenoprata10/nvim-highlight-colors", config = get_setup("highlight-colors") },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   build = ":TSUpdate",
+  --   lazy = false,
+  --   opts = {
+  --     ensure_installed = {
+  --       "c",
+  --       "css",
+  --       "scss",
+  --       "typescript",
+  --       "lua",
+  --       "html",
+  --       "javascript",
+  --       "json",
+  --       "php",
+  --       "rust",
+  --       "yaml",
+  --       "vim",
+  --       "toml",
+  --       "java",
+  --     },
+  --     highlight = {
+  --       enable = true,
+  --     },
+  --     incremental_selection = {
+  --       enable = true,
+  --       keymaps = {
+  --         init_selection = "<CR>", -- start selection
+  --         node_incremental = "<CR>", -- expand to next node
+  --         scope_incremental = "<S-CR>", -- expand to scope
+  --         node_decremental = "<TAB>", -- shrink selection
+  --       },
+  --     },
+  --     indent = { enable = true },
+  --   },
+  --   config = function(_, opts)
+  --     require("nvim-treesitter.configs").setup(opts)
+  --   end,
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
-    config = get_setup("treesitter"),
-    build = ":TSUpdate",
-    event = "BufReadPost",
+    branch = "main", -- use the newer rewritten branch
+    lazy = false, -- load immediately
+    build = ":TSUpdate", -- update parsers (still useful)
+    config = function()
+      local ts = require("nvim-treesitter")
+
+      -- 1. Install parsers you need
+      ts.install({
+        "bash",
+        "c",
+        "css",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "scss",
+        "typescript",
+        "vim",
+        "yaml",
+        "java",
+      })
+    end,
   },
   {
     "folke/snacks.nvim",
@@ -47,6 +107,7 @@ return {
     "saghen/blink.cmp",
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
+    -- dependencies = "rafamadriz/friendly-snippets",
     dependencies = {
       {
         {
@@ -62,6 +123,11 @@ return {
     },
     version = "*",
     opts = require("setup.blink"),
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = get_setup("lsp"),
+    dependencies = { "saghen/blink.cmp" },
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -95,40 +161,10 @@ return {
       require("nvim-surround").setup()
     end,
   },
-  -- NOTE: Themes
-  {
-    "rebelot/kanagawa.nvim",
-    config = get_setup("themes.kanagawa"),
-    priority = 1000,
-    lazy = false,
-    enabled = false,
-  },
-  { "folke/tokyonight.nvim", config = get_setup("themes.tokyonight"), enabled = false },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    config = get_setup("themes.catppuccin"),
-    enabled = false,
-  },
-  {
-    "shaunsingh/nord.nvim",
-    lazy = false,
-    priority = 1000,
-    enabled = true,
-    config = get_setup("themes.nord"),
-  },
-  {
-    "AlexvZyl/nordic.nvim",
-    lazy = false,
-    priority = 1000,
-    enabled = false,
-    config = get_setup("themes.nordic"),
-  },
-  --NOTE: End of Themes
-  {
-    "mason-org/mason.nvim",
-    opts = {},
-  },
+  { "EdenEast/nightfox.nvim", config = get_setup("nightfox"), enabled = false },
+  { "folke/tokyonight.nvim", config = get_setup("tokyonight"), enabled = false },
+  { "catppuccin/nvim", name = "catppuccin", config = get_setup("catppuccin"), enabled = false },
+
   {
     "nvim-lua/plenary.nvim",
   },
@@ -168,6 +204,7 @@ return {
           "java-debug-adapter",
           "java-test",
           "jdtls",
+          "google-java-format",
         },
       })
     end,
@@ -249,18 +286,6 @@ return {
     end,
   },
   {
-    "mistweaverco/kulala.nvim",
-    keys = {
-      { "<leader>Ra", desc = "Send all requests" },
-    },
-    ft = { "http", "rest" },
-    opts = {
-      global_keymaps = false,
-      global_keymaps_prefix = "<leader>R",
-      kulala_keymaps_prefix = "",
-    },
-  },
-  {
     "nvim-tree/nvim-tree.lua",
     config = get_setup("nvim-tree"),
   },
@@ -300,27 +325,6 @@ return {
     dependencies = { "rmagatti/logger.nvim" },
     event = "BufEnter",
     config = get_setup("goto-preview"), -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
-  },
-  -- NvChad UI and Base46
-  {
-    "nvim-tree/nvim-web-devicons",
-    lazy = true,
-  },
-  {
-    "nvchad/ui",
-    config = function()
-      require("nvchad")
-    end,
-  },
-  {
-    "nvchad/base46",
-    lazy = true,
-    build = function()
-      require("base46").load_all_highlights()
-    end,
-  },
-  {
-    "nvchad/volt", -- optional, needed for theme switcher
   },
   { "typicode/bg.nvim", lazy = false },
 }

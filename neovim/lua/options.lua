@@ -2,6 +2,8 @@ local indent = 4
 local opt = vim.opt -- to set options
 local g = vim.g
 
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
@@ -17,7 +19,6 @@ opt.foldlevel = 99   -- Using ufo provider need a large value, feel free to decr
 opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldmethod = "manual"
-
 
 -- opt.formatoptions = "l"
 opt.hidden = true        -- Enable background buffers
@@ -160,6 +161,16 @@ vim.api.nvim_create_autocmd("fileType", {
     vim.opt_local.formatoptions:remove({ "c", "r", "o" })
   end,
 })
+
+
+    -- -- 2. Enable treesitter for highlighting
+    -- --    (core API, not handled by the plugin itself)
+    -- vim.api.nvim_create_autocmd("fileType", {
+    --   pattern = "*",
+    --   callback = function()
+    --     vim.treesitter.start()   -- start treesitter on every filetype
+    --   end,
+    -- })
 
 -- Don't want relative no on inactive Windows
 -- local relativeNo = api.nvim_create_augroup("RelativeNo", { clear = true })

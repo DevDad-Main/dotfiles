@@ -52,7 +52,3 @@ require("fzf-lua").setup({
     },
   },
 })
-
--- register fzf-lua as the vim.ui.select backend to stop us receiving that warning.
--- HACK: If this breaks anything, in our mapping for ,ca then we can just add silent = true
-require("fzf-lua").register_ui_select()
