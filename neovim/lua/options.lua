@@ -2,7 +2,6 @@ local indent = 4
 local opt = vim.opt -- to set options
 local g = vim.g
 
-
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
@@ -15,21 +14,21 @@ opt.encoding = "utf-8" -- Set default encoding to UTF-8
 -- opt.foldenable = true
 --
 opt.foldcolumn = "1" -- '0' is not bad
-opt.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldmethod = "manual"
 
 -- opt.formatoptions = "l"
-opt.hidden = true        -- Enable background buffers
-opt.hlsearch = true      -- Highlight found searches
-opt.ignorecase = true    -- Ignore case
+opt.hidden = true -- Enable background buffers
+opt.hlsearch = true -- Highlight found searches
+opt.ignorecase = true -- Ignore case
 opt.inccommand = "split" -- Get a preview of replacements
-opt.incsearch = true     -- Shows the match while typing
-opt.joinspaces = false   -- No double spaces with join
+opt.incsearch = true -- Shows the match while typing
+opt.joinspaces = false -- No double spaces with join
 vim.o.lazyredraw = true
-opt.linebreak = true     -- Stop words being broken on wrap
-opt.number = true        -- Show line numbers
+opt.linebreak = true -- Stop words being broken on wrap
+opt.number = true -- Show line numbers
 opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
 -- opt.listchars = {
 --   tab = '❘-',
@@ -39,11 +38,11 @@ opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
 --   precedes = '«',
 --   nbsp = '×',
 -- }
-opt.list = true                          -- Show some invisible characters
+opt.list = true -- Show some invisible characters
 opt.relativenumber = true
 vim.o.shortmess = vim.o.shortmess .. "S" -- stops display of currentsearch match in cmdline area
-opt.equalalways = true                   -- make windows the same width when closing one
-opt.cursorlineopt = "both"               -- should get cursorline in number too
+opt.equalalways = true -- make windows the same width when closing one
+opt.cursorlineopt = "both" -- should get cursorline in number too
 
 -- opt.expandtab = true
 -- opt.shiftwidth = indent
@@ -56,17 +55,17 @@ opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
 
-opt.showmode = false     -- Don't display mode
-opt.scrolloff = 8        -- Lines of context
-opt.sidescrolloff = 8    -- Columns of context
+opt.showmode = false -- Don't display mode
+opt.scrolloff = 8 -- Lines of context
+opt.sidescrolloff = 8 -- Columns of context
 opt.signcolumn = "yes:1" -- always show signcolumns
-opt.smartcase = true     -- Do not ignore case with capitals
+opt.smartcase = true -- Do not ignore case with capitals
 opt.spelllang = { "en_gb" }
-opt.splitbelow = true    -- Put new windows below current
-opt.splitright = true    -- Put new windows right of current
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
 -- opt.splitkeep = "screen" -- Stops screen jumping when splits below are opened
 opt.termguicolors = true -- You will have bad experience for diagnostic messages when it's default 4000.
-opt.title = true         -- Allows neovom to send the Terminal details of the current window, instead of just getting 'v'
+opt.title = true -- Allows neovom to send the Terminal details of the current window, instead of just getting 'v'
 -- Give me some fenced codeblock goodness
 vim.g.markdown_fenced_languages = { "html", "javascript", "typescript", "css", "scss", "lua", "vim" }
 vim.o.whichwrap = vim.o.whichwrap .. "<,>" -- Wrap movement between lines in edit mode with arrows
@@ -74,19 +73,19 @@ opt.wrap = true
 -- opt.cc = "80"
 opt.mouse = "a"
 opt.guicursor =
-"n-v-c-sm:block-nCursor-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
+  "n-v-c-sm:block-nCursor-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
 opt.undodir = vim.fn.stdpath("config") .. "/undo"
 opt.undofile = true
 -- vim.notify = require("notify")
 opt.jumpoptions = "view"
-opt.timeoutlen = 300          -- The time before a key sequence should complete
-opt.cpoptions:append(">")     -- when you yank multiple times into a register, this puts each on a new line
+opt.timeoutlen = 300 -- The time before a key sequence should complete
+opt.cpoptions:append(">") -- when you yank multiple times into a register, this puts each on a new line
 opt.nrformats:append("alpha") -- this means you can increment lists that have letters with `g ctrl-a`
 -- opt.pumblend = 5 -- partial opacity of pop up menu, this causes characters in lspkind to render incorrect width and means that you have to set up kitty to use narrow symbols. See https://github.com/kovidgoyal/kitty/discussions/7774#discussioncomment-10442608
-opt.ph = 15                   -- the number is the number of entries to show before scrollbars, not px!
+opt.ph = 15 -- the number is the number of entries to show before scrollbars, not px!
 opt.cmdheight = 0
-opt.virtualedit = "block"     -- allows using visual blocks beyond the end of a line
-vim.g.editorconfig = false    -- disable editor config as VSCode does not have it on by default
+opt.virtualedit = "block" -- allows using visual blocks beyond the end of a line
+vim.g.editorconfig = false -- disable editor config as VSCode does not have it on by default
 
 --- use Neovim nightly branch
 -- opt.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:"
@@ -162,15 +161,14 @@ vim.api.nvim_create_autocmd("fileType", {
   end,
 })
 
-
-    -- -- 2. Enable treesitter for highlighting
-    -- --    (core API, not handled by the plugin itself)
-    -- vim.api.nvim_create_autocmd("fileType", {
-    --   pattern = "*",
-    --   callback = function()
-    --     vim.treesitter.start()   -- start treesitter on every filetype
-    --   end,
-    -- })
+-- -- 2. Enable treesitter for highlighting
+-- --    (core API, not handled by the plugin itself)
+-- vim.api.nvim_create_autocmd("fileType", {
+--   pattern = "*",
+--   callback = function()
+--     vim.treesitter.start()   -- start treesitter on every filetype
+--   end,
+-- })
 
 -- Don't want relative no on inactive Windows
 -- local relativeNo = api.nvim_create_augroup("RelativeNo", { clear = true })

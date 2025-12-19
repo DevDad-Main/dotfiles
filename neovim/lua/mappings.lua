@@ -264,7 +264,7 @@ km.set("n", "<leader>xh", ":lua Snacks.notifier.show_history()<cr>", { silent = 
 
 km.set("n", "<leader>gf", ":! git checkout -- % <cr>", { silent = true, desc = "Chechout current file" })
 
-km.set("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
+km.set("i", "jk", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
 
 -- Map Save even when in insert mode
 km.set("n", "<C-s>", "<Cmd>w<CR><ESC>", { desc = "Save file" })
