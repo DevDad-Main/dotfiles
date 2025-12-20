@@ -325,5 +325,13 @@ return {
     config = get_setup("goto-preview"), -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
   },
   { "typicode/bg.nvim", lazy = false },
-  
+  {
+    "letieu/btw.nvim",
+    config = function()
+      require("btw").setup({
+        -- text = "I use Neovim (BTW)",
+        text = "“I use hjkl (BTW)”\n\n                           — @DevDad-Main",
+      })
+    end,
+  },
 }
