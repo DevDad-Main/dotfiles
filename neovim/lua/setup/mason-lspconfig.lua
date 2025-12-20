@@ -89,41 +89,35 @@ require("mason-lspconfig").setup({
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         settings = {
           typescript = {
-            preferences = {
-              includeCompletionsForModuleExports = true,
-              includeCompletionsWithInsertText = true,
-            },
             inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
               includeInlayParameterNameHints = "all",
               includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
               includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
             },
           },
           javascript = {
-            preferences = {
-              includeCompletionsForModuleExports = true,
-              includeCompletionsWithInsertText = true,
-            },
-            suggest = {
-              autoImports = true,
-            },
             inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
               includeInlayParameterNameHints = "all",
               includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
               includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
             },
           },
         },
-        on_attach = function(client)
+        on_attach = function(client, bufnr)
           client.server_capabilities.document_formatting = false
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+          end
         end,
       })
     end,

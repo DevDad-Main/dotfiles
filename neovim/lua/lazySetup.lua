@@ -127,17 +127,15 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = get_setup("lsp"),
-    dependencies = { "saghen/blink.cmp" },
+    dependencies = {
+      "saghen/blink.cmp",
+      "jose-elias-alvarez/typescript.nvim",
+    },
   },
   {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
     config = get_setup("gitsigns"),
-  },
-  {
-    "neovim/nvim-lspconfig",
-    config = get_setup("lsp"),
-    dependencies = { "saghen/blink.cmp" },
   },
   {
     "ibhagwan/fzf-lua",
@@ -327,4 +325,5 @@ return {
     config = get_setup("goto-preview"), -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
   },
   { "typicode/bg.nvim", lazy = false },
+  
 }
