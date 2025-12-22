@@ -341,4 +341,8 @@ return {
       vim.lsp.enable("jdtls")
     end,
   },
+  {
+    "romus204/referencer.nvim",
+    config = get_setup("referencer"),
+  },
 }
