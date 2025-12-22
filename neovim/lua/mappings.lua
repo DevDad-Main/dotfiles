@@ -346,3 +346,20 @@ km.set(
   "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
   { desc = "Goto Preview References" }
 )
+
+km.set(
+  "n",
+  "<leader>jr",
+  "<cmd>:JavaRunnerRunMain<cr>",
+  { desc = "Runs the application or selected main class (if there are multiple main classes)" }
+)
+
+km.set("n", "<leader>jb", "<cmd>:JavaBuildBuildWorkspace<cr>", { desc = "Runs a full workspace build" })
+
+km.set("n", "<leader>jc", "<cmd>:JavaBuildCleanWorkspace<cr>", {
+  desc = "Clear the workspace cache (for now you have to close and reopen to restart the language server after the deletion)",
+})
+
+km.set("n", "<leader>js", "<cmd>:JavaRunnerStopMain<cr>", { desc = "Stops the running application" })
+
+km.set("n", "<leader>jl", "<cmd>:JavaRunnerToggleLogs<cr>", { desc = "Toggle between show & hide runner log window" })
