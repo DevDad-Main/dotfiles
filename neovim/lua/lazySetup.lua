@@ -8,7 +8,7 @@ end
 
 return {
   { "rebelot/kanagawa.nvim", config = get_setup("themes/kanagawa"), priority = 1000, lazy = false },
-
+  { "shaunsingh/nord.nvim", lazy = false, config = get_setup("themes/nord"), enabled = false },
   -- { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "stevearc/oil.nvim", event = "VeryLazy", config = get_setup("oil") },
   {
