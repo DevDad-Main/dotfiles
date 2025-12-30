@@ -152,11 +152,12 @@ return {
     "Bekaboo/dropbar.nvim",
     name = "dropbar",
     event = { "BufReadPost", "BufNewFile" },
-    -- keys = {
-    --   require("mappings").map({ "n" }, "<leader>p", function()
-    --     require("dropbar.api").pick(vim.v.count ~= 0 and vim.v.count or nil)
-    --   end, "Toggle dropbar menu"),
-    -- },
+    -- TODO: Move this to our mappings
+    keys = {
+      require("mappings").map({ "n" }, "<leader>p", function()
+        require("dropbar.api").pick(vim.v.count ~= 0 and vim.v.count or nil)
+      end, "Toggle dropbar menu"),
+    },
     opts = {},
   },
   -- Here we initialize the options
@@ -177,5 +178,15 @@ return {
       maps.mini()
       maps.misc()
     end,
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = { "saghen/blink.cmp" },
+    opts = {
+      preview = {
+        icon_provider = "mini", -- "mini" or "devicons"
+      },
+    },
   },
 }

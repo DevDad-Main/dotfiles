@@ -26,6 +26,16 @@ M.core = function()
   km.set("n", "<C-k>", "<C-w>k", { desc = "Window Up" })
   km.set("n", "<C-l>", "<C-w>l", { desc = "Window Right" })
 
+  -- Move cursor when in insert mode
+  map("i", "<C-h>", "<Left>")
+  map("i", "<C-j>", "<Down>")
+  map("i", "<C-k>", "<Up>")
+  map("i", "<C-l>", "<Right>")
+
+  -- Better scrolling with ctrl+d/u to always center the cursor on the screen
+  map("n", "<C-d>", "<C-d>zz")
+  map("n", "<C-u>", "<C-u>zz")
+
   -- Alternate file
   km.set({ "n", "x" }, "<Bslash>", "<C-6>", { desc = "Alternate File" })
 
