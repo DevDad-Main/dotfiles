@@ -1,6 +1,3 @@
--- require("options").initial()
-
-
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = ","
 
@@ -32,7 +29,10 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-require "options"
+-- load options AFTER NvChad
+require ("options").initial()
+
+-- require "options"
 require "autocmds"
 
 vim.schedule(function()

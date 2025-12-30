@@ -20,6 +20,9 @@ M.ui = {
     enabled = false,
     -- lazyload = false,
   },
+  statusline = {
+    enabled = false,
+  },
 }
 
 return M

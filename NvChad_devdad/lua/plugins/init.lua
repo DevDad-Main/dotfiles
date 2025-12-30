@@ -1,3 +1,5 @@
+local conf_path = vim.fn.stdpath "config" --[[@as string]]
+
 -- returns the require for use in `config` parameter of lazy's use
 -- expects the name of the config file
 function get_config(name)
@@ -144,6 +146,36 @@ return {
       for _, module in ipairs(mini_modules) do
         require("mini." .. module).setup(mini_config[module])
       end
+    end,
+  },
+  {
+    "Bekaboo/dropbar.nvim",
+    name = "dropbar",
+    event = { "BufReadPost", "BufNewFile" },
+    -- keys = {
+    --   require("mappings").map({ "n" }, "<leader>p", function()
+    --     require("dropbar.api").pick(vim.v.count ~= 0 and vim.v.count or nil)
+    --   end, "Toggle dropbar menu"),
+    -- },
+    opts = {},
+  },
+  -- Here we initialize the options
+  {
+    name = "options",
+    event = "VeryLazy",
+    dir = conf_path,
+    config = function()
+      require("options").final()
+      local maps = require "mappings"
+
+      maps.core()
+      maps.fzf()
+      maps.git()
+      maps.goto_preview()
+      maps.lsp()
+      maps.snacks()
+      maps.mini()
+      maps.misc()
     end,
   },
 }
