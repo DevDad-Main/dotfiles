@@ -8,12 +8,34 @@ M.pairs = {
 
 M.files = {
   use_as_default_explorer = true,
+  mappings = {
+    close = "q",
+    -- Use this if you want to open several files
+    go_in = "l",
+    -- This opens the file, but quits out of mini.files (default L)
+    go_in_plus = "<CR>",
+    -- I swapped the following 2 (default go_out: h)
+    -- go_out_plus: when you go out, it shows you only 1 item to the right
+    -- go_out: shows you all the items to the right
+    go_out = "H",
+    go_out_plus = "h",
+    -- Default <BS>
+    reset = "<BS>",
+    -- Default @
+    reveal_cwd = ".",
+    show_help = "g?",
+    -- Default =
+    synchronize = "s",
+    trim_left = "<",
+    trim_right = ">",
+  },
   windows = {
     max_number = math.huge,
-    preview = false,
+    preview = true,
     width_focus = 30,
     width_nofocus = 20,
-    width_preview = 25,
+    -- width_preview = 25,
+    width_preview = 60,
   },
 }
 
@@ -39,41 +61,41 @@ M.pick = {
     use_cache = true,
   },
   mappings = {
-    caret_left  = '<Left>',
-    caret_right = '<Right>',
+    caret_left = "<Left>",
+    caret_right = "<Right>",
 
-    choose            = '<CR>',
-    choose_in_split   = '<C-s>',
-    choose_in_tabpage = '<C-t>',
-    choose_in_vsplit  = '<C-v>',
-    choose_marked     = '<M-CR>',
+    choose = "<CR>",
+    choose_in_split = "<C-s>",
+    choose_in_tabpage = "<C-t>",
+    choose_in_vsplit = "<C-v>",
+    choose_marked = "<M-CR>",
 
-    delete_char       = '<BS>',
-    delete_char_right = '<Del>',
-    delete_left       = '<C-u>',
-    delete_word       = '<C-w>',
+    delete_char = "<BS>",
+    delete_char_right = "<Del>",
+    delete_left = "<C-u>",
+    delete_word = "<C-w>",
 
-    mark     = '<C-x>',
-    mark_all = '<C-a>',
+    mark = "<C-x>",
+    mark_all = "<C-a>",
 
-    move_down  = '<C-j>',
-    move_start = '<C-g>',
-    move_up    = '<C-k>',
+    move_down = "<C-j>",
+    move_start = "<C-g>",
+    move_up = "<C-k>",
 
-    paste = '<C-r>',
+    paste = "<C-r>",
 
-    refine        = '<C-Space>',
-    refine_marked = '<M-Space>',
+    refine = "<C-Space>",
+    refine_marked = "<M-Space>",
 
-    scroll_down  = '<C-f>',
-    scroll_left  = '<C-h>',
-    scroll_right = '<C-l>',
-    scroll_up    = '<C-b>',
+    scroll_down = "<C-f>",
+    scroll_left = "<C-h>",
+    scroll_right = "<C-l>",
+    scroll_up = "<C-b>",
 
-    stop = '<Esc>',
+    stop = "<Esc>",
 
-    toggle_info    = '<S-Tab>',
-    toggle_preview = '<Tab>',
+    toggle_info = "<S-Tab>",
+    toggle_preview = "<Tab>",
   },
 }
 
