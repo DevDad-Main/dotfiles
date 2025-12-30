@@ -1,4 +1,3 @@
-
 local M = {}
 
 require "nvchad.options"
@@ -7,78 +6,103 @@ local g = vim.g
 
 --Initial options we call from the base init.lua
 M.initial = function()
-  -- Session
-  vim.o.sessionoptions =
-    "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-
-  -- Core behavior
-  opt.backspace = { "indent", "eol", "start" }
+  opt.laststatus = 3
   opt.clipboard = "unnamedplus"
-  opt.completeopt = { "menu", "menuone", "noselect" }
-  opt.encoding = "utf-8"
-  opt.hidden = true
-  opt.mouse = "a"
-  opt.timeoutlen = 300
-  opt.updatetime = 250
-  opt.jumpoptions = "view"
-  opt.virtualedit = "block"
-
-  -- UI
+  opt.termguicolors = true
+  opt.fillchars:append { eob = " " }
+  opt.shortmess:append "aIF"
+  opt.cursorline = true
+  opt.cursorlineopt = "number"
+  opt.ruler = true
   opt.number = true
   opt.relativenumber = true
-  opt.cursorline = false
-  opt.cursorcolumn = false
-  opt.cursorlineopt = "both"
-  opt.scrolloff = 8
-  opt.sidescrolloff = 8
-  opt.signcolumn = "yes:1"
-  opt.termguicolors = true
-  opt.title = true
-  opt.wrap = true
+  opt.breakindent = true
   opt.linebreak = true
-  opt.showmode = false
-  opt.cmdheight = 0
-
-  -- Folding
-  opt.foldcolumn = "1"
-  opt.foldlevel = 99
-  opt.foldlevelstart = 99
-  opt.foldenable = true
-  opt.foldmethod = "manual"
-
-  -- Searching
-  opt.hlsearch = true
-  opt.ignorecase = true
-  opt.smartcase = true
-  opt.incsearch = true
-  opt.inccommand = "split"
-  vim.o.shortmess = vim.o.shortmess .. "S"
-
-  -- Lists / invisible chars
-  opt.list = true
-  opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
-
-  -- Splits
-  opt.equalalways = true
-  opt.splitbelow = true
-  opt.splitright = true
-
-  -- Indentation
-  opt.expandtab = true
-  opt.shiftwidth = 2
-  opt.softtabstop = 2
-  opt.tabstop = 2
-  opt.smartindent = true
-
-  -- Undo
-  opt.undodir = vim.fn.stdpath "config" .. "/undo"
+  opt.swapfile = false
   opt.undofile = true
+  opt.cmdheight = 0
+  opt.winborder = "rounded"
 
-  -- Misc
-  opt.whichwrap = vim.o.whichwrap .. "<,>"
-  opt.cpoptions:append ">"
-  opt.nrformats:append "alpha"
-  opt.ph = 15
+  g.border_style = "rounded" ---@type "single"|"double"|"rounded"
+  g.winblend = 0
+
+  -- Disable providers
+  g.loaded_node_provider = 0
+  g.loaded_python3_provider = 0
+  g.loaded_perl_provider = 0
+  g.loaded_ruby_provider = 0
+  -- -- Session
+  -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+  --
+  -- -- Core behavior
+  -- opt.backspace = { "indent", "eol", "start" }
+  -- opt.clipboard = "unnamedplus"
+  -- opt.completeopt = { "menu", "menuone", "noselect" }
+  -- opt.encoding = "utf-8"
+  -- opt.hidden = true
+  -- opt.mouse = "a"
+  -- opt.timeoutlen = 300
+  -- opt.updatetime = 250
+  -- opt.jumpoptions = "view"
+  -- opt.virtualedit = "block"
+  --
+  -- -- UI
+  -- opt.number = true
+  -- opt.relativenumber = true
+  -- opt.cursorline = false
+  -- opt.cursorcolumn = false
+  -- opt.cursorlineopt = "both"
+  -- opt.scrolloff = 8
+  -- opt.sidescrolloff = 8
+  -- opt.signcolumn = "yes:1"
+  -- opt.termguicolors = true
+  -- opt.title = true
+  -- opt.wrap = true
+  -- opt.linebreak = true
+  -- opt.showmode = false
+  -- opt.cmdheight = 0
+  -- opt.winborder = "rounded"
+  --
+  -- -- Folding
+  -- opt.foldcolumn = "1"
+  -- opt.foldlevel = 99
+  -- opt.foldlevelstart = 99
+  -- opt.foldenable = true
+  -- opt.foldmethod = "manual"
+  --
+  -- -- Searching
+  -- opt.hlsearch = true
+  -- opt.ignorecase = true
+  -- opt.smartcase = true
+  -- opt.incsearch = true
+  -- opt.inccommand = "split"
+  -- vim.o.shortmess = vim.o.shortmess .. "S"
+  --
+  -- -- Lists / invisible chars
+  -- opt.list = true
+  -- opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
+  --
+  -- -- Splits
+  -- opt.equalalways = true
+  -- opt.splitbelow = true
+  -- opt.splitright = true
+  --
+  -- -- Indentation
+  -- opt.expandtab = true
+  -- opt.shiftwidth = 2
+  -- opt.softtabstop = 2
+  -- opt.tabstop = 2
+  -- opt.smartindent = true
+  --
+  -- -- Undo
+  -- opt.undodir = vim.fn.stdpath "config" .. "/undo"
+  -- opt.undofile = true
+  --
+  -- -- Misc
+  -- opt.whichwrap = vim.o.whichwrap .. "<,>"
+  -- opt.cpoptions:append ">"
+  -- opt.nrformats:append "alpha"
+  -- opt.ph = 15
 
   -- Markdown
   g.markdown_fenced_languages = {
@@ -93,91 +117,108 @@ M.initial = function()
 
   -- Disable editorconfig
   g.editorconfig = false
+end
 
-  -- Statusline (hidden)
+M.final = function()
+  opt.completeopt = { "menuone", "noselect", "noinsert" }
+  opt.wildmenu = true
+  opt.pumheight = 10
+  opt.ignorecase = true
+  opt.smartcase = true
+  opt.timeout = false
+  opt.updatetime = 400
+  opt.confirm = false
+  opt.equalalways = true
+  opt.splitbelow = true
+  opt.splitright = true
+  opt.scrolloff = 2
 
+  -- Indenting
+  opt.shiftwidth = 2
+  opt.smartindent = true
+  opt.tabstop = 2
+  opt.expandtab = true
+  opt.softtabstop = 2
+  opt.sidescrolloff = 2
+
+  -- Statusline
   local statusline_ascii = ""
   opt.statusline = "%#Normal#" .. statusline_ascii .. "%="
 end
 
-M.final = function()
-  -- Diagnostics
-  vim.diagnostic.config {
-    virtual_text = {
-      prefix = "",
-      suffix = "",
-      format = function(diagnostic)
-        return " " .. diagnostic.message .. " "
-      end,
-    },
-    underline = {
-      severity = { min = vim.diagnostic.severity.WARN },
-    },
-    signs = {
-      text = {
-        [vim.diagnostic.severity.HINT] = "",
-        [vim.diagnostic.severity.ERROR] = "✘",
-        [vim.diagnostic.severity.INFO] = "◉",
-        [vim.diagnostic.severity.WARN] = "󰚌",
-      },
-    },
-  }
+-- Neovide
+if g.neovide then
+  opt.guifont = "VictorMono Nerd Font:h10"
 
-  -- Neovide
-  if g.neovide then
-    opt.guifont = "VictorMono Nerd Font:h10"
+  g.neovide_refresh_rate = 120
+  g.neovide_remember_window_size = true
+  g.neovide_cursor_antialiasing = true
+  g.neovide_input_macos_option_key_is_meta = "both"
+  g.neovide_input_use_logo = false
 
-    g.neovide_refresh_rate = 120
-    g.neovide_remember_window_size = true
-    g.neovide_cursor_antialiasing = true
-    g.neovide_input_macos_option_key_is_meta = "both"
-    g.neovide_input_use_logo = false
+  g.neovide_padding_top = 0
+  g.neovide_padding_bottom = 0
+  g.neovide_padding_right = 0
+  g.neovide_padding_left = 0
 
-    g.neovide_padding_top = 0
-    g.neovide_padding_bottom = 0
-    g.neovide_padding_right = 0
-    g.neovide_padding_left = 0
+  g.neovide_floating_blur_amount_x = 0.0
+  g.neovide_floating_blur_amount_y = 0.0
+  g.neovide_floating_shadow = false
+  g.neovide_floating_z_height = 40
+  g.neovide_light_angle_degrees = 45
+  g.neovide_light_radius = 10
 
-    g.neovide_floating_blur_amount_x = 0.0
-    g.neovide_floating_blur_amount_y = 0.0
-    g.neovide_floating_shadow = false
-    g.neovide_floating_z_height = 40
-    g.neovide_light_angle_degrees = 45
-    g.neovide_light_radius = 10
+  g.neovide_scroll_animation_length = 0.5
+  g.neovide_scroll_animation_far_lines = 1
+  g.neovide_hide_mouse_when_typing = true
+  g.neovide_underline_automatic_scaling = true
+  g.neovide_floating_corner_radius = 10.0
+  g.neovide_cursor_vfx_mode = "pixiedust"
 
-    g.neovide_scroll_animation_length = 0.5
-    g.neovide_scroll_animation_far_lines = 1
-    g.neovide_hide_mouse_when_typing = true
-    g.neovide_underline_automatic_scaling = true
-    g.neovide_floating_corner_radius = 10.0
-    g.neovide_cursor_vfx_mode = "pixiedust"
+  vim.schedule(function()
+    vim.cmd "NeovideFocus"
+  end)
 
-    vim.schedule(function()
-      vim.cmd "NeovideFocus"
-    end)
+  vim.api.nvim_create_autocmd({ "BufLeave", "BufNew" }, {
+    callback = function()
+      g.neovide_scroll_animation_length = 0
+      g.neovide_cursor_animation_length = 0
+    end,
+  })
 
-    vim.api.nvim_create_autocmd({ "BufLeave", "BufNew" }, {
-      callback = function()
-        g.neovide_scroll_animation_length = 0
-        g.neovide_cursor_animation_length = 0
-      end,
-    })
-
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufNew" }, {
-      callback = function()
-        vim.fn.timer_start(32, function()
-          g.neovide_scroll_animation_length = 0.3
-          g.neovide_cursor_animation_length = 0.08
-        end)
-      end,
-    })
-  end
+  vim.api.nvim_create_autocmd({ "BufEnter", "BufNew" }, {
+    callback = function()
+      vim.fn.timer_start(32, function()
+        g.neovide_scroll_animation_length = 0.3
+        g.neovide_cursor_animation_length = 0.08
+      end)
+    end,
+  })
 end
 
+-- Diagnostics
+vim.diagnostic.config {
+  virtual_text = {
+    prefix = "",
+    suffix = "",
+    format = function(diagnostic)
+      return " " .. diagnostic.message .. " "
+    end,
+  },
+  underline = {
+    severity = { min = vim.diagnostic.severity.WARN },
+  },
+  signs = {
+    active = true,
+    text = {
+      [vim.diagnostic.severity.HINT] = "",
+      [vim.diagnostic.severity.ERROR] = "✘",
+      [vim.diagnostic.severity.INFO] = "◉",
+      [vim.diagnostic.severity.WARN] = "󰚌",
+    },
+  },
+}
 return M
-
-
-
 
 -- require "nvchad.options"
 --

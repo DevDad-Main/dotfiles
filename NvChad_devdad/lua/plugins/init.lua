@@ -79,6 +79,12 @@ return {
     "folke/lazydev.nvim",
     ft = "typescript",
     dependencies = { "DrKJeff16/wezterm-types" },
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+      enabled = true,
+    },
   },
   {
     --Note: Needed for blink.cmp menu
