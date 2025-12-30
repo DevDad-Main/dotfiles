@@ -144,6 +144,29 @@ M.final = function()
   -- Statusline
   local statusline_ascii = ""
   opt.statusline = "%#Normal#" .. statusline_ascii .. "%="
+
+  -- Diagnostics - moved here to override any previous settings
+  vim.diagnostic.config {
+    virtual_text = {
+      prefix = "",
+      suffix = "",
+      format = function(diagnostic)
+        return " " .. diagnostic.message .. " "
+      end,
+    },
+    underline = {
+      severity = { min = vim.diagnostic.severity.WARN },
+    },
+    signs = {
+      active = true,
+      text = {
+        [vim.diagnostic.severity.HINT] = "",
+        [vim.diagnostic.severity.ERROR] = "✘",
+        [vim.diagnostic.severity.INFO] = "◉",
+        [vim.diagnostic.severity.WARN] = "󰚌",
+      },
+    },
+  }
 end
 
 -- Neovide
@@ -196,28 +219,6 @@ if g.neovide then
   })
 end
 
--- Diagnostics
-vim.diagnostic.config {
-  virtual_text = {
-    prefix = "",
-    suffix = "",
-    format = function(diagnostic)
-      return " " .. diagnostic.message .. " "
-    end,
-  },
-  underline = {
-    severity = { min = vim.diagnostic.severity.WARN },
-  },
-  signs = {
-    active = true,
-    text = {
-      [vim.diagnostic.severity.HINT] = "",
-      [vim.diagnostic.severity.ERROR] = "✘",
-      [vim.diagnostic.severity.INFO] = "◉",
-      [vim.diagnostic.severity.WARN] = "󰚌",
-    },
-  },
-}
 return M
 
 -- require "nvchad.options"
