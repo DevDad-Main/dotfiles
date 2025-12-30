@@ -1,6 +1,6 @@
 return {
+
   "echasnovski/mini.nvim",
-  name = "mini",
   version = false,
   keys = function()
     require("mappings").mini()

@@ -192,6 +192,7 @@ local M = {}
 
 M.map = map
 
+-- Returns a function that setups the mini.nvim plugins keymaps
 M.mini = function()
   local minipick = require "mini.pick"
   local miniextra = require "mini.extra"
@@ -200,57 +201,58 @@ M.mini = function()
 
   local builtin = minipick.builtin
 
-  km.set({ "n" }, "<leader>ff", function()
+
+  map({ "n" }, "<leader>ff", function()
     builtin.files()
-  end, { "find files" })
+  end, "find files")
 
-  km.set({ "n" }, "<leader>bs", function()
+  map({ "n" }, "<leader>bs", function()
     builtin.buffers()
-  end, { "Find buffers" })
+  end, "Find buffers")
 
-  km.set({ "n" }, "<leader>fr", function()
+  map({ "n" }, "<leader>fr", function()
     builtin.resume()
-  end, { "Resume finding" })
+  end, "Resume finding")
 
-  km.set({ "n" }, "<leader>fw", function()
+  map({ "n" }, "<leader>fw", function()
     builtin.grep_live()
-  end, { "Grep live" })
+  end, "Grep live")
 
-  km.set({ "n" }, "<leader>e", function()
+  map({ "n" }, "<leader>e", function()
     local _ = require("mini.files").close() or require("mini.files").open()
-  end, { "Toggle minifiles" })
+  end, "Toggle minifiles")
 
-  km.set({ "n" }, "<leader>bq", function()
+  map({ "n" }, "<leader>bq", function()
     require("mini.bufremove").delete()
-  end, { "Remove current buffer" })
+  end, "Remove current buffer")
 
-  km.set("n", "<A-s>", function()
+  map("n", "<A-s>", function()
     miniextra.pickers.visit_paths { filter = "todo" }
-  end, { "Add file to todolist" })
+  end, "Add file to todolist")
 
-  km.set("n", "<A-a>", function()
+  map("n", "<A-a>", function()
     minivisits.add_label "todo"
-  end, { "Remove file from todolist" })
+  end, "Remove file from todolist")
 
-  km.set("n", "<A-A>", function()
+  map("n", "<A-A>", function()
     minivisits.remove_label()
-  end, { "Remove label from file" })
+  end, "Remove label from file")
 
-  km.set("n", "<leader>gc", function()
+  map("n", "<leader>gc", function()
     miniextra.pickers.git_commits()
-  end, { "Show git commits" })
+  end, "Show git commits")
 
-  km.set("n", "<leader>gh", function()
+  map("n", "<leader>gh", function()
     miniextra.pickers.git_hunks()
-  end, { "Show git hunks" })
+  end, "Show git hunks")
 
-  km.set("n", "<leader>dp", function()
+  map("n", "<leader>dp", function()
     miniextra.pickers.diagnostic()
-  end, { "Diagnostic in picker" })
+  end, "Diagnostic in picker")
 
-  km.set("n", "<leader>td", function()
+  map("n", "<leader>td", function()
     minidiff.toggle_overlay(0)
-  end, { "Toggle git diff" })
+  end, "Toggle git diff")
 end
 
 return M

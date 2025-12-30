@@ -4,7 +4,7 @@ return {
   indent = {
     enabled = true,
     char = "▎",
-    animate = { enabled = false },
+    animate = { enabled = true },
     indent = {
       only_current = true,
       only_scope = true,
