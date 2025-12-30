@@ -98,4 +98,8 @@ return {
     event = "BufEnter",
     config = get_config "goto-preview", -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
   },
+  {
+    "echasnovski/mini.nvim",
+    config = get_config "mini",
+  },
 }
