@@ -170,6 +170,7 @@ local starter = require "mini.starter"
 
 M.starter = {
   evaluate_single = false,
+  query_updaters = "fqblerg",
   header = table.concat({
     "                                   ",
     "                                   ",
@@ -190,38 +191,66 @@ M.starter = {
   footer = os.date "%B %d, %I:%M %p",
   items = {
     {
-      name = "  Bookmarked Files",
-      action = "lua MiniExtra.pickers.visit_paths { filter = 'todo' }",
-      section = " Actions ",
-    },
-    {
-      name = "  Lazy Update",
-      action = ":Lazy update",
-      section = " Actions ",
-    },
-    {
-      name = "  Open Blank File",
-      action = ":enew",
-      section = " Actions ",
-    },
-    {
-      name = "  Find Files",
+      name = "f Find Files",
       action = "lua MiniPick.builtin.files()",
       section = " Actions ",
     },
     {
-      name = "  Recent Files",
+      name = "g LazyGit",
+      action = "lua Snacks.lazygit.open()",
+      section = " Actions ",
+    },
+    {
+      name = "b Bookmarked Files",
+      action = "lua MiniExtra.pickers.visit_paths { filter = 'todo' }",
+      section = " Actions ",
+    },
+    {
+      name = "l Lazy Update",
+      action = ":Lazy update",
+      section = " Actions ",
+    },
+    {
+      name = "e Open Blank File",
+      action = ":enew",
+      section = " Actions ",
+    },
+    {
+      name = "r Recent Files",
       action = "lua MiniExtra.pickers.oldfiles()",
       section = " Actions ",
     },
     {
-      name = "  Quit",
+      name = "q Quit",
       action = ":q!",
       section = " Actions ",
     },
   },
   content_hooks = {
     starter.gen_hook.aligning("center", "center"),
+    function(content)
+      -- Filter out any duplicate items
+      local seen = {}
+      local filtered = {}
+      for _, line in ipairs(content) do
+        local line_items = {}
+        for _, unit in ipairs(line) do
+          if unit.type == "item" and unit.item then
+            local key = unit.item.name .. unit.item.action
+            if not seen[key] then
+              seen[key] = true
+              table.insert(line_items, unit)
+            end
+          else
+            table.insert(line_items, unit)
+          end
+        end
+        if #line_items > 0 then
+          table.insert(filtered, line_items)
+        end
+      end
+      return filtered
+    end,
   },
 }
 
