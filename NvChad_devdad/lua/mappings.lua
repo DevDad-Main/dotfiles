@@ -1,740 +1,183 @@
-require "nvchad.mappings"
-local map = vim.keymap.set
-local opts = { noremap = true, silent = true, buffer = 0 }
-local betterTerm = require "betterTerm"
-local fzf = require "fzf-lua"
+-- require "nvchad.mappings"
 
-local real_open = betterTerm.open
-local last_term = 1
+local km = vim.keymap
 
-betterTerm.open = function(id, opts)
-  if id then
-    last_term = id
-  end
-  real_open(id, opts)
-end
+km.set("n", ";", ":", { desc = "CMD enter command mode" })
+km.set("i", "jj", "<ESC>")
 
-local function handle_copy()
-  local mode = vim.fn.mode()
-  if mode == "v" or mode == "V" or mode == "" then
-    if vim.fn.line "'<" == vim.fn.line "'>" and vim.fn.col "'<" == vim.fn.col "'>" then
-      vim.cmd.normal '"+yy'
-    else
-      vim.cmd.normal '"+y'
-    end
-  else
-    vim.cmd.normal '"+yy'
-  end
-end
+km.set({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 
-local function handle_paste()
-  vim.cmd.normal '"+p'
-end
+-- Original was p -> This feels more natural
+km.set("n", "<leader>f", require("fzf-lua").files, { desc = "FZF Files" })
 
-local function md_url_paste()
-  -- Get clipboard
-  local clip = vim.fn.getreg "+"
-  -- 0-indexed locations
-  local start_line = vim.fn.getpos("v")[2] - 1
-  local start_col = vim.fn.getpos("v")[3] - 1
-  local stop_line = vim.fn.getcurpos("")[2] - 1
-  local stop_col = vim.fn.getcurpos("")[3] - 1
-  -- Check start and stop aren't reversed, and swap if necessary
-  if stop_line < start_line or (stop_line == start_line and stop_col < start_col) then
-    start_line, start_col, stop_line, stop_col = stop_line, stop_col, start_line, start_col
-  end
-  -- Paste clipboard contents as md link.
-  vim.api.nvim_buf_set_text(0, stop_line, stop_col + 1, stop_line, stop_col + 1, { "](" .. clip .. ")" })
-  vim.api.nvim_buf_set_text(0, start_line, start_col, start_line, start_col, { "[" })
-end
+km.set("n", "<leader><leader>", require("fzf-lua").resume, { desc = "FZF Resume" })
 
--- Move or create
----@param key 'h'|'j'|'k'|'l'
-local function move_or_create_win(key)
-  local fn = vim.fn
-  local curr_win = fn.winnr()
-  vim.cmd("wincmd " .. key) --> attempt to move
+km.set("n", "<leader>r", require("fzf-lua").registers, { desc = "Registers" })
 
-  if curr_win == fn.winnr() then --> didn't move, so create a split
-    if key == "h" or key == "l" then
-      vim.cmd "wincmd v"
-    else
-      vim.cmd "wincmd s"
-    end
+km.set("n", "<leader>m", require("fzf-lua").marks, { desc = "Marks" })
 
-    vim.cmd("wincmd " .. key)
-  end
-end
+km.set("n", "<leader>k", require("fzf-lua").keymaps, { desc = "Keymaps" })
 
-local code_actions = function()
-  local function apply_specific_code_action(res)
-    vim.lsp.buf.code_action {
-      filter = function(action)
-        return action.title == res.title
-      end,
-      apply = true,
-    }
-  end
+-- Original was f -> This feels more natural
+km.set("n", "<leader>z", require("fzf-lua").live_grep, { desc = "FZF Grep" })
 
-  local actions = {}
+km.set("n", "<leader>b", require("fzf-lua").buffers, { desc = "FZF Buffers" })
 
-  actions["Goto Definition"] = { priority = 100, call = vim.lsp.buf.definition }
-  actions["Goto Implementation"] = { priority = 200, call = vim.lsp.buf.implementation }
-  actions["Show References"] = { priority = 300, call = vim.lsp.buf.references }
-  actions["Rename"] = { priority = 400, call = vim.lsp.buf.rename }
+km.set("v", "<leader>8", require("fzf-lua").grep_visual, { desc = "FZF Selection" })
 
-  local bufnr = vim.api.nvim_get_current_buf()
-  local params = vim.lsp.util.make_range_params(0, "utf-8")
+km.set("n", "<leader>7", require("fzf-lua").grep_cword, { desc = "FZF Word" })
 
-  params.context = {
-    triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
-    diagnostics = vim.diagnostic.get(bufnr, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 }),
-  }
+km.set("n", "<leader>j", require("fzf-lua").helptags, { desc = "Help Tags" })
 
-  vim.lsp.buf_request(bufnr, "textDocument/codeAction", params, function(_, results, _, _)
-    if not results or #results == 0 then
-      return
-    end
-    for i, res in ipairs(results) do
-      local prio = 10
-      if res.isPreferred then
-        if res.kind == "quickfix" then
-          prio = 0
-        else
-          prio = 1
-        end
-      end
-      actions[res.title] = {
-        priority = prio,
-        call = function()
-          apply_specific_code_action(res)
-        end,
-      }
-    end
-    local items = {}
-    for t, action in pairs(actions) do
-      table.insert(items, { title = t, priority = action.priority })
-    end
-    table.sort(items, function(a, b)
-      return a.priority < b.priority
-    end)
-    local titles = {}
-    for _, item in ipairs(items) do
-      table.insert(titles, item.title)
-    end
-    vim.ui.select(titles, {}, function(choice)
-      if choice == nil then
-        return
-      end
-      actions[choice].call()
-    end)
-  end)
-end
+km.set("n", "<leader>gc", require("fzf-lua").git_bcommits, { desc = "Browse File Commits" })
 
-local function is_diag_for_cur_pos()
-  local diagnostics = vim.diagnostic.get(0)
-  local pos = vim.api.nvim_win_get_cursor(0)
-  if #diagnostics == 0 then
-    return false
-  end
-  local message = vim.tbl_filter(function(d)
-    return d.col == pos[2] and d.lnum == pos[1] - 1
-  end, diagnostics)
-  return #message > 0
-end
+km.set("n", "<leader>gs", require("fzf-lua").git_status, { desc = "Git Status" })
 
-local function is_diag_neotest()
-  local diagnostics = vim.diagnostic.get(0)
-  local found = false
-  for _, d in ipairs(diagnostics) do
-    if d.source and d.source:match "neotest" then
-      found = true
-      break
-    end
-  end
-  return found
-end
+km.set("n", "<leader>s", require("fzf-lua").spell_suggest, { desc = "Spelling Suggestions" })
 
-local function hover_handler()
-  local dap_ok, dap = pcall(require, "dap")
-  if dap_ok and dap.session() ~= nil then
-    local dapui_ok, dapui = pcall(require, "dap.ui.widgets")
-    if dapui_ok and vim.bo.filetype ~= "dap-float" then
-      dapui.hover()
-    end
-  end
-  local ufo_ok, ufo = pcall(require, "ufo")
-  if ufo_ok then
-    local winid = ufo.peekFoldedLinesUnderCursor()
-    if winid then
-      return
-    end
-  end
-  local ft = vim.bo.filetype
-  if vim.tbl_contains({ "vim", "help" }, ft) then
-    vim.cmd("silent! h " .. vim.fn.expand "<cword>")
-  elseif vim.tbl_contains({ "man" }, ft) then
-    vim.cmd("silent! Man " .. vim.fn.expand "<cword>")
-  elseif is_diag_for_cur_pos() then
-    if is_diag_neotest() then
-      local nt_ok, nt = pcall(require, "neotest")
-      if nt_ok then
-        nt.output.open {
-          enter = true,
-          auto_close = true,
-        }
-      end
-    else
-      vim.diagnostic.open_float()
-    end
-  else
-    require("hover").hover()
-  end
-end
+km.set("n", "<leader>cj", require("fzf-lua").lsp_definitions, { desc = "Jump to Definition" })
 
-local function resolve_conflict()
-  -- Get the current line and buffer
-  local current_line = vim.api.nvim_win_get_cursor(0)[1]
-  local buffer = vim.api.nvim_get_current_buf()
-  -- Fetch lines around the cursor
-  local lines = vim.api.nvim_buf_get_lines(buffer, current_line - 1, current_line + 10, false)
-  -- Detect a conflict
-  local conflict_start, conflict_middle, conflict_end
-  for i, line in ipairs(lines) do
-    if line:match "^<<<<" then
-      conflict_start = current_line + i - 2
-    elseif line:match "^====" then
-      conflict_middle = current_line + i - 2
-    elseif line:match "^>>>>" then
-      conflict_end = current_line + i - 2
-      break
-    end
-  end
-  -- Ensure all markers are found
-  if not (conflict_start and conflict_middle and conflict_end) then
-    vim.notify("No conflict markers found.", vim.log.levels.ERROR)
-    return
-  end
-  -- Prepare options
-  local options = { "Top (yours)", "Bottom (theirs)" }
-  vim.ui.select(options, { prompt = "Select conflict resolution:" }, function(choice)
-    if choice then
-      if choice == "Top (yours)" then
-        vim.api.nvim_buf_set_lines(
-          buffer,
-          conflict_start,
-          conflict_end + 1,
-          false,
-          vim.api.nvim_buf_get_lines(buffer, conflict_start + 1, conflict_middle, false)
-        )
-      elseif choice == "Bottom (theirs)" then
-        vim.api.nvim_buf_set_lines(
-          buffer,
-          conflict_start,
-          conflict_end + 1,
-          false,
-          vim.api.nvim_buf_get_lines(buffer, conflict_middle + 1, conflict_end, false)
-        )
-      end
-      vim.notify("Conflict resolved with " .. choice .. ".", vim.log.levels.INFO)
-    else
-      vim.notify("Conflict resolution canceled.", vim.log.levels.WARN)
-    end
-  end)
-end
-
-local function find_files()
-  local entry_maker = require("configs.entry").find_files_entry_maker
-  local opts = {
-    entry_maker = entry_maker(),
-    sorting_strategy = "ascending",
-    layout_strategy = "center",
-    prompt_title = "Find Files",
-    border = true,
-    borderchars = {
-      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-    },
-    layout_config = {
-      width = 0.8,
-      height = 0.6,
-    },
-    results_title = false,
-    previewer = false,
-    hidden = true,
-    show_untracked = true,
-    path_display = { shorten = { len = 15 } },
-  }
-
-  -- Try to use Telescope frecency first, fallback to git_files / find_files
-  local has_telescope, telescope = pcall(require, "telescope")
-  if has_telescope and telescope.extensions and telescope.extensions.frecency then
-    telescope.extensions.frecency.frecency(vim.tbl_extend("force", opts, { workspace = "CWD", theme = "dropdown" }))
-  else
-    local ok = pcall(require("telescope.builtin").git_files, opts)
-    if not ok then
-      require("telescope.builtin").find_files(opts)
-    end
-  end
-end
-
---NvMenu
-local menu = {
-  {
-    name = "Format Buffer",
-    cmd = function()
-      local ok, conform = pcall(require, "conform")
-
-      if ok then
-        conform.format { lsp_fallback = true }
-      else
-        vim.lsp.buf.format()
-      end
-    end,
-    rtxt = "<leader>fm",
-  },
-  {
-    name = "Copy Content",
-    cmd = "%y+",
-    rtxt = "<C-c>",
-  },
-  {
-    name = "Delete Content",
-    cmd = "%d",
-    rtxt = "dc",
-  },
-  {
-    name = "  Copy",
-    cmd = handle_copy,
-  },
-  {
-    name = "  Paste",
-    cmd = handle_paste,
-  },
-  { name = "separator" },
-  {
-    name = " Lsp Actions",
-    hl = "Exblue",
-    items = "lsp",
-  },
-  { name = "separator" },
-  {
-    name = "  Git Actions",
-    hl = "Exgreen",
-    items = "gitsigns",
-  },
-  { name = "separator" },
-  {
-    name = " Color Picker",
-    hl = "Exred",
-    cmd = function()
-      require("minty.huefy").open()
-    end,
-  },
-}
-map("n", "<C-t>", function()
-  require("menu").open(menu)
-end, { desc = "Open NvChad menu" })
-
-map("n", "<RightMouse>", function()
-  vim.cmd.exec '"normal! \\<RightMouse>"'
-  local options = vim.bo.ft == "NvimTree" and "nvimtree" or menu
-  require("menu").open(options, { mouse = true })
-end, { desc = "Open NvChad menu" })
-
-vim.keymap.set({ "n" }, "<leader>m", function()
-  local dap = require "dap"
-  require("menu").open {
-    -- {
-    --   name = "󰤑 Run Tests",
-    --   hl = "@conditional",
-    --   cmd = function()
-    --     dap.run({
-    --       type = 'python', -- Ajusta el tipo según tu entorno
-    --       request = 'launch',
-    --       name = "Run Tests",
-    --       program = "${file}", -- Ajusta según sea necesario
-    --     })
-    --   end,
-    --   rtxt = "t",
-    -- },
-    -- { name = "separator" },
-    {
-      name = " Continue",
-      hl = "Exgreen",
-      cmd = function()
-        dap.continue()
-      end,
-      rtxt = "c",
-    },
-    {
-      name = " Toggle Breakpoint",
-      cmd = function()
-        dap.toggle_breakpoint()
-      end,
-      rtxt = "b",
-    },
-    {
-      name = " Step Over",
-      cmd = function()
-        dap.step_over()
-      end,
-      rtxt = "o",
-    },
-    {
-      name = " Step Into",
-      cmd = function()
-        dap.step_into()
-      end,
-      rtxt = "i",
-    },
-    { name = "separator" },
-    {
-      name = " Step Out",
-      hl = "@comment.error",
-      cmd = function()
-        dap.step_out()
-      end,
-      rtxt = "u",
-    },
-    {
-      name = " Stop",
-      hl = "@comment.error",
-      cmd = function()
-        dap.terminate()
-      end,
-      rtxt = "s",
-    },
-  }
-end)
-
---------------------------------------------------- Editor ---------------------------------------------------
-
-map({ "n", "i", "v" }, "<C-p>", function()
-  find_files()
-end, { desc = "󰘳 Find files" })
-
-map("v", "<leader>p", function()
-  md_url_paste()
-end, opts)
-
-map("n", "<leader>pp", function()
-  md_url_paste()
-end, { desc = "Paste in URL" })
-
-map("n", "<leader>th", function()
-  require("nvchad.themes").open { style = "bordered" }
-end, { desc = "Open NvChad theme selector" })
-
-map("n", "<A-R>", function()
-  vim.cmd "GrugFar"
-end, { desc = "Toggle GrugFar" })
-
-map("n", "<leader>gxx", function()
-  resolve_conflict()
-end, { desc = "Resolve conflict" })
-
--- GitSigns
-map("n", "<leader>hn", "<cmd>Gitsigns next_hunk<CR>", { desc = "Next hunk" })
-map("n", "<leader>hp", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Previous hunk" })
-map("n", "<S-p>", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" }) -- INFO: To match the key bind of Shit K for lsp documentation
-
-map({ "n" }, "<ESC>", function()
-  vim.cmd "noh"
-  vim.cmd "Noice dismiss"
-end, { desc = " Clear highlights" })
-
-map("n", "<leader>q", "<CMD>q<CR>", { desc = "󰗼 Close" })
-map("n", "<leader>qq", "<<CMD>qa!<CR>", { desc = "󰗼 Exit" })
-
--- NvimTree
-map({ "n" }, "<leader>e", "<cmd> NvimTreeToggle <CR>", { desc = "󰔱 Toggle nvimtree" })
-map({ "n", "i" }, "<C-b>", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle nvimtree" })
-
--- map({ "n" }, "<leader>lg", function()
---   Snacks.terminal "lazygit"
--- end, { desc = "Lazy Git" })
-
-map({ "n" }, "<leader>lg", "<cmd>LazyGit<CR>", { desc = "Lazy Git" })
---------------------------------------------------- Text ---------------------------------------------------
-map("n", "<C-z>", "<CMD>u<CR>", { desc = "󰕌 Undo" })
-map("n", "<BS>", "<C-o>", { desc = "Return" })
-
-map("v", "yd", '"+d', { desc = "󰆐 Cut" })
-
-map("i", "<C-v>", '<Esc>"+pa', { desc = "󰆒 Paste (Insert mode)" })
-map("n", "<C-v>", '"+p', { desc = "󰆒 Paste (Normal mode)" })
-
-map("n", "<C-c>", "y", { desc = " Copy" })
-map("n", "p", "p`[v`]=", { desc = "󰆒 Paste" })
-map("n", "<S-CR>", "o<ESC>", { desc = " New line" })
-map("s", "<BS>", "<C-o>c", { desc = "Better backspace in select mode" })
-map({ "n", "i", "v" }, "<C-a>", "<cmd>normal! ggVG<cr>", { desc = "Select all" })
-
-map("i", "<S-CR>", function()
-  vim.cmd "normal o"
-end, { desc = " New line" })
-
-map("i", "<A-BS>", "<C-w>", { desc = "Remove word in insert mode" })
-
--- Inside a snippet, use backspace to remove the placeholder.
-map("s", "<BS>", "<C-O>s")
-
--- Replaces the current word with the same word in uppercase, globally
-map(
+km.set(
   "n",
-  "<leader>sU",
-  [[:%s/\<<C-r><C-w>\>/<C-r>=toupper(expand('<cword>'))<CR>/gI<Left><Left><Left>]],
-  { desc = "Replace current word with UPPERCASE" }
+  "<leader>cs",
+  ":lua require'fzf-lua'.lsp_document_symbols({winopts = {preview={wrap='wrap'}}})<cr>",
+  { desc = "Document Symbols" }
 )
 
--- Replaces the current word with the same word in lowercase, globally
-map(
+km.set("n", "<leader>cr", require("fzf-lua").lsp_references, { desc = "LSP References" })
+
+km.set(
   "n",
-  "<leader>sL",
-  [[:%s/\<<C-r><C-w>\>/<C-r>=tolower(expand('<cword>'))<CR>/gI<Left><Left><Left>]],
-  { desc = "Replace current word lowercase" }
+  "<leader>cd",
+  ":lua require'fzf-lua'.diagnostics_document({fzf_opts = { ['--wrap'] = true }})<cr>",
+  { desc = "Document Diagnostics" }
 )
 
--- Surround
-map("x", "'", [[:s/\%V\(.*\)\%V/'\1'/ <CR>]], { desc = "Surround selection with '" })
-map("x", '"', [[:s/\%V\(.*\)\%V/"\1"/ <CR>]], { desc = 'Surround selection with "' })
-map("x", "*", [[:s/\%V\(.*\)\%V/*\1*/ <CR>]], { desc = "Surround selection with *" })
-
-map("n", "<leader>s*", [[:s/\<<C-r><C-w>\>/*<C-r><C-w>\*/ <CR>]], { desc = "Surround word with *" })
-map("n", '<leader>s"', [[:s/\<<C-r><C-w>\>/"<C-r><C-w>\"/ <CR>]], { desc = 'Surround word with "' })
-map("n", "<leader>s'", [[:s/\<<C-r><C-w>\>/'<C-r><C-w>\'/ <CR>]], { desc = "Surround word with '" })
-
--- In visual mode, surround the selected text with markdown link syntax
-map("v", "<leader>mll", function()
-  -- delete selected text
-  vim.cmd "normal d"
-  -- Insert the following in insert mode
-  vim.cmd "startinsert"
-  vim.api.nvim_put({ "[]() " }, "c", true, true)
-  -- Move to the left, paste, and then move to the right
-  vim.cmd "normal F[pf)"
-  -- vim.cmd("normal 2hpF[l")
-  -- Leave me in insert mode to start typing
-  vim.cmd "startinsert"
-end, { desc = "[P]Convert to link" })
-
--- In visual mode, surround the selected text with markdown link syntax
-map("v", "<leader>mlt", function()
-  -- delete selected text
-  vim.cmd "normal d"
-  -- Insert the following in insert mode
-  vim.cmd "startinsert"
-  vim.api.nvim_put({ '[](){:target="_blank"} ' }, "c", true, true)
-  vim.cmd "normal F[pf)"
-  -- Leave me in insert mode to start typing
-  vim.cmd "startinsert"
-end, { desc = "[P]Convert to link (new tab)" })
-
---------------------------------------------------- Movements ---------------------------------------------------
--- map({ "n", "i" }, "<C-h>", function()
---   move_or_create_win "h"
--- end, { desc = "Split left" })
--- map({ "n", "i" }, "<C-l>", function()
---   move_or_create_win "l"
--- end, { desc = "Split right" })
--- map({ "n", "i" }, "<C-k>", function()
---   move_or_create_win "k"
--- end, { desc = "Split up" })
--- map({ "n", "i" }, "<C-j>", function()
---   move_or_create_win "j"
--- end, { desc = "Split down" })
-
--- Better Down
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Better Down", expr = true, silent = true })
-
--- Better Up
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Better Up", expr = true, silent = true })
-
--- Hop
-map("n", "<leader><leader>w", "<CMD> HopWord <CR>", { desc = "󰸱 Hint all words" })
-map("n", "<leader><leader>t", "<CMD> HopNodes <CR>", { desc = " Hint Tree" })
-map("n", "<leader><leader>o", "<CMD> HopLineStart<CR>", { desc = "󰕭 Hint Columns" })
-map("n", "<leader><leader>l", "<CMD> HopWordCurrentLine<CR>", { desc = "󰗉 Hint Line" })
-
--- Navigation
-map("n", "<C-ScrollWheelUp>", "<C-i>", { noremap = true, silent = true })
-map("n", "<C-ScrollWheelDown>", "<C-o>", { noremap = true, silent = true })
-
---------------------------------------------------- Testing ---------------------------------------------------
-map("n", "<leader>nt", function()
-  require("neotest").run.run(vim.fn.expand "%")
-  require("coverage").load(true)
-end, { desc = "󰤑 Run neotest" })
-
-map("n", "<leader>rt", function()
-  require("neotest").run.run()
-  require("coverage").load(true)
-end, { desc = "󰤑 Run neotest" })
-
-map("n", "<leader>tc", "<cmd>CoverageToggle<cr>", { desc = "Coverage in gutter" })
-map("n", "<leader><leader>c", "<cmd>CoverageLoad<cr><cmd>CoverageSummary<cr>", { desc = "Coverage summary" })
---------------------------------------------------- LSP ---------------------------------------------------
--- map('n', '<MouseMove>', require("hover").hover, { desc = "Hover" })
-map("n", "K", function()
-  -- local winid = require("ufo").peekFoldedLinesUnderCursor()
-  -- if not winid then
-  --   require("hover").hover()
-  -- end
-  hover_handler()
-end, { desc = "hover.nvim" })
-
-map("n", "<leader>k", function()
-  require("hover").hover()
-end, { desc = "LSP Hover" })
-
-map("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-map("n", "<C-n>", function()
-  require("hover").hover_switch "next"
-end, { desc = "hover.nvim (next source)" })
-
-map({ "n", "i", "v" }, "<C-.>", function()
-  require("fastaction").code_action()
-end, { desc = "Code Action" })
-
-map({ "n" }, "<leader>.", function()
-  code_actions()
-end, { desc = "Code Action" })
-
-map("n", "<leader>wl", function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, { desc = "LSP list workspace folders" })
-
--- vim.api.nvim_set_keymap('n', '<RightMouse>', '<LeftMouse><cmd>lua vim.lsp.buf.definition()<CR>', { noremap=true, silent=true })
-
--- use gh to move to the beginning of the line in normal mode
--- use gl to move to the end of the line in normal mode
-map({ "n", "v" }, "gh", "^", { desc = "[P]go to the beginning line" })
-map({ "n", "v" }, "gl", "$", { desc = "[P]go to the end of the line" })
--- In visual mode, after going to the end of the line, come back 1 character
-map("v", "gl", "$h", { desc = "[P]Go to the end of the line" })
-
-map("n", "<leader><leader>x", ":%bd|e#|bd#<cr>|'\"<CR>", { desc = "Buffer close except current" }) --https://stackoverflow.com/a/60948057
--- grug far current file
--- require('grug-far').grug_far({ prefills = { paths = vim.fn.expand("%") } })
-
--- Map Save even when in insert mode
-map("i", "<C-S>", "<Cmd>w<CR><ESC>", { desc = "Save file" })
-
--- TMUX Navigation
-map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
-map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
-map("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>")
-map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
-
--- -- Split window
--- map("n", "<leader>sv", ":split<Return>", opts)
--- map("n", "<leader>ss", ":vsplit<Return>", opts)
-
--- Resize window
-map("n", "<A-S-j>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<A-S-k>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<A-S-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-map("n", "<A-S-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-
--- Delete a word infront
-map("i", "<C-d>", "<C-o>dw")
-
--- Move Cursor Right one character
-map("i", "<C-l>", "<Right>")
-map("i", "<C-h>", "<Left>")
-
-map({ "n" }, "<A-k>", "<CMD>m .-2<CR>==", { desc = "󰜸 Move line up" })
-map({ "n" }, "<A-j>", "<CMD>m .+1<CR>==", { desc = "󰜯 Move line down" })
--- Visual mode: move block of lines up/down
-map("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "󰜸 Move block up" })
-map("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "󰜯 Move block down" })
-
-map(
+km.set(
   "n",
-  "<Tab>",
-  "<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal<CR>",
-  { desc = "󰼛 Telescope Show Buffers" }
+  "<leader>ca",
+  -- ":lua require'fzf-lua'.lsp_code_actions({ winopts = {relative='cursor',row=1.01, col=0, height=0.2, width=0.4} })<cr>",
+  ":lua require'fzf-lua'.lsp_code_actions({ winopts = {preview={wrap='wrap'}}})<cr>",
+  { desc = "Code Actions" }
 )
 
--- in your keymaps.lua or init.lua
--- map("n", "<leader><leader>", function()
---   require("telescope.builtin").find_files {
---     hidden = true,
---     no_ignore = true, -- optional: include files from .gitignore too
---   }
--- end, { desc = "Telescope find all files" })
+km.set("n", "<leader>ch", function()
+  vim.lsp.buf.hover()
+end, { desc = "Code Hover" })
 
--- map(
---   "n",
---   "<leader><leader>",
---   "<cmd>Telescope frecency workspace=CWD theme=dropdown<cr>",
---   { desc = "Telescope find all files" }
--- )
+km.set("n", "<leader>cl", function()
+  vim.diagnostic.open_float(0, { scope = "line" })
+end, { desc = "Line Diagnostics" })
 
--- Custom Find Files via Telescope w/ Frecency
-map("n", "<leader>ff", function()
-  find_files()
-end, { desc = "Telescope find all files" })
+km.set({ "v", "n" }, "<leader>cn", function()
+  vim.lsp.buf.rename()
+end, { noremap = true, silent = true, desc = "Code Rename" })
 
--- Alternative to Enter Normal Mode - Much faster
--- FIX: Not working as intended - Need to add a fucntion check to see if we are in Visual Block MOde
--- map({ "i", "v" }, "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
+-- Move Windows
+km.set("n", "<C-h>", "<C-w>h", { silent = true, desc = "Window Left" })
+km.set("n", "<C-j>", "<C-w>j", { silent = true, desc = "Window Down" })
+km.set("n", "<C-k>", "<C-w>k", { silent = true, desc = "Window Up" })
+km.set("n", "<C-l>", "<C-w>l", { silent = true, desc = "Window Right" })
 
-map("i", "jj", "<ESC><ESC>", { desc = "Alternative to Enter Normal Mode" })
+-- Gitsigns specific for file specific git info/tools
+km.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<cr>", { desc = "Git toggle line blame" })
+km.set("n", "<leader>gp", ":Gitsigns preview_hunk<cr>", { desc = "Git preview hunk" })
+km.set("n", "<leader>gr", ":Gitsigns reset_hunk<cr>", { desc = "Get reset hunk" })
 
--- Markdown
-map("n", "<leader>lp", "<cmd>LiveServerToggle<cr>", { desc = "Live Server Toggle" })
+-- Search Available Sessions
+km.set("n", "<Leader>xs", ":AutoSession search<CR>", { desc = "Search Sessions" })
 
--- Better Diagnostics Window (Trouble)
-map("n", "<leader>dd", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diagnostics (Trouble) Diagnostics" })
-map("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<cr>", { desc = "Diagnostics (Trouble) References" })
-map(
+-- This allows you to select, and pte over contents, without that pasted over contents going into the register, that means you can paste again without it inserting the thing you pasted over the last time
+km.set("x", "p", function()
+  return 'pgv"' .. vim.v.register .. "y"
+end, { remap = false, expr = true })
+
+-- Switch Back to the previous file
+km.set({ "n", "x" }, "<Bslash>", "<C-6>", { desc = "Alternate File" })
+
+-- Quick new split above/below
+km.set({ "n" }, "<Leader>ws", "<CMD>new<CR>", { desc = "New split below" })
+km.set({ "n" }, "<Leader>wv", "<CMD>vnew<CR>", { desc = "New split right" })
+
+-- Toggle Terminal, thanks https://www.reddit.com/r/neovim/comments/1bjhadj/efficiently_switching_between_neovim_and_terminal/
+exitTerm = function()
+  vim.cmd ":lua Snacks.terminal.toggle()"
+end
+km.set({ "n" }, "<C-t>", ":lua Snacks.terminal.toggle()<cr>", { desc = "Toggle Terminal" })
+km.set({ "t" }, "<C-t>", exitTerm)
+
+km.set("n", "<leader>l", ":lua Snacks.lazygit.open()<cr>", { silent = true, desc = "Lazygit" })
+
+-- Easy delete buffer without losing window split
+km.set("n", "<leader>d", ":lua Snacks.bufdelete.delete()<cr>", { silent = true, desc = "Buffer Delete" })
+
+-- Show Notifier history
+km.set("n", "<leader>xh", ":lua Snacks.notifier.show_history()<cr>", { silent = true, desc = "Notifier history" })
+
+-- Toggle Open Oil
+km.set("n", "-", function()
+  vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
+end, { desc = "Toggle Open Oil" })
+
+-- Use FZF-lua to search for TODOs
+km.set(
   "n",
-  "gi",
-  "<cmd>Trouble lsp_implementations toggle focus=true<cr>",
-  { desc = "Diagnostics (Trouble) Implementations" }
+  "<leader>t",
+  "<cmd>:lua require('fzf-lua').grep({search='TODO|HACK|PERF|NOTE|FIX', no_esc=true}) <cr>",
+  { desc = "FZF Grep TODOs" }
 )
 
--- Better Terminal via BetterTerm
-map("n", "<C-;>", function()
-  betterTerm.open(last_term)
-end, { desc = "Toggle last terminal" })
+km.set({ "n", "v" }, "h", ":Pounce<CR>", { silent = true, desc = "Pounce" })
+km.set("n", "H", ":PounceRepeat<CR>", { silent = true, desc = "Pounce Repeat" })
 
--- FIX: Remove this mapping as this messes with our navigation when trying to go to the next panes
--- map({ "n", "t" }, "<C-l>", betterTerm.select, { desc = "Select Terminal" })
+-- NvChad theme picker
+km.set("n", "<leader>tp", function()
+  require("nvchad.themes").open()
+end, { desc = "NvChad Theme Picker" })
 
--- Rename the current terminal
-map({ "n", "t" }, "<leader>tr", betterTerm.rename, { desc = "Rename Terminal" })
+-- Goto Preview
+km.set(
+  "n",
+  "<leader>gpd",
+  "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+  { desc = "Goto Preview Definition" }
+)
+km.set(
+  "n",
+  "<leader>gpt",
+  "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+  { desc = "Goto Preview Type Definition" }
+)
+km.set(
+  "n",
+  "<leader>gpi",
+  "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+  { desc = "Goto Preview Implementation" }
+)
+km.set(
+  "n",
+  "<leader>gpD",
+  "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+  { desc = "Goto Preview Declaration" }
+)
+km.set(
+  "n",
+  "<leader>gP",
+  "<cmd>lua require('goto-preview').close_all_win()<CR>",
+  { desc = "Goto Preview Close All Windows" }
+)
+km.set(
+  "n",
+  "<leader>gpr",
+  "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+  { desc = "Goto Preview References" }
+)
 
--- Hide the current terminal in terminal mode
-map("t", "<C-;>", function()
-  vim.cmd "close"
-end, { desc = "Hide Terminal" })
+km.set("n", "<Leader>u", ":Lazy update<CR>", { desc = "Lazy Update (Sync)" })
 
-map("n", "he", function()
-  require("hover").enter()
-end, { desc = "hover.nvim (enter)" })
+km.set("n", "<Leader>n", "<cmd>enew<CR>", { desc = "New File" })
 
--- Reference to Commit (#e13f9c9) -- Remove Neogit as we're using LazyGit - With the keybind below we can now commits via #
-map("n", "<leader>oc", [[:execute 'Git show ' . expand('<cword>')<CR>]], { noremap = true, silent = true })
+km.set("n", "<Leader>a", "ggVG<c-$>", { desc = "Select All" })
 
--- Reintroduce Neogit - Never actually gave it a proper try, but it's a good plugin
--- INFO: Old Mapping to just open Neogit by defualt in a seperate tab. - New Flaoting window works much better
--- map("n", "<leader>ng", "<cmd>Neogit<cr>", { desc = "Neogit" })
--- map("n", "<leader>ng", function()
---   require("neogit").open { kind = "floating" }
--- end, { desc = "Open Neogit in floating window" })
-
-map("n", "<leader>ng", function()
-  require("neogit").open()
-end, { desc = "Open Neogit in floating window" })
-
-map("n", "<leader>smt", "<cmd>:SupermavenToggle<cr>", { desc = "Supermave Toggle" })
-
-map("n", "<leader>h", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-  vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hitns Disabled")
-end)
+-- Make visual yanks place the cursor back where started
+km.set("v", "y", "ygv<Esc>", { desc = "Yank and reposition cursor" })

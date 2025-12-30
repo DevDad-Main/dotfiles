@@ -1,128 +1,173 @@
 require "nvchad.options"
 
-local opt = vim.opt
+-- add yours here!
+
+-- local o = vim.o
+-- o.cursorlineopt ='both' -- to enable cursorline!
+
+local indent = 4
+local opt = vim.opt -- to set options
 local g = vim.g
-local o = vim.o
 
--- vim.wo.statuscolumn = ""
-opt.spell = true
-opt.spelllang = "en"
-
-o.mousemoveevent = true
-o.diffopt = "internal,filler,closeoff,linematch:60"
-
-opt.encoding = "utf-8"
-opt.backup = false --- Recommended by coc
-opt.swapfile = false
-opt.scrolloff = 10 -- always show minimum n lines after current line
-opt.relativenumber = true -- Show relative numberline
-opt.wrap = true
-opt.linebreak = true -- Wrap lines at convenient points (like after spaces)
-opt.breakindent = true -- Keep indentation on wrapped lines
-opt.showbreak = "↳ " -- Optional: show a small symbol at wrapped lines
-
-opt.iskeyword:append "-"
-opt.termguicolors = true -- True color support
-opt.autoindent = true --- Good auto indent
-opt.backspace = "indent,eol,start" --- Making sure backspace works
-opt.laststatus = 3 -- global statusline
-opt.showmode = false
-opt.smoothscroll = true
-
-opt.sessionoptions = "blank,buffers,curdir,tabpages,winsize,winpos,terminal,localoptions"
-
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.backspace = { "indent", "eol", "start" }
 opt.clipboard = "unnamedplus"
-opt.cursorline = true
-opt.cursorlineopt = "number"
+opt.completeopt = "menu,menuone,noselect"
 
--- Indenting
+opt.cursorline = false
+opt.cursorcolumn = false
+
+opt.encoding = "utf-8" -- Set default encoding to UTF-8
+-- opt.foldenable = true
+--
+opt.foldcolumn = "1" -- '0' is not bad
+opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevelstart = 99
+opt.foldenable = true
+opt.foldmethod = "manual"
+
+-- opt.formatoptions = "l"
+opt.hidden = true -- Enable background buffers
+opt.hlsearch = true -- Highlight found searches
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "split" -- Get a preview of replacements
+opt.incsearch = true -- Shows the match while typing
+opt.joinspaces = false -- No double spaces with join
+vim.o.lazyredraw = true
+opt.linebreak = true -- Stop words being broken on wrap
+opt.number = true -- Show line numbers
+opt.listchars = { tab = " ", trail = "·", nbsp = "%" }
+-- opt.listchars = {
+--   tab = '❘-',
+--   trail = '·',
+--   lead = '·',
+--   extends = '»',
+--   precedes = '«',
+--   nbsp = '×',
+-- }
+opt.list = true -- Show some invisible characters
+opt.relativenumber = true
+vim.o.shortmess = vim.o.shortmess .. "S" -- stops display of currentsearch match in cmdline area
+opt.equalalways = true -- make windows the same width when closing one
+opt.cursorlineopt = "both" -- should get cursorline in number too
+
+-- opt.expandtab = true
+-- opt.shiftwidth = indent
+-- opt.softtabstop = indent
+-- opt.tabstop = indent
+
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
 
-opt.ignorecase = true
-opt.smartcase = true
+opt.showmode = false -- Don't display mode
+opt.scrolloff = 8 -- Lines of context
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes:1" -- always show signcolumns
+opt.smartcase = true -- Do not ignore case with capitals
+opt.spelllang = { "en_gb" }
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+-- opt.splitkeep = "screen" -- Stops screen jumping when splits below are opened
+opt.termguicolors = true -- You will have bad experience for diagnostic messages when it's default 4000.
+opt.title = true -- Allows neovom to send the Terminal details of the current window, instead of just getting 'v'
+-- Give me some fenced codeblock goodness
+vim.g.markdown_fenced_languages = { "html", "javascript", "typescript", "css", "scss", "lua", "vim" }
+vim.o.whichwrap = vim.o.whichwrap .. "<,>" -- Wrap movement between lines in edit mode with arrows
+opt.wrap = true
+-- opt.cc = "80"
 opt.mouse = "a"
-
--- Numbers
-opt.number = true
-opt.numberwidth = 2
-opt.ruler = false
-
--- disable nvim intro
-opt.shortmess:append "sI"
-
-opt.signcolumn = "yes"
-opt.splitbelow = true
-opt.splitright = true
-opt.timeoutlen = 400
-opt.ttimeoutlen = 10
+opt.guicursor =
+  "n-v-c-sm:block-nCursor-blinkwait50-blinkon50-blinkoff50,i-ci-ve:ver25-Cursor-blinkon100-blinkoff100,r-cr-o:hor20"
+opt.undodir = vim.fn.stdpath "config" .. "/undo"
 opt.undofile = true
+-- vim.notify = require("notify")
+opt.jumpoptions = "view"
+opt.timeoutlen = 300 -- The time before a key sequence should complete
+opt.cpoptions:append ">" -- when you yank multiple times into a register, this puts each on a new line
+opt.nrformats:append "alpha" -- this means you can increment lists that have letters with `g ctrl-a`
+-- opt.pumblend = 5 -- partial opacity of pop up menu, this causes characters in lspkind to render incorrect width and means that you have to set up kitty to use narrow symbols. See https://github.com/kovidgoyal/kitty/discussions/7774#discussioncomment-10442608
+opt.ph = 15 -- the number is the number of entries to show before scrollbars, not px!
+opt.cmdheight = 0
+opt.virtualedit = "block" -- allows using visual blocks beyond the end of a line
+vim.g.editorconfig = false -- disable editor config as VSCode does not have it on by default
 
--- interval for writing swap file to disk, also used by gitsigns
-opt.updatetime = 250
+--- use Neovim nightly branch
+-- opt.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:"
 
--- go to previous/next line with h,l,left arrow and right arrow
--- when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
+local api = vim.api
+-- Highlight on yank
+local yankGrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+api.nvim_create_autocmd("TextYankPost", {
+  group = yankGrp,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  desc = "Highlight yank",
+})
 
--- Map in dotyfile
-g.mapleader = " "
-g.maplocalleader = " "
-g.dap_virtual_text = true
-g.bookmark_sign = ""
-g.query_lint_on = { "BufWrite" }
+-- #region CursorLine AutoCommands to show the vertical Line
+---- show cursor line only in active window
+-- local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
+-- api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { pattern = "*", command = "set cursorline", group = cursorGrp })
+-- api.nvim_create_autocmd(
+--   { "InsertEnter", "WinLeave" },
+--   { pattern = "*", command = "set nocursorline", group = cursorGrp }
+-- )
+--
+-- -- show cursor col line only in active window
+-- local cursorColGrp = api.nvim_create_augroup("CursorColumn", { clear = true })
+-- api.nvim_create_autocmd(
+--   { "InsertLeave", "WinEnter" },
+--   { pattern = "*", command = "set cursorcolumn", group = cursorColGrp }
+-- )
+-- api.nvim_create_autocmd(
+--   { "InsertEnter", "WinLeave" },
+--   { pattern = "*", command = "set nocursorcolumn", group = cursorColGrp }
+-- )
+-- #endregion
 
-opt.conceallevel = 2
-opt.concealcursor = "" --- Set to an empty string to expand tailwind class when on cursorline
+-- show Blank Line only in active window
+-- local blanklineGrp = api.nvim_create_augroup("BlankLine", { clear = true })
+-- api.nvim_create_autocmd(
+--   { "InsertLeave", "WinEnter" },
+--   { pattern = "*", command = ":IndentBlanklineEnable", group = blanklineGrp }
+-- )
+-- api.nvim_create_autocmd(
+--   { "InsertEnter", "WinLeave" },
+--   { pattern = "*", command = ":IndentBlanklineDisable", group = blanklineGrp }
+-- )
 
--- Folds
-opt.foldenable = true
-opt.foldcolumn = "auto" -- show foldcolumn in nvim 0.9
-opt.foldnestmax = 0
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.fillchars = {
-  fold = " ",
-  foldopen = "",
-  -- foldopen = '◡',
-  foldsep = " ",
-  foldclose = "",
-  -- foldclose = '◠',
-  stl = " ",
-  eob = " ",
-  diff = "╱",
+-- This is global settings for diagnostics
+vim.o.updatetime = 250
+vim.diagnostic.config {
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = false,
+
+  --NOTE: Comment this out to disable inline virtual diagnostics
+  virtual_lines = {
+    current_line = true,
+  },
+
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "󰅙 ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = "󰌵",
+      [vim.diagnostic.severity.INFO] = "󰋼 ",
+      -- [vim.diagnostic.severity.ERROR] = "󰅚 ",
+      -- [vim.diagnostic.severity.WARN] = "󰳦 ",
+      -- [vim.diagnostic.severity.HINT] = "󱡄 ",
+      -- [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
 }
-
-opt.diffopt = {
-  "internal",
-  "filler",
-  "closeoff",
-  "context:12",
-  "algorithm:histogram",
-  "linematch:200",
-  "indent-heuristic",
-}
-
--- opt.foldmethod = "expr"
--- opt.foldexpr = "nvim_treesitter#foldexpr()"
--- opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
--- opt.foldexpr = ""
-
--- go to previous/next line with h,l,left arrow and right arrow when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
-
-opt.emoji = false
-opt.cursorline = true
-opt.smoothscroll = true
-
-if vim.env.TMUX then
-  vim.opt.laststatus = 0
-else
-  vim.opt.laststatus = 3
-end
 
 if g.neovide then
   -- #region Old Neovide

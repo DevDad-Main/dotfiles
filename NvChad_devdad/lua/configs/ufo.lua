@@ -43,7 +43,7 @@ require("ufo").setup {
   preview = {
     win_config = {
       border = "rounded",
-      winblend = 0,
+      winblend = 15,
     },
   },
   provider_selector = function(_, filetype, buftype)
