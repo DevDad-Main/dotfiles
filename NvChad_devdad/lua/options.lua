@@ -23,6 +23,14 @@ M.initial = function()
   opt.cmdheight = 0
   opt.winborder = "rounded"
 
+  -- Folding
+  opt.encoding = "utf-8" -- Set default encoding to UTF-8
+  opt.foldcolumn = "1" -- '0' is not bad
+  opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+  opt.foldlevelstart = 99
+  opt.foldenable = true
+  opt.foldmethod = "manual"
+
   g.border_style = "rounded" ---@type "single"|"double"|"rounded"
   g.winblend = 0
 
@@ -31,6 +39,8 @@ M.initial = function()
   g.loaded_python3_provider = 0
   g.loaded_perl_provider = 0
   g.loaded_ruby_provider = 0
+
+  vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
   -- -- Session
   -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
   --
@@ -117,6 +127,11 @@ M.initial = function()
 
   -- Disable editorconfig
   g.editorconfig = false
+  -- opt.foldcolumn = "1"
+  -- opt.foldlevel = 99
+  -- opt.foldlevelstart = 99
+  -- opt.foldenable = true
+  -- opt.foldmethod = "manual"
 end
 
 M.final = function()

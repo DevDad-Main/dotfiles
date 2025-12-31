@@ -4,10 +4,20 @@ local M = {}
 
 local km = vim.keymap
 
+-- This is a utility function that allows you to map keys to actions
 local function map(mode, keys, action, desc)
   desc = desc or ""
   local opts = { noremap = true, silent = true, desc = desc }
   vim.keymap.set(mode, keys, action, opts)
+end
+
+-- Here is a utility function that closes any floating windows when you press escape
+local function close_floating()
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative == "win" then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
 end
 
 M.map = map
@@ -50,6 +60,11 @@ M.core = function()
   -- Yank keeps cursor
   km.set("v", "y", "ygv<Esc>", { desc = "Yank and reposition cursor" })
 
+  km.set("n", "<esc>", function()
+    close_floating()
+    vim.cmd ":noh"
+  end, { silent = true, desc = "Remove Search Highlighting, Dismiss Popups" })
+
   -- Visual paste without overwriting register
   km.set("x", "p", function()
     return 'pgv"' .. vim.v.register .. "y"
@@ -62,7 +77,7 @@ end
 M.fzf = function()
   local fzf = require "fzf-lua"
 
-  map("n", "<leader>f", fzf.files, "FZF Files")
+  -- map("n", "<leader>ff", fzf.files, "FZF Files")
   map("n", "<leader><leader>", fzf.resume, "FZF Resume")
   map("n", "<leader>r", fzf.registers, "Registers")
   map("n", "<leader>m", fzf.marks, "Marks")
@@ -158,10 +173,10 @@ M.mini = function()
 
   local builtin = minipick.builtin
 
-  map("n", "<leader>ff", builtin.files, "Find files")
+  map("n", "<leader>f", builtin.files, "Find files")
   map("n", "<leader>bs", builtin.buffers, "Find buffers")
-  map("n", "<leader>fr", builtin.resume, "Resume finding")
-  map("n", "<leader>fw", builtin.grep_live, "Grep live")
+  -- map("n", "<leader>fr", builtin.resume, "Resume finding")
+  -- map("n", "<leader>fw", builtin.grep_live, "Grep live")
 
   map("n", "<leader>e", function()
     local _ = require("mini.files").close() or require("mini.files").open()

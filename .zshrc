@@ -43,6 +43,9 @@ alias nt="npm run test"
 alias ntw="npm run test:watch"
 alias ntc="npm run test:coverage"
 
+alias dcu="docker-compose up --build"
+alias dcd="docker-compose down"
+
 # I Like the 70 percent height so i can see alot more but this is due to my monitor so i have more screen real estate, change this to your desire values - 40% works great as a default.
 # Fuzzy cd into a directory
 cdf() {
@@ -60,14 +63,14 @@ cdf() {
 # Fuzzy open a file with nvim - Change the nvc below to your alias of choice of use default nvim
 vf() {
   local file
-  file=$(fdfind --type f --hidden --follow \
+  file=$(fdfind --type f --max-depth 2 --hidden --follow \
     --exclude .git \
     --exclude node_modules \
     --exclude dist \
     --exclude build \
     . | fzf --height 70% --reverse --border \
             --preview 'bat --style=numbers --color=always {} || cat {}') \
-    && nvc "$file"
+    && nvim "$file"
 }
 
 
