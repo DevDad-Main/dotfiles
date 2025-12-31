@@ -223,7 +223,7 @@ M.mini = function()
 
   map("n", "<leader>gc", miniextra.pickers.git_commits, "Show git commits")
   map("n", "<leader>gh", miniextra.pickers.git_hunks, "Show git hunks")
-  map("n", "<leader>dp", miniextra.pickers.diagnostic, "Diagnostics picker")
+  -- map("n", "<leader>dp", miniextra.pickers.diagnostic, "Diagnostics picker")
 
   map("n", "<leader>td", function()
     minidiff.toggle_overlay(0)
