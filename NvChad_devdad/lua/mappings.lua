@@ -20,6 +20,21 @@ local function close_floating()
   end
 end
 
+-- Open Mini.files in the current working directory
+local function open_minifiles_in_cwd()
+  local buf_name = vim.api.nvim_buf_get_name(0)
+  local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+  if vim.fn.filereadable(buf_name) == 1 then
+    -- Pass the full file path to highlight the file
+    require("mini.files").open(buf_name, true)
+  elseif vim.fn.isdirectory(dir_name) == 1 then
+    -- If the directory exists but the file doesn't, open the directory
+    require("mini.files").open(dir_name, true)
+  else
+    -- If neither exists, fallback to the current working directory
+    require("mini.files").open(vim.uv.cwd(), true)
+  end
+end
 M.map = map
 
 -- ============================================================================
@@ -90,8 +105,8 @@ M.fzf = function()
   map("n", "<leader>r", fzf.registers, "Registers")
   map("n", "<leader>m", fzf.marks, "Marks")
   map("n", "<leader>k", fzf.keymaps, "Keymaps")
-  map("n", "<leader>z", fzf.live_grep, "FZF Grep")
-  map("n", "<leader>b", fzf.buffers, "FZF Buffers")
+  -- map("n", "<leader>z", fzf.live_grep, "FZF Grep")
+  -- map("n", "<leader>b", fzf.buffers, "FZF Buffers")
   map("v", "<leader>8", fzf.grep_visual, "FZF Selection")
   map("n", "<leader>7", fzf.grep_cword, "FZF Word")
   map("n", "<leader>j", fzf.helptags, "Help Tags")
@@ -146,8 +161,7 @@ M.lsp = function()
 end
 
 -- ============================================================================
--- Git
--- ============================================================================
+-- Git ============================================================================
 M.git = function()
   map("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<cr>", "Git toggle line blame")
   map("n", "<leader>gp", ":Gitsigns preview_hunk<cr>", "Git preview hunk")
@@ -182,17 +196,18 @@ M.mini = function()
   local builtin = minipick.builtin
 
   map("n", "<leader>f", builtin.files, "Find files")
-  map("n", "<leader>bs", builtin.buffers, "Find buffers")
+  map("n", "<leader>b", builtin.buffers, "Find buffers")
   -- map("n", "<leader>fr", builtin.resume, "Resume finding")
-  -- map("n", "<leader>fw", builtin.grep_live, "Grep live")
+  map("n", "<leader>z", builtin.grep_live, "Grep live")
 
+  -- Open Mini.files where your file is - cwd
   map("n", "<leader>e", function()
-    local _ = require("mini.files").close() or require("mini.files").open()
-  end, "Toggle minifiles")
+    open_minifiles_in_cwd()
+  end, "Open MiniFiles")
 
-  map("n", "<leader>bq", function()
-    require("mini.bufremove").delete()
-  end, "Remove current buffer")
+  -- map("n", "<leader>bq", function()
+  --   require("mini.bufremove").delete()
+  -- end, "Remove current buffer")
 
   map("n", "<A-s>", function()
     miniextra.pickers.visit_paths { filter = "todo" }
