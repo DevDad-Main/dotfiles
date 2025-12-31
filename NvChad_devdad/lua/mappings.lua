@@ -57,9 +57,10 @@ M.core = function()
   km.set("n", "<Leader>n", "<cmd>enew<CR>", { desc = "New File" })
   km.set("n", "<Leader>a", "ggVG<c-$>", { desc = "Select All" })
 
-  -- Yank keeps cursor
+  -- Yank keeps cursor at original position
   km.set("v", "y", "ygv<Esc>", { desc = "Yank and reposition cursor" })
 
+  -- Remove Search Highlighting, Dismiss Popups
   km.set("n", "<esc>", function()
     close_floating()
     vim.cmd ":noh"
@@ -69,6 +70,13 @@ M.core = function()
   km.set("x", "p", function()
     return 'pgv"' .. vim.v.register .. "y"
   end, { expr = true })
+
+  -- More molecular undo of text
+  km.set("i", ".", ".<c-g>u")
+  km.set("i", "!", "!<c-g>u")
+  km.set("i", "?", "?<c-g>u")
+  km.set("i", ";", ";<c-g>u")
+  km.set("i", ":", ":<c-g>u")
 end
 
 -- ============================================================================
