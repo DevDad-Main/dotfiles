@@ -91,7 +91,7 @@ return {
     auto_show_delay_ms = 500,
   },
   signature = {
-    enabled = true,
+    enabled = false, --NOTE: NVChad already has this enabled by default so we disable blinks to prevent duplicates
     window = {
       border = "rounded",
       winblend = 15,

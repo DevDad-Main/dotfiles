@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "kanagawa",
+  theme = "onedark",
 
   -- hl_override = {
   -- 	Comment = { italic = true },
@@ -23,6 +23,8 @@ M.ui = {
   statusline = {
     enabled = false,
   },
+
+  -- lsp = { signature = false },
 }
 
 return M

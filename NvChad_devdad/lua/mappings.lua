@@ -92,6 +92,12 @@ M.core = function()
   km.set("i", "?", "?<c-g>u")
   km.set("i", ";", ";<c-g>u")
   km.set("i", ":", ":<c-g>u")
+
+  -- Removes all console.log from the file
+  km.set("n", "<Leader>xc", ":g/console.lo/d<cr>", { desc = "Remove console.log" })
+
+  -- Toggle folds
+  km.set("n", "<leader>o", "zA", { desc = "Toggle Fold" })
 end
 
 -- ============================================================================
@@ -106,7 +112,7 @@ M.fzf = function()
   map("n", "<leader>m", fzf.marks, "Marks")
   map("n", "<leader>k", fzf.keymaps, "Keymaps")
   -- map("n", "<leader>z", fzf.live_grep, "FZF Grep")
-  -- map("n", "<leader>b", fzf.buffers, "FZF Buffers")
+  map("n", "<leader>b", fzf.buffers, "FZF Buffers")
   map("v", "<leader>8", fzf.grep_visual, "FZF Selection")
   map("n", "<leader>7", fzf.grep_cword, "FZF Word")
   map("n", "<leader>j", fzf.helptags, "Help Tags")
@@ -196,7 +202,7 @@ M.mini = function()
   local builtin = minipick.builtin
 
   map("n", "<leader>f", builtin.files, "Find files")
-  map("n", "<leader>b", builtin.buffers, "Find buffers")
+  -- map("n", "<leader>b", builtin.buffers, "Find buffers")
   -- map("n", "<leader>fr", builtin.resume, "Resume finding")
   map("n", "<leader>z", builtin.grep_live, "Grep live")
 
@@ -252,14 +258,44 @@ end
 -- Goto Preview
 -- ============================================================================
 M.goto_preview = function()
-  local gp = require "goto-preview"
+  -- local gp = require "goto-preview"
 
-  map("n", "<leader>gpd", gp.goto_preview_definition, "Goto Preview Definition")
-  map("n", "<leader>gpt", gp.goto_preview_type_definition, "Goto Preview Type Definition")
-  map("n", "<leader>gpi", gp.goto_preview_implementation, "Goto Preview Implementation")
-  map("n", "<leader>gpD", gp.goto_preview_declaration, "Goto Preview Declaration")
-  map("n", "<leader>gpr", gp.goto_preview_references, "Goto Preview References")
-  map("n", "<leader>gP", gp.close_all_win, "Goto Preview Close All Windows")
+  km.set(
+    "n",
+    "<leader>gpd",
+    "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+    { desc = "Goto Preview Definition" }
+  )
+  km.set(
+    "n",
+    "<leader>gpt",
+    "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+    { desc = "Goto Preview Type Definition" }
+  )
+  km.set(
+    "n",
+    "<leader>gpi",
+    "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+    { desc = "Goto Preview Implementation" }
+  )
+  km.set(
+    "n",
+    "<leader>gpD",
+    "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+    { desc = "Goto Preview Declaration" }
+  )
+  km.set(
+    "n",
+    "<leader>gP",
+    "<cmd>lua require('goto-preview').close_all_win()<CR>",
+    { desc = "Goto Preview Close All Windows" }
+  )
+  km.set(
+    "n",
+    "<leader>gpr",
+    "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+    { desc = "Goto Preview References" }
+  )
 end
 
 return M
