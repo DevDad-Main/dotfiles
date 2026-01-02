@@ -32,12 +32,7 @@ alias tms="tmux new-session -s"     # => Start a new tmux session.
 # Lazy Git Simple Alias
 alias lg="lazygit"
 
-alias neoterm="neovide -- -u '~/.config/neoterm/neoterm.lua'"
-alias nvl="NVIM_APPNAME=LazyVim nvim"
-alias nvk="NVIM_APPNAME=kickstart nvim"
-alias nvc="NVIM_APPNAME=NvChad nvim"
-alias nva="NVIM_APPNAME=AstroNvim nvim"
-alias nvtest="NVIM_APPNAME=neovim nvim"
+alias nvm="NVIM_APPNAME=nvimMinimal nvim"
 
 alias nt="npm run test"
 alias ntw="npm run test:watch"

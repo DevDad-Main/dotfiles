@@ -11,15 +11,29 @@ end
 return {
   -- test new blink
   { import = "nvchad.blink.lazyspec" },
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+      },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<CR>",
+          scope_incremental = "<CR>",
+          node_incremental = "<CR>",
+          node_decremental = "<TAB>",
+        },
+      },
+    },
+  },
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- uncomment for format on save
