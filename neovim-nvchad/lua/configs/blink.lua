@@ -107,6 +107,7 @@ return {
 
     ["<C-k>"] = { "select_prev", "fallback" },
     ["<C-j>"] = { "select_next", "fallback" },
+    ["<C-h>"] = { "hide" },
     ["<Tab>"] = {
       function()
         if not has_words_before() then

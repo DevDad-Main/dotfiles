@@ -106,7 +106,7 @@ end
 M.fzf = function()
   local fzf = require "fzf-lua"
 
-  -- map("n", "<leader>ff", fzf.files, "FZF Files")
+  map("n", "<leader>f", fzf.files, "FZF Files")
   map("n", "<leader><leader>", fzf.resume, "FZF Resume")
   map("n", "<leader>r", fzf.registers, "Registers")
   map("n", "<leader>m", fzf.marks, "Marks")
@@ -201,7 +201,7 @@ M.mini = function()
 
   local builtin = minipick.builtin
 
-  map("n", "<leader>f", builtin.files, "Find files")
+  -- map("n", "<leader>f", builtin.files, "Find files")
   -- map("n", "<leader>b", builtin.buffers, "Find buffers")
   -- map("n", "<leader>fr", builtin.resume, "Resume finding")
   -- map("n", "<leader>z", builtin.grep_live, "Grep live")
