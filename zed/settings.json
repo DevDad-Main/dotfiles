@@ -42,7 +42,8 @@
     "enabled": true,
   },
   "scrollbar": {
-    "show": "auto",
+    // "show": "auto",
+    "show": "never",
   },
   "terminal": {
     "keep_selection_on_copy": false,
@@ -51,7 +52,7 @@
     },
   },
   "toolbar": {
-    "breadcrumbs": true,
+    "breadcrumbs": false, // No Breadcrumbs in the toolbar, change if we find we need it
     "quick_actions": false,
     "selections_menu": false,
   },
@@ -77,12 +78,13 @@
   "cursor_blink": false,
   "relative_line_numbers": "enabled",
   "tab_bar": {
-    // "show": false,
+    "show": false, // Don't need this due to ourbuffer switcher keybind
   },
   // Rainbow indentation
   "indent_guides": {
     "enabled": true,
-    "coloring": "indent_aware",
+    "coloring": "fixed",
+    // "coloring": "indent_aware",
   },
   "tabs": {
     "show_diagnostics": "all",
