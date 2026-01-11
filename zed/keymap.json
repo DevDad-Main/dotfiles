@@ -1,0 +1,101 @@
+[
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      // --- File / UI ---
+      ", f": "file_finder::Toggle", // Fixed: Added space
+      ", p": "command_palette::Toggle",
+      ", n": "workspace::NewFile",
+      ", a": "editor::SelectAll",
+
+      // --- Save ---
+      "ctrl-s": "workspace::Save",
+
+      // --- Search ---
+      // Changed to 'workspace::NewSearch' which is the standard "Find in Project"
+      ", s": "workspace::NewSearch",
+
+      // --- Terminal ---
+      // ", t": "terminal_panel::ToggleFocus",
+      "ctrl-t": "terminal_panel::ToggleFocus",
+
+      // --- LSP ---
+      ", h": "editor::ToggleInlayHints",
+      ", c d": "editor::GoToDefinition",
+      ", c r": "editor::FindAllReferences",
+      ", c a": "editor::ToggleCodeActions",
+      ", c h": "editor::Hover",
+      ", c n": "editor::Rename",
+
+      // Vim-standard hover (Shift+K is default in Vim, ensuring it maps to Zed hover)
+      // "shift-k": "editor::Hover",
+
+      // --- Diagnostics ---
+      ", c l": "diagnostics::Deploy",
+
+      // --- Outline ---
+      ", o": "outline::Toggle",
+
+      // --- Pane Navigation ---
+      "alt-h": "workspace::ActivatePaneLeft",
+      "alt-j": "workspace::ActivatePaneDown",
+      "alt-k": "workspace::ActivatePaneUp",
+      "alt-l": "workspace::ActivatePaneRight",
+
+      // --- Pane Management ---
+      // 'SplitDown' = Horizontal Split (one top, one bottom)
+      ", w s": "pane::SplitDown",
+      // 'SplitRight' = Vertical Split (side by side)
+      ", w v": "pane::SplitRight",
+
+      // --- Explorer ---
+      ", e": "project_panel::ToggleFocus",
+      "-": "project_panel::ToggleFocus", // Bonus: mapped '-' to file explorer (Netrw style)
+
+      // --- Buffers ---
+      ", b": "pane::ActivateNextItem",
+      ", d": "pane::CloseActiveItem",
+
+      // --- Comment ---
+      "ctrl-/": "editor::ToggleComments",
+
+      // --- Command Palette Helper ---
+      ", k": "command_palette::Toggle",
+    },
+  },
+
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "ctrl-/": "editor::ToggleComments",
+      // Allows pasting system clipboard content easily in visual mode
+      "p": "editor::Paste",
+    },
+  },
+
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      // Rapid 'jj' to exit insert mode
+      "j j": "vim::SwitchToNormalMode",
+    },
+  },
+  {
+    "context": "Terminal",
+    "use_key_equivalents": true,
+    "bindings": { "ctrl-t": "terminal_panel::Toggle" },
+  },
+
+  // {
+  //   "context": "Terminal",
+  //   "bindings": {
+  //     "ctrl-t": "terminal_panel::ToggleFocus",
+  //     // Allow window navigation even when terminal is focused
+  //     "ctrl-h": "workspace::ActivatePaneLeft",
+  //     "ctrl-j": "workspace::ActivatePaneDown",
+  //     "ctrl-k": "workspace::ActivatePaneUp",
+  //     "ctrl-l": "workspace::ActivatePaneRight",
+  //   },
+  // },
+]
