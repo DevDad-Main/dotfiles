@@ -37,10 +37,14 @@
       ", o": "outline::Toggle",
 
       // --- Pane Navigation ---
-      "alt-h": "workspace::ActivatePaneLeft",
-      "alt-j": "workspace::ActivatePaneDown",
-      "alt-k": "workspace::ActivatePaneUp",
-      "alt-l": "workspace::ActivatePaneRight",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      // --- Move Lines Up And Down
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
 
       // --- Pane Management ---
       // 'SplitDown' = Horizontal Split (one top, one bottom)
@@ -50,7 +54,6 @@
 
       // --- Explorer ---
       ", e": "project_panel::ToggleFocus",
-      "-": "project_panel::ToggleFocus", // Bonus: mapped '-' to file explorer (Netrw style)
 
       // --- Buffers ---
       ", b": "pane::ActivateNextItem",
@@ -63,7 +66,14 @@
       ", k": "command_palette::Toggle",
     },
   },
-
+  // Temporary to close the explorer when we are init, either the q keybind or our , e
+  {
+    "context": "Workspace && !Editor",
+    "bindings": {
+      "q": "workspace::ToggleLeftDock",
+      ", e": "workspace::ToggleLeftDock",
+    },
+  },
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
@@ -86,6 +96,20 @@
     "use_key_equivalents": true,
     "bindings": { "ctrl-t": "terminal_panel::Toggle" },
   },
+  {
+    "context": "Editor && vim_mode == insert && showing_completions",
+    "bindings": {
+      "ctrl-j": "editor::ContextMenuNext",
+      "ctrl-k": "editor::ContextMenuPrevious",
+    },
+  },
+  {
+    "context": "picker || menu",
+    "bindings": {
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious",
+    },
+  },
 
   // {
   //   "context": "Terminal",
@@ -98,4 +122,10 @@
   //     "ctrl-l": "workspace::ActivatePaneRight",
   //   },
   // },
+
+  {
+    "bindings": {
+      ", b": "tab_switcher::ToggleAll",
+    },
+  },
 ]
