@@ -68,7 +68,7 @@
   },
   // Temporary to close the explorer when we are init, either the q keybind or our , e
   {
-    "context": "Workspace && !Editor",
+    "context": "Workspace && !Editor && !Terminal",
     "bindings": {
       "q": "workspace::ToggleLeftDock",
       ", e": "workspace::ToggleLeftDock",

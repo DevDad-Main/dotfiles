@@ -57,7 +57,8 @@
     "selections_menu": false,
   },
   "ui_font_family": "Monaspace Neon",
-  "buffer_font_family": "Monaspace Neon",
+  "buffer_font_family": "Noto Sans Mono",
+  "buffer_font_weight": 300,
   "features": {
     "edit_prediction_provider": "zed",
   },
@@ -67,7 +68,12 @@
   "inlay_hints": {
     "enabled": false,
   },
-  "theme": "Kanagawa Wave",
+  // "theme": "Kanagawa Wave",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Casablanca",
+  },
   "telemetry": {
     "metrics": false,
     "diagnostics": false,
@@ -77,6 +83,8 @@
   "buffer_font_size": 14.0,
   "cursor_blink": false,
   "relative_line_numbers": "enabled",
+  "auto_signature_help": true,
+  "hover_popover_delay": 50,
   "tab_bar": {
     "show": false, // Don't need this due to ourbuffer switcher keybind
   },
@@ -93,7 +101,7 @@
   },
   "preview_tabs": {
     "enable_preview_from_project_panel": true,
-    "enable_preview_from_file_finder": false,
+    "enable_preview_from_file_finder": true,
     "enable_preview_from_multibuffer": false,
     "enable_preview_multibuffer_from_code_navigation": false,
     "enable_preview_file_from_code_navigation": false,
@@ -187,5 +195,9 @@
         },
       },
     },
+  },
+  // Extensions
+  "auto_install_extensions": {
+    "catppuccin": true,
   },
 }
