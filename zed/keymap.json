@@ -42,10 +42,6 @@
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
 
-      // --- Move Lines Up And Down
-      "alt-j": "editor::MoveLineDown",
-      "alt-k": "editor::MoveLineUp",
-
       // --- Pane Management ---
       // 'SplitDown' = Horizontal Split (one top, one bottom)
       ", w s": "pane::SplitDown",
@@ -153,6 +149,14 @@
     "bindings": {
       "ctrl-e": "vim::EndOfLine",
       "ctrl-a": "vim::StartOfLine",
+    },
+  },
+  // --- Move Lines Up And Down In Normal and visual for blocks
+  {
+    "context": "Editor && vim_mode == normal || vim_mode == visual  && !menu",
+    "bindings": {
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
     },
   },
 ]
