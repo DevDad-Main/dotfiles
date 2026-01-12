@@ -110,6 +110,14 @@
       "ctrl-k": "menu::SelectPrevious",
     },
   },
+  // Try this out, potentially if it works everyhwere then we can remove the above
+  {
+    "context": "Workspace || Editor || picker || menu",
+    "bindings": {
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious",
+    },
+  },
 
   // {
   //   "context": "Terminal",
@@ -126,6 +134,16 @@
   {
     "bindings": {
       ", b": "tab_switcher::ToggleAll",
+    },
+  },
+  // Allows us to move around in insert mode as we have in our neovim config
+  {
+    "context": "Editor && vim_mode == insert && !menu",
+    "bindings": {
+      "ctrl-h": "editor::MoveLeft",
+      "ctrl-l": "editor::MoveRight",
+      "ctrl-j": "editor::MoveDown",
+      "ctrl-k": "editor::MoveUp",
     },
   },
 ]
