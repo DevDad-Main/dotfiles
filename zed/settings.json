@@ -209,5 +209,6 @@
     "react-typescript-snippets": true,
     "tokyo-night": true,
     "typescript-snippets": true,
+    "codebook": true,
   },
 }
