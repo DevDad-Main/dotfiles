@@ -134,6 +134,7 @@
   {
     "bindings": {
       ", b": "tab_switcher::ToggleAll",
+      "ctrl-x": "tab_switcher::CloseSelectedItem",
     },
   },
   // Allows us to move around in insert mode as we have in our neovim config
@@ -144,6 +145,14 @@
       "ctrl-l": "editor::MoveRight",
       "ctrl-j": "editor::MoveDown",
       "ctrl-k": "editor::MoveUp",
+    },
+  },
+
+  {
+    "context": "Editor && vim_mode == insert && !menu",
+    "bindings": {
+      "ctrl-e": "vim::EndOfLine",
+      "ctrl-a": "vim::StartOfLine",
     },
   },
 ]
