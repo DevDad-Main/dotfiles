@@ -7,7 +7,7 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "icon_theme": "Material Icon Theme",
+  "icon_theme": "Zed (Default)",
   "restore_on_startup": "last_session",
   "agent": {
     "default_profile": "write",
@@ -72,7 +72,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Casablanca",
+    "dark": "Catppuccin Macchiato (Blur)",
   },
   "telemetry": {
     "metrics": false,
@@ -123,6 +123,7 @@
   },
   "languages": {
     "TypeScript": {
+      "show_edit_predictions": true,
       "language_servers": ["typescript-language-server", "!vtsls", "..."],
       "soft_wrap": "preferred_line_length",
     },
@@ -202,7 +203,6 @@
     "html": true,
     "javascript-snippets": true,
     "kanagawa-themes": true,
-    "material-icon-theme": true,
     "nextjs-react-snippets": true,
     "one-dark-pro": true,
     "prisma": true,
@@ -210,5 +210,8 @@
     "tokyo-night": true,
     "typescript-snippets": true,
     "codebook": true,
+    "react-snippets": true,
+    "react-type-kity-snippets": true,
+    "react-type-kit-snippets": true,
   },
 }

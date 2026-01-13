@@ -159,4 +159,12 @@
       "alt-k": "editor::MoveLineUp",
     },
   },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      //NOTE: Keep for now and see if dosent conflict with any other ui etc.
+      // Also cant use '\'? Look into it further
+      "tab": "pane::AlternateFile",
+    },
+  },
 ]
