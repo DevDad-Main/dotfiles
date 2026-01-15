@@ -51,6 +51,9 @@
       // --- Explorer ---
       ", e": "project_panel::ToggleFocus",
 
+      // --- Grep Current Word ---
+      ", z": "editor::FindAllReferences", // zed specific
+
       // --- Buffers ---
       ", b": "pane::ActivateNextItem",
       ", d": "pane::CloseActiveItem",

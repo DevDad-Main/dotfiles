@@ -7,6 +7,9 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "edit_predictions": {
+    "mode": "subtle",
+  },
   "icon_theme": "Zed (Default)",
   "restore_on_startup": "last_session",
   "agent": {
@@ -52,7 +55,7 @@
     },
   },
   "toolbar": {
-    "breadcrumbs": false, // No Breadcrumbs in the toolbar, change if we find we need it
+    "breadcrumbs": true, // No Breadcrumbs in the toolbar, change if we find we need it
     "quick_actions": false,
     "selections_menu": false,
   },
@@ -72,7 +75,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Catppuccin Macchiato (Blur)",
+    "dark": "Catppuccin Mocha (Blur)",
   },
   "telemetry": {
     "metrics": false,
@@ -128,6 +131,7 @@
       "soft_wrap": "preferred_line_length",
     },
     "TSX": {
+      "show_edit_predictions": true,
       "language_servers": ["typescript-language-server", "!vtsls", "..."],
       "soft_wrap": "preferred_line_length",
     },
