@@ -58,6 +58,9 @@
       ", b": "pane::ActivateNextItem",
       ", d": "pane::CloseActiveItem",
 
+      // --- Find And Replace In Buffer
+      ", r": "buffer_search::DeployReplace",
+
       // --- Comment ---
       "ctrl-/": "editor::ToggleComments",
 
@@ -168,6 +171,21 @@
       //NOTE: Keep for now and see if dosent conflict with any other ui etc.
       // Also cant use '\'? Look into it further
       "tab": "pane::AlternateFile",
+    },
+  },
+  // Solves the issue of the Show Code Actions keybind using default of ctrl-n
+  {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-k": "editor::ContextMenuPrevious",
+      "ctrl-j": "editor::ContextMenuNext",
+    },
+  },
+  // Overwrite the default keymap so we don't get conflicts with the ctrl-h navigation in insert mode
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "ctrl-h": null,
     },
   },
 ]
