@@ -1,4 +1,12 @@
 [
+  // NOTE: This needs to be above the below command as it ironically overwrites the below command due to it being lower down in the file
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      // Overwrite the default keymap so we don't get conflicts with the ctrl-h navigation in insert mode
+      "ctrl-h": null,
+    },
+  },
   {
     "context": "Editor && vim_mode == normal && !menu",
     "bindings": {
@@ -16,12 +24,12 @@
       ", s": "workspace::NewSearch",
 
       // --- Terminal ---
-      // ", t": "terminal_panel::ToggleFocus",
       "ctrl-t": "terminal_panel::ToggleFocus",
 
       // --- LSP ---
       ", h": "editor::ToggleInlayHints",
       ", c d": "editor::GoToDefinition",
+      ", c i": "editor::GoToImplementation",
       ", c r": "editor::FindAllReferences",
       ", c a": "editor::ToggleCodeActions",
       ", c h": "editor::Hover",
@@ -36,13 +44,6 @@
       // --- Outline ---
       ", o": "outline::Toggle",
 
-      // --- Pane Navigation ---
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight",
-
-      // --- Pane Management ---
       // 'SplitDown' = Horizontal Split (one top, one bottom)
       ", w s": "pane::SplitDown",
       // 'SplitRight' = Vertical Split (side by side)
@@ -55,7 +56,7 @@
       ", z": "editor::FindAllReferences", // zed specific
 
       // --- Buffers ---
-      ", b": "pane::ActivateNextItem",
+      // ", b": "pane::ActivateNextItem",
       ", d": "pane::CloseActiveItem",
 
       // --- Find And Replace In Buffer
@@ -90,6 +91,7 @@
     "bindings": {
       "ctrl-s": "workspace::Save",
       // Rapid 'jj' to exit insert mode
+      //FIX: the above as some because it's the same char there is a slight delay
       "j j": "vim::SwitchToNormalMode",
     },
   },
@@ -120,28 +122,17 @@
       "ctrl-k": "menu::SelectPrevious",
     },
   },
-
-  // {
-  //   "context": "Terminal",
-  //   "bindings": {
-  //     "ctrl-t": "terminal_panel::ToggleFocus",
-  //     // Allow window navigation even when terminal is focused
-  //     "ctrl-h": "workspace::ActivatePaneLeft",
-  //     "ctrl-j": "workspace::ActivatePaneDown",
-  //     "ctrl-k": "workspace::ActivatePaneUp",
-  //     "ctrl-l": "workspace::ActivatePaneRight",
-  //   },
-  // },
-
   {
     "bindings": {
       ", b": "tab_switcher::ToggleAll",
       "ctrl-x": "tab_switcher::CloseSelectedItem",
     },
   },
+
   // Allows us to move around in insert mode as we have in our neovim config
   {
-    "context": "Editor && vim_mode == insert && !menu",
+    // "context": "Editor && vim_mode == insert && !menu",
+    "context": "Editor && vim_mode == insert",
     "bindings": {
       "ctrl-h": "editor::MoveLeft",
       "ctrl-l": "editor::MoveRight",
@@ -181,11 +172,44 @@
       "ctrl-j": "editor::ContextMenuNext",
     },
   },
-  // Overwrite the default keymap so we don't get conflicts with the ctrl-h navigation in insert mode
   {
-    "context": "(Editor && mode == full)",
+    "context": "Editor || GitPanel || Workspace || Terminal && vim_mode == normal && !menu",
     "bindings": {
-      "ctrl-h": null,
+      // --- Pane Navigation ---
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+    },
+  },
+  // Overwriting the default vim Git keymaps.
+  // Commented all kemaps - Some are self explanatory, where as some aren't
+  {
+    "context": "GitPanel && ChangesList",
+    "use_key_equivalents": true,
+    "bindings": {
+      // Move Up
+      "k": "menu::SelectPrevious",
+      // Move Down
+      "j": "menu::SelectNext",
+      // Jump to Top
+      "g g": "menu::SelectFirst",
+      // Jump to Bottom
+      "shift-g": "menu::SelectLast",
+      //NOTE: Misleading but this shows the diff for the selected file
+      // Show Diff For Selected File
+      "d": "menu::Confirm",
+      // Go To Insert Commit Message
+      "i": "git_panel::FocusEditor",
+      // Stage File
+      "s": "git::ToggleStaged",
+      // Stage All
+      "shift-s": "git::StageAll",
+      "g x": "git::StageRange",
+      // Unstage All
+      "shift-u": "git::UnstageAll",
+
+      //TODO: Remap the rest of the keymaps to match LazyGit as that is what im used to using.
     },
   },
 ]
