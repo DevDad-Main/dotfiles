@@ -108,21 +108,21 @@
     },
   },
   {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-k": "editor::ContextMenuPrevious",
+      "ctrl-j": "editor::ContextMenuNext",
+    },
+  },
+  {
     "context": "picker || menu",
     "bindings": {
       "ctrl-j": "menu::SelectNext",
       "ctrl-k": "menu::SelectPrevious",
     },
   },
-  // Try this out, potentially if it works everyhwere then we can remove the above
   {
-    "context": "Workspace || Editor || picker || menu",
-    "bindings": {
-      "ctrl-j": "menu::SelectNext",
-      "ctrl-k": "menu::SelectPrevious",
-    },
-  },
-  {
+    "context": "Workspace && !menu",
     "bindings": {
       ", b": "tab_switcher::ToggleAll",
       "ctrl-x": "tab_switcher::CloseSelectedItem",
@@ -131,8 +131,7 @@
 
   // Allows us to move around in insert mode as we have in our neovim config
   {
-    // "context": "Editor && vim_mode == insert && !menu",
-    "context": "Editor && vim_mode == insert",
+    "context": "Editor && vim_mode == insert && !menu && !showing_completions && !showing_code_actions",
     "bindings": {
       "ctrl-h": "editor::MoveLeft",
       "ctrl-l": "editor::MoveRight",
@@ -164,16 +163,8 @@
       "tab": "pane::AlternateFile",
     },
   },
-  // Solves the issue of the Show Code Actions keybind using default of ctrl-n
   {
-    "context": "Editor && (showing_code_actions || showing_completions)",
-    "bindings": {
-      "ctrl-k": "editor::ContextMenuPrevious",
-      "ctrl-j": "editor::ContextMenuNext",
-    },
-  },
-  {
-    "context": "Editor || GitPanel || Workspace || Terminal && vim_mode == normal && !menu",
+    "context": "Editor && vim_mode == normal && !menu",
     "bindings": {
       // --- Pane Navigation ---
       "ctrl-h": "workspace::ActivatePaneLeft",
