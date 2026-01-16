@@ -115,7 +115,7 @@
     },
   },
   {
-    "context": "picker || menu",
+    "context": "picker || menu || tab_switcher",
     "bindings": {
       "ctrl-j": "menu::SelectNext",
       "ctrl-k": "menu::SelectPrevious",
@@ -155,18 +155,36 @@
       "alt-k": "editor::MoveLineUp",
     },
   },
+  // {
+  //   "context": "Editor && vim_mode == normal",
+  //   "bindings": {
+  //     //NOTE: Keep for now and see if dosent conflict with any other ui etc.
+  //     // Also cant use '\'? Look into it further
+  //     "tab": "pane::AlternateFile",
+  //   },
+  // },
+  // {
+  //   "context": "Editor && vim_mode == normal && !menu",
+  //   "bindings": {
+  //     // --- Pane Navigation ---
+  //     "ctrl-h": "workspace::ActivatePaneLeft",
+  //     "ctrl-j": "workspace::ActivatePaneDown",
+  //     "ctrl-k": "workspace::ActivatePaneUp",
+  //     "ctrl-l": "workspace::ActivatePaneRight",
+  //   },
+  // },
+  // {
+  //   "context": "(GitPanel || ChangesList || Terminal) && !menu",
+  //   "bindings": {
+  //     "ctrl-h": "workspace::ActivatePaneLeft",
+  //     "ctrl-j": "workspace::ActivatePaneDown",
+  //     "ctrl-k": "workspace::ActivatePaneUp",
+  //     "ctrl-l": "workspace::ActivatePaneRight",
+  //   },
+  // },
   {
-    "context": "Editor && vim_mode == normal",
+    "context": "(GitPanel || ChangesList || Terminal || Workspace || Editor) && !menu && !picker && !tab_switcher && vim_mode == normal",
     "bindings": {
-      //NOTE: Keep for now and see if dosent conflict with any other ui etc.
-      // Also cant use '\'? Look into it further
-      "tab": "pane::AlternateFile",
-    },
-  },
-  {
-    "context": "Editor && vim_mode == normal && !menu",
-    "bindings": {
-      // --- Pane Navigation ---
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
