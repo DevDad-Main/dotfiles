@@ -60,7 +60,7 @@
     "selections_menu": false,
   },
   "ui_font_family": "Monaspace Neon",
-  "buffer_font_family": "Noto Sans Mono",
+  "buffer_font_family": "VictorMono Nerd Font",
   "buffer_font_weight": 300,
   "features": {
     "edit_prediction_provider": "zed",

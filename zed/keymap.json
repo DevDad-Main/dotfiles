@@ -90,9 +90,9 @@
     "context": "Editor && vim_mode == insert",
     "bindings": {
       "ctrl-s": "workspace::Save",
-      // Rapid 'jj' to exit insert mode
+      // Rapid 'jk' to exit insert mode
       //FIX: the above as some because it's the same char there is a slight delay
-      "j j": "vim::SwitchToNormalMode",
+      "j k": "vim::SwitchToNormalMode",
     },
   },
   {
@@ -219,6 +219,12 @@
       "shift-u": "git::UnstageAll",
 
       //TODO: Remap the rest of the keymaps to match LazyGit as that is what im used to using.
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "S": ["vim::PushAddSurrounds", {}],
     },
   },
 ]
