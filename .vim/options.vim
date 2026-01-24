@@ -43,6 +43,8 @@ set scrolloff=8
 set updatetime=50
 
 set laststatus=2
+set noshowmode
+
 
 " Block cursor in Normal mode, line cursor in Insert mode
 let &t_SI = "\e[6 q"   " Insert mode: vertical line
