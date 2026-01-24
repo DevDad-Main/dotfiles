@@ -3,6 +3,7 @@ set softtabstop=4
 set smartindent
 set showmatch
 syntax on
+filetype plugin indent on
 
 " Line numbers
 set number
@@ -43,7 +44,9 @@ set updatetime=50
 
 set laststatus=2
 
-
+" Block cursor in Normal mode, line cursor in Insert mode
+let &t_SI = "\e[6 q"   " Insert mode: vertical line
+let &t_EI = "\e[2 q"   " Normal mode: block
 
 " Use standard system clipboard when copying and pasting text.
 " Changes how the clipboard functionality works.  The comma separated list
