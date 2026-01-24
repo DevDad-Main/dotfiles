@@ -124,8 +124,8 @@ endif
 
 " Use CTRL-S for selections ranges
 " Requires 'textDocument/selectionRange' support of language server
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+nmap <silent> <Bs> <Plug>(coc-range-select)
+xmap <silent> <Bs> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer
 command! -nargs=0 Fm :call CocActionAsync('format')
@@ -158,3 +158,6 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescriptreact
+autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascriptreact

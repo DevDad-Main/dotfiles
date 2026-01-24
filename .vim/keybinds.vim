@@ -14,10 +14,10 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
 
-" " Paste without overwriting clipboard
-" xnoremap <leader>p "_dP
-" nnoremap <leader>dp "_d
-" vnoremap <leader>dp "_d
+" Paste without overwriting clipboard
+xnoremap <leader>p "_dP
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
 
 " Navigate quickfix list using Ctrl-j/k
 nnoremap <C-j> :lnext<CR>
@@ -29,3 +29,15 @@ nnoremap <leader><leader> :so<CR>
 
 " Quickly exit insert mode
 inoremap jj <Esc>
+
+" Use the default ctrl s to save and format our file
+nnoremap <C-s> :w<CR>:Fm<CR>
+
+" Toggle Coc inlay hints
+nnoremap <silent> <leader>h :CocCommand document.toggleInlayHint<CR>
+
+" Substitute word under cursor on line
+nnoremap <leader>s :s/\<<C-r><C-w>\>//gI<Left><Left><Left>
+
+" Source current file
+nnoremap <leader><leader> :so<CR>
