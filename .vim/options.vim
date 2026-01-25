@@ -1,4 +1,3 @@
-filetype plugin indent on
 set softtabstop=4
 set smartindent
 set showmatch
@@ -58,3 +57,6 @@ let &t_EI = "\e[2 q"   " Normal mode: block
 " except for yank.  Yank will copy text to register "+" and "*" if "unnamed"
 " is included.
 set clipboard=unnamed,unnamedplus
+
+set foldmethod=syntax
+set foldlevelstart=99   " optional: open all folds by default

@@ -1,26 +1,24 @@
-// {
-
 {
   // OLD: More verbose inlay hints, shows everything
-    // Enable parameter name hints (you can choose "literals" or "all")
-    "typescript.inlayHints.parameterNames.enabled": "all",
-    "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+  // Enable parameter name hints (you can choose "literals" or "all")
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
 
-    // Enable other useful inlay hints
-    "typescript.inlayHints.parameterTypes.enabled": true,
-    "typescript.inlayHints.variableTypes.enabled": true,
-    "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "typescript.inlayHints.enumMemberValues.enabled": true,
+  // Enable other useful inlay hints
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
 
-    // Same for JavaScript (optional)
-    "javascript.inlayHints.parameterNames.enabled": "all",
-    "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
-    "javascript.inlayHints.parameterTypes.enabled": true,
-    "javascript.inlayHints.variableTypes.enabled": true,
-    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-    "javascript.inlayHints.enumMemberValues.enabled": true
+  // Same for JavaScript (optional)
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+  "javascript.inlayHints.parameterTypes.enabled": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.enumMemberValues.enabled": true,
 
   // // New: More minimal inlay hints
   // // =====================
@@ -72,5 +70,16 @@
   // =====================
   // Coc Formatting on Save
   // =====================
-  "coc.preferences.formatOnSave": true
+  "coc.preferences.formatOnSave": true,
+
+  "languageserver": {
+    "tailwindcss": {
+      "command": "tailwindcss-language-server",
+      "filetypes": ["html", "jsx", "tsx"],
+      "rootPatterns": [
+        "**/{tailwind,tailwind.config,tailwind-config,.tailwindrc}.js",
+        ".git"
+      ]
+    }
+  }
 }

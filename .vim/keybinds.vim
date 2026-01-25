@@ -16,8 +16,8 @@ nnoremap <C-u> <C-u>zz
 
 " Paste without overwriting clipboard
 xnoremap <leader>p "_dP
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
+nnoremap <leader>pd "_d
+vnoremap <leader>pd "_d
 
 " Navigate quickfix list using Ctrl-j/k
 nnoremap <C-j> :lnext<CR>
@@ -41,3 +41,11 @@ nnoremap <leader>s :s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 
 " Source current file
 nnoremap <leader><leader> :so<CR>
+
+
+" Ironically Toggles  the NerdTree
+nnoremap <leader>- :NERDTreeToggle<CR>
+
+" Use Ctrl-f To Find via NerdTree
+nnoremap <C-a> :NERDTreeFind<CR>
+
