@@ -31,7 +31,7 @@ nnoremap <leader><leader> :so<CR>
 inoremap jj <Esc>
 
 " Use the default ctrl s to save and format our file
-nnoremap <C-s> :w<CR>:Fm<CR>
+nnoremap <C-s> :update<CR>
 
 " Toggle Coc inlay hints
 nnoremap <silent> <leader>h :CocCommand document.toggleInlayHint<CR>
@@ -42,10 +42,12 @@ nnoremap <leader>s :s/\<<C-r><C-w>\>//gI<Left><Left><Left>
 " Source current file
 nnoremap <leader><leader> :so<CR>
 
-
-" Ironically Toggles  the NerdTree
-nnoremap <leader>- :NERDTreeToggle<CR>
-
-" Use Ctrl-f To Find via NerdTree
-nnoremap <C-a> :NERDTreeFind<CR>
+" Visual mode mappings
+" surround selected text with gs{char}
+xmap S <Plug>YsurroundVisual 
+" delete surrounding in visual mode
+xmap D <Esc><Plug>Dsurround
+" change surrounding in visual mode
+" xmap gC <Plug>Csurround
+nmap C <Esc><Plug>Csurround
 

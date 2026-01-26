@@ -1,9 +1,3 @@
-
-" MUST be before coc.nvim is loaded
-if $TERM ==# 'dumb'
-  let $TERM = 'xterm-kitty'
-endif
-
 call plug#begin('~/.vim/plugged')
 
 " List your plugins here
@@ -23,9 +17,13 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'machakann/vim-highlightedyank'
 Plug 'jiangmiao/auto-pairs'
 Plug 'morhetz/gruvbox'
-Plug 'preservim/nerdtree'
 Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'tpope/vim-surround'
+Plug 'prisma/vim-prisma'
+
+Plug 'Yggdroot/indentLine'
+
+Plug 'tribela/vim-transparent'
 
 call plug#end()

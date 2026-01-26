@@ -1,6 +1,6 @@
 
 " FZF.vim Specific
-nnoremap <leader>ff :Files<CR>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>o :History<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>k :Maps<CR>

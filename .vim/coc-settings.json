@@ -81,5 +81,28 @@
         ".git"
       ]
     }
-  }
+  },
+  // `:h coc-config-float`
+  "suggest.floatConfig": {
+    "border": true
+  },
+  "diagnostic.floatConfig": {
+    "border": true
+  },
+  "signature.floatConfig": {
+    "border": true
+  },
+  "hover.floatConfig": {
+    "border": true
+  },
+
+  "git.addedSign.hlGroup": "CocGitSignAdded",
+  "git.changedSign.hlGroup": "CocGitSignChanged",
+  "git.removedSign.hlGroup": "CocGitSignRemoved",
+  "git.topRemovedSign.hlGroup": "CocGitSignRemoved",
+  "git.changeRemovedSign.hlGroup": "CocGitSignChanged",
+
+  "git.addedSign.text": " ",
+  "git.changedSign.text": " ",
+  "git.removedSign.text": " "
 }

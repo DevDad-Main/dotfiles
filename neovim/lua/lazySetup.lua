@@ -7,7 +7,14 @@ function get_setup(name)
 end
 
 return {
-	{ "rebelot/kanagawa.nvim", config = get_setup("themes/kanagawa"), priority = 1000, lazy = false },
+	{ "rebelot/kanagawa.nvim", config = get_setup("themes/kanagawa"), priority = 1000, lazy = false, enabled = false },
+  {
+    "webhooked/kanso.nvim",
+    lazy = false,
+    priority = 1000,
+    enabled = true,
+    config = get_setup("themes/kanso"),
+  },
 
 	-- { "stevearc/dressing.nvim", event = "VeryLazy" },
 	{ "stevearc/oil.nvim", event = "VeryLazy", config = get_setup("oil") },
