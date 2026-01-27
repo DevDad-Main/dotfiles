@@ -23,7 +23,11 @@ Plug 'tpope/vim-surround'
 Plug 'prisma/vim-prisma'
 
 Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-vinegar'
+Plug 'ayu-theme/ayu-vim' 
 
 Plug 'tribela/vim-transparent'
 
 call plug#end()
+
+

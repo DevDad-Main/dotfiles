@@ -35,6 +35,7 @@ alias lg="lazygit"
 # alias nvm="NVIM_APPNAME=nvimMinimal nvim"
 alias nvo="NVIM_APPNAME=dadvim nvim"
 alias nv="NVIM_APPNAME=minimal nvim"
+alias nvt="NVIM_APPNAME=test nvim"
 
 alias nt="npm run test"
 alias ntw="npm run test:watch"
@@ -47,7 +48,7 @@ alias dcd="docker-compose down"
 # Fuzzy cd into a directory
 cdf() {
   local dir
-  dir=$(fdfind --type d --max-depth 3 --hidden --follow \
+  dir=$(fd --type d --max-depth 3 --hidden --follow \
     --exclude .git \
     --exclude node_modules \
     --exclude dist \
@@ -60,7 +61,7 @@ cdf() {
 # Fuzzy open a file with nvim - Change the nvc below to your alias of choice of use default nvim
 vf() {
   local file
-  file=$(fdfind --type f --max-depth 2 --hidden --follow \
+  file=$(fd --type f --max-depth 2 --hidden --follow \
     --exclude .git \
     --exclude node_modules \
     --exclude dist \
@@ -104,3 +105,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export TERM=xterm-256color
+
+# opencode
+export PATH=/home/devdad/.opencode/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH

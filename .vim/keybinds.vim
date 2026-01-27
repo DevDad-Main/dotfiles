@@ -3,6 +3,7 @@ let mapleader = ","
 " Open netrw
 nnoremap <leader>e :Ex<CR>
 
+
 " Deletes currently open buffer
 nnoremap <leader>d :bd<CR>
 
