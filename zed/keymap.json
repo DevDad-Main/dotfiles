@@ -92,7 +92,7 @@
       "ctrl-s": "workspace::Save",
       // Rapid 'jk' to exit insert mode
       //FIX: the above as some because it's the same char there is a slight delay
-      "j k": "vim::SwitchToNormalMode",
+      "j j": "vim::SwitchToNormalMode",
     },
   },
   {
