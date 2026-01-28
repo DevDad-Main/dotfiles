@@ -3,7 +3,7 @@ return {
     "webhooked/kanso.nvim",
     lazy = false,
     priority = 1000,
-    enabled = true,
+    enabled = false,
     config = function()
       -- Default options:
       require("kanso").setup({

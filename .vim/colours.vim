@@ -8,8 +8,13 @@ let g:lightline = {'colorscheme' : 'tokyonight'}
 let g:typescript_disable_builtin_syntax = 1
 let g:loaded_typescript_syntax = 1
 
-" colorscheme tokyonight
+
+let ayucolor="dark"
+
 colorscheme codedark
+" colorscheme ayu
+" colorscheme tokyonight
+
 
 " Vim-transparent Plugin defaults to make everything transparent
 let g:transparent_groups = ['Normal', 'Comment', 'Constant', 'Special', 'Identifier',
