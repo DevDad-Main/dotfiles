@@ -302,11 +302,13 @@ telescope.setup({
 				["<C-k>"] = actions.move_selection_previous,
 				["<CR>"] = actions.select_default,
 				["<Esc>"] = actions.close,
+				["<C-x>"] = actions.delete_buffer, -- Come from fzf-lua and this is natural
 			},
 			n = {
 				["<C-j>"] = actions.move_selection_next,
 				["<C-k>"] = actions.move_selection_previous,
 				["<CR>"] = actions.select_default,
+				["dd"] = actions.delete_buffer
 			},
 		},
 	},
