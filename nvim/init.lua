@@ -88,6 +88,7 @@ vim.pack.add({
 	{ src = "https://github.com/kevinhwang91/promise-async" },
 	{ src = "https://github.com/kevinhwang91/nvim-ufo", },
 	{ src = "https://github.com/neoclide/coc.nvim",                      version = "release" },
+	{ src = "https://github.com/kdheepak/lazygit.nvim" },
 })
 
 
@@ -107,7 +108,7 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
-vim.keymap.set({ 'n' }, '<Leader>d', ':DapNew<CR>')
+vim.keymap.set({ 'n' }, '<Leader>nd', ':DapNew<CR>')
 vim.keymap.set({ 'n', 'i' }, '<C-b>', ':DapToggleBreakpoint<CR>')
 
 require "marks".setup {
@@ -125,16 +126,39 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 -- Coc basic settings
 vim.g.coc_global_extensions = {
+	-- Core languages
 	"coc-tsserver",
 	"coc-json",
 	"coc-html",
 	"coc-css",
 	"coc-lua",
-	"coc-snippets",
-	"coc-eslint",
-	"coc-prettier",
+	"coc-vimlsp",
+
+	-- Programming languages
 	"coc-pyright",
 	"coc-rust-analyzer",
+	"coc-clangd",
+	"coc-go",
+	"coc-java",
+	"coc-sh",
+	"coc-sql",
+	"coc-protobuf",
+
+	-- Frontend / Web
+	"coc-eslint",
+	"coc-prettier",
+	"coc-tailwindcss",
+	"coc-simple-react-snippets",
+	"coc-wxml",
+	"coc-xml",
+
+	-- Snippets & completion
+	"coc-snippets",
+	"coc-tabnine",
+
+	-- Tooling / misc
+	"coc-git",
+	"coc-prisma-latest",
 }
 
 -- require("blink.cmp").setup({
@@ -285,8 +309,15 @@ telescope.setup({
 				["<CR>"] = actions.select_default,
 			},
 		},
+	},
+	pickers = {
+		buffers = {
+			sort_lastused = true,
+			ignore_current_buffer = false,
+		},
 	}
 })
+
 telescope.load_extension("ui-select")
 
 require("actions-preview").setup {
@@ -313,8 +344,6 @@ require("actions-preview").setup {
 -- 	end,
 -- })
 
-vim.cmd [[set completeopt+=menuone,noselect,popup]]
-
 -- vim.lsp.enable({
 -- 	"lua_ls", "cssls", "svelte", "tinymist",
 -- 	"rust_analyzer", "clangd", "ruff",
@@ -323,6 +352,7 @@ vim.cmd [[set completeopt+=menuone,noselect,popup]]
 -- 	-- "intelephense", "tailwindcss", "vtsls",
 -- 	"emmet_language_server", "emmet_ls", "solargraph", "zls", "pyright"
 -- })
+
 
 require("oil").setup({
 	lsp_file_methods = {
@@ -426,7 +456,7 @@ map({ "v", "x", "n" }, "<C-y>", '"+y', { desc = "System clipboard yank." })
 if builtin then
 	map({ "n" }, "<leader>f", builtin.find_files, { desc = "Telescope live grep" })
 	map({ "n" }, "<leader>g", builtin.live_grep)
-	map({ "n" }, "<leader>sb", builtin.buffers)
+	map({ "n" }, "<leader>b", builtin.buffers)
 	map({ "n" }, "<leader>si", builtin.grep_string)
 	map({ "n" }, "<leader>so", builtin.oldfiles)
 	map({ "n" }, "<leader>sh", builtin.help_tags)
@@ -441,6 +471,7 @@ if builtin then
 end
 
 map("i", "jj", "<ESC>", { desc = "Escape Insert Mode Quicker" })
+map("n", "<leader>d", "<Cmd>:bd<CR>", { desc = "Deletes the currently open buffer" })
 
 function git_files()
 	if builtin then
@@ -449,6 +480,7 @@ function git_files()
 end
 
 map({ "n" }, "<leader>sg", git_files)
+map({ "n" }, "<leader>l", "<Cmd>LazyGit<CR>")
 map({ "n" }, "<leader>se", "<cmd>Telescope env<cr>")
 
 local actions_preview = safe_require("actions-preview")
@@ -477,8 +509,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-map("n", "<Leader>d", ":DapNew<CR>")
-map({ "n", "i" }, "<C-b>", ":DapToggleBreakpoint<CR>")
 
 -- map("i", "<C-Space>", function()
 -- 	vim.api.nvim_input("<C-x><C-o>")
@@ -565,18 +595,18 @@ api.nvim_create_autocmd("FileType", {
 
 
 
--- Completion
-map("i", "<Tab>", function()
-	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
-end, { expr = true, silent = true })
-
-map("i", "<S-Tab>", function()
-	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
-end, { expr = true, silent = true })
-
-map("i", "<CR>", function()
-	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
-end, { expr = true })
+-- -- Completion
+-- map("i", "<Tab>", function()
+-- 	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+-- end, { expr = true, silent = true })
+--
+-- map("i", "<S-Tab>", function()
+-- 	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+-- end, { expr = true, silent = true })
+--
+-- map("i", "<CR>", function()
+-- 	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+-- end, { expr = true })
 
 
 -- LSP-like actions
@@ -586,7 +616,7 @@ map("n", "gi", "<Plug>(coc-implementation)", { silent = true })
 map("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
 
 map("n", "K", ":call CocActionAsync('doHover')<CR>", { silent = true })
-map("n", "<leader>rn", "<Plug>(coc-rename)")
+map("n", "<leader>cn", "<Plug>(coc-rename)")
 map("n", "<leader>ca", "<Plug>(coc-codeaction)")
 map("x", "<leader>ca", "<Plug>(coc-codeaction-selected)")
 
@@ -621,5 +651,29 @@ keyset("i", "<CR>",
 	'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR><c-r>=coc#on_enter()<CR>"',
 	opts
 )
+
+keyset("i", "<C-Space>", "coc#refresh()", {
+	expr = true,
+	silent = true,
+})
+
+
+-- Remove Search Highlighting, Dismiss Popups
+map("n", "<esc>", function()
+	vim.cmd ":noh"
+end, { silent = true, desc = "Remove Search Highlighting, Dismiss Popups" })
+
+-- Backup incase we have conflicts with the above keymap.
+-- keyset("i", "<C-l>", "coc#refresh()", { expr = true, silent = true })
+
+keyset("n", "<leader>h", ":CocCommand document.toggleInlayHint<CR>")
+
+
+
+vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "NONE" })
+
+-- Removes borders from everthing related to Coc
+vim.g.coc_borderchars = { "", "", "", "", "", "", "", "" }
 
 vim.cmd('colorscheme ' .. default_color)

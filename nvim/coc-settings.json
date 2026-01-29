@@ -1,3 +1,129 @@
 {
-  "snippets.ultisnips.pythonPrompt": false
+  // OLD: More verbose inlay hints, shows everything
+  // Enable parameter name hints (you can choose "literals" or "all")
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+
+  // Enable other useful inlay hints
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+
+  // Same for JavaScript (optional)
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+  "javascript.inlayHints.parameterTypes.enabled": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.enumMemberValues.enabled": true,
+
+  // // New: More minimal inlay hints
+  // // =====================
+  // // Inlay Hints (TypeScript)
+  // // =====================
+  // "typescript.inlayHints.parameterNames.enabled": "literals",
+  // "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
+  // "typescript.inlayHints.parameterTypes.enabled": true,
+  // "typescript.inlayHints.variableTypes.enabled": false,
+  // "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+  // "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+  // "typescript.inlayHints.enumMemberValues.enabled": true,
+
+  // // =====================
+  // // Inlay Hints (JavaScript)
+  // // =====================
+  // "javascript.inlayHints.parameterNames.enabled": "literals",
+  // "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
+  // "javascript.inlayHints.parameterTypes.enabled": true,
+  // "javascript.inlayHints.variableTypes.enabled": false,
+  // "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  // "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+  // "javascript.inlayHints.enumMemberValues.enabled": true,
+
+  // =====================
+  // Completion & Suggestions
+  // =====================
+  "typescript.suggest.completeFunctionCalls": true,
+  "javascript.suggest.completeFunctionCalls": true,
+
+  // =====================
+  // Imports & Renames
+  // =====================
+  "typescript.preferences.useAliasesForRenames": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifier": "relative",
+
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // // =====================
+  // // Formatting Preferences
+  // // =====================
+  // "typescript.preferences.quoteStyle": "single",
+  // "javascript.preferences.quoteStyle": "single",
+
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+
+  // =====================
+  // Coc Formatting on Save
+  // =====================
+  "coc.preferences.formatOnSave": true,
+
+  "languageserver": {
+    "tailwindcss": {
+      "command": "tailwindcss-language-server",
+      "filetypes": ["html", "jsx", "tsx"],
+      "rootPatterns": [
+        "**/{tailwind,tailwind.config,tailwind-config,.tailwindrc}.js",
+        ".git"
+      ]
+    }
+  },
+  // `:h coc-config-float`
+  "suggest.floatConfig": {
+    "border": true
+  },
+  "diagnostic.floatConfig": {
+    "border": true
+  },
+  "signature.floatConfig": {
+    "border": true
+  },
+  "hover.floatConfig": {
+    "border": true
+  },
+
+  "git.addedSign.hlGroup": "CocGitSignAdded",
+  "git.changedSign.hlGroup": "CocGitSignChanged",
+  "git.removedSign.hlGroup": "CocGitSignRemoved",
+  "git.topRemovedSign.hlGroup": "CocGitSignRemoved",
+  "git.changeRemovedSign.hlGroup": "CocGitSignChanged",
+
+  "git.addedSign.text": " ",
+  "git.changedSign.text": " ",
+  "git.removedSign.text": " ",
+  "snippets.ultisnips.pythonPrompt": false,
+
+  "suggest.enablePreselect": false,
+  "suggest.noselect": true,
+
+  "suggest.completionItemKindLabels": {
+    "method": "󰆧 ",
+    "function": "󰊕 ",
+    "variable": " ",
+    "field": " ",
+    "class": " ",
+    "interface": " ",
+    "module": " ",
+    "property": " ",
+    "enum": " ",
+    "snippet": " ",
+    "text": "󰦨 ",
+    "file": "󰈙 ",
+    "folder": "󰉋 ",
+    "keyword": "󰌋 "
+  }
 }
