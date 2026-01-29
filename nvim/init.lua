@@ -314,12 +314,15 @@ require("oil").setup({
 		timeout_ms = 1000,
 		autosave_changes = true,
 	},
+	view_options = {
+		show_hidden = true,
+	},
 	columns = {
 		"icon",
 	},
 	float = {
-		max_width = 0.3,
-		max_height = 0.6,
+		max_width = 0,
+		max_height = 0,
 		border = "rounded",
 	},
 })
@@ -401,11 +404,11 @@ map({ "n", "v", "x" }, "<leader>n", ":norm ", { desc = "ENTER NORM COMMAND." })
 map({ "n", "v", "x" }, "<leader>o", ":update<CR> :source<CR>", { desc = "Source " })
 map({ "n", "v", "x" }, "<leader>O", "<Cmd>restart<CR>", { desc = "Restart vim." })
 map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitue mode in selection" })
-map({ "n", "v", "x" }, "<leader>fm", vim.lsp.buf.format, { desc = "Format current buffer" })
+map({ "n", "v", "x" }, "<leader>m", vim.lsp.buf.format, { desc = "Format current buffer" })
 map({ "v", "x", "n" }, "<C-y>", '"+y', { desc = "System clipboard yank." })
 
 if builtin then
-	map({ "n" }, "<leader>ff", builtin.find_files, { desc = "Telescope live grep" })
+	map({ "n" }, "<leader>f", builtin.find_files, { desc = "Telescope live grep" })
 	map({ "n" }, "<leader>g", builtin.live_grep)
 	map({ "n" }, "<leader>sb", builtin.buffers)
 	map({ "n" }, "<leader>si", builtin.grep_string)
@@ -440,7 +443,11 @@ map({ "n" }, "<M-n>", "<cmd>resize +2<CR>")
 map({ "n" }, "<M-e>", "<cmd>resize -2<CR>")
 map({ "n" }, "<M-i>", "<cmd>vertical resize +5<CR>")
 map({ "n" }, "<M-m>", "<cmd>vertical resize -5<CR>")
-map({ "n" }, "<leader>e", "<cmd>Oil<CR>")
+-- map({ "n" }, "<leader>e", "<cmd>Oil --float<CR>")
+-- Toggle Open Oil
+map("n", "<leader>e", function()
+	vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil --float")
+end, { desc = "Toggle Open Oil" })
 map({ "n" }, "<leader>c", "1z=")
 map({ "n" }, "<C-q>", ":copen<CR>", { silent = true })
 map({ "n" }, "<leader>w", "<Cmd>update<CR>", { desc = "Write the current buffer." })
