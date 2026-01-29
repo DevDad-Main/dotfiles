@@ -52,3 +52,6 @@ xmap D <Esc><Plug>Dsurround
 " xmap gC <Plug>Csurround
 nmap C <Esc><Plug>Csurround
 
+" Visual-mode indent that keeps selection
+vnoremap < <gv
+vnoremap > >gv

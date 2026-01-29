@@ -38,6 +38,7 @@ alias nvo="NVIM_APPNAME=dadvim nvim"
 alias nvt="NVIM_APPNAME=test nvim"
 
 alias nv="bob run nightly"
+alias ns="bob run stable"
 
 alias nt="npm run test"
 alias ntw="npm run test:watch"
