@@ -5,7 +5,6 @@ Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tomasiser/vim-code-dark'
-Plug 'ghifarit53/tokyonight-vim'
 Plug 'yegappan/lsp'
 Plug 'ojroques/vim-oscyank'
 Plug 'tpope/vim-commentary'
@@ -24,7 +23,9 @@ Plug 'prisma/vim-prisma'
 
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-vinegar'
-Plug 'ayu-theme/ayu-vim' 
+
+Plug 'sheerun/vim-polyglot'
+Plug 'ghifarit53/tokyonight-vim'
 
 Plug 'tribela/vim-transparent'
 

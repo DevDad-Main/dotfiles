@@ -7,17 +7,17 @@ function get_setup(name)
 end
 
 return {
-	{ "rebelot/kanagawa.nvim", config = get_setup("themes/kanagawa"), priority = 1000, lazy = false, enabled = false },
-  {
-    "webhooked/kanso.nvim",
-    lazy = false,
-    priority = 1000,
-    enabled = true,
-    config = get_setup("themes/kanso"),
-  },
+	{ "rebelot/kanagawa.nvim", config = get_setup("themes/kanagawa"), priority = 1000,          lazy = false, enabled = false },
+	{
+		"webhooked/kanso.nvim",
+		lazy = false,
+		priority = 1000,
+		enabled = true,
+		config = get_setup("themes/kanso"),
+	},
 
 	-- { "stevearc/dressing.nvim", event = "VeryLazy" },
-	{ "stevearc/oil.nvim", event = "VeryLazy", config = get_setup("oil") },
+	{ "stevearc/oil.nvim",     event = "VeryLazy",                    config = get_setup("oil") },
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
@@ -26,8 +26,8 @@ return {
 	},
 	{ "mbbill/undotree" },
 	{ "LudoPinelli/comment-box.nvim", event = "VeryLazy" },
-	{ "numToStr/Comment.nvim", lazy = false, config = get_setup("comment") },
-	{ "rlane/pounce.nvim", config = get_setup("pounce") },
+	{ "numToStr/Comment.nvim",        lazy = false,                config = get_setup("comment") },
+	{ "rlane/pounce.nvim",            config = get_setup("pounce") },
 	{
 		"nvim-lualine/lualine.nvim",
 		config = get_setup("lualine"),
@@ -107,8 +107,8 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-	  build = ":TSUpdate",
-	  lazy = false,
+		build = ":TSUpdate",
+		lazy = false,
 		opts = {
 			ensure_installed = {
 				"vim",
@@ -176,11 +176,11 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = get_setup("fzf"),
 	},
-	{ "rmagatti/auto-session", config = get_setup("auto-session") },
-	{ "echasnovski/mini.ai", config = get_setup("mini-ai"), version = false },
-	{ "echasnovski/mini.bracketed", config = get_setup("mini-bracketed"), version = false },
-	{ "echasnovski/mini.move", config = get_setup("mini-move"), version = false },
-	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
+	{ "rmagatti/auto-session",              config = get_setup("auto-session") },
+	{ "echasnovski/mini.ai",                config = get_setup("mini-ai"),         version = false },
+	{ "echasnovski/mini.bracketed",         config = get_setup("mini-bracketed"),  version = false },
+	{ "echasnovski/mini.move",              config = get_setup("mini-move"),       version = false },
+	{ "windwp/nvim-ts-autotag",             event = "InsertEnter" },
 	{
 		"windwp/nvim-autopairs",
 		config = get_setup("autopairs"),
@@ -192,9 +192,9 @@ return {
 			require("nvim-surround").setup()
 		end,
 	},
-	{ "EdenEast/nightfox.nvim", config = get_setup("nightfox"), enabled = false },
-	{ "folke/tokyonight.nvim", config = get_setup("tokyonight"), enabled = false },
-	{ "catppuccin/nvim", name = "catppuccin", config = get_setup("catppuccin"), enabled = false },
+	{ "EdenEast/nightfox.nvim", config = get_setup("nightfox"),   enabled = false },
+	{ "folke/tokyonight.nvim",  config = get_setup("tokyonight"), enabled = false },
+	{ "catppuccin/nvim",        name = "catppuccin",              config = get_setup("catppuccin"), enabled = false },
 
 	{
 		"nvim-lua/plenary.nvim",
@@ -357,7 +357,7 @@ return {
 		event = "BufEnter",
 		config = get_setup("goto-preview"), -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
 	},
-	{ "typicode/bg.nvim", lazy = false },
+	{ "typicode/bg.nvim",     lazy = false },
 	{
 		"letieu/btw.nvim",
 		config = function()

@@ -34,8 +34,10 @@ alias lg="lazygit"
 
 # alias nvm="NVIM_APPNAME=nvimMinimal nvim"
 alias nvo="NVIM_APPNAME=dadvim nvim"
-alias nv="NVIM_APPNAME=minimal nvim"
+# alias nv="NVIM_APPNAME=nvim nvim"
 alias nvt="NVIM_APPNAME=test nvim"
+
+alias nv="bob run nightly"
 
 alias nt="npm run test"
 alias ntw="npm run test:watch"
