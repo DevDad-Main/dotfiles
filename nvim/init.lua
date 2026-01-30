@@ -1,3 +1,4 @@
+--#region Options
 vim.cmd([[set mouse=]])
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
@@ -15,7 +16,7 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
-
+vim.opt.termguicolors = true
 -- Enable ufo folds
 vim.o.foldcolumn = "1"
 vim.o.foldlevel = 99
@@ -23,6 +24,7 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.require'ufo'.foldexpr()"
+vim.opt.cmdheight = 0
 
 vim.o.updatetime = 250
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
@@ -61,7 +63,20 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 end
 
 
+local function inlay_hints_on_line()
+  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+  local hints = vim.lsp.inlay_hint.get({ bufnr = 0 })
 
+  for _, hint in ipairs(hints) do
+    if hint.inlay_hint.position.line == line then
+      print(vim.inspect(hint.inlay_hint.label))
+    end
+  end
+end
+--#endregion
+
+
+--#region Package Installer
 vim.pack.add({
 	{ src = "https://github.com/vague2k/vague.nvim" },
 	{ src = "https://github.com/chentoast/marks.nvim" },
@@ -87,13 +102,15 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/kevinhwang91/promise-async" },
 	{ src = "https://github.com/kevinhwang91/nvim-ufo", },
-	{ src = "https://github.com/neoclide/coc.nvim",                      version = "release" },
 	{ src = "https://github.com/kdheepak/lazygit.nvim" },
 })
+--#endregion
 
-
+--#region Package Management
 require("mini.pairs").setup()
 require("mini.surround").setup()
+require("mini.statusline").setup()
+
 
 require("dap-lldb").setup()
 local dap, dapui = require("dap"), require("dapui")
@@ -123,89 +140,51 @@ require("luasnip.loaders.from_lua").load({
 -- Load vscode snippets
 require("luasnip.loaders.from_vscode").lazy_load()
 
+require("blink.cmp").setup({
+	appearance = {
+		-- No icons, no borders, no fluff
+		use_nvim_cmp_as_default = false,
+		kind_icons = {},
+	},
 
--- Coc basic settings
-vim.g.coc_global_extensions = {
-	-- Core languages
-	"coc-tsserver",
-	"coc-json",
-	"coc-html",
-	"coc-css",
-	"coc-lua",
-	"coc-vimlsp",
+	completion = {
+		menu = {
+			border = 'none',
+			scrollbar = false,
+			draw = {
+				columns = {
+					{ "label" },
+					{ "kind" },
+				},
+			},
+		},
+		documentation = {
+			window = { border = 'none' },
+		},
+		signature = { window = { border = 'none' } },
+	},
 
-	-- Programming languages
-	"coc-pyright",
-	"coc-rust-analyzer",
-	"coc-clangd",
-	"coc-go",
-	"coc-java",
-	"coc-sh",
-	"coc-sql",
-	"coc-protobuf",
+	keymap = {
+		["<C-e>"] = { "select_and_accept" },
+		["<C-j>"] = { "select_next" },
+		["<C-k>"] = { "select_prev" },
+		-- ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+		["<CR>"] = { "accept", "fallback" },
+	},
 
-	-- Frontend / Web
-	"coc-eslint",
-	"coc-prettier",
-	"coc-tailwindcss",
-	"coc-simple-react-snippets",
-	"coc-wxml",
-	"coc-xml",
-
-	-- Snippets & completion
-	"coc-snippets",
-	"coc-tabnine",
-
-	-- Tooling / misc
-	"coc-git",
-	"coc-prisma-latest",
-}
-
--- require("blink.cmp").setup({
--- 	appearance = {
--- 		-- No icons, no borders, no fluff
--- 		use_nvim_cmp_as_default = false,
--- 		kind_icons = {},
--- 	},
---
--- 	completion = {
--- 		menu = {
--- 			border = 'none',
--- 			scrollbar = false,
--- 			draw = {
--- 				columns = {
--- 					{ "label" },
--- 					{ "kind" },
--- 				},
--- 			},
--- 		},
--- 		documentation = {
--- 			window = { border = 'none' },
--- 		},
--- 		signature = { window = { border = 'none' } },
--- 	},
---
--- 	keymap = {
--- 		["<C-e>"] = { "select_and_accept" },
--- 		["<C-j>"] = { "select_next" },
--- 		["<C-k>"] = { "select_prev" },
--- 		-- ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
--- 		["<CR>"] = { "accept", "fallback" },
--- 	},
---
--- 	sources = {
--- 		default = {
--- 			"lsp",
--- 			"snippets",
--- 			"buffer",
--- 			"path",
--- 		},
--- 	},
--- 	signature = {
--- 		enabled = true,
--- 		window = { border = 'none' }
--- 	}
--- })
+	sources = {
+		default = {
+			"lsp",
+			"snippets",
+			"buffer",
+			"path",
+		},
+	},
+	signature = {
+		enabled = true,
+		window = { border = 'none' }
+	}
+})
 
 
 require("ufo").setup({
@@ -266,7 +245,7 @@ require("nvim-treesitter").setup({
 	-- add other modules here if needed
 })
 
--- require "mason".setup()
+require "mason".setup()
 
 local telescope = require("telescope")
 local actions = require("telescope.actions")
@@ -332,7 +311,7 @@ require("actions-preview").setup {
 }
 
 
-
+-- Old Way to enable all suggestions with pumb
 -- vim.api.nvim_create_autocmd('LspAttach', {
 -- 	group = vim.api.nvim_create_augroup('my.lsp', {}),
 -- 	callback = function(args)
@@ -346,14 +325,14 @@ require("actions-preview").setup {
 -- 	end,
 -- })
 
--- vim.lsp.enable({
--- 	"lua_ls", "cssls", "svelte", "tinymist",
--- 	"rust_analyzer", "clangd", "ruff",
--- 	"glsl_analyzer", "haskell-language-server", "hlint",
--- 	"intelephense", "tailwindcss", "ts_ls", "vtsls",
--- 	-- "intelephense", "tailwindcss", "vtsls",
--- 	"emmet_language_server", "emmet_ls", "solargraph", "zls", "pyright"
--- })
+vim.lsp.enable({
+	"lua_ls", "cssls", "svelte", "tinymist",
+	"rust_analyzer", "clangd", "ruff",
+	"glsl_analyzer", "haskell-language-server", "hlint",
+	-- "intelephense", "tailwindcss", "ts_ls", "vtsls",
+	"intelephense", "tailwindcss", "vtsls",
+	"emmet_language_server", "emmet_ls", "solargraph", "zls", "pyright"
+})
 
 
 require("oil").setup({
@@ -378,9 +357,10 @@ require("oil").setup({
 require "vague".setup({ transparent = true })
 require("luasnip").setup({ enable_autosnippets = true })
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
+--#endregion
 
--- ~/.config/nvim/init.lua
 
+--#region KeyMaps
 local function pack_clean()
 	local active_plugins = {}
 	local unused_plugins = {}
@@ -489,15 +469,18 @@ local actions_preview = safe_require("actions-preview")
 if actions_preview then
 	map({ "n" }, "<leader>sa", actions_preview.code_actions)
 end
-map({ "n" }, "<M-n>", "<cmd>resize +2<CR>")
-map({ "n" }, "<M-e>", "<cmd>resize -2<CR>")
-map({ "n" }, "<M-i>", "<cmd>vertical resize +5<CR>")
-map({ "n" }, "<M-m>", "<cmd>vertical resize -5<CR>")
--- map({ "n" }, "<leader>e", "<cmd>Oil --float<CR>")
--- Toggle Open Oil
+
+-- Resize splits using Alt + hjkl
+map("n", "<M-h>", "<cmd>vertical resize -5<CR>") -- narrower
+map("n", "<M-l>", "<cmd>vertical resize +5<CR>") -- wider
+map("n", "<M-j>", "<cmd>resize +2<CR>")          -- taller
+map("n", "<M-k>", "<cmd>resize -2<CR>")          -- shorter
+
+-- Toggle Open Oil In Float Mode
 map("n", "<leader>e", function()
 	vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil --float")
 end, { desc = "Toggle Open Oil" })
+
 map({ "n" }, "<leader>c", "1z=")
 map({ "n" }, "<C-q>", ":copen<CR>", { silent = true })
 map({ "n" }, "<leader>w", "<Cmd>update<CR>", { desc = "Write the current buffer." })
@@ -511,11 +494,36 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+-- Completion
+map("i", "<Tab>", function()
+	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+end, { expr = true, silent = true })
+
+map("i", "<S-Tab>", function()
+	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+end, { expr = true, silent = true })
+
+map("i", "<CR>", function()
+	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+end, { expr = true })
+
+-- Remove Search Highlighting, Dismiss Popups
+map("n", "<esc>", function()
+	vim.cmd ":noh"
+end, { silent = true, desc = "Remove Search Highlighting, Dismiss Popups" })
+
+
+vim.keymap.set("n", "<leader>h", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)
+
+--#endregion
 
 -- map("i", "<C-Space>", function()
 -- 	vim.api.nvim_input("<C-x><C-o>")
 -- end, { silent = true })
 
+--#region Auto Commands
 vim.api.nvim_create_autocmd("BufWinEnter", {
 	pattern = "*.jsx,*.tsx",
 	group = vim.api.nvim_create_augroup("TS", { clear = true }),
@@ -525,26 +533,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 })
 
 
-vim.diagnostic.config({
-	virtual_text = false,
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-	severity_sort = false,
-
-	virtual_lines = {
-		current_line = true,
-	},
-
-	signs = {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅙 ",
-			[vim.diagnostic.severity.WARN] = " ",
-			[vim.diagnostic.severity.HINT] = "󰌵",
-			[vim.diagnostic.severity.INFO] = "󰋼 ",
-		},
-	},
-})
 
 -- Auto Cmds
 
@@ -594,88 +582,38 @@ api.nvim_create_autocmd("FileType", {
 		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
+--#endregion
 
 
+--#region Diagnostics
+vim.diagnostic.config({
+	virtual_text = false,
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = false,
 
--- -- Completion
--- map("i", "<Tab>", function()
--- 	return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
--- end, { expr = true, silent = true })
---
--- map("i", "<S-Tab>", function()
--- 	return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
--- end, { expr = true, silent = true })
---
--- map("i", "<CR>", function()
--- 	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
--- end, { expr = true })
+	virtual_lines = {
+		current_line = true,
+	},
 
-
--- LSP-like actions
-map("n", "gd", "<Plug>(coc-definition)", { silent = true })
-map("n", "gr", "<Plug>(coc-references)", { silent = true })
-map("n", "gi", "<Plug>(coc-implementation)", { silent = true })
-map("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
-
-map("n", "K", ":call CocActionAsync('doHover')<CR>", { silent = true })
-map("n", "<leader>cn", "<Plug>(coc-rename)")
-map("n", "<leader>ca", "<Plug>(coc-codeaction)")
-map("x", "<leader>ca", "<Plug>(coc-codeaction-selected)")
-
-
-local keyset = vim.keymap.set
-local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-
--- TAB completion
-keyset("i", "<Tab>",
-	'coc#pum#visible() ? coc#pum#next(1) : v:lua.CheckBackspace() ? "<Tab>" : coc#refresh()',
-	opts
-)
-
-keyset("i", "<S-Tab>",
-	'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"',
-	opts
-)
-
--- Ctrl-j / Ctrl-k
-keyset("i", "<C-j>",
-	'coc#pum#visible() ? coc#pum#next(1) : "<C-j>"',
-	opts
-)
-
-keyset("i", "<C-k>",
-	'coc#pum#visible() ? coc#pum#prev(1) : "<C-k>"',
-	opts
-)
-
--- Enter confirms completion
-keyset("i", "<CR>",
-	'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR><c-r>=coc#on_enter()<CR>"',
-	opts
-)
-
-keyset("i", "<C-Space>", "coc#refresh()", {
-	expr = true,
-	silent = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅙 ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.HINT] = "󰌵",
+			[vim.diagnostic.severity.INFO] = "󰋼 ",
+		},
+	},
 })
-
-
--- Remove Search Highlighting, Dismiss Popups
-map("n", "<esc>", function()
-	vim.cmd ":noh"
-end, { silent = true, desc = "Remove Search Highlighting, Dismiss Popups" })
-
--- Backup incase we have conflicts with the above keymap.
--- keyset("i", "<C-l>", "coc#refresh()", { expr = true, silent = true })
-
-keyset("n", "<leader>h", ":CocCommand document.toggleInlayHint<CR>")
+--#endregion
 
 
 
+--#region Colours and Theming
 vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "NONE" })
 
--- Removes borders from everthing related to Coc
-vim.g.coc_borderchars = { "", "", "", "", "", "", "", "" }
 
 vim.cmd('colorscheme ' .. default_color)
+--#endregion
