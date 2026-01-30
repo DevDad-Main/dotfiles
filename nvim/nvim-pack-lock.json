@@ -17,6 +17,14 @@
       "src": "https://github.com/neoclide/coc.nvim",
       "version": "'release'"
     },
+    "colorful-menu.nvim": {
+      "rev": "b51a659459df8d078201aefc995db8175ed55e84",
+      "src": "https://github.com/xzbdmw/colorful-menu.nvim"
+    },
+    "conform.nvim": {
+      "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "fff.nvim": {
       "rev": "0523fe39ffc59373de0648ba636705d35a6fdfc2",
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
