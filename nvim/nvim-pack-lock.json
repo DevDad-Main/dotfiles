@@ -17,6 +17,10 @@
       "src": "https://github.com/neoclide/coc.nvim",
       "version": "'release'"
     },
+    "fff.nvim": {
+      "rev": "0523fe39ffc59373de0648ba636705d35a6fdfc2",
+      "src": "https://github.com/dmtrKovalenko/fff.nvim"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
@@ -102,6 +106,10 @@
       "rev": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026",
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'0.1.8'"
+    },
+    "todo-comments.nvim": {
+      "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
+      "src": "https://github.com/folke/todo-comments.nvim"
     },
     "typst-preview.nvim": {
       "rev": "bf5d5eaf23bbfcca9f98a24ed29bd084abf89bf2",

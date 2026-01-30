@@ -31,4 +31,29 @@ Plug 'tribela/vim-transparent'
 
 call plug#end()
 
-
+let g:coc_global_extensions = [
+  \ 'coc-clangd',
+  \ 'coc-css',
+  \ 'coc-eslint',
+  \ 'coc-git',
+  \ 'coc-go',
+  \ 'coc-html',
+  \ 'coc-java',
+  \ 'coc-json',
+  \ 'coc-lua',
+  \ 'coc-prettier',
+  \ 'coc-prisma-latest',
+  \ 'coc-protobuf',
+  \ 'coc-pyright',
+  \ 'coc-rust-analyzer',
+  \ 'coc-sh',
+  \ 'coc-simple-react-snippets',
+  \ 'coc-snippets',
+  \ 'coc-sql',
+  \ 'coc-tabnine',
+  \ 'coc-tailwindcss',
+  \ 'coc-tsserver',
+  \ 'coc-vimlsp',
+  \ 'coc-wxml',
+  \ 'coc-xml',
+  \ ]

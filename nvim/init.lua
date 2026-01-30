@@ -3,7 +3,8 @@ vim.cmd([[set mouse=]])
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
 
-vim.opt.winborder = "rounded"
+vim.opt.winborder = "none"
+-- vim.opt.winborder = "single"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -17,6 +18,7 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.termguicolors = true
+
 -- Enable ufo folds
 vim.o.foldcolumn = "1"
 vim.o.foldlevel = 99
@@ -30,13 +32,15 @@ vim.o.updatetime = 250
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.o.autoread = true
 vim.g.mapleader = " "
+vim.opt.fillchars:append({ eob = " " })
 -- vim.g.mapleader = ","
 
 
 -- UFO configuration is handled in options/basic.lua
 local handler = function(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}
-	local suffix = (" ↙ %d lines"):format(endLnum - lnum)
+	-- local suffix = ("  %d lines"):format(endLnum - lnum)
+	local suffix = ("  "):format(endLnum - lnum)
 	local sufWidth = vim.fn.strdisplaywidth(suffix)
 	local targetWidth = width - sufWidth
 	local curWidth = 0
@@ -61,20 +65,7 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 	table.insert(newVirtText, { suffix, "UfoFoldedEllipsis" })
 	return newVirtText
 end
-
-
-local function inlay_hints_on_line()
-	local line = vim.api.nvim_win_get_cursor(0)[1] - 1
-	local hints = vim.lsp.inlay_hint.get({ bufnr = 0 })
-
-	for _, hint in ipairs(hints) do
-		if hint.inlay_hint.position.line == line then
-			print(vim.inspect(hint.inlay_hint.label))
-		end
-	end
-end
 --#endregion
-
 
 --#region Package Installer
 vim.pack.add({
@@ -103,6 +94,8 @@ vim.pack.add({
 	{ src = "https://github.com/kevinhwang91/promise-async" },
 	{ src = "https://github.com/kevinhwang91/nvim-ufo", },
 	{ src = "https://github.com/kdheepak/lazygit.nvim" },
+	{ src = 'https://github.com/dmtrKovalenko/fff.nvim' },
+	{ src = 'https://github.com/folke/todo-comments.nvim' }
 })
 --#endregion
 
@@ -111,6 +104,48 @@ require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.statusline").setup()
 
+-- the plugin will automatically lazy load
+
+require("fff").setup({
+	title = 'Files',
+	prompt = ' ',
+	lazy_sync = true, -- start syncing only when the picker is open
+	debug = {
+		enabled = true,
+		show_scores = true,
+	},
+	layout = {
+		height = 1,
+		width = 1,
+		prompt_position = 'top',  -- or 'top'
+		preview_position = 'right', -- or 'left', 'right', 'top', 'bottom'
+		preview_size = 0.4,
+		show_scrollbar = false,   -- Show scrollbar for pagination
+	},
+	keymaps = {
+		close = '<Esc>',
+		select = '<CR>',
+		select_split = '<C-s>',
+		select_vsplit = '<C-v>',
+		select_tab = '<C-t>',
+		-- you can assign multiple keys to any action
+		move_up = { '<Up>', '<C-p>', '<C-k>' },
+		move_down = { '<Down>', '<C-n>', '<C-j>' },
+		preview_scroll_up = '<C-u>',
+		preview_scroll_down = '<C-d>',
+		toggle_debug = '<F2>',
+		-- goes to the previous query in history
+		cycle_previous_query = '<C-Up>',
+		-- multi-select keymaps for quickfix
+		toggle_select = '<Tab>',
+		send_to_quickfix = '<C-q>',
+	},
+	hl = {
+		border = 'none',
+	},
+})
+
+require("todo-comments").setup()
 
 require("dap-lldb").setup()
 local dap, dapui = require("dap"), require("dapui")
@@ -185,7 +220,7 @@ require("blink.cmp").setup({
 					{
 						"kind_icon",
 						"kind",
-					gap = 1,
+						gap = 1,
 						hl = "BlinkCmpKind",
 					},
 				},
@@ -442,7 +477,6 @@ require("luasnip").setup({ enable_autosnippets = true })
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
 --#endregion
 
-
 --#region KeyMaps
 local function pack_clean()
 	local active_plugins = {}
@@ -491,8 +525,8 @@ map({ "n", "x" }, "<leader>y", '"+y')
 map({ "i", "s" }, "<C-e>", function() if ls then ls.expand_or_jump(1) end end, { silent = true })
 map({ "i", "s" }, "<C-J>", function() if ls then ls.jump(1) end end, { silent = true })
 map({ "i", "s" }, "<C-K>", function() if ls then ls.jump(-1) end end, { silent = true })
-map({ "n", "t" }, "<Leader>t", "<Cmd>tabnew<CR>")
-map({ "n", "t" }, "<Leader>x", "<Cmd>tabclose<CR>")
+map({ "n", }, "<C-t>", "<Cmd>tabnew<CR>")
+map({ "n", }, "<C-x>", "<Cmd>tabclose<CR>")
 
 vim.cmd([[
   nnoremap g= g+|
@@ -519,20 +553,23 @@ map({ "n", "v", "x" }, "<leader>m", vim.lsp.buf.format, { desc = "Format current
 map({ "v", "x", "n" }, "<C-y>", '"+y', { desc = "System clipboard yank." })
 
 if builtin then
-	map({ "n" }, "<leader>f", builtin.find_files, { desc = "Telescope live grep" })
+	-- NOTE: Use fff instead for the buillin frecency
+	-- map({ "n" }, "<leader>f", builtin.find_files, { desc = "Telescope live grep" })
 	map({ "n" }, "<leader>g", builtin.live_grep)
-	map({ "n" }, "<leader>b", builtin.buffers)
-	map({ "n" }, "<leader>si", builtin.grep_string)
-	map({ "n" }, "<leader>so", builtin.oldfiles)
-	map({ "n" }, "<leader>sh", builtin.help_tags)
-	map({ "n" }, "<leader>sm", builtin.man_pages)
-	map({ "n" }, "<leader>sr", builtin.lsp_references)
-	map({ "n" }, "<leader>sd", builtin.diagnostics)
-	map({ "n" }, "<leader>sT", builtin.lsp_type_definitions)
-	map({ "n" }, "<leader>ss", builtin.current_buffer_fuzzy_find)
-	map({ "n" }, "<leader>st", builtin.builtin)
-	map({ "n" }, "<leader>sc", builtin.git_bcommits)
-	map({ "n" }, "<leader>sk", builtin.keymaps)
+	-- NOTE: Technically not builtin but it's apart of the Telecope family.
+	map({ "n" }, "<leader>t", "<CMD>:TodoTelescope<CR>")
+	map({ "n" }, "<leader>b", builtin.buffers, { desc = "Telescope open buffers" })
+	map({ "n" }, "<leader>si", builtin.grep_string, { desc = "Telescope grep word" })
+	map({ "n" }, "<leader>so", builtin.oldfiles, { desc = "Telescope search old(recent) files" })
+	map({ "n" }, "<leader>sh", builtin.help_tags, { desc = "Telescope open help tags" })
+	map({ "n" }, "<leader>sm", builtin.man_pages, { desc = "Telescope open manaul(:man)" })
+	map({ "n" }, "<leader>sr", builtin.lsp_references, { desc = "Telescope show LSP references" })
+	map({ "n" }, "<leader>sd", builtin.diagnostics, { desc = "Telescope Show Siagnostics" })
+	map({ "n" }, "<leader>sT", builtin.lsp_type_definitions, { desc = "Telescope LSP Definitions" })
+	map({ "n" }, "<leader>ss", builtin.current_buffer_fuzzy_find, { desc = "Telescope Fzf current Buffer" })
+	map({ "n" }, "<leader>st", builtin.builtin, { desc = "Telescope Builtin Actions" })
+	map({ "n" }, "<leader>sc", builtin.git_bcommits, { desc = "Telescope Git Commits" })
+	map({ "n" }, "<leader>sk", builtin.keymaps, { desc = "Telescope Keymaps" })
 end
 
 map("i", "jj", "<ESC>", { desc = "Escape Insert Mode Quicker" })
@@ -572,10 +609,10 @@ map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write.
 map({ "n" }, "<C-f>", "<Cmd>Open .<CR>", { desc = "Open current directory in Finder." })
 map({ "n" }, "<leader>a", ":edit #<CR>", { desc = "Open current directory in Finder." })
 
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+map("n", "<C-d>", "<C-d>zz", { desc = "Better default Ctrl-d but centers screen" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Better default Ctrl-u but centers screen" })
+map("n", "n", "nzzzv", { desc = "Better 'n' for '/' search, centers screen and open folds" })
+map("n", "N", "Nzzzv", { desc = "Better 'N' for '/' search, centers screen and open folds" })
 
 -- Completion
 map("i", "<Tab>", function()
@@ -600,27 +637,20 @@ map("n", "<leader>ws", "<Cmd>:split<CR>", { desc = "Opens a buffer in a vertical
 
 map("n", "<leader>h", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end)
+end, { desc = "Toggles Inlay Hints" })
+
+map(
+	'n',
+	'<leader>f',
+	function() require('fff').find_files() end,
+	{ desc = 'FFFind files' }
+)
+
+map('n', '<leader>a', '<Cmd>:norm ggVGy<CR>', { desc = "Yanks Everything In The File" })
 
 --#endregion
 
--- map("i", "<C-Space>", function()
--- 	vim.api.nvim_input("<C-x><C-o>")
--- end, { silent = true })
-
 --#region Auto Commands
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	pattern = "*.jsx,*.tsx",
-	group = vim.api.nvim_create_augroup("TS", { clear = true }),
-	callback = function()
-		vim.cmd([[set filetype=typescriptreact]])
-	end
-})
-
-
-
--- Auto Cmds
-
 local api = vim.api
 
 -- Set React files accordingly
@@ -667,8 +697,15 @@ api.nvim_create_autocmd("FileType", {
 		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
---#endregion
 
+api.nvim_create_autocmd('PackChanged', {
+	callback = function(event)
+		if event.data.updated then
+			require('fff.download').download_or_build_binary()
+		end
+	end,
+})
+--#endregion
 
 --#region Diagnostics
 vim.diagnostic.config({
@@ -693,11 +730,6 @@ vim.diagnostic.config({
 })
 --#endregion
 
-
-
 --#region Colours and Theming
--- vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
--- vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "NONE" })
-
 vim.cmd('colorscheme ' .. default_color)
 --#endregion

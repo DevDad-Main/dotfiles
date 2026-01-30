@@ -9,8 +9,8 @@ let g:loaded_typescript_syntax = 1
 
 
 
-" colorscheme codedark
-colorscheme tokyonight
+colorscheme codedark
+" colorscheme tokyonight
 " hi Normal guibg=NONE ctermbg=NONE
 " hi LineNr guibg=NONE ctermbg=NONE
 " hi SignColumn guibg=NONE ctermbg=NONE
