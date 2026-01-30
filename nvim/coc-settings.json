@@ -109,21 +109,4 @@
 
   "suggest.enablePreselect": false,
   "suggest.noselect": true,
-
-  "suggest.completionItemKindLabels": {
-    "method": "󰆧 ",
-    "function": "󰊕 ",
-    "variable": " ",
-    "field": " ",
-    "class": " ",
-    "interface": " ",
-    "module": " ",
-    "property": " ",
-    "enum": " ",
-    "snippet": " ",
-    "text": "󰦨 ",
-    "file": "󰈙 ",
-    "folder": "󰉋 ",
-    "keyword": "󰌋 "
-  }
 }

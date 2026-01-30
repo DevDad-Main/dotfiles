@@ -105,4 +105,24 @@
   "git.addedSign.text": " ",
   "git.changedSign.text": " ",
   "git.removedSign.text": " "
+
+  "suggest.enablePreselect": false,
+  "suggest.noselect": true,
+
+  "suggest.completionItemKindLabels": {
+    "method": "󰆧 ",
+    "function": "󰊕 ",
+    "variable": " ",
+    "field": " ",
+    "class": " ",
+    "interface": " ",
+    "module": " ",
+    "property": " ",
+    "enum": " ",
+    "snippet": " ",
+    "text": "󰦨 ",
+    "file": "󰈙 ",
+    "folder": "󰉋 ",
+    "keyword": "󰌋 "
+  }
 }

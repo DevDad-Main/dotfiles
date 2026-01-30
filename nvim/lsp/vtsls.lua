@@ -34,6 +34,7 @@ return {
 
 	settings = {
 		vtsls = {
+			format = { enable = true },
 			enableMoveToFileCodeAction = true,
 			autoUseWorkspaceTsdk = true,
 		},
@@ -63,11 +64,12 @@ return {
 		},
 	},
 
-	on_attach = function(client)
-		-- Let prettier / external formatters handle formatting
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
-	end,
+	-- We will let the default new lsp formatting handle it. If issues then resort to conform
+	-- on_attach = function(client)
+	-- 	-- Let prettier / external formatters handle formatting
+	-- 	client.server_capabilities.documentFormattingProvider = false
+	-- 	client.server_capabilities.documentRangeFormattingProvider = false
+	-- end,
 
 	root_dir = function(bufnr, on_dir)
 		-- Lockfile-first root detection (monorepo friendly)
@@ -82,7 +84,7 @@ return {
 		-- Equal priority with .git
 		root_markers = vim.fn.has("nvim-0.11.3") == 1
 				and { root_markers, { ".git" } }
-			or vim.list_extend(root_markers, { ".git" })
+				or vim.list_extend(root_markers, { ".git" })
 
 		-- Exclude Deno projects
 		if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then

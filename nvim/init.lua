@@ -3,7 +3,7 @@ vim.cmd([[set mouse=]])
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
 
--- vim.opt.winborder = "rounded"
+vim.opt.winborder = "rounded"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -64,14 +64,14 @@ end
 
 
 local function inlay_hints_on_line()
-  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
-  local hints = vim.lsp.inlay_hint.get({ bufnr = 0 })
+	local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+	local hints = vim.lsp.inlay_hint.get({ bufnr = 0 })
 
-  for _, hint in ipairs(hints) do
-    if hint.inlay_hint.position.line == line then
-      print(vim.inspect(hint.inlay_hint.label))
-    end
-  end
+	for _, hint in ipairs(hints) do
+		if hint.inlay_hint.position.line == line then
+			print(vim.inspect(hint.inlay_hint.label))
+		end
+	end
 end
 --#endregion
 
@@ -140,35 +140,71 @@ require("luasnip.loaders.from_lua").load({
 -- Load vscode snippets
 require("luasnip.loaders.from_vscode").lazy_load()
 
+
 require("blink.cmp").setup({
 	appearance = {
-		-- No icons, no borders, no fluff
 		use_nvim_cmp_as_default = false,
-		kind_icons = {},
+
+		-- Minimal Nerd Font icons (tight + readable)
+		kind_icons = {
+			Text = "󰦨 ",
+			Method = "󰆧 ",
+			Function = "󰊕 ",
+			Constructor = "󰒓 ",
+			Field = "󰜢 ",
+			Variable = "󰀫",
+			Class = "󰠱 ",
+			Interface = "󰠱 ",
+			Module = "󰅩 ",
+			Property = "󰜢 ",
+			Unit = "󰑭 ",
+			Value = "󰎠 ",
+			Enum = "󰕘 ",
+			Keyword = "󰌋 ",
+			Snippet = "󰩫 ",
+			Color = "󰏘 ",
+			File = "󰈙 ",
+			Reference = "󰈇 ",
+			Folder = "󰉋 ",
+			EnumMember = "󰕘 ",
+			Constant = "󰏿 ",
+			Struct = "󰠱 ",
+			Event = "󰉁",
+			Operator = "󰆕 ",
+			TypeParameter = "󰊄 ",
+		},
 	},
 
 	completion = {
 		menu = {
-			border = 'none',
+			border = "none",
 			scrollbar = false,
 			draw = {
 				columns = {
-					{ "label" },
-					{ "kind" },
+					{ "label", "label_description" },
+					{
+						"kind_icon",
+						"kind",
+					gap = 1,
+						hl = "BlinkCmpKind",
+					},
 				},
 			},
 		},
+
 		documentation = {
-			window = { border = 'none' },
+			window = { border = "none" },
 		},
-		signature = { window = { border = 'none' } },
+
+		signature = {
+			window = { border = "none" },
+		},
 	},
 
 	keymap = {
 		["<C-e>"] = { "select_and_accept" },
 		["<C-j>"] = { "select_next" },
 		["<C-k>"] = { "select_prev" },
-		-- ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
 		["<CR>"] = { "accept", "fallback" },
 	},
 
@@ -180,11 +216,58 @@ require("blink.cmp").setup({
 			"path",
 		},
 	},
+
 	signature = {
 		enabled = true,
-		window = { border = 'none' }
-	}
+		window = { border = "none" },
+	},
 })
+
+-- require("blink.cmp").setup({
+-- 	appearance = {
+-- 		-- No icons, no borders, no fluff
+-- 		use_nvim_cmp_as_default = false,
+-- 		kind_icons = {},
+-- 	},
+--
+-- 	completion = {
+-- 		menu = {
+-- 			border = 'none',
+-- 			scrollbar = false,
+-- 			draw = {
+-- 				columns = {
+-- 					{ "label" },
+-- 					{ "kind" },
+-- 				},
+-- 			},
+-- 		},
+-- 		documentation = {
+-- 			window = { border = 'none' },
+-- 		},
+-- 		signature = { window = { border = 'none' } },
+-- 	},
+--
+-- 	keymap = {
+-- 		["<C-e>"] = { "select_and_accept" },
+-- 		["<C-j>"] = { "select_next" },
+-- 		["<C-k>"] = { "select_prev" },
+-- 		-- ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+-- 		["<CR>"] = { "accept", "fallback" },
+-- 	},
+--
+-- 	sources = {
+-- 		default = {
+-- 			"lsp",
+-- 			"snippets",
+-- 			"buffer",
+-- 			"path",
+-- 		},
+-- 	},
+-- 	signature = {
+-- 		enabled = true,
+-- 		window = { border = 'none' }
+-- 	}
+-- })
 
 
 require("ufo").setup({
@@ -489,10 +572,10 @@ map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write.
 map({ "n" }, "<C-f>", "<Cmd>Open .<CR>", { desc = "Open current directory in Finder." })
 map({ "n" }, "<leader>a", ":edit #<CR>", { desc = "Open current directory in Finder." })
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
 
 -- Completion
 map("i", "<Tab>", function()
@@ -512,9 +595,11 @@ map("n", "<esc>", function()
 	vim.cmd ":noh"
 end, { silent = true, desc = "Remove Search Highlighting, Dismiss Popups" })
 
+map("n", "<leader>wv", "<Cmd>:vsplit<CR>", { desc = "Opens a buffer in a horizontal split" })
+map("n", "<leader>ws", "<Cmd>:split<CR>", { desc = "Opens a buffer in a vertical split" })
 
-vim.keymap.set("n", "<leader>h", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+map("n", "<leader>h", function()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end)
 
 --#endregion
@@ -611,9 +696,8 @@ vim.diagnostic.config({
 
 
 --#region Colours and Theming
-vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "NONE" })
-
+-- vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "NONE" })
 
 vim.cmd('colorscheme ' .. default_color)
 --#endregion
