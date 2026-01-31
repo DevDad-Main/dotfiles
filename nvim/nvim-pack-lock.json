@@ -12,11 +12,6 @@
       "rev": "b137f63d89d0285ca76eed12e1923220e0aff8c1",
       "src": "https://github.com/saghen/blink.cmp"
     },
-    "coc.nvim": {
-      "rev": "cd12852619728df07a482bfba306834272db14b5",
-      "src": "https://github.com/neoclide/coc.nvim",
-      "version": "'release'"
-    },
     "colorful-menu.nvim": {
       "rev": "b51a659459df8d078201aefc995db8175ed55e84",
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
@@ -37,10 +32,6 @@
       "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
       "src": "https://github.com/kdheepak/lazygit.nvim"
     },
-    "lush.nvim": {
-      "rev": "9c60ec2279d62487d942ce095e49006af28eed6e",
-      "src": "https://github.com/rktjmp/lush.nvim"
-    },
     "marks.nvim": {
       "rev": "f353e8c08c50f39e99a9ed474172df7eddd89b72",
       "src": "https://github.com/chentoast/marks.nvim"
@@ -52,6 +43,18 @@
     "mini.nvim": {
       "rev": "9b935c218ddba02e5dc75c94f90143bce1f7c646",
       "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "neoscroll.nvim": {
+      "rev": "c8d29979cb0cb3a2437a8e0ae683fd82f340d3b8",
+      "src": "https://github.com/karb94/neoscroll.nvim"
+    },
+    "netrw.nvim": {
+      "rev": "90501c62b9b816ed3ed1e912ae9db9af5671a1b2",
+      "src": "https://github.com/prichrd/netrw.nvim"
+    },
+    "nvim-autopairs": {
+      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
+      "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-dap": {
       "rev": "e47878dcf1ccc30136b30d19ab19fe76946d61cd",
@@ -76,6 +79,10 @@
     "nvim-nio": {
       "rev": "21f5324bfac14e22ba26553caf69ec76ae8a7662",
       "src": "https://github.com/nvim-neotest/nvim-nio"
+    },
+    "nvim-pretty-ts-errors": {
+      "rev": "b5d8e0798884323ebbf587c54ebfa128c87f9c19",
+      "src": "https://github.com/enochchau/nvim-pretty-ts-errors"
     },
     "nvim-treesitter": {
       "rev": "f8bbc3177d929dc86e272c41cc15219f0a7aa1ac",
@@ -102,6 +109,10 @@
       "rev": "119e8961014c9bfaf1487bf3c2a393d254f337e2",
       "src": "https://github.com/kevinhwang91/promise-async"
     },
+    "smear-cursor.nvim": {
+      "rev": "c85bdbb25db096fbcf616bc4e1357bd61fe2c199",
+      "src": "https://github.com/sphamba/smear-cursor.nvim"
+    },
     "telescope-env.nvim": {
       "rev": "00a703cc7b713cdda0a981d88fddf3ce25502af5",
       "src": "https://github.com/LinArcX/telescope-env.nvim"
@@ -127,9 +138,9 @@
       "rev": "30d2239ecf8adab9bc0d07d42e7a07283879dab6",
       "src": "https://github.com/vague2k/vague.nvim"
     },
-    "zenbones.nvim": {
-      "rev": "4635a3f46d1066975d1074cd9f61f93cb1e32f64",
-      "src": "https://github.com/zenbones-theme/zenbones.nvim"
+    "yazi.nvim": {
+      "rev": "cc44c583e1faaf350f983c180822a249b6116988",
+      "src": "https://github.com/mikavilpas/yazi.nvim"
     }
   }
 }

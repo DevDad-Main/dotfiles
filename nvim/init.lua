@@ -3,6 +3,9 @@ vim.cmd([[set mouse=]])
 vim.cmd([[set noswapfile]])
 vim.cmd([[hi @lsp.type.number gui=italic]])
 
+vim.g.netrw_liststyle = 3 -- Tree like structure
+vim.g.netrw_banner = 0 -- Remove help message
+
 vim.opt.winborder = "none"
 -- vim.opt.winborder = "single"
 vim.opt.clipboard = "unnamedplus"
@@ -13,7 +16,9 @@ vim.opt.signcolumn = "yes"
 vim.opt.wrap = true
 vim.opt.cursorcolumn = false
 vim.opt.ignorecase = true
-vim.opt.smartindent = true
+vim.opt.autoindent = true -- keep previous indent
+vim.opt.smartindent = true -- basic C-style indent
+vim.opt.cindent = true -- MUCH smarter {} indentation
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
@@ -70,7 +75,7 @@ end
 vim.pack.add({
   { src = "https://github.com/vague2k/vague.nvim" },
   { src = "https://github.com/chentoast/marks.nvim" },
-  { src = "https://github.com/stevearc/oil.nvim" },
+  { src = "https://github.com/mikavilpas/yazi.nvim" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
   { src = "https://github.com/aznhe21/actions-preview.nvim" },
@@ -97,13 +102,61 @@ vim.pack.add({
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
+  { src = "https://github.com/windwp/nvim-autopairs" },
+  { src = "https://github.com/karb94/neoscroll.nvim" },
+  { src = "https://github.com/sphamba/smear-cursor.nvim" },
 })
 --#endregion
 
 --#region Package Management
-require("mini.pairs").setup()
+-- require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.statusline").setup()
+require("nvim-autopairs").setup({
+  check_ts = true, -- smarter with treesitter
+  enable_check_bracket_line = false, -- allows expanding {} blocks
+})
+
+require("neoscroll").setup({
+  mappings = { -- Keys to be mapped to their corresponding default scrolling animation
+    "<C-u>",
+    "<C-d>",
+    "<C-b>",
+    "<C-f>",
+    "<C-y>",
+    "<C-e>",
+    "zt",
+    "zz",
+    "zb",
+  },
+  hide_cursor = true, -- Hide cursor while scrolling
+  duration_multiplier = 0.75, -- Global duration multiplier
+})
+
+-- require("smear_cursor").setup({
+--   -- Fire Settings
+--   -- cursor_color = "#ff4000",
+--   -- particles_enabled = true,
+--   -- stiffness = 0.5,
+--   -- trailing_stiffness = 0.2,
+--   -- trailing_exponent = 5,
+--   -- damping = 0.6,
+--   -- gradient_exponent = 0,
+--   -- gamma = 1,
+--   -- never_draw_over_target = true, -- if you want to actually see under the cursor
+--   -- hide_target_hack = true, -- same
+--   -- particle_spread = 1,
+--   -- particles_per_second = 500,
+--   -- particles_per_length = 50,
+--   -- particle_max_lifetime = 800,
+--   -- particle_max_initial_velocity = 20,
+--   -- particle_velocity_from_cursor = 0.5,
+--   -- particle_damping = 0.15,
+--   -- particle_gravity = -50,
+--   -- min_distance_emit_particles = 0,
+--   --
+--   stiffness = 0.75,
+-- })
 
 -- the plugin will automatically lazy load
 require("fff").setup({
@@ -213,6 +266,13 @@ require("blink.cmp").setup({
   },
 
   completion = {
+    fuzzy = {
+      implementation = "rust", -- fastest/best (default usually)
+      sorts = {
+        "score",
+        "sort_text",
+      },
+    },
     menu = {
       border = "none",
       scrollbar = false,
@@ -243,7 +303,6 @@ require("blink.cmp").setup({
       window = { border = "none" },
     },
   },
-
   -- completion = {
   --   menu = {
   --     border = "none",
@@ -274,8 +333,11 @@ require("blink.cmp").setup({
   },
 
   sources = {
-    default = { "lsp", "path", "snippets", "buffer" },
+    default = { "snippets", "lsp", "path", "buffer" },
     providers = {
+      -- snippets = {
+      --   score_offset = 100,
+      -- },
       lsp = {
         async = true, -- makes completion faster
         fallbacks = { "buffer" }, -- fallback if LSP fails
@@ -473,6 +535,10 @@ require("nvim-treesitter").setup({
     enable = true,
   },
 
+  indent = {
+    enable = true,
+  },
+
   -- add other modules here if needed
 })
 
@@ -579,24 +645,28 @@ vim.lsp.enable({
   "pyright",
 })
 
-require("oil").setup({
-  lsp_file_methods = {
-    enabled = true,
-    timeout_ms = 1000,
-    autosave_changes = true,
-  },
-  view_options = {
-    show_hidden = true,
-  },
-  columns = {
-    "icon",
-  },
-  float = {
-    max_width = 0,
-    max_height = 0,
-    border = "rounded",
-  },
+require("yazi").setup({
+  floating_window_scaling_factor = 1,
 })
+-- require("oil").setup({
+--   lsp_file_methods = {
+--     enabled = true,
+--     timeout_ms = 1000,
+--     autosave_changes = true,
+--   },
+--   view_options = {
+--     show_hidden = true,
+--   },
+--   columns = {
+--     "icon",
+--   },
+--   float = {
+--     max_width = 0,
+--     max_height = 0,
+--     border = "rounded",
+--   },
+-- })
+-- require("netrw").setup({})
 
 require("vague").setup({ transparent = true })
 require("luasnip").setup({ enable_autosnippets = true })
@@ -736,9 +806,15 @@ map("n", "<M-j>", "<cmd>resize +2<CR>") -- taller
 map("n", "<M-k>", "<cmd>resize -2<CR>") -- shorter
 
 -- Toggle Open Oil In Float Mode
+-- map("n", "<leader>e", function()
+--   vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil --float")
+-- end, { desc = "Toggle Open Oil" })
+
 map("n", "<leader>e", function()
-  vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil --float")
-end, { desc = "Toggle Open Oil" })
+  vim.cmd((vim.bo.filetype == "netrw") and "bd" or "Ex")
+end, { desc = "Toggle Open Netrw" })
+
+map("n", "<leader>-", "<cmd>Yazi<cr>", { desc = "Open yazi at the current file" })
 
 map({ "n" }, "<leader>c", "1z=")
 map({ "n" }, "<C-q>", ":copen<CR>", { silent = true })
@@ -762,9 +838,9 @@ map("i", "<S-Tab>", function()
   return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
 end, { expr = true, silent = true })
 
-map("i", "<CR>", function()
-  return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
-end, { expr = true })
+-- map("i", "<CR>", function()
+--   return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+-- end, { expr = true })
 
 -- Remove Search Highlighting, Dismiss Popups
 map("n", "<esc>", function()
@@ -805,7 +881,7 @@ api.nvim_create_autocmd("TextYankPost", {
   group = yankGrp,
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
   desc = "Highlight yank",
 })
