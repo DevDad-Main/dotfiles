@@ -1,4 +1,4 @@
-let mapleader = ","
+let mapleader = " "
 
 " Open netrw
 nnoremap <leader>e :Ex<CR>
