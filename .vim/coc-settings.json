@@ -1,24 +1,24 @@
 {
   // OLD: More verbose inlay hints, shows everything
   // Enable parameter name hints (you can choose "literals" or "all")
-  "typescript.inlayHints.parameterNames.enabled": "all",
-  "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+  // "typescript.inlayHints.parameterNames.enabled": "all",
+  // "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
 
-  // Enable other useful inlay hints
-  "typescript.inlayHints.parameterTypes.enabled": true,
-  "typescript.inlayHints.variableTypes.enabled": true,
-  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "typescript.inlayHints.enumMemberValues.enabled": true,
+  // TypeScript
+  "typescript.inlayHints.parameterNames.enabled": "none",
+  "typescript.inlayHints.parameterTypes.enabled": false,
+  "typescript.inlayHints.variableTypes.enabled": false,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": false,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "typescript.inlayHints.enumMemberValues.enabled": false,
 
-  // Same for JavaScript (optional)
-  "javascript.inlayHints.parameterNames.enabled": "all",
-  "javascript.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
-  "javascript.inlayHints.parameterTypes.enabled": true,
-  "javascript.inlayHints.variableTypes.enabled": true,
-  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "javascript.inlayHints.enumMemberValues.enabled": true,
+  // JavaScript
+  "javascript.inlayHints.parameterNames.enabled": "none",
+  "javascript.inlayHints.parameterTypes.enabled": false,
+  "javascript.inlayHints.variableTypes.enabled": false,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": false,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "javascript.inlayHints.enumMemberValues.enabled": false,
 
   // // New: More minimal inlay hints
   // // =====================
@@ -70,6 +70,7 @@
   // =====================
   // Coc Formatting on Save
   // =====================
+  // Using eslint now so don't need this.. enable if issues
   "coc.preferences.formatOnSave": true,
 
   "languageserver": {
@@ -104,10 +105,21 @@
 
   "git.addedSign.text": " ",
   "git.changedSign.text": " ",
-  "git.removedSign.text": " "
+  "git.removedSign.text": " ",
 
   "suggest.enablePreselect": false,
   "suggest.noselect": true,
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
 
   "suggest.completionItemKindLabels": {
     "method": "󰆧 ",

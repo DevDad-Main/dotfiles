@@ -50,4 +50,6 @@ endfunction
 let $FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
 
 
-
+" Sets the folds to transparent.
+highlight Folded guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE gui=NONE cterm=NONE
+highlight FoldColumn guibg=NONE ctermbg=NONE gui=NONE cterm=NONE

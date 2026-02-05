@@ -28,6 +28,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ghifarit53/tokyonight-vim'
 
 Plug 'tribela/vim-transparent'
+Plug 'tenfyzhong/CompleteParameter.vim'
 
 call plug#end()
 

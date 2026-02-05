@@ -46,7 +46,9 @@ map({ "n", "v", "x" }, "<leader>O", "<Cmd>restart<CR>", { desc = "Restart vim." 
 
 -- Utility maps
 map({ "n", "v", "x" }, "<leader>n", ":norm ", { desc = "Enter norm command." })
-map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in selection" })
+-- Only substites one instance, but i will change it for the below so i can add extra commands and and add gc to confirm or not
+-- map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in selection" })
+map({ "n", "v", "x" }, "<C-s>", [[:%s/]], { desc = "Enter substitute mode in selection" })
 map({ "n", "v", "x" }, "<leader>m", "<Cmd>Format<CR>", { desc = "Format current buffer" })
 
 -- Telescope maps
@@ -64,7 +66,8 @@ if builtin then
   map({ "n" }, "<leader>sT", builtin.lsp_type_definitions, { desc = "Telescope LSP Definitions" })
   map({ "n" }, "<leader>ss", builtin.current_buffer_fuzzy_find, { desc = "Telescope Fzf current Buffer" })
   map({ "n" }, "<leader>st", builtin.builtin, { desc = "Telescope Builtin Actions" })
-  map({ "n" }, "<leader>sc", builtin.git_bcommits, { desc = "Telescope Git Commits" })
+  -- map({ "n" }, "<leader>sc", builtin.git_bcommits, { desc = "Telescope Git Commits" })
+  map({ "n" }, "<leader>sc", builtin.spell_suggest, { desc = "Telescope Git Commits" })
   map({ "n" }, "<leader>sk", builtin.keymaps, { desc = "Telescope Keymaps" })
 end
 
@@ -150,4 +153,3 @@ vim.cmd([[
   xnoremap <expr> . "<esc><cmd>'<,'>normal! ".v:count1.'.<cr>'
 ]])
 --#endregion
-

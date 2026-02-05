@@ -27,3 +27,5 @@ highlight CocGitSignAdded   ctermbg=NONE ctermfg=Green
 highlight CocGitSignChanged ctermbg=NONE ctermfg=Cyan
 highlight CocGitSignRemoved  ctermbg=NONE ctermfg=Red
 
+
+

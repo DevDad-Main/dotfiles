@@ -26,22 +26,20 @@ nnoremap <C-k> :lprev<CR>
 nnoremap <leader>cl :lclose<CR>
 
 " Source current file
-nnoremap <leader><leader> :so<CR>
+nnoremap ,, :so<CR>
 
 " Quickly exit insert mode
 inoremap jj <Esc>
 
 " Use the default ctrl s to save and format our file
-nnoremap <C-s> :update<CR>
+nnoremap <leader>w :update<CR>
+nnoremap <leader>q :quit<CR>
 
 " Toggle Coc inlay hints
 nnoremap <silent> <leader>h :CocCommand document.toggleInlayHint<CR>
 
 " Substitute word under cursor on line
 nnoremap <leader>s :s/\<<C-r><C-w>\>//gI<Left><Left><Left>
-
-" Source current file
-nnoremap <leader><leader> :so<CR>
 
 " Visual mode mappings
 " surround selected text with gs{char}
@@ -55,3 +53,9 @@ nmap C <Esc><Plug>Csurround
 " Visual-mode indent that keeps selection
 vnoremap < <gv
 vnoremap > >gv
+
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
