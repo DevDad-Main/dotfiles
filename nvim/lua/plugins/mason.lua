@@ -11,6 +11,8 @@ return {
         "prettierd", 
         "stylua",
         "eslint_d",
+        "tailwindcss-language-server",
+        "typescript-language-server",
       }
       
       local mr = require("mason-registry")

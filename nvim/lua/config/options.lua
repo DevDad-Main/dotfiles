@@ -7,13 +7,14 @@ vim.g.netrw_liststyle = 3 -- Tree like structure
 vim.g.netrw_banner = 0 -- Remove help message
 
 -- Old Code. Allows for Gutters to be shown
--- vim.opt.signcolumn = "yes"
--- vim.opt.number = true
--- vim.o.foldcolumn = "1"
+vim.opt.signcolumn = "yes"
+vim.opt.number = true
+vim.o.foldcolumn = "1"
+vim.opt.relativenumber = true
 
 -- New Test Code - Hides Gutters
-vim.opt.number = false -- no line numbers
-vim.opt.relativenumber = false
+-- vim.opt.number = false -- no line numbers
+-- vim.opt.relativenumber = false
 
 vim.opt.signcolumn = "auto" -- only show when git signs exist
 vim.o.foldcolumn = "0" -- no reserved fold gutter
