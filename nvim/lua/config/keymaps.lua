@@ -152,4 +152,14 @@ vim.cmd([[
   noremap! <c-r><c-p> <c-r>=expand('%:p')<cr>
   xnoremap <expr> . "<esc><cmd>'<,'>normal! ".v:count1.'.<cr>'
 ]])
+
+-- Pretty Ts Errors Toggle
+map("n", "<leader>tt", function()
+  require("pretty-ts-errors").show_formatted_error()
+end, { desc = "Toggles PrettyTS Floating window" })
+
+-- Pretty Ts Show All
+map("n", "<leader>te", function()
+  require("pretty-ts-errors").open_all_errors()
+end, { desc = "Toggles PrettyTS Show All Errors" })
 --#endregion

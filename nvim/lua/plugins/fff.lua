@@ -40,6 +40,16 @@ return {
       hl = {
         border = "none",
       },
+
+      -- 👇 Add these two sections
+      history = {
+        enabled = true, -- enables recent file tracking
+        max_items = 100,
+      },
+
+      git = {
+        enabled = true, -- enables git status signs (green/red bars)
+      },
     })
   end,
 }

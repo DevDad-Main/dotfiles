@@ -6,9 +6,11 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = false,
 
-  virtual_lines = {
-    current_line = true,
-  },
+  virtual_lines = false,
+  -- Old Code
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
 
   signs = {
     text = {
@@ -20,3 +22,4 @@ vim.diagnostic.config({
   },
 })
 --#endregion
+

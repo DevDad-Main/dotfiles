@@ -12,18 +12,15 @@ return {
 
     require("luasnip.loaders.from_vscode").lazy_load()
     require("blink.cmp").setup({
+      fuzzy = {
+        implementation = "rust",
+        sorts = { "score" },
+      },
       appearance = {
         use_nvim_cmp_as_default = false,
       },
       completion = {
         list = { max_items = 25 },
-        fuzzy = {
-          implementation = "rust",
-          sorts = { "score" },
-          -- prebuilt_binaries = {
-          --   force_version = "v0.9.0",
-          -- },
-        },
         menu = {
           border = "none",
           scrollbar = false,
