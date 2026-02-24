@@ -23,7 +23,9 @@ return {
         vim.fn.delete(codeium_enabled)
         vim.notify("Codeium disabled", vim.log.levels.INFO)
         local ok, codeium = pcall(require, "codeium")
-        if ok and codeium then codeium.setup({ enable_cmp_source = false, virtual_text = { enabled = false } }) end
+        if ok and codeium then
+          codeium.setup({ enable_cmp_source = false, virtual_text = { enabled = false } })
+        end
       else
         local f = io.open(codeium_enabled, "w")
         if f then
@@ -31,7 +33,9 @@ return {
           vim.notify("Codeium enabled", vim.log.levels.INFO)
         end
         local ok, codeium = pcall(require, "codeium")
-        if ok and codeium then codeium.setup({ enable_cmp_source = false, virtual_text = { enabled = true } }) end
+        if ok and codeium then
+          codeium.setup({ enable_cmp_source = false, virtual_text = { enabled = true } })
+        end
       end
       vim.cmd("Lazy reload blink.cmp")
     end
@@ -54,9 +58,13 @@ return {
         use_nvim_cmp_as_default = false,
       },
       completion = {
-        list = { max_items = 10 },
+        list = { 
+          max_items = 10,
+          selection = { auto_insert = false },
+        },
+        ghost_text = { enabled = true },
         menu = {
-          border = "rounded",
+          border = "single",
           scrollbar = false,
           draw = {
             columns = { { "kind_icon" }, { "label", gap = 1 } },
@@ -74,8 +82,8 @@ return {
           },
         },
         documentation = {
-          auto_show = false,
-          window = { border = "rounded" },
+          auto_show = true,
+          window = { border = "single" },
         },
       },
       keymap = {
@@ -105,7 +113,7 @@ return {
       },
       signature = {
         enabled = true,
-        window = { border = "rounded" },
+        window = { border = "single" },
       },
     })
   end,
