@@ -10,6 +10,15 @@ api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
+-- Set prisma filetype
+api.nvim_create_autocmd("BufWinEnter", {
+  pattern = { "*.prisma" },
+  group = vim.api.nvim_create_augroup("Prisma", { clear = true }),
+  callback = function()
+    vim.cmd([[set filetype=prisma]])
+  end,
+})
+
 -- Highlight on yank
 local yankGrp = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 api.nvim_create_autocmd("TextYankPost", {

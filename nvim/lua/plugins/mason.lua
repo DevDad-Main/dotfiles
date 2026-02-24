@@ -13,6 +13,8 @@ return {
         "eslint_d",
         "tailwindcss-language-server",
         "typescript-language-server",
+        "json-lsp",
+        "prisma-language-server",
       }
       
       local mr = require("mason-registry")

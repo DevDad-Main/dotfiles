@@ -23,6 +23,8 @@ return {
       "docker_compose_language_service",
       "ts_ls",
       "tailwindcss",
+      "json_ls",
+      "prismals",
     })
 
     -- Setup ts_ls with Mason paths using new API
@@ -70,6 +72,18 @@ return {
         "package.json",
         ".git",
       },
+    })
+
+    vim.lsp.config("json_ls", {
+      cmd = { mason_path .. "/packages/json-lsp/node_modules/.bin/vscode-json-language-server", "--stdio" },
+      filetypes = { "json", "jsonc" },
+      root_markers = { "package.json", ".git" },
+    })
+
+    vim.lsp.config("prismals", {
+      cmd = { mason_path .. "/packages/prisma-language-server/node_modules/.bin/prisma-language-server", "--stdio" },
+      filetypes = { "prisma" },
+      root_markers = { ".git", "package.json" },
     })
   end,
 }
