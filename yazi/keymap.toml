@@ -1,0 +1,9 @@
+[[mgr.append_keymap]]
+on = ["g", "o"]
+run = "cd ~/Olly"
+desc = "Go to Olly's Folder"
+
+# [[manager.prepend_keymap]]
+# on = ["g", "c"]
+# run = "cd ~/.config"
+# desc = "Go to Config"

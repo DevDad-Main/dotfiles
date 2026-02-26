@@ -19,7 +19,7 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "auto" -- only show when git signs exist
 vim.o.foldcolumn = "0" -- no reserved fold gutter
 
-vim.opt.winborder = "none"
+vim.opt.winborder = "single"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
