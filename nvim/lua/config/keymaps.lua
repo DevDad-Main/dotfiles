@@ -7,6 +7,7 @@ end
 local builtin = safe_require("telescope.builtin")
 local ls = safe_require("luasnip")
 local actions_preview = safe_require("actions-preview")
+local nvim_tmux_nav = require("nvim-tmux-navigation")
 
 local map = vim.keymap.set
 
@@ -162,4 +163,26 @@ end, { desc = "Toggles PrettyTS Floating window" })
 map("n", "<leader>te", function()
   require("pretty-ts-errors").open_all_errors()
 end, { desc = "Toggles PrettyTS Show All Errors" })
+
+-- Toggle Supermaven
+map("n", "<leader>ts", "<cmd>SupermavenToggle<cr>", { desc = "Toggles Supermaven" })
+
+-- Initiate Pounce
+map({ "n", "v" }, "h", ":Pounce<CR>", { silent = true, desc = "Pounce" })
+-- Repeat Last Pounce
+map("n", "H", ":PounceRepeat<CR>", { silent = true, desc = "Pounce Repeat" })
+
+-- Window Navigation
+map("n", "<C-h>", "<C-w>h", { noremap = true, silent = true, desc = "Window Left" })
+map("n", "<C-j>", "<C-w>j", { noremap = true, silent = true, desc = "Window Down" })
+map("n", "<C-k>", "<C-w>k", { noremap = true, silent = true, desc = "Window Up" })
+map("n", "<C-l>", "<C-w>l", { noremap = true, silent = true, desc = "Window Right" })
+
+map("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+map("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+map("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+map("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+
+-- Quickly enter new line
+map("i", "<C-;>", "<C-o>o", { noremap = true })
 --#endregion

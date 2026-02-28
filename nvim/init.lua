@@ -12,6 +12,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Add mason bin to PATH so LSP servers can be found
+local mason_path = vim.fn.stdpath("data") .. "/mason/bin"
+if vim.fn.isdirectory(mason_path) == 1 then
+  vim.env.PATH = mason_path .. ":" .. vim.env.PATH
+end
+
 -- Load options from config
 require("config.options")
 

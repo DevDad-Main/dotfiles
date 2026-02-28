@@ -30,7 +30,7 @@ return {
         use_nvim_cmp_as_default = false,
       },
       completion = {
-        list = { 
+        list = {
           max_items = 10,
           selection = { auto_insert = false },
         },
@@ -42,7 +42,7 @@ return {
             columns = { { "kind_icon" }, { "label", gap = 1 } },
             components = {
               label = {
-                width = { fill = true, max = 15 },
+                width = { fill = true, max = 25 },
                 text = function(ctx)
                   return require("colorful-menu").blink_components_text(ctx)
                 end,
