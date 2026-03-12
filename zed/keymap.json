@@ -1,230 +1,172 @@
 [
-  // NOTE: This needs to be above the below command as it ironically overwrites the below command due to it being lower down in the file
   {
     "context": "(Editor && mode == full)",
     "bindings": {
-      // Overwrite the default keymap so we don't get conflicts with the ctrl-h navigation in insert mode
-      "ctrl-h": null,
-    },
+      "ctrl-h": null
+    }
   },
   {
     "context": "Editor && vim_mode == normal && !menu",
     "bindings": {
-      // --- File / UI ---
-      ", f": "file_finder::Toggle", // Fixed: Added space
-      ", p": "command_palette::Toggle",
-      ", n": "workspace::NewFile",
-      ", a": "editor::SelectAll",
-
-      // --- Save ---
+      "space f": "file_finder::Toggle",
+      "space p": "command_palette::Toggle",
+      "space n": "workspace::NewFile",
+      "space a": "editor::SelectAll",
       "ctrl-s": "workspace::Save",
-
-      // --- Search ---
-      // Changed to 'workspace::NewSearch' which is the standard "Find in Project"
-      ", s": "workspace::NewSearch",
-
-      // --- Terminal ---
+      "space w": "workspace::Save",
+      "space g": "workspace::NewSearch",
+      "space z": "editor::FindAllReferences",
       "ctrl-t": "terminal_panel::ToggleFocus",
-
-      // --- LSP ---
-      ", h": "editor::ToggleInlayHints",
-      ", c d": "editor::GoToDefinition",
-      ", c i": "editor::GoToImplementation",
-      ", c r": "editor::FindAllReferences",
-      ", c a": "editor::ToggleCodeActions",
-      ", c h": "editor::Hover",
-      ", c n": "editor::Rename",
-
-      // Vim-standard hover (Shift+K is default in Vim, ensuring it maps to Zed hover)
-      // "shift-k": "editor::Hover",
-
-      // --- Diagnostics ---
-      ", c l": "diagnostics::Deploy",
-
-      // --- Outline ---
-      ", o": "outline::Toggle",
-
-      // 'SplitDown' = Horizontal Split (one top, one bottom)
-      ", w s": "pane::SplitDown",
-      // 'SplitRight' = Vertical Split (side by side)
-      ", w v": "pane::SplitRight",
-
-      // --- Explorer ---
-      ", e": "project_panel::ToggleFocus",
-
-      // --- Grep Current Word ---
-      ", z": "editor::FindAllReferences", // zed specific
-
-      // --- Buffers ---
-      // ", b": "pane::ActivateNextItem",
-      ", d": "pane::CloseActiveItem",
-
-      // --- Find And Replace In Buffer
-      ", r": "buffer_search::DeployReplace",
-
-      // --- Comment ---
+      "space l": "terminal_panel::ToggleFocus",
+      "space h": "editor::ToggleInlayHints",
+      "space c d": "editor::GoToDefinition",
+      "space c i": "editor::GoToImplementation",
+      "space c r": "editor::FindAllReferences",
+      "space c a": "editor::ToggleCodeActions",
+      "space c h": "editor::Hover",
+      "space c n": "editor::Rename",
+      "space c l": "diagnostics::Deploy",
+      "space c shift-d": "diagnostics::Deploy",
+      "space s": "workspace::NewSearch",
+      "space s i": "editor::FindAllReferences",
+      "space s o": "file_finder::Toggle",
+      "space s r": "editor::FindAllReferences",
+      "space s d": "editor::GoToDefinition",
+      "space s shift-d": "diagnostics::Deploy",
+      "space s t": "editor::GoToTypeDefinition",
+      "space o": "outline::Toggle",
+      "space w s": "pane::SplitDown",
+      "space w v": "pane::SplitRight",
+      "space e": "project_panel::ToggleFocus",
+      "space d": "pane::CloseActiveItem",
+      "space b": "tab_switcher::ToggleAll",
+      "space r": "buffer_search::DeployReplace",
       "ctrl-/": "editor::ToggleComments",
-
-      // --- Command Palette Helper ---
-      ", k": "command_palette::Toggle",
-    },
+      "space k": "command_palette::Toggle",
+      "space m": "editor::Format",
+      "ctrl-d": ["editor::MovePageDown", { "center_cursor": true }],
+      "ctrl-u": ["editor::MovePageUp", { "center_cursor": true }],
+      "space q": "workspace::CloseWindow",
+      "space shift-q": "workspace::CloseWindow",
+      "space v": "workspace::OpenSettings"
+    }
   },
-  // Temporary to close the explorer when we are init, either the q keybind or our , e
   {
     "context": "Workspace && !Editor && !Terminal",
     "bindings": {
       "q": "workspace::ToggleLeftDock",
-      ", e": "workspace::ToggleLeftDock",
-    },
+      "space e": "workspace::ToggleLeftDock"
+    }
   },
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
       "ctrl-/": "editor::ToggleComments",
-      // Allows pasting system clipboard content easily in visual mode
-      "p": "editor::Paste",
-    },
+      "p": "editor::Paste"
+    }
   },
-
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
       "ctrl-s": "workspace::Save",
-      // Rapid 'jk' to exit insert mode
-      //FIX: the above as some because it's the same char there is a slight delay
-      "j j": "vim::SwitchToNormalMode",
-    },
+      "ctrl-x": "editor::Backspace",
+      "j j": "vim::SwitchToNormalMode"
+    }
   },
   {
     "context": "Terminal",
     "use_key_equivalents": true,
-    "bindings": { "ctrl-t": "terminal_panel::Toggle" },
+    "bindings": {
+      "ctrl-t": "terminal_panel::Toggle"
+    }
   },
   {
     "context": "Editor && vim_mode == insert && showing_completions",
     "bindings": {
       "ctrl-j": "editor::ContextMenuNext",
-      "ctrl-k": "editor::ContextMenuPrevious",
-    },
+      "ctrl-k": "editor::ContextMenuPrevious"
+    }
   },
   {
     "context": "Editor && (showing_code_actions || showing_completions)",
     "bindings": {
       "ctrl-k": "editor::ContextMenuPrevious",
-      "ctrl-j": "editor::ContextMenuNext",
-    },
+      "ctrl-j": "editor::ContextMenuNext"
+    }
   },
   {
     "context": "picker || menu || tab_switcher",
     "bindings": {
       "ctrl-j": "menu::SelectNext",
-      "ctrl-k": "menu::SelectPrevious",
-    },
+      "ctrl-k": "menu::SelectPrevious"
+    }
   },
   {
     "context": "Workspace && !menu",
     "bindings": {
-      ", b": "tab_switcher::ToggleAll",
-      "ctrl-x": "tab_switcher::CloseSelectedItem",
-    },
+      "space b": "tab_switcher::ToggleAll",
+      "ctrl-x": "tab_switcher::CloseSelectedItem"
+    }
   },
-
-  // Allows us to move around in insert mode as we have in our neovim config
   {
     "context": "Editor && vim_mode == insert && !menu && !showing_completions && !showing_code_actions",
     "bindings": {
       "ctrl-h": "editor::MoveLeft",
       "ctrl-l": "editor::MoveRight",
       "ctrl-j": "editor::MoveDown",
-      "ctrl-k": "editor::MoveUp",
-    },
+      "ctrl-k": "editor::MoveUp"
+    }
   },
-
   {
     "context": "Editor && vim_mode == insert && !menu",
     "bindings": {
       "ctrl-e": "vim::EndOfLine",
-      "ctrl-a": "vim::StartOfLine",
-    },
+      "ctrl-a": "vim::StartOfLine"
+    }
   },
-  // --- Move Lines Up And Down In Normal and visual for blocks
   {
-    "context": "Editor && vim_mode == normal || vim_mode == visual  && !menu",
+    "context": "Editor && vim_mode == normal || vim_mode == visual && !menu",
     "bindings": {
       "alt-j": "editor::MoveLineDown",
-      "alt-k": "editor::MoveLineUp",
-    },
+      "alt-k": "editor::MoveLineUp"
+    }
   },
-  // {
-  //   "context": "Editor && vim_mode == normal",
-  //   "bindings": {
-  //     //NOTE: Keep for now and see if dosent conflict with any other ui etc.
-  //     // Also cant use '\'? Look into it further
-  //     "tab": "pane::AlternateFile",
-  //   },
-  // },
-  // {
-  //   "context": "Editor && vim_mode == normal && !menu",
-  //   "bindings": {
-  //     // --- Pane Navigation ---
-  //     "ctrl-h": "workspace::ActivatePaneLeft",
-  //     "ctrl-j": "workspace::ActivatePaneDown",
-  //     "ctrl-k": "workspace::ActivatePaneUp",
-  //     "ctrl-l": "workspace::ActivatePaneRight",
-  //   },
-  // },
-  // {
-  //   "context": "(GitPanel || ChangesList || Terminal) && !menu",
-  //   "bindings": {
-  //     "ctrl-h": "workspace::ActivatePaneLeft",
-  //     "ctrl-j": "workspace::ActivatePaneDown",
-  //     "ctrl-k": "workspace::ActivatePaneUp",
-  //     "ctrl-l": "workspace::ActivatePaneRight",
-  //   },
-  // },
   {
     "context": "(GitPanel || ChangesList || Terminal || Workspace || Editor) && !menu && !picker && !tab_switcher && vim_mode == normal",
     "bindings": {
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight",
-    },
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
   },
-  // Overwriting the default vim Git keymaps.
-  // Commented all kemaps - Some are self explanatory, where as some aren't
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "alt-h": ["workspace::ActivatePaneLeft", { "focus": false }],
+      "alt-l": ["workspace::ActivatePaneRight", { "focus": false }]
+    }
+  },
   {
     "context": "GitPanel && ChangesList",
     "use_key_equivalents": true,
     "bindings": {
-      // Move Up
       "k": "menu::SelectPrevious",
-      // Move Down
       "j": "menu::SelectNext",
-      // Jump to Top
       "g g": "menu::SelectFirst",
-      // Jump to Bottom
       "shift-g": "menu::SelectLast",
-      //NOTE: Misleading but this shows the diff for the selected file
-      // Show Diff For Selected File
       "d": "menu::Confirm",
-      // Go To Insert Commit Message
       "i": "git_panel::FocusEditor",
-      // Stage File
       "s": "git::ToggleStaged",
-      // Stage All
       "shift-s": "git::StageAll",
       "g x": "git::StageRange",
-      // Unstage All
-      "shift-u": "git::UnstageAll",
-
-      //TODO: Remap the rest of the keymaps to match LazyGit as that is what im used to using.
-    },
+      "shift-u": "git::UnstageAll"
+    }
   },
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
-      "S": ["vim::PushAddSurrounds", {}],
-    },
-  },
+      "S": ["vim::PushAddSurrounds", {}]
+    }
+  }
 ]

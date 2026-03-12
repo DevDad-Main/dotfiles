@@ -185,4 +185,36 @@ map("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
 
 -- Quickly enter new line
 map("i", "<C-;>", "<C-o>o", { noremap = true })
+
+-- Safe require (so it doesn't error before InsertEnter)
+local function blink_visible()
+  local ok, blink = pcall(require, "blink.cmp")
+  if not ok then
+    return false
+  end
+  return blink.is_visible()
+end
+
+-- Left / Right (always fine)
+map("i", "<C-h>", "<Left>")
+map("i", "<C-l>", "<Right>")
+
+-- Removes a character backwards, my backslash key is far away from my home row
+map("i", "<C-x>", "<BS>", { noremap = true })
+
+-- -- Down
+-- vim.keymap.set("i", "<C-j>", function()
+--   if blink_visible() then
+--     return "<C-j>" -- let blink handle it
+--   end
+--   return "<C-o>j"
+-- end, { expr = true })
+--
+-- -- Up
+-- vim.keymap.set("i", "<C-k>", function()
+--   if blink_visible() then
+--     return "<C-k>" -- let blink handle it
+--   end
+--   return "<C-o>k"
+-- end, { expr = true })
 --#endregion

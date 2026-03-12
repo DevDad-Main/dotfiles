@@ -33,6 +33,7 @@ vim.opt.cindent = true -- MUCH smarter {} indentation
 vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.laststatus = 0 -- Hides Status line as we don't use it tbh
+-- vim.opt.laststatus = 2 -- Enables Status line
 
 -- Enable ufo folds
 vim.o.foldlevel = 99
@@ -45,7 +46,8 @@ vim.opt.cmdheight = 0
 vim.o.updatetime = 250
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.o.autoread = true
-vim.g.mapleader = " "
+-- vim.g.mapleader = " "
+vim.g.mapleader = ","
 vim.opt.fillchars:append({ eob = " " })
 
 -- UFO fold handler
