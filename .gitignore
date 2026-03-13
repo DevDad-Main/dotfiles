@@ -3,3 +3,6 @@ plugged/
 autoload/
 pack/
 undodir/
+.vim/sessions/
+/sessions
+/sessions

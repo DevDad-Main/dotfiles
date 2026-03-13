@@ -53,4 +53,6 @@ set signcolumn=yes
 " Don't require saving before closing a buffer
 set hidden
 
+set clipboard=unnamedplus
+
 " vim:ft=vim
