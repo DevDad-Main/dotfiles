@@ -217,4 +217,57 @@ map("i", "<C-x>", "<BS>", { noremap = true })
 --   end
 --   return "<C-o>k"
 -- end, { expr = true })
+
+-- Treesitter textobjects
+local ts_select = require("nvim-treesitter-textobjects.select")
+
+local function select_ts_textobject(query, desc)
+  local ok, parser = pcall(vim.treesitter.get_parser)
+  if not ok or not parser then
+    vim.notify("Treesitter parser not available", vim.log.levels.WARN)
+    return
+  end
+  ts_select.select_textobject(query, "textobjects")
+end
+
+map({ "o", "x" }, "af", function()
+  select_ts_textobject("@function.outer", "function")
+end, { desc = "Select outer part of a function" })
+
+map({ "o", "x" }, "if", function()
+  select_ts_textobject("@function.inner", "function")
+end, { desc = "Select inner part of a function" })
+
+map({ "o", "x" }, "ac", function()
+  select_ts_textobject("@class.outer", "class")
+end, { desc = "Select outer part of a class" })
+
+map({ "o", "x" }, "ic", function()
+  select_ts_textobject("@class.inner", "class")
+end, { desc = "Select inner part of a class" })
+
+map({ "o", "x" }, "ab", function()
+  select_ts_textobject("@block.outer", "block")
+end, { desc = "Select outer part of a block" })
+
+map({ "o", "x" }, "ib", function()
+  select_ts_textobject("@block.inner", "block")
+end, { desc = "Select inner part of a block" })
+
+map({ "o", "x" }, "aa", function()
+  select_ts_textobject("@parameter.outer", "parameter")
+end, { desc = "Select outer part of a parameter" })
+
+map({ "o", "x" }, "ia", function()
+  select_ts_textobject("@parameter.inner", "parameter")
+end, { desc = "Select inner part of a parameter" })
+
+-- Treesitter swap (needs nvim-treesitter-textobjects)
+map({ "n", "x" }, "<leader>sp", function()
+  require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+end, { desc = "Swap next parameter" })
+
+map({ "n", "x" }, "<leader>sP", function()
+  require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
+end, { desc = "Swap previous parameter" })
 --#endregion

@@ -1,0 +1,150 @@
+{
+  "coc.preferences.jumpCommand": "drop",
+  "eslint.autoFixOnSave": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "svelte"
+  ],
+  "eslint.options": {
+    "ignorePath": ".gitignore"
+  },
+  "eslint.lintTask.options": ["--ignore-path", ".gitignore", "."],
+  "eslint.validate": [
+    "svelte",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "diagnostic.refreshOnInsertMode": true,
+  "suggest.noselect": true,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.autoTrigger": "always",
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.enablePreselect": false,
+  "diagnostic.enableSign": false,
+  "diagnostic.errorSign": "!!",
+  "diagnostic.warningSign": "!!",
+  "diagnostic.infoSign": "!!",
+  "diagnostic.hintSign": "!!",
+  "diagnostic.checkCurrentLine": true,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "prettier.requireConfig": true,
+  "prettier.enable": true,
+  "prettier.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "pum.height": 10,
+  "suggest.maxItemCount": 10,
+  "suggest.ghostText": false,
+  "tailwindCSS.headwind.runOnSave": false,
+  "tailwindCSS.trace.server": "verbose",
+  "svelte.plugin.typescript.diagnostics.enable": true,
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"]
+    },
+    "tailwindcss": {
+      "command": "tailwindcss-language-server",
+      "filetypes": ["html", "jsx", "tsx"],
+      "rootPatterns": [
+        "**/{tailwind,tailwind.config,tailwind-config,.tailwindrc}.js",
+        ".git"
+      ]
+    }
+  },
+  "svelte.ask-to-enable-ts-plugin": false,
+  "svelte.enable-ts-plugin": false,
+  "coc.preferences.formatOnSave": true,
+  "[ruby][typescript][svelte]": {
+    "coc.preferences.formatOnSave": true
+  },
+
+  "typescript.inlayHints.parameterNames.enabled": "none",
+  "typescript.inlayHints.parameterTypes.enabled": false,
+  "typescript.inlayHints.variableTypes.enabled": false,
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": false,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "typescript.inlayHints.enumMemberValues.enabled": false,
+
+  "javascript.inlayHints.parameterNames.enabled": "none",
+  "javascript.inlayHints.parameterTypes.enabled": false,
+  "javascript.inlayHints.variableTypes.enabled": false,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": false,
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "javascript.inlayHints.enumMemberValues.enabled": false,
+
+  "typescript.suggest.completeFunctionCalls": true,
+  "javascript.suggest.completeFunctionCalls": true,
+
+  "typescript.preferences.useAliasesForRenames": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifier": "relative",
+
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+
+  "suggest.floatConfig": {
+    "border": true
+  },
+  "diagnostic.floatConfig": {
+    "border": true
+  },
+  "signature.floatConfig": {
+    "border": true
+  },
+  "hover.floatConfig": {
+    "border": true
+  },
+
+  "git.addedSign.hlGroup": "CocGitSignAdded",
+  "git.changedSign.hlGroup": "CocGitSignChanged",
+  "git.removedSign.hlGroup": "CocGitSignRemoved",
+  "git.topRemovedSign.hlGroup": "CocGitSignRemoved",
+  "git.changeRemovedSign.hlGroup": "CocGitSignChanged",
+
+  "git.addedSign.text": " ",
+  "git.changedSign.text": " ",
+  "git.removedSign.text": " ",
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  "suggest.completionItemKindLabels": {
+    "method": "󰆧 ",
+    "function": "󰊕 ",
+    "variable": " ",
+    "field": " ",
+    "class": " ",
+    "interface": " ",
+    "module": " ",
+    "property": " ",
+    "enum": " ",
+    "snippet": " ",
+    "text": "󰦨 ",
+    "file": "󰈙 ",
+    "folder": "󰉋 ",
+    "keyword": "󰌋 "
+  }
+}

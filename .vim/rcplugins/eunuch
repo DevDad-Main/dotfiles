@@ -1,0 +1,7 @@
+" Eunuch - Add handful of UNIXy commands to Vim
+
+Plug 'tpope/vim-eunuch'
+
+let g:eunuch_no_maps = 1
+
+" vim:ft=vim

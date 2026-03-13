@@ -1,0 +1,26 @@
+" Visual settings
+"----------------
+
+" Make it obvious where 80 characters is
+" set textwidth=80 " <- Default
+set textwidth=120
+" set colorcolumn=+1 " <- Default, shows the column
+set colorcolumn=
+set noshowmode
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * GoldenRatioResize
+
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
+
+" For neovim, in hopes of making the 'spurious `q`s' go away
+" https://github.com/neovim/neovim/issues/8234
+set guicursor=
+
+" vim:ft=vim

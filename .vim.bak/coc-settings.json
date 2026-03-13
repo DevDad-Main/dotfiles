@@ -48,8 +48,6 @@
   // =====================
   "typescript.suggest.completeFunctionCalls": true,
   "javascript.suggest.completeFunctionCalls": true,
-  "suggest.autoTrigger": "always",
-  "suggest.triggerAfterInsertEnter": true,
 
   // =====================
   // Imports & Renames
@@ -138,6 +136,5 @@
     "file": "󰈙 ",
     "folder": "󰉋 ",
     "keyword": "󰌋 "
-  },
-  "svelte.enable-ts-plugin": false
+  }
 }

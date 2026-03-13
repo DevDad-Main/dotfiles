@@ -1,0 +1,7 @@
+" Quicklink - quickly add markdown links to documents
+
+Plug 'mattn/webapi-vim'
+" Plug 'christoomey/vim-quicklink'
+Plug '~/code/vim/quicklink'
+
+" vim:ft=vim

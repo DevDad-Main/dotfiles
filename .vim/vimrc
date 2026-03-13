@@ -1,31 +1,36 @@
-source ~/.vim/plugins.vim
-source ~/.vim/options.vim
-source ~/.vim/keybinds.vim
-source ~/.vim/colours.vim
-source ~/.vim/fzf.vim
-source ~/.vim/coc.vim
-source ~/.vim/vim-highlightedyank.vim
+" Vimrc
+"
+" This file contains the minimal settings to set the foundation, with the
+" majority of the configuration and settings living in files spread between
+" vim/rcfiles and vim/rcplugins
 
+set nocompatible
 
-" " Force yats syntax for TypeScript & TSX files
-autocmd FileType typescript,typescriptreact runtime! syntax/yats.vim
+" Need to set the leader before defining any leader mappings
+let mapleader = "\<Space>"
 
-augroup CocSigns
-  autocmd!
-  autocmd User CocNvimInit call s:define_coc_signs()
-augroup END
-
-function! s:define_coc_signs() abort
-  sign define CocError   text=✘ texthl=CocErrorSign
-  sign define CocWarning text=󰚌 texthl=CocWarningSign
-  sign define CocInfo    text=◉ texthl=CocInfoSign
-  sign define CocHint    text= texthl=CocHintSign
+function! s:SourceConfigFilesIn(directory)
+  let directory_splat = '~/.vim/' . a:directory . '/*'
+  for config_file in split(glob(directory_splat), '\n')
+    if filereadable(config_file)
+      execute 'source' config_file
+    endif
+  endfor
 endfunction
 
+" Force shell to /bin/bash to avoid E484 can't find tmp files in /var/folders/*
+set shell=/bin/bash
 
-highlight CocGitSignAdded   ctermbg=NONE ctermfg=Green
-highlight CocGitSignChanged ctermbg=NONE ctermfg=Cyan
-highlight CocGitSignRemoved  ctermbg=NONE ctermfg=Red
+call plug#begin('~/.vim/bundle')
+call s:SourceConfigFilesIn('rcplugins')
+call plug#end()
+
+call s:SourceConfigFilesIn('rcfiles')
+
+set termguicolors
+colorscheme vague
 
 
-
+" Block cursor in Normal mode, line cursor in Insert mode
+let &t_SI = "\e[6 q"   " Insert mode: vertical line
+let &t_EI = "\e[2 q"   " Normal mode: block

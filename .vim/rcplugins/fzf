@@ -1,0 +1,46 @@
+" fzf - the fuzzy finder of all the things
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+let g:fzf_files_options =
+  \ '--reverse ' .
+  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+let g:fzf_layout = { 'down': '~60%' }
+nnoremap <C-p> :Files<cr>
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git'
+
+" Telescope-like mappings (using FZF)
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>si :Rg <C-R><C-W><CR>
+nnoremap <leader>so :History<CR>
+nnoremap <leader>sh :Helptags<CR>
+nnoremap <leader>sk :Maps<CR>
+nnoremap <leader>sr :References<CR>
+nnoremap <leader>sd :LspDocumentSymbol<CR>
+nnoremap <leader>sD :CocDiagnostics<CR>
+nnoremap <leader>ss :BLines<CR>
+nnoremap <leader>st :Commands<CR>
+nnoremap <leader>sc :Spellsuggest<CR>
+
+" Git files
+nnoremap <leader>sg :GFiles<CR>
+
+" nnoremap <leader>ga :Files app/<cr>
+" nnoremap <leader>gm :Files app/models/<cr>
+" nnoremap <leader>gv :Files app/views/<cr>
+" nnoremap <leader>gc :Files app/controllers/<cr>
+" nnoremap <leader>gy :Files app/assets/stylesheets/<cr>
+" nnoremap <leader>gj :Files app/assets/javascripts/<cr>
+" nnoremap <leader>gs :Files spec/<cr>
+nnoremap <leader>. :Files %:p:h<cr>
+
+" Custom actions for fzf selections
+let g:fzf_action = {
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-t': 'tab split',
+  \ }
+
+" vim:ft=vim
