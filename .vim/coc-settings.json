@@ -86,17 +86,18 @@
     }
   },
   // `:h coc-config-float`
+  // NOTE:Set to true to have borders
   "suggest.floatConfig": {
-    "border": true
+    "border": false
   },
   "diagnostic.floatConfig": {
-    "border": true
+    "border": false
   },
   "signature.floatConfig": {
-    "border": true
+    "border": false
   },
   "hover.floatConfig": {
-    "border": true
+    "border": false
   },
 
   "git.addedSign.hlGroup": "CocGitSignAdded",

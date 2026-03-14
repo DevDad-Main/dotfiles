@@ -13,6 +13,8 @@ let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git'
 " Telescope-like mappings (using FZF)
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>b :Buffers<CR>
+" Quick find definitions
+nnoremap <leader>t :Tags<CR>
 nnoremap <leader>si :Rg <C-R><C-W><CR>
 nnoremap <leader>so :History<CR>
 nnoremap <leader>sh :Helptags<CR>
@@ -42,5 +44,22 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit',
   \ 'ctrl-t': 'tab split',
   \ }
+
+function! s:list_buffers()
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'source': s:list_buffers(),
+  \ 'sink*': { lines -> s:delete_buffers(lines) },
+  \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+\ }))
 
 " vim:ft=vim

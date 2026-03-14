@@ -154,6 +154,7 @@ augroup END
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+nnoremap <leader>rf :!clear && node %<CR>
 
  " " Navigate quickfix list using Ctrl-j/k
 " nnoremap <C-j> :lnext<CR>
