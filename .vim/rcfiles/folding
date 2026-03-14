@@ -1,17 +1,30 @@
 " Folding configurations
 "------------------------
 
-"Enable indent folding
 set foldenable
-set foldmethod=indent
 set foldlevel=999
 
-" So I never use s, and I want a single key map to toggle folds, thus
-" lower s = toggle <=> upper S = toggle recursive
+set foldmethod=marker
+set foldmarker=#region,#endregion
+
+function! ToggleFoldMethod()
+  if &foldmethod == 'marker'
+    set foldmethod=syntax
+    echo "Fold: syntax (LSP/function folds)"
+  else
+    set foldmethod=marker
+    echo "Fold: marker (regions)"
+  endif
+endfunction
+
+nnoremap <leader>fm :call ToggleFoldMethod()<CR>
+
+nnoremap za za
+nnoremap zA zA
+
 nnoremap <leader>ff za
 nnoremap <leader>FF zA
 
-"Maps for folding, unfolding all
 nnoremap <LEADER>fu zM<CR>
 nnoremap <LEADER>uf zR<CR>
 " vim:ft=vim
