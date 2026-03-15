@@ -87,3 +87,7 @@ set clipboard=unnamed,unnamedplus
 " Removes the ~ tilde keys from next to the numbers so we just have gitsigns
 " now.
 set fillchars=eob:\ 
+
+" Better control for :vimgrep and quickfix list. Dosen't add bloated compiled
+" files and packages etc.
+set wildignore+=*/node_modules/*,*/dist/*,*/build/*,*/coverage/*,*/.git/*,*/.next/*,*/.turbo/*,*/out/*,*/.cache/*

@@ -43,8 +43,8 @@ endfunction
 
 " Use <c-space> to trigger completion
 " Trigger completion - try multiple keys
-inoremap <silent><expr> <C-space> coc#refresh()
-inoremap <silent><expr> <C-@> coc#refresh()
+" inoremap <silent><expr> <C-space> coc#refresh()
+" inoremap <silent><expr> <C-@> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -105,8 +105,8 @@ nmap <leader>df  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+" xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+" nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
 " Run the Code Lens action on the current line
 nmap <leader>cl  <Plug>(coc-codelens-action)

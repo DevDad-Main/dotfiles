@@ -5,7 +5,7 @@ nnoremap <leader>e :Lexplore<CR>
 
 
 " Deletes currently open buffer
-nnoremap <leader>d :bd<CR>
+nnoremap <leader>db :bd<CR>
 
 " Move selected lines up/down (like Alt-Up/Down)
 vnoremap J :m '>+1<CR>gv=gv
