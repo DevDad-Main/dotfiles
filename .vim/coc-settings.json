@@ -48,8 +48,6 @@
   // =====================
   "typescript.suggest.completeFunctionCalls": true,
   "javascript.suggest.completeFunctionCalls": true,
-  "suggest.autoTrigger": "always",
-  "suggest.triggerAfterInsertEnter": true,
 
   // =====================
   // Imports & Renames
@@ -86,18 +84,17 @@
     }
   },
   // `:h coc-config-float`
-  // NOTE:Set to true to have borders
   "suggest.floatConfig": {
-    "border": false
+    "border": true
   },
   "diagnostic.floatConfig": {
-    "border": false
+    "border": true
   },
   "signature.floatConfig": {
-    "border": false
+    "border": true
   },
   "hover.floatConfig": {
-    "border": false
+    "border": true
   },
 
   "git.addedSign.hlGroup": "CocGitSignAdded",

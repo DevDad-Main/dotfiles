@@ -4,6 +4,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
+
+" NOTE: Add to your tmux.conf:
+" bind -n C-h run-shell -t '{mouse}' 'tmux send-keys -t {mouse} C-h'
+" bind -n C-j run-shell -t '{mouse}' 'tmux send-keys -t {mouse} C-j'
+" bind -n C-k run-shell -t '{mouse}' 'tmux send-keys -t {mouse} C-k'
+" bind -n C-l run-shell -t '{mouse}' 'tmux send-keys -t {mouse} C-l'
+" is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|vim|nvim|emacs)(diff)?$'"
+" bind-key -n 'C-\' if-shell "$is_vim" 'send-keys C-\\' 'select-pane -l'
 Plug 'tomasiser/vim-code-dark'
 Plug 'yegappan/lsp'
 Plug 'ojroques/vim-oscyank'

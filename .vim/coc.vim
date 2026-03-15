@@ -42,7 +42,9 @@ function! CheckBackspace() abort
 endfunction
 
 " Use <c-space> to trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
+" Trigger completion - try multiple keys
+inoremap <silent><expr> <C-space> coc#refresh()
+inoremap <silent><expr> <C-@> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -73,7 +75,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>cn <Plug>(coc-rename)
 
 " Formatting selected code
-xmap <leader>fm  <Plug>(coc-format-selected)
+" xmap <leader>fm  <Plug>(coc-format-selected)
+nnoremap <leader>m :call CocAction('format')<CR>
+xnoremap <leader>m <Plug>(coc-format-selected)
 " nmap <leader>fm  <Plug>(coc-format-selected)
 
 augroup mygroup
@@ -82,17 +86,22 @@ augroup mygroup
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
 augroup end
 
-" Applying code actions to the selected code block
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+"" Applying code actions to the selected code block
+"" Example: `<leader>aap` for current paragraph
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying code actions at the cursor position
-nmap <leader>ca  <Plug>(coc-codeaction-cursor)
-"Remap keys for apply code actions affect whole buffer
-nmap <leader>cas  <Plug>(coc-codeaction-source)
+"" Remap keys for applying code actions at the cursor position
+"nmap <leader>ca  <Plug>(coc-codeaction-cursor)
+""Remap keys for apply code actions affect whole buffer
+"nmap <leader>cas  <Plug>(coc-codeaction-source)
+
+
+nmap <leader>da <Plug>(coc-codeaction)
+
+nmap <leader>dr <Plug>(coc-references)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>df  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)

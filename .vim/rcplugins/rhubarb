@@ -1,5 +1,0 @@
-" Rhubarb - GitHub smarts for fugitive
-
-Plug 'tpope/vim-rhubarb'
-
-" vim:ft=vim

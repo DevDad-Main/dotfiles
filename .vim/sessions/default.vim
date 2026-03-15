@@ -5,7 +5,7 @@ let v:this_session=expand("<sfile>:p")
 doautoall SessionLoadPre
 silent only
 silent tabonly
-cd /mnt/c/Users/Oliver\ Metz/Desktop/DSA
+cd ~/Olly/DSA/sorting
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -15,11 +15,11 @@ argglobal
 %argdel
 argglobal
 enew
-setlocal fdm=indent
+setlocal fdm=marker
 setlocal fde=0
-setlocal fmr={{{,}}}
+setlocal fmr=#region,#endregion
 setlocal fdi=#
-setlocal fdl=999
+setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen

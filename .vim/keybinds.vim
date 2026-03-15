@@ -1,7 +1,7 @@
 let mapleader = " "
 
 " Open netrw
-nnoremap <leader>e :Ex<CR>
+nnoremap <leader>e :Lexplore<CR>
 
 
 " Deletes currently open buffer
@@ -24,6 +24,7 @@ vnoremap <leader>pd "_d
 nnoremap <C-j> :lnext<CR>
 nnoremap <C-k> :lprev<CR>
 nnoremap <leader>cl :lclose<CR>
+nnoremap <C-q> :copen<CR>
 
 " Source current file
 nnoremap ,, :so<CR>
@@ -59,3 +60,52 @@ imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
 smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 
+" Window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Split management
+nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>ws :split<CR>
+
+" Resize splits
+nnoremap <Esc>h :vertical resize -5<CR>
+nnoremap <Esc>l :vertical resize +5<CR>
+nnoremap <Esc>j :resize +2<CR>
+nnoremap <Esc>k :resize -2<CR>
+
+" Tab navigation
+nnoremap <C-t> <Cmd>tabnew<CR>
+nnoremap <C-x> <Cmd>tabclose<CR>
+for i in range(1, 8)
+  execute 'nnoremap <Leader>' . i . ' :tabnext ' . i . '<CR>'
+endfor
+
+" System clipboard
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+
+" Better navigation - center screen on search
+nmap n nzzzv
+nmap N Nzzzv
+
+" Use C-Space to Esc
+nnoremap <C-Space> <Esc>:noh<cr>
+vnoremap <C-Space> <Esc>gV
+
+" Escape Insert Mode Quicker
+inoremap jk <Esc>
+
+" Q for Ex mode is useless - run macro in q register instead
+nnoremap Q @q
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
+" Save all and quit
+nnoremap <leader>Q :wqa<CR>
+
+" LazyGit (requires lazygit installed)
+nnoremap <leader>l :!lazygit<CR>

@@ -1,7 +1,0 @@
-" TypeScript - Filetype and syntax settings
-
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.jsx' }
-Plug 'HerringtonDarkholme/yats.vim'
-
-" vim:ft=vim

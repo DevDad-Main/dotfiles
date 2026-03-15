@@ -7,9 +7,8 @@ let g:lightline = {'colorscheme' : 'tokyonight'}
 " let g:typescript_disable_builtin_syntax = 1
 let g:loaded_typescript_syntax = 1
 
-
-
-colorscheme codedark
+" colorscheme codedark
+colorscheme vague
 " colorscheme tokyonight
 " hi Normal guibg=NONE ctermbg=NONE
 " hi LineNr guibg=NONE ctermbg=NONE

@@ -15,7 +15,7 @@ return {
     require("luasnip.loaders.from_vscode").lazy_load()
 
     require("supermaven-nvim").setup({
-      disable_inline_completion = false,
+      disable_inline_completion = true,
       keymaps = {
         accept_suggestion = "<Tab>",
       },
@@ -31,7 +31,7 @@ return {
       },
       completion = {
         list = {
-          max_items = 10,
+          max_items = 8,
           selection = { auto_insert = false },
         },
         ghost_text = { enabled = false },
@@ -40,21 +40,10 @@ return {
           scrollbar = false,
           draw = {
             columns = { { "kind_icon" }, { "label", gap = 1 } },
-            components = {
-              label = {
-                width = { fill = true, max = 25 },
-                text = function(ctx)
-                  return require("colorful-menu").blink_components_text(ctx)
-                end,
-                highlight = function(ctx)
-                  return require("colorful-menu").blink_components_highlight(ctx)
-                end,
-              },
-            },
           },
         },
         documentation = {
-          auto_show = true,
+          auto_show = false,
           window = { border = "single" },
         },
       },

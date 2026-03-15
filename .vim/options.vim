@@ -48,7 +48,7 @@ set incsearch
 set background=dark
 " set signcolumn=yes
 " set cursorline
-" set colorcolumn=80
+ set colorcolumn=120
 
 " Backspace behavior
 set backspace=indent,eol,start
