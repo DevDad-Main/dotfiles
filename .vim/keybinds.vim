@@ -109,3 +109,6 @@ nnoremap <leader>Q :wqa<CR>
 
 " LazyGit (requires lazygit installed)
 nnoremap <leader>l :!lazygit<CR>
+
+" Run a node file and clear the screen before hand
+nnoremap <leader>rf :!clear && node %<CR>
