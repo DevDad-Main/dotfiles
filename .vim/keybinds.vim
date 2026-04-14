@@ -1,7 +1,20 @@
 let mapleader = " "
 
 " Open netrw
-nnoremap <leader>e :Lexplore<CR>
+" nnoremap <leader>e :Lexplore<CR>
+" map nerdtree to the ctrl+n
+function MyNerdToggle()
+    if &filetype == 'nerdtree' || exists("g:NERDTree") && g:NERDTree.IsOpen()
+        NERDTreeToggle
+    elseif expand('%') == ''
+        NERDTreeToggle
+    else
+        NERDTreeFind
+    endif
+endfunction
+
+" Open Nerd Tree
+nnoremap <leader>e :call MyNerdToggle()<CR>
 
 
 " Deletes currently open buffer
@@ -112,3 +125,34 @@ nnoremap <leader>l :!lazygit<CR>
 
 " Run a node file and clear the screen before hand
 nnoremap <leader>rf :!clear && node %<CR>
+
+
+if !exists('s:latest_greps')
+  let s:latest_greps = {}
+endif
+
+function! s:Grep(...) abort
+  let pattern = get(a:, 1, '')
+  if pattern == '' | return | endif
+
+  let s:latest_greps[pattern] = 1
+  let path = get(a:, 2, '.')
+  execute 'silent! grep! "' . escape(pattern, '"-') . '" ' . path . ' | redraw! | copen'
+endfunction
+
+function! s:Replace(original, replacement) abort
+  if a:original == '' || a:replacement == '' | return | endif
+	
+	" Confirm before replacing all. Remove the c to just replace all without confirming, I'd rather have the c to confirm though
+  execute 'cfdo %s/' . escape(a:original, '/') . '/' . a:replacement . '/gce' 
+endfunction
+
+function! LatestGreps(ArgLead, CmdLine, CursorPos)
+  return keys(s:latest_greps)
+endfunction
+
+command! -nargs=+ -complete=file Grep silent! call s:Grep(<f-args>)
+command! -nargs=+ -complete=customlist,LatestGreps Replace silent! call s:Replace(<f-args>)
+
+nnoremap <Leader>z :Grep<Space>
+nnoremap <silent> <Leader>r :call feedkeys(':Replace<Space><Tab>', 't')<CR>

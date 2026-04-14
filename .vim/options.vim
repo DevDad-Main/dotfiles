@@ -26,8 +26,8 @@ set foldtext=MyFoldText()
 set foldmarker=#region,#endregion
 
 " Spellcheck only comments/strings
-autocmd FileType javascript,typescript setlocal spell
-autocmd FileType javascript,typescript syntax spell toplevel
+" autocmd FileType javascript,typescript setlocal spell
+" autocmd FileType javascript,typescript syntax spell toplevel
 
 " Line numbers
 set number
@@ -91,3 +91,5 @@ set fillchars=eob:\
 " Better control for :vimgrep and quickfix list. Dosen't add bloated compiled
 " files and packages etc.
 set wildignore+=*/node_modules/*,*/dist/*,*/build/*,*/coverage/*,*/.git/*,*/.next/*,*/.turbo/*,*/out/*,*/.cache/*
+
+let NERDTreeShowHidden=1

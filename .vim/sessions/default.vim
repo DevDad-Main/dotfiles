@@ -5,24 +5,27 @@ let v:this_session=expand("<sfile>:p")
 doautoall SessionLoadPre
 silent only
 silent tabonly
-cd ~/Olly/DSA-Course
+cd ~/Olly/Social-Media-Microservices/api-entrypoint/src
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 let s:shortmess_save = &shortmess
 set shortmess+=aoO
+badd +0 app.js
 argglobal
 %argdel
 argglobal
 enew
-setlocal fdm=marker
+file NERD_tree_tab_1
+balt app.js
+setlocal fdm=manual
 setlocal fde=0
 setlocal fmr=#region,#endregion
 setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
-setlocal fen
+setlocal nofen
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf

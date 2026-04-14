@@ -81,20 +81,25 @@
         "**/{tailwind,tailwind.config,tailwind-config,.tailwindrc}.js",
         ".git"
       ]
+    },
+    "nginx-language-server": {
+      "command": "nginx-language-server",
+      "filetypes": ["nginx"],
+      "rootPatterns": ["nginx.conf", ".git"]
     }
   },
   // `:h coc-config-float`
   "suggest.floatConfig": {
-    "border": true
+    "border": false
   },
   "diagnostic.floatConfig": {
-    "border": true
+    "border": false
   },
   "signature.floatConfig": {
-    "border": true
+    "border": false
   },
   "hover.floatConfig": {
-    "border": true
+    "border": false
   },
 
   "git.addedSign.hlGroup": "CocGitSignAdded",
@@ -137,5 +142,7 @@
     "folder": "󰉋 ",
     "keyword": "󰌋 "
   },
-  "svelte.enable-ts-plugin": false
+  "svelte.enable-ts-plugin": false,
+  "nginx.enable": true,
+  "nginx.server.commandPath": "/home/devdad/.pyenv/shims/nginx-language-server"
 }

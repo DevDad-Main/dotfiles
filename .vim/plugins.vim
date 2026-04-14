@@ -39,6 +39,10 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'tribela/vim-transparent'
 Plug 'tenfyzhong/CompleteParameter.vim'
 
+" Nerd Tree
+Plug 'preservim/nerdtree'
+
+Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 let g:coc_global_extensions = [
@@ -66,4 +70,5 @@ let g:coc_global_extensions = [
   \ 'coc-vimlsp',
   \ 'coc-wxml',
   \ 'coc-xml',
+  \ 'coc-docker',
   \ ]

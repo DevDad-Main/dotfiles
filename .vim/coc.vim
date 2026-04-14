@@ -43,8 +43,8 @@ endfunction
 
 " Use <c-space> to trigger completion
 " Trigger completion - try multiple keys
-" inoremap <silent><expr> <C-space> coc#refresh()
-" inoremap <silent><expr> <C-@> coc#refresh()
+inoremap <silent><expr> <C-space> coc#refresh()
+inoremap <silent><expr> <C-@> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
