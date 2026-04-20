@@ -119,3 +119,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
+
+
+export JAVA_HOME=/usr/lib/jvm/jdk-17.0.18
+export PATH=$JAVA_HOME/bin:$PATH

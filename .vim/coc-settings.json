@@ -90,16 +90,16 @@
   },
   // `:h coc-config-float`
   "suggest.floatConfig": {
-    "border": false
+    "border": true
   },
   "diagnostic.floatConfig": {
-    "border": false
+    "border": true
   },
   "signature.floatConfig": {
-    "border": false
+    "border": true
   },
   "hover.floatConfig": {
-    "border": false
+    "border": true
   },
 
   "git.addedSign.hlGroup": "CocGitSignAdded",
@@ -144,5 +144,8 @@
   },
   "svelte.enable-ts-plugin": false,
   "nginx.enable": true,
-  "nginx.server.commandPath": "/home/devdad/.pyenv/shims/nginx-language-server"
+  "nginx.server.commandPath": "/home/devdad/.pyenv/shims/nginx-language-server",
+
+  // "java.signatureHelp.enabled":
+  "semanticTokens.enable": true
 }
