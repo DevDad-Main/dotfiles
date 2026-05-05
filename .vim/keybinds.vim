@@ -89,6 +89,12 @@ nnoremap <Esc>l :vertical resize +5<CR>
 nnoremap <Esc>j :resize +2<CR>
 nnoremap <Esc>k :resize -2<CR>
 
+nnoremap <A-h> :vertical resize -5<CR>
+nnoremap <A-l> :vertical resize +5<CR>
+nnoremap <A-j> :resize +2<CR>
+nnoremap <A-k> :resize -2<CR>
+
+
 " Tab navigation
 nnoremap <C-t> <Cmd>tabnew<CR>
 nnoremap <C-x> <Cmd>tabclose<CR>
@@ -156,3 +162,25 @@ command! -nargs=+ -complete=customlist,LatestGreps Replace silent! call s:Replac
 
 nnoremap <Leader>z :Grep<Space>
 nnoremap <silent> <Leader>r :call feedkeys(':Replace<Space><Tab>', 't')<CR>
+
+" Toggle between vague and codedark themes
+function! ToggleTheme()
+  if g:colors_name == 'vague'
+    colorscheme codedark
+  else
+    colorscheme vague
+  endif
+endfunction
+nnoremap <leader>th :call ToggleTheme()<CR>
+
+" Codeium toggle
+function! CodeiumToggle()
+  if get(g:, 'codeium_enabled', v:true)
+    let g:codeium_enabled = v:false
+    echo 'Codeium disabled'
+  else
+    let g:codeium_enabled = v:true
+    echo 'Codeium enabled'
+  endif
+endfunction
+nnoremap <leader>ci :call CodeiumToggle()<CR>

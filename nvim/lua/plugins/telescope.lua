@@ -5,6 +5,8 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
     "LinArcX/telescope-env.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "nvim-treesitter/nvim-treesitter",
   },
   cmd = "Telescope",
   config = function()
@@ -17,7 +19,14 @@ return {
         color_devicons = true,
         sorting_strategy = "ascending",
         borderchars = {
-          "", "", "", "", "", "", "", "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
         },
         path_displays = { "smart" },
         layout_config = {
@@ -53,3 +62,4 @@ return {
     telescope.load_extension("ui-select")
   end,
 }
+

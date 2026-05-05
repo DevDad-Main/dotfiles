@@ -43,6 +43,8 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'preservim/nerdtree'
 
 Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
+
+Plug 'Exafunction/windsurf.vim', { 'branch': 'main' }
 call plug#end()
 
 let g:coc_global_extensions = [

@@ -46,8 +46,8 @@ vim.opt.cmdheight = 0
 vim.o.updatetime = 250
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.o.autoread = true
--- vim.g.mapleader = " "
-vim.g.mapleader = ","
+vim.g.mapleader = " "
+-- vim.g.mapleader = ","
 vim.opt.fillchars:append({ eob = " " })
 
 -- UFO fold handler

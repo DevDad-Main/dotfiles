@@ -33,7 +33,7 @@ alias tms="tmux new-session -s"     # => Start a new tmux session.
 alias lg="lazygit"
 
 # alias nvm="NVIM_APPNAME=nvimMinimal nvim"
-alias nvo="NVIM_APPNAME=dadvim nvim"
+alias nvo="NVIM_APPNAME=nvim_online nvim"
 # alias nv="NVIM_APPNAME=nvim nvim"
 alias nvt="NVIM_APPNAME=neovim nvim"
 alias mini="NVIM_APPNAME=nvim-minimax nvim"
@@ -121,5 +121,9 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 
 
-export JAVA_HOME=/usr/lib/jvm/jdk-17.0.18
+# export JAVA_HOME=/usr/lib/jvm/jdk-17.0.18
+# export PATH=$JAVA_HOME/bin:$PATH
+#
+export JAVA_HOME=/usr/lib/jvm/default
 export PATH=$JAVA_HOME/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/go_path/bin:$PATH

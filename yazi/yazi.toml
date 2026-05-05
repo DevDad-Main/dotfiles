@@ -7,6 +7,6 @@ show_hidden = true
 
 [opener]
 # -- Opens files with neovim
-edit = [{ run = 'nvim "$@"', block = true }]
+edit = [{ run = 'vim "$@"', block = true }]
 # -- Opens files with neovide
 # edit = [{ run = 'neovide "$@"', block = true }]

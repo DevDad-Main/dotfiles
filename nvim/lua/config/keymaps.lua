@@ -68,13 +68,17 @@ if builtin then
   map({ "n" }, "<leader>ss", builtin.current_buffer_fuzzy_find, { desc = "Telescope Fzf current Buffer" })
   map({ "n" }, "<leader>st", builtin.builtin, { desc = "Telescope Builtin Actions" })
   -- map({ "n" }, "<leader>sc", builtin.git_bcommits, { desc = "Telescope Git Commits" })
-  map({ "n" }, "<leader>sc", builtin.spell_suggest, { desc = "Telescope Git Commits" })
+  map({ "n" }, "<leader>sc", builtin.spell_suggest, { desc = "Telescope Spelling Suggestions" })
   map({ "n" }, "<leader>sk", builtin.keymaps, { desc = "Telescope Keymaps" })
 end
 
 -- More maps
 map("i", "jj", "<ESC>", { desc = "Escape Insert Mode Quicker" })
-map("n", "<leader>d", "<Cmd>:bd<CR>", { desc = "Deletes the currently open buffer" })
+-- map("n", "<leader>d", "<Cmd>:bd<CR>", { desc = "Deletes the currently open buffer" })
+
+map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file
+
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
 
 function git_files()
   if builtin then
@@ -83,7 +87,7 @@ function git_files()
 end
 
 map({ "n" }, "<leader>sg", git_files)
-map({ "n" }, "<leader>l", "<Cmd>LazyGit<CR>")
+-- map({ "n" }, "<leader>l", "<Cmd>LazyGit<CR>")
 map({ "n" }, "<leader>se", "<cmd>Telescope env<cr>")
 
 if actions_preview then
@@ -97,9 +101,9 @@ map("n", "<M-j>", "<cmd>resize +2<CR>")
 map("n", "<M-k>", "<cmd>resize -2<CR>")
 
 -- File management
-map("n", "<leader>e", function()
-  vim.cmd((vim.bo.filetype == "netrw") and "bd" or "Ex")
-end, { desc = "Toggle Open Netrw" })
+-- map("n", "<leader>e", function()
+--   vim.cmd((vim.bo.filetype == "netrw") and "bd" or "Ex")
+-- end, { desc = "Toggle Open Netrw" })
 
 map("n", "<leader>-", "<cmd>Yazi<cr>", { desc = "Open yazi at the current file" })
 
@@ -109,8 +113,8 @@ map({ "n" }, "<C-q>", ":copen<CR>", { silent = true })
 map({ "n" }, "<leader>w", "<Cmd>update<CR>", { desc = "Write the current buffer." })
 map({ "n" }, "<leader>q", "<Cmd>:quit<CR>", { desc = "Quit the current buffer." })
 map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write." })
-map({ "n" }, "<C-f>", "<Cmd>Open .<CR>", { desc = "Open current directory in Finder." })
-map({ "n" }, "<leader>a", ":edit #<CR>", { desc = "Alternate file" })
+-- map({ "n" }, "<C-f>", "<Cmd>Open .<CR>", { desc = "Open current directory in Finder." })
+map({ "n" }, "<leader><leader>", ":edit #<CR>", { desc = "Alternate file" })
 
 -- Better navigation
 map("n", "<C-d>", "<C-d>zz", { desc = "Better default Ctrl-d but centers screen" })
@@ -155,17 +159,17 @@ vim.cmd([[
 ]])
 
 -- Pretty Ts Errors Toggle
-map("n", "<leader>tt", function()
-  require("pretty-ts-errors").show_formatted_error()
-end, { desc = "Toggles PrettyTS Floating window" })
+-- map("n", "<leader>tt", function()
+--   require("pretty-ts-errors").show_formatted_error()
+-- end, { desc = "Toggles PrettyTS Floating window" })
 
 -- Pretty Ts Show All
-map("n", "<leader>te", function()
-  require("pretty-ts-errors").open_all_errors()
-end, { desc = "Toggles PrettyTS Show All Errors" })
+-- map("n", "<leader>te", function()
+--   require("pretty-ts-errors").open_all_errors()
+-- end, { desc = "Toggles PrettyTS Show All Errors" })
 
 -- Toggle Supermaven
-map("n", "<leader>ts", "<cmd>SupermavenToggle<cr>", { desc = "Toggles Supermaven" })
+-- map("n", "<leader>ts", "<cmd>SupermavenToggle<cr>", { desc = "Toggles Supermaven" })
 
 -- Initiate Pounce
 map({ "n", "v" }, "h", ":Pounce<CR>", { silent = true, desc = "Pounce" })
@@ -270,4 +274,8 @@ end, { desc = "Swap next parameter" })
 map({ "n", "x" }, "<leader>sP", function()
   require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
 end, { desc = "Swap previous parameter" })
+
+map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
+
+map("n", "<leader>l", '<Cmd>ToggleTerm cmd="lazygit"<CR>', { desc = "Open Lazygit" })
 --#endregion

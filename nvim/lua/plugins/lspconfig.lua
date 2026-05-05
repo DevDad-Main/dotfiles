@@ -25,6 +25,9 @@ return {
       "tailwindcss",
       "json_ls",
       "prismals",
+      "jdtls",
+      "xmlls",
+      "lemminx",
     })
 
     -- Setup ts_ls with Mason paths using new API
@@ -84,6 +87,24 @@ return {
       cmd = { mason_path .. "/packages/prisma-language-server/node_modules/.bin/prisma-language-server", "--stdio" },
       filetypes = { "prisma" },
       root_markers = { ".git", "package.json" },
+    })
+
+    local jdtls_path = mason_path .. "/packages/jdtls/bin/jdtls"
+    local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/current")
+    vim.lsp.config("jdtls", {
+      cmd = { jdtls_path },
+      cmd_env = {
+        JAVA_HOME = java_home,
+      },
+      filetypes = { "java" },
+      root_markers = { "build.gradle", "pom.xml", "settings.gradle", ".git" },
+      -- capabilities = require("blink.cmp").get_lsp_capabilities(),
+    })
+
+    vim.lsp.config("xmlls", {
+      cmd = { "xml" },
+      filetypes = { "xml", "xsd", "xsl", "xslt", "svg", "xhtml" },
+      root_markers = { "pom.xml", "build.xml", ".git" },
     })
   end,
 }

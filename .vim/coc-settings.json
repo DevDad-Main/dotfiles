@@ -86,6 +86,12 @@
       "command": "nginx-language-server",
       "filetypes": ["nginx"],
       "rootPatterns": ["nginx.conf", ".git"]
+    },
+    "sql": {
+      "command": "/home/devdad/go_path/bin/sqls",
+      "args": ["/home/devdad/.config/sqls/config.yml"],
+      "filetypes": ["sql"],
+      "shell": true
     }
   },
   // `:h coc-config-float`
@@ -147,5 +153,12 @@
   "nginx.server.commandPath": "/home/devdad/.pyenv/shims/nginx-language-server",
 
   // "java.signatureHelp.enabled":
-  "semanticTokens.enable": true
+  "semanticTokens.enable": true,
+
+  "xml.fileAssociations": [
+    {
+      "pattern": "**/hibernate.cfg.xml",
+      "systemId": "http://www.hibernate.org/xsd/hibernate-configuration/hibernate-configuration-4.0.xsd"
+    }
+  ]
 }

@@ -11,8 +11,11 @@ syntax on
 filetype plugin indent on
 
 
-" Folding
+" Folding - default to marker
 set foldmethod=marker
+
+" Use syntax-based folding for Java, TypeScript, JavaScript
+autocmd FileType java,javascript,typescript,typescriptreact setlocal foldmethod=syntax
 " Folds Open on file open
 " set foldlevelstart=99
 
@@ -90,6 +93,6 @@ set fillchars=eob:\
 
 " Better control for :vimgrep and quickfix list. Dosen't add bloated compiled
 " files and packages etc.
-set wildignore+=*/node_modules/*,*/dist/*,*/build/*,*/coverage/*,*/.git/*,*/.next/*,*/.turbo/*,*/out/*,*/.cache/*
+set wildignore+=*/node_modules/*,*/dist/*,*/build/*,*/coverage/*,*/.git/*,*/.next/*,*/.turbo/*,*/out/*,*/.cache/*,*/.class/* 
 
 let NERDTreeShowHidden=1
