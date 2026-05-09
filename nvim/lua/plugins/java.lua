@@ -48,10 +48,11 @@ return {
       local jdtls = require("jdtls")
 
       -- Find jdtls installation path
-      local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
-      local config_path = jdtls_path .. "/config_mac"
-      local plugins_path = jdtls_path .. "/plugins/"
-      local launcher_jar = vim.fn.glob(plugins_path .. "org.eclipse.equinox.launcher_*.jar")
+local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
+local config_path = jdtls_path .. "/config_linux"
+local plugins_path = jdtls_path .. "/plugins/"
+local launcher_jar = vim.fn.glob(plugins_path .. "org.eclipse.equinox.launcher_*.jar")
+local lombok_jar = jdtls_path .. "/lombok.jar"
 
       -- Data directory for workspace
       local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -60,6 +61,7 @@ return {
       local config = {
         cmd = {
           "java",
+          "-javaagent:" .. lombok_jar,
           "-Declipse.application=org.eclipse.jdt.ls.core.id1",
           "-Dosgi.bundles.defaultStartLevel=4",
           "-Declipse.product=org.eclipse.jdt.ls.core.product",

@@ -91,8 +91,17 @@ return {
 
     local jdtls_path = mason_path .. "/packages/jdtls/bin/jdtls"
     local java_home = vim.fn.expand("$HOME/.sdkman/candidates/java/current")
+    local lombok_jars =
+      vim.fn.glob(vim.fn.expand("~/.m2/repository/org/projectlombok/lombok/*/lombok-*.jar"), false, true)
+    local lombok_jar = lombok_jars[#lombok_jars] -- takes the newest version
+
     vim.lsp.config("jdtls", {
-      cmd = { jdtls_path },
+      cmd = {
+        "java",
+        "-javaagent:" .. lombok_jar,
+        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+        jdtls_path,
+      },
       cmd_env = {
         JAVA_HOME = java_home,
       },
