@@ -20,7 +20,6 @@ return {
       "zls",
       "pyright",
       "docker_language_server",
-      "docker_compose_language_service",
       "ts_ls",
       "tailwindcss",
       "json_ls",
@@ -28,6 +27,7 @@ return {
       "jdtls",
       "xmlls",
       "lemminx",
+      "postgres-language-server",
     })
 
     -- Setup ts_ls with Mason paths using new API
@@ -114,6 +114,12 @@ return {
       cmd = { "xml" },
       filetypes = { "xml", "xsd", "xsl", "xslt", "svg", "xhtml" },
       root_markers = { "pom.xml", "build.xml", ".git" },
+    })
+
+    vim.lsp.config("docker_language_server", {
+      cmd = { mason_path .. "/packages/docker-language-server/bin/docker-language-server", "start", "--stdio" },
+      filetypes = { "dockerfile", "yaml.docker-compose" },
+      root_markers = { "Dockerfile", "docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml" },
     })
   end,
 }

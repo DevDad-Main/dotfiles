@@ -56,5 +56,15 @@ api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Set filetype for docker-compose files
+api.nvim_create_autocmd("BufWinEnter", {
+  pattern = { "docker-compose.yml", "docker-compose.yaml", "compose.yml", "compose.yaml" },
+  group = vim.api.nvim_create_augroup("DockerCompose", { clear = true }),
+  callback = function()
+    vim.cmd([[set filetype=yaml.docker-compose]])
+  end,
+})
+
 -- Note: PackChanged autocmd removed as it was specific to vim.pack
 --#endregion
+

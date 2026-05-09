@@ -275,7 +275,11 @@ map({ "n", "x" }, "<leader>sP", function()
   require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
 end, { desc = "Swap previous parameter" })
 
-map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
+-- toggle file explorer
+-- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+
+-- toggle file explorer on current file
+map("n", "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" })
 
 map("n", "<leader>l", '<Cmd>ToggleTerm cmd="lazygit"<CR>', { desc = "Open Lazygit" })
 --#endregion

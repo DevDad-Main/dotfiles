@@ -11,7 +11,7 @@ return {
       prompt = " ",
       lazy_sync = true,
       debug = {
-        enabled = true,
+        enabled = false,
         show_scores = true,
       },
       layout = {

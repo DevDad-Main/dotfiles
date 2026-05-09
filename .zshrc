@@ -36,7 +36,7 @@ alias lg="lazygit"
 alias nvo="NVIM_APPNAME=nvim_online nvim"
 # alias nv="NVIM_APPNAME=nvim nvim"
 alias nvt="NVIM_APPNAME=neovim nvim"
-alias mini="NVIM_APPNAME=nvim-minimax nvim"
+alias mini="NVIM_APPNAME=nvim-nvchad nvim"
 
 alias nv="bob run nightly"
 alias ns="bob run stable"
