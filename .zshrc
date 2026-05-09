@@ -127,3 +127,7 @@ eval "$(pyenv init -)"
 export JAVA_HOME=/usr/lib/jvm/default
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/go/bin:$HOME/go_path/bin:$PATH
+
+
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+eval "$(starship init zsh)"
