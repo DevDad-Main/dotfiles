@@ -73,7 +73,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 
 ```bash
 # Clone the repository
-git clone https://github.com/oliverm/dotfiles.git ~/.config/dotfiles
+git clone https://github.com/DevDad-Main/dotfiles.git ~/.config/dotfiles
 ```
 
 ### Shell Setup
