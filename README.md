@@ -27,7 +27,7 @@
 
 **Telescope** — Fuzzy-find everything: keymaps, buffers, files, and more with extensible pickers.
 
-![FZF with Frecency](previews/fff-fuzzy%20file%20finder%20with%20frecency.png)
+![FZF with Frecency](previews/fff-fuzzy-file-finder-with-frecency.png)
 
 **Frecency-based Fuzzy Finder** — Smart file search that learns your frequent and recent files.
 
@@ -40,15 +40,18 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 ## Features
 
 ### Neovim Configurations
+
 - **nvim** — Main configuration with lazy.nvim, treesitter, telescope, nvim-tree
 - **neovim** — Alternative config with lazy.nvim, fzf-lua, mini.files, nvim-tree
 - **neovim-nvchad** — NvChad-based configuration
 
 ### Desktop Environment
+
 - **Hyprland** — Modern dynamic tiling Wayland compositor (with Quickshell integration)
 - **Wallpapers** — Collection of desktop wallpapers
 
 ### Shell & Tools
+
 - **Zsh** — Oh My Zsh with plugins (autosuggestions, syntax highlighting, fzf-tab)
 - **Starship** — Cross-shell prompt
 - **Fastfetch** — System information tool
