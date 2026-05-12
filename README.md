@@ -2,6 +2,37 @@
 
 > Personal configuration files for a productive development environment on Arch Linux with Hyprland.
 
+<details>
+<summary>🖼️ Previews</summary>
+
+### Neovim
+
+![Nvim Tree](previews/nvim-tree.png)
+
+**Nvim Tree** — File explorer with modern icons, git integration, and project browsing.
+
+![Nvim Tree Preview with Telescope](previews/nvim-tree-previews.png)
+
+**File Preview** — Integrated file preview powered by Telescope for quick content inspection.
+
+![Full LSP Support](previews/full-lsp-support-for-all-languages.png)
+
+**LSP Support** — Full language server protocol integration across all languages with diagnostics, completion, and code actions.
+
+![Pounce Jumping](previews/pounce-better-jumping.png)
+
+**Pounce** — Lightning-fast buffer navigation with semantic matching for precise cursor movement.
+
+![Telescope Keymaps](previews/telescope-search-keymaps.png)
+
+**Telescope** — Fuzzy-find everything: keymaps, buffers, files, and more with extensible pickers.
+
+![FZF with Frecency](previews/fff-fuzzy%20file%20finder%20with%20frecency.png)
+
+**Frecency-based Fuzzy Finder** — Smart file search that learns your frequent and recent files.
+
+</details>
+
 ## Overview
 
 Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland compositor), Yazi file manager, Zsh, Starship, Fastfetch, Zed editor, and more.
@@ -118,26 +149,6 @@ dotfiles/
 ├── toggle_record.sh      # Screen recording toggle script
 └── README.md             # This file
 ```
-
-## Screenshots
-
-### File Management
-
-| File Browser | File Preview |
-|---|---|
-| ![Nvim Tree](previews/nvim-tree.png) | ![Nvim Tree Preview](previews/nvim-tree-preview.png) |
-
-![Mini Files](previews/mini-files.png)
-
-### Fuzzy Finding
-
-| CD Function | File Picker |
-|---|---|
-| ![Custom FZF CD](previews/custom-fzf-cd-func.png) | ![Custom FZF File Picker](previews/custom-fzf-file-picker.png) |
-
-| Files | Buffers | Keymaps | Todos |
-|---|---|---|---|
-| ![FZF-Lua Files](previews/fzf-lua-files.png) | ![FZF-Lua Buffers](previews/fzf-lua-buffers.png) | ![FZF-Lua Keymaps](previews/fzf-lua-keymaps.png) | ![FZF-Lua Todos](previews/fzf-lua-todos.png) |
 
 ## License
 
