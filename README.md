@@ -1,6 +1,8 @@
 # Dotfiles
 
 > Personal configuration files for a productive development environment on Arch Linux with Hyprland.
+>
+> **Hyprland config**: Built on top of [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) — the `hypr/` directory in this repo contains my custom overrides that layer on top of end4's setup.
 
 <details>
 <summary>🖼️ Previews</summary>
@@ -96,20 +98,12 @@ echo "source ~/.config/dotfiles/.zshrc" >> ~/.zshrc
 
 </details>
 
-### Hyprland Setup
-
-<details>
-<summary>Hyprland Wayland Compositor</summary>
+### Using this config with end4's Hyprdots
 
 ```bash
-# Install Hyprland and essential packages
-sudo pacman -S hyprland hyprlock hypridle waybar wofi mako xdg-desktop-portal-hyprland alacritty swaybg brightnessctl
-
-# Install Quickshell (if using Quickshell features)
-yay -S quickshell
+# Replace end4's hypr config with my custom overrides
+mv ~/.config/hypr ~/.config/hypr.bak && ln -s ~/.config/dotfiles/hypr ~/.config/hypr
 ```
-
-</details>
 
 ### Symlinks
 
