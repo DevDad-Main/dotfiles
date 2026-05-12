@@ -1,237 +1,144 @@
-# 🚀 DevDad Dotfiles
+# Dotfiles
 
-> A comprehensive collection of configuration files for a productive development environment
+> Personal configuration files for a productive development environment on Arch Linux with Hyprland.
 
-## 📋 Overview
+## Overview
 
-Welcome to my personal dotfiles repository! This collection includes configurations for Neovim, Tmux, Niri (Wayland compositor), Yazi file manager, and various shell tools. These configurations are designed to create a cohesive, efficient, and visually appealing development workflow.
+Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland compositor), Yazi file manager, Zsh, Starship, Fastfetch, Zed editor, and more.
 
-## ✨ Features
+## Features
 
-### 🎯 Neovim Configurations
-- **Multiple Configurations**: NvChad and custom Neovim variants
-- 🔥 Full-fledged IDE experience with modern plugins
-- 💤 Extensible with lazy.nvim plugin manager
-- 🚀 Blazingly fast startup and performance
-- 🧹 Sane defaults for options, autocmds, and keymaps
-- 📦 Pre-configured plugins for productivity
+### Neovim Configurations
+- **nvim** — Main configuration with lazy.nvim, treesitter, telescope, nvim-tree
+- **neovim** — Alternative config with lazy.nvim, fzf-lua, mini.files, nvim-tree
+- **neovim-nvchad** — NvChad-based configuration
 
-### 🛠️ Development Tools
-- **Tmux**: Productive terminal multiplexer with plugins
-- **Yazi**: Modern file manager with custom plugins
-- **FZF**: Enhanced fuzzy finding with custom functions
-- **Shell**: Optimized Zsh configuration with useful plugins
+### Desktop Environment
+- **Hyprland** — Modern dynamic tiling Wayland compositor (with Quickshell integration)
+- **Wallpapers** — Collection of desktop wallpapers
 
-### 🖥️ Desktop Environment
-- **QuickShell**: Modern desktop shell with Noctalia theme
-- **Waybar**: Custom status bar configuration
+### Shell & Tools
+- **Zsh** — Oh My Zsh with plugins (autosuggestions, syntax highlighting, fzf-tab)
+- **Starship** — Cross-shell prompt
+- **Fastfetch** — System information tool
+- **Tmux** — Terminal multiplexer with plugins
+- **Yazi** — Modern file manager with custom plugins
+- **Zed** — Editor configuration
+- **Toggle Record** — Screen recording toggle script
 
-## ⚙️ System Requirements
+## Requirements
 
-### Core Dependencies
-- **Neovim** >= 0.9.0 (built with LuaJIT)
-- **Git** >= 2.19.0 (for partial clones support)
-- **Nerd Font** v3.0+ (for icon display)
-- **C Compiler** (for nvim-treesitter compilation)
+- Arch Linux (recommended) or other Linux distribution
+- Terminal with true color and undercurl support (kitty, wezterm, alacritty)
+- Nerd Font v3.0+
+- Neovim >= 0.9.0 (for Neovim configs)
 
-### Recommended Tools
-- **lazygit** (Git UI)
-- **curl** (for blink.cmp completion)
-- **fzf** v0.25.1+ (fuzzy finding)
-- **ripgrep** (live grep)
-- **fd** (file finding)
-
-### Terminal Requirements
-A terminal supporting true color and undercurl:
-- **kitty** (Linux & macOS)
-- **wezterm** (Linux, macOS & Windows)
-- **alacritty** (Linux, macOS & Windows)
-- **iterm2** (macOS)
-
-### Package Installation (Arch Linux)
-```bash
-sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd fzf
-```
-
-## 🖼️ Screenshots
-
-### 📁 File Management & Navigation
-
-#### Nvim Tree File Explorer
-| File Browser | File Preview |
-|--------------|--------------|
-| ![Nvim Tree](previews/nvim-tree.png) | ![Nvim Tree Preview](previews/nvim-tree-preview.png) |
-
-#### Mini Files Plugin
-![Mini Files](previews/mini-files.png)
-
-### 🔍 Fuzzy Finding & Search
-
-#### Custom FZF Functions
-| CD Function | File Picker |
-|-------------|-------------|
-| ![Custom FZF CD](previews/custom-fzf-cd-func.png) | ![Custom FZF File Picker](previews/custom-fzf-file-picker.png) |
-
-#### FZF-Lua Integration
-| Files | Buffers | Keymaps | Todos |
-|-------|---------|---------|-------|
-| ![FZF-Lua Files](previews/fzf-lua-files.png) | ![FZF-Lua Buffers](previews/fzf-lua-buffers.png) | ![FZF-Lua Keymaps](previews/fzf-lua-keymaps.png) | ![FZF-Lua Todos](previews/fzf-lua-todos.png) |
-
-### Recommended Packages
-
-> Required for some LazyVim plugins, Mason, LSPs.
+### Installation
 
 ```bash
-sudo pacman -S --needed git base-devel clang gcc go nodejs npm yarn python python-pip luarocks unzip wget ripgrep fd
+# Clone the repository
+git clone https://github.com/oliverm/dotfiles.git ~/.config/dotfiles
 ```
 
-## 🛠️ Installation
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/DevDad-Main/dotfiles.git ~/.config/
-```
-
-### 2. Shell Setup (Zsh + Oh My Zsh)
+### Shell Setup
 
 <details>
-<summary>📚 Zsh Configuration</summary>
+<summary>Zsh Configuration</summary>
 
-#### Install Zsh and Oh My Zsh
 ```bash
-sudo pacman -Syu zsh
+# Install Zsh and Oh My Zsh
+sudo pacman -S zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
 
-#### Install Essential Plugins
-```bash
-# Auto-suggestions
+# Install plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-
-# Syntax highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-
-# Fast syntax highlighting
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-
-# Auto-completion
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
-
-# FZF tab completion
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-```
 
-#### Link Custom Zsh Configuration
-```bash
-# Backup existing .zshrc if needed
-mv ~/.zshrc ~/.zshrc.backup
-
-# Link the custom configuration
-ln -s ~/.config/dotfiles/.zshrc ~/
+# Source dotfiles config from ~/.zshrc
+echo "source ~/.config/dotfiles/.zshrc" >> ~/.zshrc
 ```
 
 </details>
 
-### 3. Desktop Environment (Niri + Wayland)
+### Hyprland Setup
 
 <details>
-<summary>🖥️ Niri Wayland Compositor Setup</summary>
+<summary>Hyprland Wayland Compositor</summary>
 
-> **Note**: These instructions are for Arch Linux. Adjust package names for your distribution.
-
-#### Install Niri and Essential Packages
 ```bash
-yay -S niri fuzzel mako waybar xdg-desktop-portal-gtk alacritty swaybg swayidle swaylock xwayland-satellite udiskie
-```
+# Install Hyprland and essential packages
+sudo pacman -S hyprland hyprlock hypridle waybar wofi mako xdg-desktop-portal-hyprland alacritty swaybg brightnessctl
 
-#### Install Noctalia-Shell Dependencies
-```bash
-# Core dependencies (required)
-yay -S quickshell ttf-roboto inter-font gpu-screen-recorder brightnessctl
-
-# Desktop monitor brightness (optional, may cause instability with some monitors)
-yay -S ddcutil
-
-# Optional dependencies for enhanced functionality
-yay -S cliphist matugen-git cava wlsunset xdg-desktop-portal python3 evolution-data-server
-
-# Polkit agent (can be any other agent)
-yay -S polkit-kde-agent
-```
-
-#### Install Noctalia-Shell
-```bash
-mkdir -p ~/.config/quickshell/noctalia-shell && \
-curl -sL https://github.com/noctalia-dev/noctalia-shell/releases/latest/download/noctalia-latest.tar.gz | \
-tar -xz --strip-components=1 -C ~/.config/quickshell/noctalia-shell
+# Install Quickshell (if using Quickshell features)
+yay -S quickshell
 ```
 
 </details>
 
-### 4. Create Configuration Symlinks
+### Symlinks
 
 <details>
-<summary>🔗 Link All Configurations</summary>
+<summary>Create Configuration Symlinks</summary>
 
 ```bash
-# Neovim Configurations
-ln -s ~/.config/dotfiles/NvChad_devdad ~/.config/NvChad
-ln -s ~/.config/dotfiles/neovim ~/.config/neovim
-
-# Development Tools
-ln -s ~/.config/dotfiles/tmux ~/.config/tmux
-ln -s ~/.config/dotfiles/yazi ~/.config/yazi
-
-# Desktop Environment
-ln -s ~/.config/dotfiles/niri/quickshell ~/.config/quickshell
-ln -s ~/.config/dotfiles/omarchy/config/waybar ~/.config/waybar
+# Create symlinks for each configuration
+ln -sf ~/.config/dotfiles/nvim ~/.config/nvim
+ln -sf ~/.config/dotfiles/tmux ~/.config/tmux
+ln -sf ~/.config/dotfiles/yazi ~/.config/yazi
+ln -sf ~/.config/dotfiles/hypr ~/.config/hypr
+ln -sf ~/.config/dotfiles/starship ~/.config/starship
+ln -sf ~/.config/dotfiles/fastfetch ~/.config/fastfetch
+ln -sf ~/.config/dotfiles/zed ~/.config/zed
 ```
 
 </details>
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 dotfiles/
-├── 📁 NvChad_devdad/           # NvChad-based Neovim config
-├── 📁 neovim/                  # Custom Neovim configuration
-├── 📁 tmux/                    # Tmux configuration and plugins
-├── 📁 yazi/                    # Yazi file manager config
-├── 📁 niri/                    # QuickShell and desktop configs
-│   └── 📁 quickshell/         # QuickShell with Noctalia theme
-├── 📁 omarchy/                # Additional configs (Waybar, etc.)
-├── 📄 .zshrc                   # Zsh shell configuration
-├── 📄 toggle_record.sh         # Utility script
-└── 📄 README.md               # This file
+├── nvim/                 # Main Neovim configuration
+├── neovim/               # Alternative Neovim configuration
+├── neovim-nvchad/        # NvChad-based Neovim config
+├── hypr/                 # Hyprland compositor config
+│   ├── hyprland/         #   Window manager settings
+│   ├── hyprlock.conf     #   Lock screen config
+│   ├── hypridle.conf     #   Idle management config
+│   └── custom/           #   Custom scripts
+├── tmux/                 # Tmux configuration
+├── yazi/                 # Yazi file manager config
+├── starship/             # Starship prompt config
+├── fastfetch/            # Fastfetch system info config
+├── zed/                  # Zed editor config
+├── wallpapers/           # Desktop wallpapers
+├── .vim/                 # Legacy Vim configuration
+├── .zshrc                # Zsh shell configuration
+├── toggle_record.sh      # Screen recording toggle script
+└── README.md             # This file
 ```
 
-## 🎯 Key Features
+## Screenshots
 
-### Neovim Configurations
-- **NvChad_devdad**: Feature-rich configuration with custom themes and plugins
-- **neovim**: Custom configuration with modern plugins and productivity tools
+### File Management
 
-### Productivity Tools
-- **Custom FZF Functions**: Enhanced directory navigation and file picking
-- **Tmux Setup**: Productive terminal multiplexing with useful plugins
-- **Yazi Configuration**: Modern file manager with custom plugins
+| File Browser | File Preview |
+|---|---|
+| ![Nvim Tree](previews/nvim-tree.png) | ![Nvim Tree Preview](previews/nvim-tree-preview.png) |
 
-### Desktop Environment
-- **QuickShell**: Modern desktop shell with Noctalia theme integration
-- **Waybar**: Custom status bar for desktop environment
-- **Integrated Workflow**: Seamless integration between all components
+![Mini Files](previews/mini-files.png)
 
-## 🤝 Contributing
+### Fuzzy Finding
 
-Feel free to fork this repository, customize it for your needs, or open issues for suggestions and improvements!
+| CD Function | File Picker |
+|---|---|
+| ![Custom FZF CD](previews/custom-fzf-cd-func.png) | ![Custom FZF File Picker](previews/custom-fzf-file-picker.png) |
 
-## 📄 License
+| Files | Buffers | Keymaps | Todos |
+|---|---|---|---|
+| ![FZF-Lua Files](previews/fzf-lua-files.png) | ![FZF-Lua Buffers](previews/fzf-lua-buffers.png) | ![FZF-Lua Keymaps](previews/fzf-lua-keymaps.png) | ![FZF-Lua Todos](previews/fzf-lua-todos.png) |
 
-This project is open source and available under the [MIT License](LICENSE).
+## License
 
----
-
-**Made with ❤️ by [DevDad](https://github.com/DevDad-Main)**
-
-> ⭐ If you find this useful, consider giving it a star!
+MIT

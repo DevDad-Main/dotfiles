@@ -15,3 +15,9 @@ hl.window_rule({
   match = { class = "zen" },
   opacity = "1 override 1 override 1 override",
 })
+
+-- Set opacity to 1.0 active, 0.5 inactive and 0.8 fullscreen for steam and potnetially games
+hl.window_rule({
+  match = { class = ".*steam.*" },
+  opacity = "1 override 1 override 1 override",
+})
