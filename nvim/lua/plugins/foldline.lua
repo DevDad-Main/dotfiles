@@ -13,6 +13,6 @@ return {
     vim.g.fold_line_char_open_end_close = "╘" -- default: "╘"
 
     -- Shows only the current line.
-    vim.g.fold_line_current_fold_only = false
+    vim.g.fold_line_current_fold_only = true
   end,
 }
