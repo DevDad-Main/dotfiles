@@ -1,49 +1,46 @@
 return {
   "rebelot/kanagawa.nvim",
-  enabled = false,
+  enabled = true,
+  priority = 1000,
   config = function()
     require("kanagawa").setup({
-      compile = true,
-      dimInactive = true,
-      transparent = true,
-      terminalColors = true,
-      overrides = function(colors)
-        local theme = colors.theme
-        local palette = colors.palette
-        return {
-
-          IndentBlanklineChar = { fg = palette.waveBlue2 },
-          MiniIndentscopeSymbol = { fg = palette.waveBlue2 },
-          PmenuSel = { blend = 0 },
-          NormalFloat = { bg = "none" },
-          FloatBorder = { bg = "none" },
-          FloatTitle = { bg = "none" },
-          CursorLineNr = { bg = theme.ui.bg_p2 },
-          Visual = { bg = palette.waveBlue2 },
-
-          -- Save an hlgroup with dark background and dimmed foreground
-          -- so that you can use it where your still want darker windows.
-          -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
-          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
-
-          -- Popular plugins that open floats will link to NormalFloat by default;
-          -- set their background accordingly if you wish to keep them dark and borderless
-          LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-        }
-      end,
       colors = {
         theme = {
           all = {
             ui = {
               bg_gutter = "none",
-              fg_gutter = "none",
             },
           },
         },
       },
+      transparent = true,
+      terminalColors = true,
+      theme = "dragon",
+      dimInactive = true,
+      overrides = function(colors)
+        local theme = colors.theme
+        return {
+          TelescopePromptNormal = { bg = theme.ui.bg },
+          TelescopePromptBorder = { fg = theme.ui.bg_p2, bg = theme.ui.bg },
+          TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg },
+          TelescopeResultsBorder = { fg = theme.ui.bg_p2, bg = theme.ui.bg },
+          TelescopePreviewNormal = { bg = theme.ui.bg },
+          TelescopePreviewBorder = { fg = theme.ui.bg_p2, bg = theme.ui.bg },
+
+          -- popup menus
+          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+          PmenuSbar = { bg = theme.ui.bg_m1 },
+          PmenuThumb = { bg = theme.ui.bg_p2 },
+
+          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+
+          LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+          MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+        }
+      end,
     })
 
-    -- setup must be called before loading
-    vim.cmd("colorscheme kanagawa-wave")
+    vim.cmd.colorscheme("kanagawa")
   end,
 }

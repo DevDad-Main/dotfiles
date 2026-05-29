@@ -283,3 +283,5 @@ map("n", "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file e
 
 map("n", "<leader>l", '<Cmd>ToggleTerm cmd="lazygit"<CR>', { desc = "Open Lazygit" })
 --#endregion
+
+map("n", "<leader>db", "<cmd>DBUIToggle<CR>", { desc = "Toggles dadbod UI" })
