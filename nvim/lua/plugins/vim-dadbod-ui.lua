@@ -15,5 +15,19 @@ return {
     vim.g.db_ui_use_nerd_fonts = 1
     -- Automatically execute query when selecting a table helper
     vim.g.db_ui_auto_execute_table_helpers = 1
+
+    -- DEFINE YOUR PREFERRED COMPACT WIDTH (Default is 40)
+    vim.g.db_ui_winwidth = 40
+
+    --  MOVE TO THE RIGHT AND RE-APPLY THE COMPACT WIDTH
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "dbui",
+      callback = function()
+        -- Move pane to the far right side
+        vim.cmd("wincmd L")
+        -- Forcefully resize it back down to your exact preference
+        vim.cmd("vertical resize " .. vim.g.db_ui_winwidth)
+      end,
+    })
   end,
 }

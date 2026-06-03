@@ -26,7 +26,7 @@ return {
       "prismals",
       "xmlls",
       "lemminx",
-      "postgres-language-server",
+      "postgres_lsp",
     })
 
     -- Setup ts_ls with Mason paths using new API
@@ -98,6 +98,12 @@ return {
       cmd = { mason_path .. "/packages/docker-language-server/bin/docker-language-server", "start", "--stdio" },
       filetypes = { "dockerfile", "yaml.docker-compose" },
       root_markers = { "Dockerfile", "docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml" },
+    })
+
+    vim.lsp.config("postgres_lsp", {
+      cmd = { mason_path .. "/bin/postgres-language-server", "lsp-proxy" },
+      filetypes = { "sql" },
+      root_markers = { ".git" },
     })
   end,
 }
