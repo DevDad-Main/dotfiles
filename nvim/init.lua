@@ -27,7 +27,7 @@ require("lazy").setup("plugins", {
     lazy = false,
   },
   install = {
-    colorscheme = { "vague" },
+    colorscheme = { "neopywal", "vague" },
   },
   checker = {
     enabled = true,

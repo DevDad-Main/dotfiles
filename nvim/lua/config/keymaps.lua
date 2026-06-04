@@ -89,6 +89,7 @@ end
 map({ "n" }, "<leader>sg", git_files)
 -- map({ "n" }, "<leader>l", "<Cmd>LazyGit<CR>")
 map({ "n" }, "<leader>se", "<cmd>Telescope env<cr>")
+map({ "n" }, "<leader>pt", "<cmd>Telescope terms<cr>", { desc = "Pick terminal buffer" })
 
 if actions_preview then
   map({ "n" }, "<leader>sa", actions_preview.code_actions)
