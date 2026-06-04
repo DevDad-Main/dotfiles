@@ -21,6 +21,9 @@ end
 -- Load options from config
 require("config.options")
 
+-- Load globals
+require("globals")
+
 -- Setup lazy.nvim
 require("lazy").setup("plugins", {
   defaults = {
@@ -41,3 +44,4 @@ require("lazy").setup("plugins", {
 require("config.keymaps")
 require("config.autocmds")
 require("config.diagnostics")
+require("ui")

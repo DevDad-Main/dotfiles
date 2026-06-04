@@ -4,6 +4,7 @@ return {
   config = function()
     require("mini.surround").setup()
     require("mini.move").setup()
+    require("mini.icons").setup()
 
     -- require("mini.indentscope").setup({
     --   -- symbol = "▎",
@@ -19,7 +20,6 @@ return {
     --     -- }),
     --   },
     -- })
-    require("mini.statusline").setup()
     require("mini.pairs").setup({
       modes = { insert = true, command = true, terminal = false },
       -- skip autopair when next character is one of these

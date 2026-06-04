@@ -1,6 +1,7 @@
 return {
   {
     "mcauley-penney/techbase.nvim",
+    enabled = false,
     opts = {
       italic_comments = false,
 
