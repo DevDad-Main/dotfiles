@@ -64,13 +64,14 @@ return {
     })
 
     -- Function to keep completion suggestions dark and handle selection lines
-    local function apply_cmp_fzf_theme()
+    local function apply_custom_cmp_theme()
       -- Dims unselected completion item names and source details
       vim.api.nvim_set_hl(0, "CmpItemAbbr", { link = "Comment" })
       vim.api.nvim_set_hl(0, "CmpItemMenu", { link = "Comment" })
 
       -- Force icons to use your theme's orange require color (@function.builtin)
-      vim.api.nvim_set_hl(0, "CmpItemKind", { link = "@function.builtin" })
+      -- vim.api.nvim_set_hl(0, "CmpItemKind", { link = "@function.builtin" })
+      vim.api.nvim_set_hl(0, "CmpItemKind", { link = "Function" })
 
       -- Keeps matching typed letters popping out like your Telescope fuzzy matches
       vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { link = "CmpItemAbbrMatch" })
@@ -85,12 +86,12 @@ return {
     end
 
     -- Run styling immediately
-    apply_cmp_fzf_theme()
+    apply_custom_cmp_theme()
 
     -- Enforce configuration lock so the theme cannot overwrite these rules
     vim.api.nvim_create_autocmd("ColorScheme", {
       pattern = "*",
-      callback = apply_cmp_fzf_theme,
+      callback = apply_custom_cmp_theme,
     })
 
     -- cmdline completion (: commands) with spanner icon

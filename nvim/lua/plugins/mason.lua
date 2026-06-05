@@ -23,8 +23,8 @@ return {
         "typescript-language-server",
         "json-lsp",
         "prisma-language-server",
-        "jdtls",
         "lemminx",
+        "lua-language-server",
       }
 
       local mr = require("mason-registry")

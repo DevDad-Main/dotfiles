@@ -63,4 +63,3 @@ return {
     telescope.load_extension("terms")
   end,
 }
-
