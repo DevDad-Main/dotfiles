@@ -67,7 +67,7 @@ api.nvim_create_autocmd("BufWinEnter", {
 
 -- Ensure treesitter gets started on java filetypes.
 api.nvim_create_autocmd("FileType", {
-  pattern = "java",
+  pattern = "*",
   callback = function()
     vim.treesitter.start()
   end,
