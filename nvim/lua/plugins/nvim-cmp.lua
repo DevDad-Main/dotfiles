@@ -92,5 +92,22 @@ return {
       pattern = "*",
       callback = apply_cmp_fzf_theme,
     })
+
+    -- cmdline completion (: commands) with spanner icon
+    cmp.setup.cmdline(":", {
+      sources = cmp.config.sources({
+        { name = "cmdline" },
+        { name = "cmdline_history" },
+      }),
+      mapping = cmp.mapping.preset.cmdline(),
+      formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(_, vim_item)
+          vim_item.kind = " 󰒓 "
+          vim_item.menu = ""
+          return vim_item
+        end,
+      },
+    })
   end,
 }
