@@ -7,7 +7,7 @@ return {
   },
   config = function()
     require("nvim-treesitter").setup({
-      ensure_installed = { "typescript", "tsx", "javascript", "lua", "json", "prisma" },
+      ensure_installed = { "typescript", "tsx", "javascript", "lua", "json", "prisma", "java" },
       highlight = { enable = true },
       indent = { enable = true },
     })

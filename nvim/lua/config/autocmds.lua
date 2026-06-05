@@ -65,6 +65,11 @@ api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- Note: PackChanged autocmd removed as it was specific to vim.pack
+-- Ensure treesitter gets started on java filetypes.
+api.nvim_create_autocmd("FileType", {
+  pattern = "java",
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
 --#endregion
-
