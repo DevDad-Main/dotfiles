@@ -1,6 +1,6 @@
 return {
   "rebelot/kanagawa.nvim",
-  enabled = true,
+  enabled = false,
   priority = 1000,
   config = function()
     require("kanagawa").setup({
@@ -16,7 +16,7 @@ return {
       transparent = true,
       terminalColors = true,
       theme = "dragon",
-      dimInactive = true,
+      dimInactive = false,
       overrides = function(colors)
         local theme = colors.theme
         return {
