@@ -286,3 +286,28 @@ map("n", "<leader>l", '<Cmd>ToggleTerm cmd="lazygit"<CR>', { desc = "Open Lazygi
 --#endregion
 
 map("n", "<leader>db", "<cmd>DBUIToggle<CR>", { desc = "Toggles dadbod UI" })
+
+-- Neotest keymaps
+map("n", "<leader>tr", function()
+  require("neotest").run.run()
+end, { desc = "Run nearest test" })
+
+map("n", "<leader>tf", function()
+  require("neotest").run.run(vim.fn.expand("%"))
+end, { desc = "Run current file tests" })
+
+map("n", "<leader>td", function()
+  require("neotest").run.run({ strategy = "dap" })
+end, { desc = "Debug nearest test" })
+
+map("n", "<leader>ts", function()
+  require("neotest").run.stop()
+end, { desc = "Stop tests" })
+
+map("n", "<leader>to", function()
+  require("neotest").output.open()
+end, { desc = "Toggle output panel" })
+
+map("n", "<leader>tS", function()
+  require("neotest").summary.toggle()
+end, { desc = "Toggle summary window" })

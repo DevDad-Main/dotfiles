@@ -29,6 +29,6 @@ return {
         return vim.api.nvim_win_get_width(0) > 80 and not aerial.was_closed()
       end,
     })
-    vim.keymap.set("n", "<leader>at", "<cmd>AerialToggle<cr>", { silent = true })
+    vim.keymap.set("n", "<leader>ta", "<cmd>AerialToggle<cr>", { silent = true })
   end,
 }

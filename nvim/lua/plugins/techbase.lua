@@ -4,6 +4,7 @@ return {
     enabled = true,
     priority = 1000,
     opts = {
+      transparent = true,
       hl_overrides = {
         -- 1. Fix Method & Function Calls (Links them to the definition blue)
         ["@function.call"] = { link = "Function" },
@@ -20,7 +21,8 @@ return {
     },
     config = function(_, opts)
       require("techbase").setup(opts)
-      vim.cmd.colorscheme("techbase")
+      vim.cmd.colorscheme("hellbound")
+      -- vim.cmd.colorscheme("techbase")
     end,
   },
 }

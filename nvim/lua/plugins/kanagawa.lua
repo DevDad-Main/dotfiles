@@ -1,7 +1,6 @@
 return {
   "rebelot/kanagawa.nvim",
-  enabled = false,
-  priority = 1000,
+  enabled = true,
   config = function()
     require("kanagawa").setup({
       colors = {
@@ -41,6 +40,6 @@ return {
       end,
     })
 
-    vim.cmd.colorscheme("kanagawa")
+    -- vim.cmd.colorscheme("kanagawa")
   end,
 }

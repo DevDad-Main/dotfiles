@@ -3,7 +3,7 @@ return {
   event = "BufReadPost",
   config = function()
     require("marks").setup({
-      builtin_marks = { "<", ">", "^" },
+      builtin_marks = {},
     })
   end,
 }

@@ -4,17 +4,17 @@ return {
     signs = {
       add = { text = "┃" },
       change = { text = "┃" },
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
+      delete = { text = "┃" }, -- Changed from "_"
+      topdelete = { text = "┃" }, -- Changed from "‾"
+      changedelete = { text = "┃" }, -- Changed from "~"
       untracked = { text = "┆" },
     },
     signs_staged = {
       add = { text = "┃" },
       change = { text = "┃" },
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
+      delete = { text = " " }, -- Changed from "_"
+      topdelete = { text = " " }, -- Changed from "‾"
+      changedelete = { text = " " }, -- Changed from "~"
       untracked = { text = "┆" },
     },
     signs_staged_enable = true,
