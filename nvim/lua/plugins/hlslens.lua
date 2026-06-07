@@ -10,7 +10,8 @@ return {
       local cur_ratio = "(" .. ("%d/%d"):format(wkg_i, #pos_list) .. ")"
       local chunks = {
         { "   ", "Ignore" },
-        { [[ ⌕ "]], hl },
+        { [[  "]], hl },
+
         { pattern, hl },
         { [[" ]], hl },
         { cur_ratio, hl },
