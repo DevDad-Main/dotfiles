@@ -41,7 +41,7 @@ end
 
 -- Config editing
 map({ "n", "v", "x" }, "<leader>v", "<Cmd>edit $MYVIMRC<CR>", { desc = "Edit " .. vim.fn.expand("$MYVIMRC") })
-map({ "n", "v", "x" }, "<leader>z", "<Cmd>e ~/.zshrc<CR>", { desc = "Edit .zshrc" })
+map({ "n", "v", "x" }, "<leader>z", "<Cmd>e ~/.config/nvim/<CR>", { desc = "Edit neovim config" })
 map({ "n", "v", "x" }, "<leader>o", ":update<CR> :source<CR>", { desc = "Source config" })
 map({ "n", "v", "x" }, "<leader>O", "<Cmd>restart<CR>", { desc = "Restart vim." })
 
