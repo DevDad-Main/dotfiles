@@ -177,13 +177,49 @@ return {
           show_location = false,
         },
       })
-      vim.lsp.enable("jdtls")
+      -- nvim-java manages jdtls internally. Calling vim.lsp.enable("jdtls") here
+      -- conflicts and causes exit code 13 (two instances collide). Removed.
+
+      -- Wrap the registerCapability handler to filter out semantic tokens for
+      -- the spring-boot LS. The spring-boot LS sends this dynamic registration
+      -- even though we advertise `dynamicRegistration = false`.  Neovim then
+      -- creates a STHighlighter and starts firing requests that the server's
+      -- Gson EitherTypeAdapter<Boolean,JsonArray> cannot parse, causing both:
+      --   1. "Cannot find request with id X whilst attempting to cancel" flood
+      --   2. JSON parse errors
+      local orig_reg_cap = vim.lsp.handlers["client/registerCapability"]
+      vim.lsp.handlers["client/registerCapability"] = function(err, params, ctx)
+        local client = ctx and vim.lsp.get_client_by_id(ctx.client_id)
+        if client and client.name == "spring-boot" and params and params.registrations then
+          local filtered = {}
+          for _, reg in ipairs(params.registrations) do
+            if reg.method ~= "textDocument/semanticTokens" then
+              filtered[#filtered + 1] = reg
+            end
+          end
+          params.registrations = filtered
+        end
+        return orig_reg_cap(err, params, ctx)
+      end
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("spring-boot-handshake", { clear = true }),
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if client and client.name == "spring-boot" then
+            client.server_capabilities.semanticTokensProvider = nil
+            client._enabled_capabilities.semantic_tokens = false
+            -- Destroy any STHighlighter that was already attached
+            local cap_mod = require("vim.lsp._capability")
+            local st_h = cap_mod.all.semantic_tokens
+            if st_h then
+              for bufnr in pairs(client.attached_buffers) do
+                local h = st_h.active[bufnr]
+                if h and h.client_state and h.client_state[client.id] then
+                  h:on_detach(client.id)
+                end
+              end
+            end
             vim.defer_fn(function()
               local sb = require("spring_boot.util").get_spring_boot_client()
               local jdtls = require("spring_boot.util").get_client("jdtls")
