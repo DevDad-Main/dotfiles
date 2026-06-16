@@ -1,10 +1,6 @@
 return {
-  "devdad-main/spring-tools.nvim",
-  -- dir = "~/spring-tools.nvim",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-    "nvim-lua/plenary.nvim",
-  },
+  -- "DevDad-Main/spring-tools.nvim",
+  dir = "~/spring-tools.nvim",
   config = function()
     require("spring-tools").setup({
       command_input = {
@@ -50,6 +46,13 @@ return {
         SpringToolsDashboardProject = { link = "@variable", bold = true }, -- Project name
         SpringToolsDashboardStatus = { link = "@comment" }, -- stopped/running/failed
         SpringToolsDashboardBuildType = { link = "@comment" }, -- maven/gradle
+      },
+      log = {
+        custom = {
+          pattern = "[DEMO]",
+          hl = "@function",
+          key = "a", -- pick unused key (not e, w, i, d, t, c)
+        },
       },
     })
   end,
