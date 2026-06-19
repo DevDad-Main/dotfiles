@@ -46,6 +46,9 @@ return {
         SpringToolsDashboardProject = { link = "@variable", bold = true }, -- Project name
         SpringToolsDashboardStatus = { link = "@comment" }, -- stopped/running/failed
         SpringToolsDashboardBuildType = { link = "@comment" }, -- maven/gradle
+
+        -- NOTE: Used for Microservices/Parent Foldable headers
+        SpringToolsParentHeader = { link = "@variable" },
       },
       log = {
         custom = {
@@ -53,7 +56,16 @@ return {
           hl = "@function",
           key = "a", -- pick unused key (not e, w, i, d, t, c)
         },
+        service_colors = {
+          "Function", -- Service: 1
+          "Function", -- Service: 2
+          "Function", -- Service: 3
+          "Function", -- Service: 4
+          "Function", -- Service: 5
+        },
       },
+      workspace_filter = true,
+      -- workspace_filter = false,
     })
   end,
 }
