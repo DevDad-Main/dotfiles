@@ -12,6 +12,9 @@ return {
         SpringToolsDim = { link = "@comment" },
         SpringToolsRunning = { link = "@comment" },
 
+        -- NOTE: Used for updating the colour of the top level header in Beans tab (microservices)
+        SpringToolsSectionHeader = { link = "@variable" },
+
         -- NOTE: Used for updating the colour of the verbs in Endpoints Tab
         SpringToolsMethodHeader = { link = "@variable" },
         SpringToolsBeanHeader = { link = "@variable" }, -- "Controllers", "Services" etc
