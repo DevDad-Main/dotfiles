@@ -24,6 +24,7 @@ return {
         "json-lsp",
         "prisma-language-server",
         "lemminx",
+        "docker-language-server",
         "lua-language-server",
       }
 
