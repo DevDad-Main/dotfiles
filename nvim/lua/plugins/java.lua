@@ -129,46 +129,79 @@ return {
       },
     },
     config = function()
-      require("java").setup({
-        -- Startup checks
-        checks = {
-          nvim_version = true, -- Check Neovim version
-          nvim_jdtls_conflict = true, -- Check for nvim-jdtls conflict
-        },
+      local function enable_classpath()
+        local sb = require("spring_boot.util").get_spring_boot_client()
+        local jdtls = require("spring_boot.util").get_client("jdtls")
+        if sb and jdtls then
+          require("spring_boot.util").boot_execute_command(
+            "sts.vscode-spring-boot.enableClasspathListening",
+            { true }
+          )
+          return true
+        end
+        return false
+      end
 
-        -- JDTLS configuration
+      -- Register LspAttach handler BEFORE java.setup() so it catches
+      -- the spring-boot LS when it starts during setup.
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("spring-boot-handshake", { clear = true }),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client.name == "spring-boot" then
+            client.server_capabilities.semanticTokensProvider = nil
+            client._enabled_capabilities.semantic_tokens = false
+            local cap_mod = require("vim.lsp._capability")
+            local st_h = cap_mod.all.semantic_tokens
+            if st_h then
+              for bufnr in pairs(client.attached_buffers) do
+                local h = st_h.active[bufnr]
+                if h and h.client_state and h.client_state[client.id] then
+                  h:on_detach(client.id)
+                end
+              end
+            end
+            local function try_enable(remaining)
+              if remaining <= 0 then return end
+              vim.defer_fn(function()
+                if not enable_classpath() then
+                  try_enable(remaining - 1)
+                end
+              end, 3000)
+            end
+            try_enable(10)
+          end
+        end,
+      })
+
+      require("java").setup({
+        checks = {
+          nvim_version = true,
+          nvim_jdtls_conflict = true,
+        },
         jdtls = {
           version = "1.43.0",
         },
-
-        -- Extensions
         lombok = {
           enable = true,
           version = "1.18.40",
         },
-
         java_test = {
           enable = true,
           version = "0.40.1",
         },
-
         java_debug_adapter = {
           enable = true,
           version = "0.58.2",
         },
-
         spring_boot_tools = {
           enable = true,
           version = "1.55.1",
         },
-
-        -- JDK installation
         jdk = {
           auto_install = true,
           version = "17",
         },
-
-        -- Logging
         log = {
           use_console = true,
           use_file = true,
@@ -178,16 +211,9 @@ return {
           show_location = false,
         },
       })
-      -- nvim-java manages jdtls internally. Calling vim.lsp.enable("jdtls") here
-      -- conflicts and causes exit code 13 (two instances collide). Removed.
 
       -- Wrap the registerCapability handler to filter out semantic tokens for
-      -- the spring-boot LS. The spring-boot LS sends this dynamic registration
-      -- even though we advertise `dynamicRegistration = false`.  Neovim then
-      -- creates a STHighlighter and starts firing requests that the server's
-      -- Gson EitherTypeAdapter<Boolean,JsonArray> cannot parse, causing both:
-      --   1. "Cannot find request with id X whilst attempting to cancel" flood
-      --   2. JSON parse errors
+      -- the spring-boot LS.
       local orig_reg_cap = vim.lsp.handlers["client/registerCapability"]
       vim.lsp.handlers["client/registerCapability"] = function(err, params, ctx)
         local client = ctx and vim.lsp.get_client_by_id(ctx.client_id)
@@ -203,43 +229,9 @@ return {
         return orig_reg_cap(err, params, ctx)
       end
 
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("spring-boot-handshake", { clear = true }),
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client and client.name == "spring-boot" then
-            client.server_capabilities.semanticTokensProvider = nil
-            client._enabled_capabilities.semantic_tokens = false
-            -- Destroy any STHighlighter that was already attached
-            local cap_mod = require("vim.lsp._capability")
-            local st_h = cap_mod.all.semantic_tokens
-            if st_h then
-              for bufnr in pairs(client.attached_buffers) do
-                local h = st_h.active[bufnr]
-                if h and h.client_state and h.client_state[client.id] then
-                  h:on_detach(client.id)
-                end
-              end
-            end
-            local function try_enable(remaining)
-              if remaining <= 0 then return end
-              vim.defer_fn(function()
-                local sb = require("spring_boot.util").get_spring_boot_client()
-                local jdtls = require("spring_boot.util").get_client("jdtls")
-                if sb and jdtls then
-                  require("spring_boot.util").boot_execute_command(
-                    "sts.vscode-spring-boot.enableClasspathListening",
-                    { true }
-                  )
-                else
-                  try_enable(remaining - 1)
-                end
-              end, 3000)
-            end
-            try_enable(10)
-          end
-        end,
-      })
+      -- Handle already-running clients (spring-boot may have attached
+      -- during java.setup() before our LspAttach handler was registered)
+      vim.defer_fn(enable_classpath, 5000)
     end,
   },
 }
