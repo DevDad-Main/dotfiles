@@ -62,6 +62,7 @@ api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("DockerCompose", { clear = true }),
   callback = function()
     vim.cmd([[set filetype=yaml.docker-compose]])
+    vim.treesitter.language.register("yaml", "yaml.docker-compose")
   end,
 })
 
@@ -70,6 +71,24 @@ api.nvim_create_autocmd("FileType", {
   pattern = { "java", "lua" },
   callback = function()
     vim.treesitter.start()
+  end,
+})
+
+api.nvim_create_autocmd("FileType", {
+  pattern = "yaml",
+  callback = function()
+    vim.api.nvim_set_hl(0, "yamlBlockMappingKey", { link = "@function" })
+  end,
+})
+
+-- Set filetype for Spring Boot properties files
+api.nvim_create_autocmd("BufWinEnter", {
+  pattern = { "application*.properties", "application*.yml", "application*.yaml" },
+  group = vim.api.nvim_create_augroup("SpringBootConfig", { clear = true }),
+  callback = function()
+    if vim.bo.filetype == "properties" then
+      vim.cmd([[set filetype=jproperties]])
+    end
   end,
 })
 

@@ -120,6 +120,7 @@ return {
   -- },
   {
     "nvim-java/nvim-java",
+    ft = { "java", "yaml", "jproperties" },
     dependencies = {
       "MunifTanjim/nui.nvim",
       {
@@ -220,16 +221,22 @@ return {
                 end
               end
             end
-            vim.defer_fn(function()
-              local sb = require("spring_boot.util").get_spring_boot_client()
-              local jdtls = require("spring_boot.util").get_client("jdtls")
-              if sb and jdtls then
-                require("spring_boot.util").boot_execute_command(
-                  "sts.vscode-spring-boot.enableClasspathListening",
-                  { true }
-                )
-              end
-            end, 3000)
+            local function try_enable(remaining)
+              if remaining <= 0 then return end
+              vim.defer_fn(function()
+                local sb = require("spring_boot.util").get_spring_boot_client()
+                local jdtls = require("spring_boot.util").get_client("jdtls")
+                if sb and jdtls then
+                  require("spring_boot.util").boot_execute_command(
+                    "sts.vscode-spring-boot.enableClasspathListening",
+                    { true }
+                  )
+                else
+                  try_enable(remaining - 1)
+                end
+              end, 3000)
+            end
+            try_enable(10)
           end
         end,
       })

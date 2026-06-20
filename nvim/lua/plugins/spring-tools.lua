@@ -1,8 +1,11 @@
 return {
-  "DevDad-Main/spring-tools.nvim",
-  -- dir = "~/spring-tools.nvim",
+  -- "DevDad-Main/spring-tools.nvim",
+  dir = "~/spring-tools.nvim",
   config = function()
     require("spring-tools").setup({
+      sidebar = {
+        position = "right",
+      },
       command_input = {
         position = "center", -- "top", "center" (default), or "bottom"
       },
