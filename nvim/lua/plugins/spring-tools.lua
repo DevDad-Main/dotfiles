@@ -59,13 +59,6 @@ return {
           hl = "@function",
           key = "a", -- pick unused key (not e, w, i, d, t, c)
         },
-        service_colors = {
-          "Function", -- Service: 1
-          "Function", -- Service: 2
-          "Function", -- Service: 3
-          "Function", -- Service: 4
-          "Function", -- Service: 5
-        },
       },
       workspace_filter = true,
       -- workspace_filter = false,
