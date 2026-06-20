@@ -149,25 +149,27 @@ return {
               end
             end
 
-            -- Override the sts/addClasspathListener handler to retry
-            -- until jdtls finishes starting.
+            -- Override the sts/addClasspathListener handler to respond
+            -- immediately and retry registering with jdtls in background.
             client.handlers["sts/addClasspathListener"] = function(_, result)
               local callbackCommandId = result.callbackCommandId
               vim.lsp.commands[callbackCommandId] = function(param, _)
                 return require("spring_boot.util").boot_execute_command(callbackCommandId, param)
               end
-              local function try_register(remaining)
-                if remaining <= 0 then return end
-                local jdtls = require("spring_boot.util").get_client("jdtls")
-                if jdtls then
-                  require("spring_boot.jdtls").execute_command(
-                    "sts.java.addClasspathListener", { callbackCommandId }
-                  )
-                else
-                  vim.defer_fn(function() try_register(remaining - 1) end, 2000)
+              vim.defer_fn(function()
+                local function try_register(remaining)
+                  if remaining <= 0 then return end
+                  local jdtls = require("spring_boot.util").get_client("jdtls")
+                  if jdtls then
+                    pcall(require("spring_boot.jdtls").execute_command,
+                      "sts.java.addClasspathListener", { callbackCommandId })
+                  else
+                    vim.defer_fn(function() try_register(remaining - 1) end, 2000)
+                  end
                 end
-              end
-              try_register(15)
+                try_register(15)
+              end, 0)
+              return vim.empty_dict()
             end
           end
         end,
