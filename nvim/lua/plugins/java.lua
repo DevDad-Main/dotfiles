@@ -129,19 +129,6 @@ return {
       },
     },
     config = function()
-      local function enable_classpath()
-        local sb = require("spring_boot.util").get_spring_boot_client()
-        local jdtls = require("spring_boot.util").get_client("jdtls")
-        if sb and jdtls then
-          require("spring_boot.util").boot_execute_command(
-            "sts.vscode-spring-boot.enableClasspathListening",
-            { true }
-          )
-          return true
-        end
-        return false
-      end
-
       -- Register LspAttach handler BEFORE java.setup() so it catches
       -- the spring-boot LS when it starts during setup.
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -161,15 +148,6 @@ return {
                 end
               end
             end
-            local function try_enable(remaining)
-              if remaining <= 0 then return end
-              vim.defer_fn(function()
-                if not enable_classpath() then
-                  try_enable(remaining - 1)
-                end
-              end, 3000)
-            end
-            try_enable(10)
           end
         end,
       })
@@ -212,6 +190,22 @@ return {
         },
       })
 
+      -- Patch the local ls_config in launch.lua to enable classpath
+      -- listening from the start. The ls_config.init_options has
+      -- enableJdtClasspath = false hardcoded - changing it here
+      -- ensures the spring-boot LS starts with classpath support.
+      pcall(function()
+        local launch = require("spring_boot.launch")
+        for i = 1, 50 do
+          local name, value = debug.getupvalue(launch.setup, i)
+          if name == "ls_config" then
+            value.init_options.enableJdtClasspath = true
+            break
+          end
+          if not name then break end
+        end
+      end)
+
       -- Wrap the registerCapability handler to filter out semantic tokens for
       -- the spring-boot LS.
       local orig_reg_cap = vim.lsp.handlers["client/registerCapability"]
@@ -228,10 +222,6 @@ return {
         end
         return orig_reg_cap(err, params, ctx)
       end
-
-      -- Handle already-running clients (spring-boot may have attached
-      -- during java.setup() before our LspAttach handler was registered)
-      vim.defer_fn(enable_classpath, 5000)
     end,
   },
 }
