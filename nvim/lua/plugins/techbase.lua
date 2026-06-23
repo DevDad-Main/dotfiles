@@ -21,7 +21,7 @@ return {
     },
     config = function(_, opts)
       require("techbase").setup(opts)
-      vim.cmd.colorscheme("hellbound")
+      -- vim.cmd.colorscheme("hellbound")
       -- vim.cmd.colorscheme("techbase")
     end,
   },
