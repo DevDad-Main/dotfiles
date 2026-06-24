@@ -158,13 +158,20 @@ return {
               end
               vim.defer_fn(function()
                 local function try_register(remaining)
-                  if remaining <= 0 then return end
+                  if remaining <= 0 then
+                    return
+                  end
                   local jdtls = require("spring_boot.util").get_client("jdtls")
                   if jdtls then
-                    pcall(require("spring_boot.jdtls").execute_command,
-                      "sts.java.addClasspathListener", { callbackCommandId })
+                    pcall(
+                      require("spring_boot.jdtls").execute_command,
+                      "sts.java.addClasspathListener",
+                      { callbackCommandId }
+                    )
                   else
-                    vim.defer_fn(function() try_register(remaining - 1) end, 2000)
+                    vim.defer_fn(function()
+                      try_register(remaining - 1)
+                    end, 2000)
                   end
                 end
                 try_register(15)
@@ -180,29 +187,29 @@ return {
           nvim_version = true,
           nvim_jdtls_conflict = true,
         },
-        jdtls = {
-          version = "1.43.0",
-        },
-        lombok = {
-          enable = true,
-          version = "1.18.40",
-        },
-        java_test = {
-          enable = true,
-          version = "0.40.1",
-        },
-        java_debug_adapter = {
-          enable = true,
-          version = "0.58.2",
-        },
-        spring_boot_tools = {
-          enable = true,
-          version = "1.55.1",
-        },
-        jdk = {
-          auto_install = true,
-          version = "17",
-        },
+        -- jdtls = {
+        --   version = "1.43.0",
+        -- },
+        -- lombok = {
+        --   enable = true,
+        --   version = "1.18.40",
+        -- },
+        -- java_test = {
+        --   enable = true,
+        --   version = "0.40.1",
+        -- },
+        -- java_debug_adapter = {
+        --   enable = true,
+        --   version = "0.58.2",
+        -- },
+        -- spring_boot_tools = {
+        --   enable = true,
+        --   version = "1.55.1",
+        -- },
+        -- jdk = {
+        --   auto_install = true,
+        --   version = "17",
+        -- },
         log = {
           use_console = true,
           use_file = true,
@@ -211,6 +218,13 @@ return {
           max_lines = 1000,
           show_location = false,
         },
+        -- NOTE: More  issues then update to these values
+        -- jdtls = { version = "1.54.0" },
+        -- lombok = { version = "1.18.42" },
+        -- java_test = { version = "0.43.2" },
+        -- java_debug_adapter = { version = "0.58.3" },
+        -- spring_boot_tools = { version = "1.55.1" },
+        -- jdk = { version = "21" },
       })
 
       -- Patch the local ls_config in launch.lua to enable classpath
@@ -225,7 +239,9 @@ return {
             value.init_options.enableJdtClasspath = true
             break
           end
-          if not name then break end
+          if not name then
+            break
+          end
         end
       end)
 
