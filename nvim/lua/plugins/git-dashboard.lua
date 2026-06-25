@@ -10,6 +10,20 @@ return {
   opts = function()
     local git_dashboard = require("git-dashboard-nvim").setup({
       show_only_weeks_with_commits = true,
+      -- colors = {
+      --   days_and_months_labels = "Function",
+      --   empty_square_highlight = "Comment",
+      --   filled_square_highlights = {
+      --     "Function",
+      --     "Function",
+      --     "Function",
+      --     "Function",
+      --     "Function",
+      --     "Function",
+      --   },
+      --   branch_highlight = "Function",
+      --   dashboard_title = "Function",
+      -- },
     })
 
     local opts = {

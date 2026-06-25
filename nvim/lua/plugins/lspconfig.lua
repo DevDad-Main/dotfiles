@@ -27,6 +27,8 @@ return {
       "xmlls",
       "lemminx",
       "postgres_lsp",
+      "sqlls",
+      "basedpyright",
     })
 
     -- Setup ts_ls with Mason paths using new API
@@ -104,6 +106,47 @@ return {
       cmd = { "postgres-language-server", "lsp-proxy" },
       filetypes = { "sql" },
       root_markers = { ".git" },
+    })
+
+    -- Standalone SQL LSP: works for any dialect (Postgres, MySQL, SQLite,
+    -- etc.) without a live DB connection. Great for coursework / .sql files.
+    vim.lsp.config("sqlls", {
+      cmd = { "sql-language-server", "up", "--method", "stdio" },
+      filetypes = { "sql", "mysql", "plsql", "sqlite" },
+      root_markers = { ".git", "package.json" },
+      settings = {
+        sqlLanguageServer = {
+          connections = {},
+        },
+      },
+    })
+
+    -- Python: basedpyright (type-checking) + ruff (linting/formatting)
+    -- ruff is already enabled above; add basedpyright for richer analysis
+    vim.lsp.config("basedpyright", {
+      cmd = { "basedpyright-langserver", "--stdio" },
+      filetypes = { "python" },
+      root_markers = {
+        "pyproject.toml",
+        "setup.py",
+        "setup.cfg",
+        "requirements.txt",
+        "Pipfile",
+        "pyrightconfig.json",
+        ".git",
+      },
+      settings = {
+        basedpyright = {
+          analysis = {
+            typeCheckingMode = "basic",
+            autoImportCompletions = true,
+            diagnosticSeverityOverrides = {
+              reportUnusedImport = "warning",
+              reportUnusedVariable = "warning",
+            },
+          },
+        },
+      },
     })
   end,
 }

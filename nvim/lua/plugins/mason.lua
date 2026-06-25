@@ -26,6 +26,8 @@ return {
         "lemminx",
         "docker-language-server",
         "lua-language-server",
+        "basedpyright",
+        "sqlls",
       }
 
       local mr = require("mason-registry")
