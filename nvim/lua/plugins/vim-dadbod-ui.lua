@@ -3,6 +3,7 @@ return {
   dependencies = {
     { "tpope/vim-dadbod", lazy = true },
     { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
+    { "vim-scripts/dbext.vim", ft = { "sql", "mysql", "plsql" }, lazy = true },
   },
   cmd = {
     "DBUI",
@@ -18,6 +19,8 @@ return {
 
     -- DEFINE YOUR PREFERRED COMPACT WIDTH (Default is 40)
     vim.g.db_ui_winwidth = 40
+
+    vim.g.dadbod_sqlcmd_executable = vim.fn.expand("~") .. "/.local/bin/sqlcmd-wrapper"
 
     --  MOVE TO THE RIGHT AND RE-APPLY THE COMPACT WIDTH
     vim.api.nvim_create_autocmd("FileType", {

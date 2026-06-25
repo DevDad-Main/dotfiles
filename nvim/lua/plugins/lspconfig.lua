@@ -27,7 +27,7 @@ return {
       "xmlls",
       "lemminx",
       "postgres_lsp",
-      "sqlls",
+      "sqls",
       "basedpyright",
     })
 
@@ -110,15 +110,10 @@ return {
 
     -- Standalone SQL LSP: works for any dialect (Postgres, MySQL, SQLite,
     -- etc.) without a live DB connection. Great for coursework / .sql files.
-    vim.lsp.config("sqlls", {
-      cmd = { "sql-language-server", "up", "--method", "stdio" },
-      filetypes = { "sql", "mysql", "plsql", "sqlite" },
+    vim.lsp.config("sqls", {
+      cmd = { "sqls" },
+      filetypes = { "sql", "mysql", "plsql" },
       root_markers = { ".git", "package.json" },
-      settings = {
-        sqlLanguageServer = {
-          connections = {},
-        },
-      },
     })
 
     -- Python: basedpyright (type-checking) + ruff (linting/formatting)
