@@ -54,3 +54,4 @@
 
 
 (package! key-chord)
+(package! catppuccin-theme)
