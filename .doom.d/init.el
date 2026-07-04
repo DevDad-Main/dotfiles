@@ -153,7 +153,7 @@
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
-       ;;lua               ; one-based indices? one-based indices
+       (lua +lsp +treesitter)               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        (sql +lsp)               ; database support wiht LSP integration
        ;;nim               ; python + lisp at the speed of c
