@@ -103,10 +103,10 @@
 (map!
  :leader
  :desc "Vertical split"
- "wv" #'+evil/window-vsplit
+ "wv" #'+evil/window-vsplit-and-follow
 
  :desc "Horizontal split"
- "ws" #'+evil/window-split)
+ "ws" #'+evil/window-split-and-follow)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Common leader keys
@@ -143,3 +143,5 @@
 (after! eglot
   (add-to-list 'eglot-server-programs
                '(sql-mode . ("sqls"))))
+(after! sql
+  (setq sql-ms-program "sqlcmd"))
