@@ -298,7 +298,7 @@
  :desc "Diagnostics"
  "x" #'+default/diagnostics
  :desc "Code actions"
- "a" #'(lambda () (interactive) (lsp-execute-code-action))
+ "a" #'lsp-execute-code-action
  :desc "Spell suggest"
  "c" #'ispell-word
  :desc "Keymaps"
@@ -451,22 +451,57 @@
 (add-hook 'sql-interactive-mode-hook #'emacs-db-ui-sql-complete-mode)
 (add-hook 'sql-mode-hook #'emacs-db-ui-sql-complete-mode)
 
-;; Needs to be wrapped in after to load before corfu loads
-(after! corfu
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
-;; Optionally:
-(setq nerd-icons-corfu-mapping
-      '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
-        (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
-        ;; You can alternatively specify a function to perform the mapping,
-        ;; use this when knowing the exact completion candidate is important.
-        ;; Don't pass `:face' if the function already returns string with the
-        ;; face property, though.
-        (file :fn nerd-icons-icon-for-file :face font-lock-string-face)
-        ;; ...
-        (t :style "cod" :icon "code" :face font-lock-warning-face)))
-;; If you add an entry for t, the library uses that as fallback.
-;; The default fallback (when it's not specified) is the ? symbol.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom Corfu kind icon completion ported from nvim config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-corfu-icon (icon)
+  (lambda (_cand) icon))
 
-;; The Custom interface is also supported for tuning the variable above.
+(use-package! nerd-icons-corfu
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters
+               #'nerd-icons-corfu-formatter)
+
+  (setq nerd-icons-corfu-mapping
+        `((array          :fn ,(my-corfu-icon "󰅪") :face font-lock-type-face)
+          (boolean        :fn ,(my-corfu-icon "") :face font-lock-builtin-face)
+          (class          :fn ,(my-corfu-icon "") :face font-lock-type-face)
+          (color          :fn ,(my-corfu-icon "") :face font-lock-constant-face)
+          (constant       :fn ,(my-corfu-icon "") :face font-lock-constant-face)
+          (constructor    :fn ,(my-corfu-icon "󰆧") :face font-lock-function-name-face)
+          (enum           :fn ,(my-corfu-icon "") :face font-lock-type-face)
+          (enum-member    :fn ,(my-corfu-icon "") :face font-lock-constant-face)
+          (event          :fn ,(my-corfu-icon "") :face font-lock-warning-face)
+          (field          :fn ,(my-corfu-icon "") :face font-lock-variable-name-face)
+          (file           :fn ,(my-corfu-icon "") :face font-lock-string-face)
+          (folder         :fn ,(my-corfu-icon "") :face font-lock-string-face)
+          (function       :fn ,(my-corfu-icon "󰆧") :face font-lock-function-name-face)
+          (interface      :fn ,(my-corfu-icon "") :face font-lock-type-face)
+          (keyword        :fn ,(my-corfu-icon "") :face font-lock-keyword-face)
+          (method         :fn ,(my-corfu-icon "󰆧") :face font-lock-function-name-face)
+          (module         :fn ,(my-corfu-icon "󰅩") :face font-lock-constant-face)
+          (namespace      :fn ,(my-corfu-icon "󰅩") :face font-lock-constant-face)
+          (null           :fn ,(my-corfu-icon "󰢤") :face font-lock-constant-face)
+          (number         :fn ,(my-corfu-icon "󰎠") :face font-lock-constant-face)
+          (object         :fn ,(my-corfu-icon "󰅩") :face font-lock-type-face)
+          (operator       :fn ,(my-corfu-icon "") :face font-lock-keyword-face)
+          (package        :fn ,(my-corfu-icon "󰆧") :face font-lock-constant-face)
+          (property       :fn ,(my-corfu-icon "") :face font-lock-variable-name-face)
+          (reference      :fn ,(my-corfu-icon "") :face font-lock-variable-name-face)
+          (snippet        :fn ,(my-corfu-icon "") :face font-lock-string-face)
+          (string         :fn ,(my-corfu-icon "") :face font-lock-string-face)
+          (struct         :fn ,(my-corfu-icon "") :face font-lock-type-face)
+          (text           :fn ,(my-corfu-icon "󰀬") :face font-lock-doc-face)
+          (type-parameter :fn ,(my-corfu-icon "") :face font-lock-type-face)
+          (unit           :fn ,(my-corfu-icon "") :face font-lock-constant-face)
+          (value          :fn ,(my-corfu-icon "") :face font-lock-constant-face)
+          (variable       :fn ,(my-corfu-icon "") :face font-lock-variable-name-face)
+          (t              :fn ,(my-corfu-icon "") :face font-lock-warning-face))))
+
+;; (use-package! nerd-icons-corfu
+;;   :after corfu
+;;   :config
+;;   (add-to-list 'corfu-margin-formatters
+;;                #'nerd-icons-corfu-formatter))
