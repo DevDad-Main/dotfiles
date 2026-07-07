@@ -1,20 +1,25 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
+(require 'doom)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (setq doom-theme 'doom-one)
 (setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'macchiato)
+;; (setq catppuccin-flavor 'macchiato)
+(setq catppuccin-flavor 'mocha)
 
-(set-frame-parameter (selected-frame) 'alpha '(85 85))
-(add-to-list 'default-frame-alist '(alpha 85 85))
+(setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 15 :weight 'medium)
+      doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 15))
+
+;; (set-frame-parameter (selected-frame) 'alpha '(85 85))
+;; (add-to-list 'default-frame-alist '(alpha 85 85))
 
 (setq display-line-numbers-type 'relative)
 
 (setq org-directory "~/org/")
-
 (setq select-enable-clipboard t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -28,13 +33,12 @@
  explicit-shell-file-name "/bin/fish")
 
 ;; remove LSP delays
-(after! flycheck (setq flycheck-idle-change-delay 0.1))
+(after! flycheck
+  (setq flycheck-idle-change-delay 0.1))
 (after! lsp-mode
   (setq lsp-idle-delay 0.1)
-  :custom
   (setq lsp-completion-enable-additional-text-edit t)
-  (setq lsp-modeline-code-actions-enable t)
-  )
+  (setq lsp-modeline-code-actions-enable t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Escape insert mode with jj
@@ -75,6 +79,24 @@
  :i "C-h" #'left-char
  :i "C-l" #'right-char
  :i "C-x" #'delete-backward-char)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Leader‑key bindings for the evil‑mc (multiple‑cursors) integration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(after! evil-mc
+  (evil-mc-mode 1))
+
+(map! :leader
+      :prefix ("m c" . "multiple cursors")
+      "m" #'evil-mc-make-all-cursors
+      "n" #'evil-mc-make-and-goto-next-cursor
+      "p" #'evil-mc-make-and-goto-prev-cursor
+      "d" #'evil-mc-make-and-goto-next-match
+      "s" #'evil-mc-skip-and-goto-next-match
+      "j" #'evil-mc-make-cursor-move-next-line
+      "k" #'evil-mc-make-cursor-move-prev-line
+      "q" #'evil-mc-undo-all-cursors
+      "z" #'+multiple-cursors/evil-mc-toggle-cursor-here)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; System clipboard
@@ -141,8 +163,8 @@
 
 (map!
  :leader
- :desc "Format buffer"
- "m" #'+format/buffer
+ ;; :desc "Format buffer"
+ ;; "m" #'+format/buffer
  :desc "Select all"
  "a" #'mark-whole-buffer
  :desc "Write & quit all"
@@ -202,12 +224,17 @@
  :desc "Dired (file explorer)"
  "-" #'dired-jump)
 
+;; Allocate a keybind for creating a new file in dired mode
+(after! dired
+  (map! :map dired-mode-map
+        :n "-" #'dired-create-empty-file))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better navigation (ported from nvim C-d, C-u, n, N with recenter)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(advice-add #'evil-scroll-down :after #'recenter)
-(advice-add #'evil-scroll-up :after #'recenter)
+(advice-add #'evil-scroll-page-down :after #'recenter)
+(advice-add #'evil-scroll-page-up :after #'recenter)
 (advice-add #'evil-search-next :after #'recenter)
 (advice-add #'evil-search-previous :after #'recenter)
 
@@ -275,7 +302,7 @@
  :desc "Spell suggest"
  "c" #'ispell-word
  :desc "Keymaps"
- "k" #'which-key-show-top-level
+ "k" #'describe-bindings
  :desc "Command palette"
  "t" #'execute-extended-command)
 
@@ -352,8 +379,94 @@
 ;; - nvim-tmux-navigation → Doom has its own tmux module enabled
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(after! eglot
-  (add-to-list 'eglot-server-programs
-               '(sql-mode . ("sqls"))))
+
 (after! sql
-  (setq sql-ms-program "sqlcmd"))
+  (setq sql-ms-program "sqlcmd"
+        sql-ms-options '("-C")))
+
+(defvar my-sqlserver-connection
+  '(:server "localhost"
+    :user "sa"
+    :password "Str0ngP4ssw0rd!"
+    :database "AdventureWorksDW2025"))
+
+(defvar my-sqlserver-completions-cache nil)
+
+(defun my-sqlserver-query (query)
+  (let* ((server (plist-get my-sqlserver-connection :server))
+         (user (plist-get my-sqlserver-connection :user))
+         (password (plist-get my-sqlserver-connection :password))
+         (database (plist-get my-sqlserver-connection :database))
+         (cmd (format "sqlcmd -C -S %s -U %s -P '%s' -d %s -h -1 -W -Q \"%s\""
+                      server user password database query)))
+    (split-string (shell-command-to-string cmd) "\n" t "[ \t\r\n]+")))
+
+(defun my-sqlserver-refresh-completions ()
+  (interactive)
+  (setq my-sqlserver-completions-cache
+        (append
+         ;; tables/views
+         (my-sqlserver-query
+          "SET NOCOUNT ON; SELECT TABLE_SCHEMA + '.' + TABLE_NAME FROM INFORMATION_SCHEMA.TABLES;")
+         ;; columns
+         (my-sqlserver-query
+          "SET NOCOUNT ON; SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS;")
+         ;; schema.table.column
+         (my-sqlserver-query
+          "SET NOCOUNT ON; SELECT TABLE_SCHEMA + '.' + TABLE_NAME + '.' + COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS;")))
+  (message "Loaded %d SQL completions" (length my-sqlserver-completions-cache)))
+
+(defun my-sqlserver-completion-at-point ()
+  (let ((bounds (bounds-of-thing-at-point 'symbol)))
+    (when bounds
+      (list (car bounds)
+            (cdr bounds)
+            (or my-sqlserver-completions-cache
+                (progn
+                  (my-sqlserver-refresh-completions)
+                  my-sqlserver-completions-cache))))))
+
+(add-hook 'sql-mode-hook
+          (lambda ()
+            (corfu-mode 1)
+            (setq-local corfu-auto t
+                        corfu-auto-prefix 1
+                        corfu-auto-delay 0.1)
+            (setq-local completion-at-point-functions
+                        (cons #'my-sqlserver-completion-at-point
+                              (remove #'my-sqlserver-completion-at-point
+                                      completion-at-point-functions)))))
+
+
+;; Add the directory containing emacs-db-ui.el to the load path
+(add-to-list 'load-path "~/emacs-db-ui/")
+
+;; Require the package
+(require 'emacs-db-ui)
+
+;; removes the need to confirm when quitting
+(setq confirm-kill-emacs nil)
+
+;; Optional: Enable SQL completion in SQL buffers (recommended)
+(add-hook 'sql-interactive-mode-hook #'emacs-db-ui-sql-complete-mode)
+(add-hook 'sql-mode-hook #'emacs-db-ui-sql-complete-mode)
+
+;; Needs to be wrapped in after to load before corfu loads
+(after! corfu
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+;; Optionally:
+(setq nerd-icons-corfu-mapping
+      '((array :style "cod" :icon "symbol_array" :face font-lock-type-face)
+        (boolean :style "cod" :icon "symbol_boolean" :face font-lock-builtin-face)
+        ;; You can alternatively specify a function to perform the mapping,
+        ;; use this when knowing the exact completion candidate is important.
+        ;; Don't pass `:face' if the function already returns string with the
+        ;; face property, though.
+        (file :fn nerd-icons-icon-for-file :face font-lock-string-face)
+        ;; ...
+        (t :style "cod" :icon "code" :face font-lock-warning-face)))
+;; If you add an entry for t, the library uses that as fallback.
+;; The default fallback (when it's not specified) is the ? symbol.
+
+;; The Custom interface is also supported for tuning the variable above.

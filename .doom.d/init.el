@@ -95,7 +95,7 @@
        ;;collab            ; buffers with friends
        ;;debugger          ; stepping through code, to help you add bugs
        ;;direnv
-        (docker +lsp)
+       (docker +lsp)
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -108,7 +108,8 @@
        ;;pdf               ; pdf enhancements
        ;;terraform         ; infrastructure as code
        tmux              ; an API for interacting with tmux
-       tree-sitter       ; syntax and parsing, sitting in a tree...
+       ;; tree-sitter       ; syntax and parsing, sitting in a tree...
+       (tree-sitter +everywhere) ; <- Add the +everywhere flag here
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -146,7 +147,7 @@
        ;;idris             ; a language you can depend on
        ;;json              ; At least it ain't XML
        ;;janet             ; Fun fact: Janet is me!
-       ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
+       (java +lsp)       ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -155,7 +156,7 @@
        ;;ledger            ; be audit you can be
        (lua +lsp +treesitter)               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
-       (sql +lsp)               ; database support wiht LSP integration
+       sql               ; database support
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
