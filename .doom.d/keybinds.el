@@ -331,7 +331,10 @@
  :desc "Magit"
  "g" #'magit-status)
 
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; removes the need to confirm when quitting
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq confirm-kill-emacs nil)
+
+(after! embark
+  (setf (alist-get 'kill-buffer embark-pre-action-hooks) nil))
