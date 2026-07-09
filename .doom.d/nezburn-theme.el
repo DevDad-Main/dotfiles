@@ -1712,12 +1712,12 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(company-quickhelp-color-foreground ,nezburn-fg)
 ;;;;; hl-todo
    `(hl-todo-keyword-faces
-     ,(list (cons "TODO"       `(:foreground ,nezburn-yellow-2 :weight bold))
-            (cons "FIXME"      `(:foreground ,nezburn-red+1   :weight bold))
-            (cons "NOTE"       `(:foreground ,nezburn-yellow  :weight bold))
-            (cons "DEPRECATED" `(:foreground ,nezburn-orange  :weight bold))
-            (cons "HACK"       `(:foreground ,nezburn-red-1   :weight bold))
-            (cons "REVIEW"     `(:foreground ,nezburn-blue-1  :weight bold))))
+     ,(list (cons "TODO"       nezburn-yellow-2)
+            (cons "FIXME"      nezburn-red+1)
+            (cons "NOTE"       nezburn-yellow)
+            (cons "DEPRECATED" nezburn-orange)
+            (cons "HACK"       nezburn-red-1)
+            (cons "REVIEW"     nezburn-blue-1)))
 ;;;;; fill-column-indicator
    `(fci-rule-color ,nezburn-bg-05)
 ;;;;; nrepl-client
