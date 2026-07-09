@@ -878,7 +878,9 @@ Also bind `class' to ((class color) (min-colors 89))."
               (t :weight bold)))
 ;;;;; hl-sexp
    `(hl-sexp-face ((,class (:background ,nezburn-bg+1))
-                   (t :weight bold)))
+                    (t :weight bold)))
+;;;;; hl-todo
+   `(hl-todo ((t (:weight bold))))
 ;;;;; hydra
    `(hydra-face-red ((t (:foreground ,nezburn-red-1 :background ,nezburn-bg))))
    `(hydra-face-amaranth ((t (:foreground ,nezburn-red-3 :background ,nezburn-bg))))
@@ -1708,6 +1710,14 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; company-quickhelp
    `(company-quickhelp-color-background ,nezburn-bg+1)
    `(company-quickhelp-color-foreground ,nezburn-fg)
+;;;;; hl-todo
+   `(hl-todo-keyword-faces
+     ,(list (cons "TODO"       `(:foreground ,nezburn-yellow-2 :weight bold))
+            (cons "FIXME"      `(:foreground ,nezburn-red+1   :weight bold))
+            (cons "NOTE"       `(:foreground ,nezburn-yellow  :weight bold))
+            (cons "DEPRECATED" `(:foreground ,nezburn-orange  :weight bold))
+            (cons "HACK"       `(:foreground ,nezburn-red-1   :weight bold))
+            (cons "REVIEW"     `(:foreground ,nezburn-blue-1  :weight bold))))
 ;;;;; fill-column-indicator
    `(fci-rule-color ,nezburn-bg-05)
 ;;;;; nrepl-client
