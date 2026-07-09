@@ -1716,14 +1716,6 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; company-quickhelp
    `(company-quickhelp-color-background ,nezburn-bg+1)
    `(company-quickhelp-color-foreground ,nezburn-fg)
-;;;;; hl-todo
-   `(hl-todo-keyword-faces
-     '(("TODO"       . nezburn-hl-todo-todo)
-       ("FIXME"      . nezburn-hl-todo-fixme)
-       ("NOTE"       . nezburn-hl-todo-note)
-       ("DEPRECATED" . nezburn-hl-todo-deprecated)
-       ("HACK"       . nezburn-hl-todo-hack)
-       ("REVIEW"     . nezburn-hl-todo-review)))
 ;;;;; fill-column-indicator
    `(fci-rule-color ,nezburn-bg-05)
 ;;;;; nrepl-client

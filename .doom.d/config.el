@@ -21,3 +21,4 @@
 (load! "keybinds")
 (load! "sql")
 (load! "corfu")
+(load! "hl-todo")
