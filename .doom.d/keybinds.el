@@ -185,6 +185,11 @@
  :desc "Dired (file explorer)"
  "-" #'dired-jump)
 
+;; Jump to a file or url thats under the cursors
+(map! :leader
+      :desc "Dynamically jump to file/url under cursor"
+      "f ." #'ffap)
+
 ;; Allocate a keybind for creating a new file in dired mode
 (after! dired
   (map! :map dired-mode-map

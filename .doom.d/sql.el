@@ -68,13 +68,3 @@
       "--dialect" "tsql"
       "-")
     :modes '(sql-mode)))
-
-;; Add the directory containing emacs-db-ui.el to the load path
-(add-to-list 'load-path "~/emacs-db-ui/")
-
-;; Require the package
-(require 'emacs-db-ui)
-
-;; Optional: Enable SQL completion in SQL buffers (recommended)
-(add-hook 'sql-interactive-mode-hook #'emacs-db-ui-sql-complete-mode)
-(add-hook 'sql-mode-hook #'emacs-db-ui-sql-complete-mode)
