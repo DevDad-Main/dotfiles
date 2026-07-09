@@ -881,6 +881,12 @@ Also bind `class' to ((class color) (min-colors 89))."
                     (t :weight bold)))
 ;;;;; hl-todo
    `(hl-todo ((t (:weight bold))))
+   `(nezburn-hl-todo-todo       ((t (:foreground ,nezburn-yellow-2 :weight bold))))
+   `(nezburn-hl-todo-fixme      ((t (:foreground ,nezburn-red+1   :weight bold))))
+   `(nezburn-hl-todo-note       ((t (:foreground ,nezburn-yellow  :weight bold))))
+   `(nezburn-hl-todo-deprecated ((t (:foreground ,nezburn-orange  :weight bold))))
+   `(nezburn-hl-todo-hack       ((t (:foreground ,nezburn-red-1   :weight bold))))
+   `(nezburn-hl-todo-review     ((t (:foreground ,nezburn-blue-1  :weight bold))))
 ;;;;; hydra
    `(hydra-face-red ((t (:foreground ,nezburn-red-1 :background ,nezburn-bg))))
    `(hydra-face-amaranth ((t (:foreground ,nezburn-red-3 :background ,nezburn-bg))))
@@ -1712,12 +1718,12 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(company-quickhelp-color-foreground ,nezburn-fg)
 ;;;;; hl-todo
    `(hl-todo-keyword-faces
-     ,(list (cons "TODO"       nezburn-yellow-2)
-            (cons "FIXME"      nezburn-red+1)
-            (cons "NOTE"       nezburn-yellow)
-            (cons "DEPRECATED" nezburn-orange)
-            (cons "HACK"       nezburn-red-1)
-            (cons "REVIEW"     nezburn-blue-1)))
+     '(("TODO"       . nezburn-hl-todo-todo)
+       ("FIXME"      . nezburn-hl-todo-fixme)
+       ("NOTE"       . nezburn-hl-todo-note)
+       ("DEPRECATED" . nezburn-hl-todo-deprecated)
+       ("HACK"       . nezburn-hl-todo-hack)
+       ("REVIEW"     . nezburn-hl-todo-review)))
 ;;;;; fill-column-indicator
    `(fci-rule-color ,nezburn-bg-05)
 ;;;;; nrepl-client
