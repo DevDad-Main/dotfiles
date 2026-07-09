@@ -4,7 +4,7 @@
   (setq hl-todo-keyword-faces
         '(("TODO"       . "#3FB0B6")
           ("FIXME"      . "#C76B6B")
-          ("NOTE"       . "#E3C369")
+          ("NOTE"       . "#A0A0A0")
           ("DEPRECATED" . "#CF8656")
           ("HACK"       . "#A65A5A")
           ("REVIEW"     . "#6CA0A3")))
