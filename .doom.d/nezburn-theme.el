@@ -178,7 +178,7 @@ Also bind `class' to ((class color) (min-colors 89))."
                                   :background ,nezburn-bg-1
                                   :box (:line-width -1 :style released-button)
                                   :extend t))))
-   `(highlight ((t (:background ,nezburn-bg-05))))
+   `(highlight ((t (:background ,nezburn-bg+2))))
    `(success ((t (:foreground ,nezburn-green :weight bold))))
    `(warning ((t (:foreground ,nezburn-orange :weight bold))))
    `(tooltip ((t (:foreground ,nezburn-fg :background ,nezburn-bg+1))))
@@ -246,7 +246,7 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; isearch
    `(isearch ((t (:foreground ,nezburn-yellow-2 :weight bold :background ,nezburn-bg+2))))
    `(isearch-fail ((t (:foreground ,nezburn-fg :background ,nezburn-red-4))))
-   `(lazy-highlight ((t (:foreground ,nezburn-yellow-2 :weight bold :background ,nezburn-bg-05))))
+   `(lazy-highlight ((t (:foreground ,nezburn-yellow-2 :weight bold :background ,nezburn-bg+3))))
 
    `(menu ((t (:foreground ,nezburn-fg :background ,nezburn-bg))))
    `(minibuffer-prompt ((t (:foreground ,nezburn-yellow))))
@@ -260,7 +260,7 @@ Also bind `class' to ((class color) (min-colors 89))."
      ((t (:foreground ,nezburn-green-2
                       :background ,nezburn-bg-05
                       :box (:line-width -1 :style released-button)))))
-   `(region ((,class (:background ,nezburn-bg-1 :extend t))
+   `(region ((,class (:background ,nezburn-bg+3 :extend t))
              (t :inverse-video t)))
    `(secondary-selection ((t (:background ,nezburn-bg+2))))
    `(trailing-whitespace ((t (:background ,nezburn-red))))
