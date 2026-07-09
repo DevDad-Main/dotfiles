@@ -23,10 +23,7 @@
 
 (setq display-line-numbers-type 'relative)
 
-(add-hook 'doom-after-modules-config-hook
-          (lambda ()
-            (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
-              (remove-hook hook #'vi-tilde-fringe-mode))))
+(advice-add #'vi-tilde-fringe-mode :override #'ignore)
 
 (setq org-directory "~/org/")
 (setq select-enable-clipboard t)
