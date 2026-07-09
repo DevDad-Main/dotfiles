@@ -2,7 +2,7 @@
 
 (after! hl-todo
   (setq hl-todo-keyword-faces
-        '(("TODO"       . "#D0BF72")
+        '(("TODO"       . "#3FB0B6")
           ("FIXME"      . "#C76B6B")
           ("NOTE"       . "#E3C369")
           ("DEPRECATED" . "#CF8656")

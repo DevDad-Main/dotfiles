@@ -23,8 +23,8 @@
 
 (setq display-line-numbers-type 'relative)
 
-(after! vi-tilde-fringe
-  (global-vi-tilde-fringe-mode -1))
+(after! vi-tilde-fringe-mode
+  (global-vi-tilde-fringe-mode 0))
 
 (setq org-directory "~/org/")
 (setq select-enable-clipboard t)
