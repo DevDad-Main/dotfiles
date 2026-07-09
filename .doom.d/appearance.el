@@ -24,7 +24,9 @@
 (setq display-line-numbers-type 'relative)
 
 (add-hook 'doom-after-modules-config-hook
-          (lambda () (global-vi-tilde-fringe-mode -1)))
+          (lambda ()
+            (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+              (remove-hook hook #'vi-tilde-fringe-mode))))
 
 (setq org-directory "~/org/")
 (setq select-enable-clipboard t)
