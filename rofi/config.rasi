@@ -13,7 +13,8 @@ window {
     width: 500;
     location: center;
     anchor: center;
-    border: 0px;
+    border: 2px;
+    border-color: #d79921;
     border-radius: 16;
     background-color: @background;
 }
