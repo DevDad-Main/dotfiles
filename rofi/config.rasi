@@ -15,7 +15,7 @@ window {
     anchor: center;
     border: 2px;
     border-color: #d79921;
-    border-radius: 16;
+    border-radius: 0;
     background-color: @background;
 }
 
@@ -29,7 +29,7 @@ inputbar {
     padding: 16px;
     children: [ entry ];
     background-color: @background-alt;
-    border-radius: 12;
+    border-radius: 0;
 }
 
 entry {
@@ -51,7 +51,7 @@ listview {
 
 element {
     padding: 10px 16px;
-    border-radius: 8;
+    border-radius: 0;
     text-color: @foreground;
     background-color: transparent;
 }
