@@ -102,23 +102,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# bun completions
-[ -s "/home/devdad/.bun/_bun" ] && source "/home/devdad/.bun/_bun"
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export TERM=xterm-256color
-
-# opencode
-export PATH=/home/devdad/.opencode/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+# export PATH="$HOME/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
 
 
 # export JAVA_HOME=/usr/lib/jvm/jdk-17.0.18
@@ -129,5 +123,6 @@ export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/go/bin:$HOME/go_path/bin:$PATH
 
 
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+export STARSHIP_CONFIG=~/.config/dotfiles/starship/starship.toml
 eval "$(starship init zsh)"
+
