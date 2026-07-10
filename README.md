@@ -127,9 +127,14 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+q` | Kill window |
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
+| `Super+t` | Toggle split direction |
+| `Super+s` | Stacking layout |
+| `Super+w` | Tabbed layout |
 | `Super+1-0` | Switch workspace |
-| `Super+Shift+r` | Restart i3 |
+| `Super+Shift+1-0` | Move window to workspace |
 | `Super+r` | Resize mode (h/j/k/l) |
+| `Super+Shift+r` | Restart i3 |
+| `Super+Shift+e` | Exit i3 |
 
 Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
 
