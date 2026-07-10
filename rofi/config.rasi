@@ -1,5 +1,5 @@
 * {
-    font: "Iosevka 12";
+    font: "Iosevka 14";
     background: #282828;
     background-alt: #3c3836;
     foreground: #ebdbb2;
@@ -10,11 +10,11 @@
 window {
     transparency: "screenshot";
     fullscreen: false;
-    width: 600;
+    width: 500;
     location: center;
     anchor: center;
     border: 0px;
-    border-radius: 12;
+    border-radius: 16;
     background-color: @background;
 }
 
@@ -25,26 +25,23 @@ mainbox {
 
 inputbar {
     spacing: 0;
-    padding: 12px;
-    children: [ prompt, entry ];
+    padding: 16px;
+    children: [ entry ];
     background-color: @background-alt;
-    border-radius: 8;
-}
-
-prompt {
-    text-color: @selected;
+    border-radius: 12;
 }
 
 entry {
-    placeholder: "Search";
+    placeholder: "Search apps...";
     placeholder-color: #504945;
     text-color: @foreground;
+    cursor-color: @selected;
 }
 
 listview {
     spacing: 0;
-    padding: 4px 0px;
-    lines: 8;
+    padding: 6px 0px;
+    lines: 10;
     columns: 1;
     cycle: true;
     dynamic: true;
@@ -52,8 +49,8 @@ listview {
 }
 
 element {
-    padding: 8px 12px;
-    border-radius: 0;
+    padding: 10px 16px;
+    border-radius: 8;
     text-color: @foreground;
     background-color: transparent;
 }
@@ -63,7 +60,7 @@ element normal.normal {
 }
 
 element alternate.normal {
-    background-color: @background-alt;
+    background-color: @background;
 }
 
 element selected {

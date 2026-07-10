@@ -17,8 +17,9 @@ for_window [class="^.*"] border pixel 1
 # === keys ===
 
 bindsym $mod+Return exec kitty
-bindsym $mod+d exec --no-startup-id rofi -show drun -display-drun "   "
-bindsym $mod+Shift+d exec --no-startup-id rofi -show run -display-run "   "
+bindsym $mod+space exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 bindsym $mod+Shift+Return exec --no-startup-id thunar
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
 bindsym $mod+q kill
@@ -70,7 +71,6 @@ bindsym $mod+Ctrl+Shift+0 move container to workspace number 10, workspace numbe
 bindsym $mod+y layout toggle split
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+f fullscreen toggle
 bindsym $mod+grave focus parent

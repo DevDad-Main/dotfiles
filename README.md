@@ -123,6 +123,7 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | Key | Action |
 |---|---|
 | `Super+Enter` | Terminal |
+| `Super+Space` | Rofi app launcher (spotlight-style) |
 | `Super+d` | Rofi app launcher |
 | `Super+q` | Kill window |
 | `Super+h/j/k/l` | Focus left/down/up/right |
