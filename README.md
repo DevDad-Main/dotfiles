@@ -50,6 +50,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 ### Desktop Environment
 
 - **Hyprland** — Modern dynamic tiling Wayland compositor (with Quickshell integration)
+- **i3** — Minimal X11 tiling window manager with Gruvbox theme
 - **Wallpapers** — Collection of desktop wallpapers
 
 ### Shell & Tools
@@ -98,6 +99,41 @@ echo "source ~/.config/dotfiles/.zshrc" >> ~/.zshrc
 
 </details>
 
+<details>
+<summary>i3 Window Manager</summary>
+
+A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigation, and rofi spotlight launcher.
+
+### Installation
+
+```bash
+sudo pacman -S i3-wm i3status rofi alacritty picom dunst feh brightnessctl playerctl
+```
+
+### Symlink
+
+```bash
+ln -sf ~/.config/dotfiles/i3 ~/.config/i3
+ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
+```
+
+### Keybindings
+
+| Key | Action |
+|---|---|
+| `Super+Enter` | Terminal |
+| `Super+d` | Rofi app launcher |
+| `Super+q` | Kill window |
+| `Super+h/j/k/l` | Focus left/down/up/right |
+| `Super+Shift+h/j/k/l` | Move window |
+| `Super+1-0` | Switch workspace |
+| `Super+Shift+r` | Restart i3 |
+| `Super+r` | Resize mode (h/j/k/l) |
+
+Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
+
+</details>
+
 ### Using this config with end4's Hyprdots
 
 ```bash
@@ -119,6 +155,8 @@ ln -sf ~/.config/dotfiles/hypr ~/.config/hypr
 ln -sf ~/.config/dotfiles/starship ~/.config/starship
 ln -sf ~/.config/dotfiles/fastfetch ~/.config/fastfetch
 ln -sf ~/.config/dotfiles/zed ~/.config/zed
+ln -sf ~/.config/dotfiles/i3 ~/.config/i3
+ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ```
 
 </details>
@@ -130,6 +168,8 @@ dotfiles/
 ├── nvim/                 # Main Neovim configuration
 ├── neovim/               # Alternative Neovim configuration
 ├── neovim-nvchad/        # NvChad-based Neovim config
+├── i3/                   # i3 window manager config
+├── rofi/                 # Rofi launcher config
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings
 │   ├── hyprlock.conf     #   Lock screen config

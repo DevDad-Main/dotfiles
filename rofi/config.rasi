@@ -1,0 +1,78 @@
+* {
+    font: "Iosevka 12";
+    background: #282828;
+    background-alt: #3c3836;
+    foreground: #ebdbb2;
+    selected: #d79921;
+    urgent: #cc241d;
+}
+
+window {
+    transparency: "screenshot";
+    fullscreen: false;
+    width: 600;
+    location: center;
+    anchor: center;
+    border: 0px;
+    border-radius: 12;
+    background-color: @background;
+}
+
+mainbox {
+    spacing: 0;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    spacing: 0;
+    padding: 12px;
+    children: [ prompt, entry ];
+    background-color: @background-alt;
+    border-radius: 8;
+}
+
+prompt {
+    text-color: @selected;
+}
+
+entry {
+    placeholder: "Search";
+    placeholder-color: #504945;
+    text-color: @foreground;
+}
+
+listview {
+    spacing: 0;
+    padding: 4px 0px;
+    lines: 8;
+    columns: 1;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+}
+
+element {
+    padding: 8px 12px;
+    border-radius: 0;
+    text-color: @foreground;
+    background-color: transparent;
+}
+
+element normal.normal {
+    background-color: transparent;
+}
+
+element alternate.normal {
+    background-color: @background-alt;
+}
+
+element selected {
+    background-color: @selected;
+    text-color: @background;
+}
+
+scrollbar {
+    width: 4px;
+    background-color: @background-alt;
+    handle-color: @selected;
+}

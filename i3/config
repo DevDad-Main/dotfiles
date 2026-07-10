@@ -1,0 +1,117 @@
+# i3 config — minimal, keyboard-driven, vim-spirit
+
+set $mod Mod4
+
+font pango:Iosevka 11
+
+# gaps inner 6
+# gaps outer 4
+gaps inner 0
+gaps outer 0
+smart_gaps on
+smart_borders on
+default_border pixel 1
+default_floating_border pixel 1
+for_window [class="^.*"] border pixel 1
+
+# === keys ===
+
+bindsym $mod+Return exec alacritty
+bindsym $mod+d exec --no-startup-id rofi -show drun -display-drun "   "
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run -display-run "   "
+bindsym $mod+Shift+Return exec --no-startup-id thunar
+bindsym $mod+q kill
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+f fullscreen toggle
+bindsym $mod+grave focus parent
+
+mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        bindsym Escape mode "default"
+        bindsym Return mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'exit i3?' -B 'yes' 'i3-msg exit'"
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl s +5%
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym $mod+minus move scratchpad
+bindsym $mod+equal scratchpad show
+
+# bar
+bar {
+        font pango:Iosevka 10
+        position top
+        status_command i3status
+        separator_symbol " "
+        colors {
+                background #282828
+                statusline #ebdbb2
+                separator #282828
+                focused_workspace #282828 #282828 #d79921
+                active_workspace #282828 #282828 #ebdbb2
+                inactive_workspace #282828 #282828 #a89984
+                urgent_workspace #282828 #282828 #cc241d
+        }
+}
+
+# window colors (gruvbox dark)
+client.focused          #d79921 #d79921 #282828 #d79921
+client.focused_inactive #504945 #504945 #ebdbb2 #504945
+client.unfocused        #3c3836 #3c3836 #a89984 #3c3836
+client.urgent           #cc241d #cc241d #ebdbb2 #cc241d
+client.placeholder      #282828 #282828 #ebdbb2 #282828
+client.background       #282828
+
+# autostart
+exec_always --no-startup-id killall polybar 2>/dev/null
+exec --no-startup-id picom -b
+exec --no-startup-id dunst
+exec --no-startup-id feh --bg-fill ~/.config/i3/gruv-rocket.png
