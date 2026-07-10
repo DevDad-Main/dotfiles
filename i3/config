@@ -61,6 +61,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+f fullscreen toggle
 bindsym $mod+grave focus parent
+bindsym $mod+Shift+y layout splith
 
 mode "resize" {
         bindsym h resize shrink width 10 px or 10 ppt

@@ -107,7 +107,7 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 ### Installation
 
 ```bash
-sudo pacman -S i3-wm i3status-rust rofi alacritty picom dunst feh brightnessctl playerctl
+sudo pacman -S i3-wm i3status-rust rofi alacritty picom dunst feh brightnessctl playerctl bluetui
 ```
 
 ### Symlink
@@ -128,6 +128,7 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
 | `Super+y` | Toggle split direction |
+| `Super+Shift+y` | Reset all to horizontal split |
 | `Super+s` | Stacking layout |
 | `Super+w` | Tabbed layout |
 | `Super+1-0` | Switch workspace |
