@@ -5,6 +5,8 @@
     foreground: #ebdbb2;
     selected: #d79921;
     urgent: #cc241d;
+    icon-theme: "Papirus";
+    display-icon-size: 1.2em;
 }
 
 window {
@@ -50,7 +52,7 @@ listview {
 }
 
 element {
-    padding: 10px 16px;
+    padding: 8px 12px;
     border-radius: 0;
     text-color: @foreground;
     background-color: transparent;

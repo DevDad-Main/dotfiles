@@ -17,9 +17,9 @@ for_window [class="^.*"] border pixel 1
 # === keys ===
 
 bindsym $mod+Return exec kitty
-bindsym $mod+space exec --no-startup-id rofi -show drun
-bindsym $mod+d exec --no-startup-id rofi -show drun
-bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+bindsym $mod+space exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run -show-icons
 bindsym $mod+Shift+Return exec --no-startup-id thunar
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
 bindsym $mod+q kill
