@@ -16,11 +16,11 @@ for_window [class="^.*"] border pixel 1
 
 # === keys ===
 
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 bindsym $mod+d exec --no-startup-id rofi -show drun -display-drun "   "
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run -display-run "   "
 bindsym $mod+Shift+Return exec --no-startup-id thunar
-bindsym $mod+b exec --no-startup-id alacritty -e bluetui
+bindsym $mod+b exec --no-startup-id kitty -e bluetui
 bindsym $mod+q kill
 
 bindsym $mod+h focus left
