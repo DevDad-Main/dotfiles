@@ -119,4 +119,5 @@ client.background       #282828
 exec_always --no-startup-id killall polybar 2>/dev/null
 exec --no-startup-id picom -b
 exec --no-startup-id dunst
+exec --no-startup-id xset r rate 250 35
 exec --no-startup-id feh --bg-fill ~/.config/i3/gruv-rocket.png
