@@ -127,7 +127,7 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+q` | Kill window |
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
-| `Super+t` | Toggle split direction |
+| `Super+y` | Toggle split direction |
 | `Super+s` | Stacking layout |
 | `Super+w` | Tabbed layout |
 | `Super+1-0` | Switch workspace |
