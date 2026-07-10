@@ -126,3 +126,5 @@ export PATH=$HOME/go/bin:$HOME/go_path/bin:$PATH
 export STARSHIP_CONFIG=~/.config/dotfiles/starship/starship.toml
 eval "$(starship init zsh)"
 
+fastfetch
+
