@@ -107,7 +107,7 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 ### Installation
 
 ```bash
-sudo pacman -S i3-wm i3status rofi alacritty picom dunst feh brightnessctl playerctl
+sudo pacman -S i3-wm i3status-rust rofi alacritty picom dunst feh brightnessctl playerctl
 ```
 
 ### Symlink
@@ -115,6 +115,7 @@ sudo pacman -S i3-wm i3status rofi alacritty picom dunst feh brightnessctl playe
 ```bash
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
+ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 ```
 
 ### Keybindings
@@ -157,6 +158,7 @@ ln -sf ~/.config/dotfiles/fastfetch ~/.config/fastfetch
 ln -sf ~/.config/dotfiles/zed ~/.config/zed
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
+ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 ```
 
 </details>
@@ -169,6 +171,7 @@ dotfiles/
 ├── neovim/               # Alternative Neovim configuration
 ├── neovim-nvchad/        # NvChad-based Neovim config
 ├── i3/                   # i3 window manager config
+├── i3status-rust/        # i3status-rust bar config
 ├── rofi/                 # Rofi launcher config
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings

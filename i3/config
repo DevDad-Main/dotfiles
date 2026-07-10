@@ -89,7 +89,7 @@ bindsym $mod+equal scratchpad show
 bar {
         font pango:Iosevka 10
         position top
-        status_command i3status
+        status_command i3status-rs ~/.config/i3status-rust/config.toml
         separator_symbol " "
         colors {
                 background #282828
