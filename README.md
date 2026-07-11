@@ -107,7 +107,7 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 ### Installation
 
 ```bash
-sudo pacman -S xorg-server xorg-xinit xorg-xrandr i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip
+sudo pacman -S xorg-server xorg-xinit xorg-xrandr i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip i3lock power-profiles-daemon
 ```
 
 ### Backup
@@ -145,6 +145,7 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+r` | Resize mode (h/j/k/l) |
 | `Super+Shift+r` | Restart i3 |
 | `Super+Shift+e` | Exit i3 |
+| `Super+Ctrl+q` | Power menu (shutdown/reboot/lock/etc) |
 | `Super+Shift+s` | Region screenshot (clipboard) |
 | `Super+Print` | Fullscreen screenshot (clipboard) |
 | `Print` | Fullscreen screenshot (file) |
