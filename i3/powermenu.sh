@@ -4,7 +4,7 @@ power_profile=$(powerprofilesctl get)
 
 entries="  Shutdown\n  Reboot\n  Lock\n  Logout\n  Suspend\n  Power: $power_profile"
 
-chosen=$(echo -e "$entries" | rofi -dmenu -p "  " -theme-str 'window {width: 280;} listview {lines: 6;}')
+chosen=$(echo -e "$entries" | rofi -dmenu -i -p "  " -theme-str 'window {width: 280;} listview {lines: 6;}')
 
 case "$chosen" in
   *Shutdown) systemctl poweroff ;;
