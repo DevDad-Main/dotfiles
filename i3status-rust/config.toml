@@ -37,5 +37,9 @@ block = "battery"
 format = " $icon $percentage "
 
 [[block]]
+block = "custom"
+command = "echo '    '"
+
+[[block]]
 block = "time"
 format = "  $icon  $timestamp.datetime(f:'%a %d/%m %H:%M') "
