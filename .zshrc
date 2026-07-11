@@ -99,7 +99,7 @@ pi() {
     --bind 'alt-p:toggle-preview' \
     --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
     --color 'pointer:green,marker:green') \
-    && [[ -n "$pkgs" ]] && echo "$pkgs" | tr '\n' ' ' | xargs sudo pacman -S
+    && [[ -n "$pkgs" ]] && sudo pacman -S $(echo "$pkgs" | tr '\n' ' ')
 }
 pia() {
   local pkgs
@@ -108,7 +108,7 @@ pia() {
     --bind 'alt-p:toggle-preview' \
     --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
     --color 'pointer:magenta,marker:magenta') \
-    && [[ -n "$pkgs" ]] && echo "$pkgs" | sed 's/^/aur\//' | tr '\n' ' ' | xargs yay -S
+    && [[ -n "$pkgs" ]] && yay -S $(echo "$pkgs" | sed 's/^/aur\//' | tr '\n' ' ')
 }
 pr() {
   local pkgs
