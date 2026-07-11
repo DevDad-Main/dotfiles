@@ -98,6 +98,9 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+bindsym $mod+o exec --no-startup-id kitty -e wiremix
+bindsym $mod+Shift+Escape exec --no-startup-id ~/.config/i3/scripts/screen-lock-menu.sh
+bindsym $mod+Escape exec --no-startup-id i3lock -n
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
@@ -140,7 +143,11 @@ client.background       #282828
 # autostart
 exec_always --no-startup-id killall polybar 2>/dev/null
 exec_always --no-startup-id xrandr --output HDMI-0 --left-of DP-2
+exec_always --no-startup-id xrandr --output HDMI-2 --mode 1920x1080 --rate 60 --right-of eDP-1
 exec --no-startup-id picom -b
 exec --no-startup-id dunst
 exec --no-startup-id xset r rate 250 35
 exec --no-startup-id feh --bg-fill ~/.config/i3/gruv-rocket.png
+exec_always --no-startup-id amixer -c 0 sset 'Speaker' unmute 87% 2>/dev/null
+exec_always --no-startup-id amixer -c 0 sset 'Headphone' unmute 87% 2>/dev/null
+exec_always --no-startup-id amixer -c 0 sset 'Master' unmute 87% 2>/dev/null

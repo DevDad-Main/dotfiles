@@ -50,7 +50,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 ### Desktop Environment
 
 - **Hyprland** — Modern dynamic tiling Wayland compositor (with Quickshell integration)
-- **i3** — Minimal X11 tiling window manager with Gruvbox theme
+- **i3** — Minimal X11 tiling window manager with Gruvbox theme, audio output switching (`$mod+o`), and screen dim/lock management (`$mod+Shift+Escape`)
 - **Wallpapers** — Collection of desktop wallpapers
 
 ### Shell & Tools
@@ -108,7 +108,10 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 ### Installation
 
 ```bash
-sudo pacman -S xorg-server xorg-xinit xorg-xrandr i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip i3lock power-profiles-daemon
+sudo pacman -S xorg-server xorg-xinit xorg-xrandr xorg-xset i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip i3lock wiremix power-profiles-daemon
+
+# AUR
+yay -S xautolock
 ```
 
 ### Backup
@@ -131,6 +134,10 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 ```
 
 > The i3 config is **generated** from `config.base` + `config.local`. After pulling git updates, re-run `generate.sh` to apply changes.
+>
+> **Audio notes:** Your TV may only support stereo LPCM over HDMI. Use `Super+o` (wiremix) or the rofi audio switcher to select `output:hdmi-stereo` instead of `hdmi-surround` if you get no sound.
+>
+> **ALSA mixer:** Speaker/Headphone outputs are automatically unmuted on i3 start. If audio cuts out after switching profiles, run `amixer -c 0 sset 'Speaker' unmute 87%`.
 
 ### Keybindings
 
@@ -153,6 +160,9 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+Shift+e` | Exit i3 |
 | `Super+Ctrl+q` | Power menu (shutdown/reboot/lock/etc) |
 | `Super+Shift+b` | Toggle bar on/off |
+| `Super+o` | Audio output switcher (wiremix TUI) |
+| `Super+Escape` | Lock screen immediately |
+| `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
 | `Super+Ctrl+equal` | Increase bar font size |
 | `Super+Ctrl+minus` | Decrease bar font size |
 | `Super+Shift+s` | Region screenshot (clipboard) |
@@ -239,7 +249,13 @@ dotfiles/
 │   ├── config.local      #   Per-machine overrides (gitignored)
 │   ├── config            #   Generated config (gitignored)
 │   ├── generate.sh       #   Merges base + local → config
-│   └── bar_font.sh       #   Binds Ctrl+=/- to change bar font
+│   ├── bar_font.sh       #   Binds Ctrl+=/- to change bar font
+│   ├── powermenu.sh      #   Shutdown/reboot/lock/suspend menu
+│   ├── powerprofile.sh   #   CPU power profile switcher
+│   └── scripts/
+│       ├── screen-lock-menu.sh  #   Rofi dim/lock timeout selector
+│       ├── dim-then-lock.sh     #   Gradual dim before i3lock
+│       └── switch-audio.sh      #   Rofi card profile switcher
 ├── i3status-rust/        # i3status-rust bar config
 ├── rofi/                 # Rofi launcher config
 ├── hypr/                 # Hyprland compositor config
