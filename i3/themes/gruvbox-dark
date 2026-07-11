@@ -1,0 +1,10 @@
+THEME_NAME="Gruvbox Dark"
+BAR_BG=#1c1f20
+BAR_FG=#ebdbb2
+WIN_FOCUSED=#d79921
+WIN_INACTIVE=#504945
+WIN_UNFOCUSED=#3c3836
+WIN_URGENT=#cc241d
+WIN_DIM=#a89984
+WALLPAPER=$HOME/Wallpapers/hyprland/gruvbox/gruv-rocket.png
+KITTY_THEME=gruvbox-dark-hard

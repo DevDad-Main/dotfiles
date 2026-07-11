@@ -113,6 +113,7 @@ bindsym Print exec --no-startup-id maim -u ~/Pictures/Screenshots/$(date +%Y-%m-
 bindsym $mod+minus move scratchpad
 bindsym $mod+equal scratchpad show
 bindsym $mod+Shift+c exec --no-startup-id xcolor --selection clipboard
+bindsym $mod+Shift+t exec --no-startup-id ~/.config/i3/theme-picker.sh
 bindsym $mod+Ctrl+equal exec --no-startup-id ~/.config/i3/bar_font.sh +
 bindsym $mod+Ctrl+minus exec --no-startup-id ~/.config/i3/bar_font.sh -
 
@@ -123,23 +124,23 @@ bar {
         status_command i3status-rs ~/.config/i3status-rust/config.toml
         separator_symbol " "
         colors {
-                background #1c1f20
-                statusline #ebdbb2
-                separator #1c1f20
-                focused_workspace #282828 #282828 #d79921
-                active_workspace #282828 #282828 #ebdbb2
-                inactive_workspace #282828 #282828 #a89984
-                urgent_workspace #282828 #282828 #cc241d
+                background @@BAR_BG@@
+                statusline @@BAR_FG@@
+                separator @@BAR_BG@@
+                focused_workspace @@BAR_BG@@ @@BAR_BG@@ @@WIN_FOCUSED@@
+                active_workspace @@BAR_BG@@ @@BAR_BG@@ @@BAR_FG@@
+                inactive_workspace @@BAR_BG@@ @@BAR_BG@@ @@WIN_DIM@@
+                urgent_workspace @@BAR_BG@@ @@BAR_BG@@ @@WIN_URGENT@@
         }
 }
 
-# window colors (gruvbox dark)
-client.focused          #d79921 #d79921 #282828 #d79921
-client.focused_inactive #504945 #504945 #ebdbb2 #504945
-client.unfocused        #3c3836 #3c3836 #a89984 #3c3836
-client.urgent           #cc241d #cc241d #ebdbb2 #cc241d
-client.placeholder      #282828 #282828 #ebdbb2 #282828
-client.background       #282828
+# window colors
+client.focused          @@WIN_FOCUSED@@ @@WIN_FOCUSED@@ @@BAR_BG@@ @@WIN_FOCUSED@@
+client.focused_inactive @@WIN_INACTIVE@@ @@WIN_INACTIVE@@ @@BAR_FG@@ @@WIN_INACTIVE@@
+client.unfocused        @@WIN_UNFOCUSED@@ @@WIN_UNFOCUSED@@ @@WIN_DIM@@ @@WIN_UNFOCUSED@@
+client.urgent           @@WIN_URGENT@@ @@WIN_URGENT@@ @@BAR_FG@@ @@WIN_URGENT@@
+client.placeholder      @@BAR_BG@@ @@BAR_BG@@ @@BAR_FG@@ @@BAR_BG@@
+client.background       @@BAR_BG@@
 
 # autostart
 exec_always --no-startup-id killall polybar 2>/dev/null
@@ -148,7 +149,7 @@ exec_always --no-startup-id xrandr --output HDMI-2 --mode 1920x1080 --rate 60 --
 exec --no-startup-id picom -b
 exec --no-startup-id dunst
 exec --no-startup-id xset r rate 250 35
-exec --no-startup-id feh --bg-fill ~/.config/i3/gruv-rocket.png
+exec --no-startup-id feh --bg-fill @@WALLPAPER@@
 exec_always --no-startup-id amixer -c 0 sset 'Speaker' unmute 87% 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Headphone' unmute 87% 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Master' unmute 87% 2>/dev/null
