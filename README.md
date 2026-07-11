@@ -95,7 +95,7 @@ git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/p
 
 # Symlink dotfiles config and set as default shell
 ln -sf ~/.config/dotfiles/.zshrc ~/.zshrc
-chsh -s /bin/zsh
+chsh -s /usr/bin/zsh
 ```
 
 </details>
