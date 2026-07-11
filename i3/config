@@ -4,6 +4,9 @@ set $mod Mod4
 
 font pango:Iosevka 11
 
+set $bar_font pango:Iosevka 10
+include ~/.config/dotfiles/i3/config.local
+
 # gaps inner 6
 # gaps outer 4
 gaps inner 0
@@ -114,7 +117,7 @@ bindsym $mod+Ctrl+minus exec --no-startup-id ~/.config/i3/bar_font.sh -
 
 # bar
 bar {
-        font pango:Iosevka 10
+        font $bar_font
         position top
         status_command i3status-rs ~/.config/i3status-rust/config.toml
         separator_symbol " "

@@ -3,6 +3,7 @@ plugged/
 autoload/
 pack/
 undodir/
+i3/config.local
 .vim/sessions/
 /sessions
 /sessions

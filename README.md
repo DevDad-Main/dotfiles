@@ -156,6 +156,8 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 
 Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
 
+**Per-machine overrides:** Machine-specific settings (bar font size, monitor layout, etc.) go in `~/.config/i3/config.local` — it's gitignored and automatically included by the main config.
+
 ### Gaming
 
 Steam games run well on i3 using [gamescope](https://github.com/ValveSoftware/gamescope) as a compatibility layer. Gamescope creates an isolated compositor that handles fullscreen, VRR, and HDR properly regardless of the WM.
