@@ -2,9 +2,9 @@
 dots="$HOME/.config/dotfiles"
 local_cfg="$dots/i3/config.local"
 
-# List available themes from the themes directory
+# List available themes from the themes directory (only .theme or no extension files)
 themes_dir="$dots/i3/themes"
-themes=$(ls "$themes_dir" 2>/dev/null)
+themes=$(ls "$themes_dir" 2>/dev/null | grep -v '\.(png|jpg|jpeg|gif)$')
 if [ -z "$themes" ]; then
     notify-send "Theme Picker" "No themes found in $themes_dir"
     exit 1

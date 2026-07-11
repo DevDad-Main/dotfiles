@@ -31,4 +31,9 @@ sed -e "s|@@BAR_FONT@@|$BAR_FONT|g" \
 # Generate i3status-rust config
 sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@BAR_FG@@|$BAR_FG|g" \
+    -e "s|@@WIN_FOCUSED@@|$WIN_FOCUSED|g" \
+    -e "s|@@WIN_INACTIVE@@|$WIN_INACTIVE|g" \
+    -e "s|@@WIN_UNFOCUSED@@|$WIN_UNFOCUSED|g" \
+    -e "s|@@WIN_URGENT@@|$WIN_URGENT|g" \
+    -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
     "$dir/../i3status-rust/config.base.toml" > "$dir/../i3status-rust/config.toml"
