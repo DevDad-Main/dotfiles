@@ -27,3 +27,8 @@ sed -e "s|@@BAR_FONT@@|$BAR_FONT|g" \
     -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
     -e "s|@@WALLPAPER@@|$WALLPAPER|g" \
     "$dir/config.base" > "$dir/config"
+
+# Generate i3status-rust config
+sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
+    -e "s|@@BAR_FG@@|$BAR_FG|g" \
+    "$dir/../i3status-rust/config.base.toml" > "$dir/../i3status-rust/config.toml"

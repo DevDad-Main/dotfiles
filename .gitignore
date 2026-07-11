@@ -5,6 +5,7 @@ pack/
 undodir/
 i3/config.local
 i3/config
+i3status-rust/config.toml
 .vim/sessions/
 /sessions
 /sessions

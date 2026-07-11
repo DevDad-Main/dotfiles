@@ -1,10 +1,12 @@
 [theme]
-theme = "gruvbox-dark"
+theme = "plain"
 
 [theme.overrides]
+bg = "@@BAR_BG@@"
+fg = "@@BAR_FG@@"
 separator = ""
-separator_bg = "#1c1f20"
-separator_fg = "#1c1f20"
+separator_bg = "@@BAR_BG@@"
+separator_fg = "@@BAR_BG@@"
 
 [icons]
 icons = "material-nf"
