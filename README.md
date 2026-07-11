@@ -107,7 +107,7 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 ### Installation
 
 ```bash
-sudo pacman -S i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview
+sudo pacman -S i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip
 ```
 
 ### Symlink
@@ -137,6 +137,9 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+r` | Resize mode (h/j/k/l) |
 | `Super+Shift+r` | Restart i3 |
 | `Super+Shift+e` | Exit i3 |
+| `Super+Shift+s` | Region screenshot (clipboard) |
+| `Super+Print` | Fullscreen screenshot (clipboard) |
+| `Print` | Fullscreen screenshot (file) |
 
 Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
 
