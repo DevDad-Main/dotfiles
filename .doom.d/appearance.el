@@ -12,6 +12,7 @@
 (add-to-list 'custom-theme-load-path "~/.config/dotfiles/.doom.d/")
 
 (load-theme 'nezburn t)
+;; (load-theme 'gruber-darker t)
 ;; (setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 15 :weight 'medium)
 ;;       doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 15))
 
@@ -29,4 +30,6 @@
 (setq select-enable-clipboard t)
 
 (after! dired
-  (diredfl-mode -1))
+  (custom-set-faces
+   '(dired-directory ((t (:background nil :foreground nil :weight normal :underline nil))))
+   '(diredfl-dir-name ((t (:background nil :foreground nil :weight normal :underline nil))))))
