@@ -218,7 +218,12 @@ ln -sf ~/.config/dotfiles/zed ~/.config/zed
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
+
+# Generate the i3 config from template + local overrides
+~/.config/dotfiles/i3/generate.sh
 ```
+
+> After pulling git updates, re-run `generate.sh` to apply any i3 template changes.
 
 </details>
 
