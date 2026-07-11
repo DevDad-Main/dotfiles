@@ -125,7 +125,12 @@ cp -r ~/.local ~/config-backup/
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
+
+# Generate the final config from template + local overrides
+~/.config/dotfiles/i3/generate.sh
 ```
+
+> The i3 config is **generated** from `config.base` + `config.local`. After pulling git updates, re-run `generate.sh` to apply changes.
 
 ### Keybindings
 
@@ -154,9 +159,9 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+Print` | Fullscreen screenshot (clipboard) |
 | `Print` | Fullscreen screenshot (file) |
 
-Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
+Wallpaper: set path in `~/.config/dotfiles/i3/config.base` under the `feh --bg-fill` line, then re-run `generate.sh`.
 
-**Per-machine overrides:** Machine-specific settings (bar font size, monitor layout, etc.) go in `~/.config/i3/config.local` — it's gitignored and automatically included by the main config.
+**Per-machine overrides:** Machine-specific settings go in `~/.config/dotfiles/i3/config.local` (gitignored). Edit the key=value pairs, then run `generate.sh` and restart i3. Currently supports `BAR_FONT` (bar font size, 6–20, default 10).
 
 ### Gaming
 
@@ -225,6 +230,11 @@ dotfiles/
 ├── neovim/               # Alternative Neovim configuration
 ├── neovim-nvchad/        # NvChad-based Neovim config
 ├── i3/                   # i3 window manager config
+│   ├── config.base       #   Template config (tracked)
+│   ├── config.local      #   Per-machine overrides (gitignored)
+│   ├── config            #   Generated config (gitignored)
+│   ├── generate.sh       #   Merges base + local → config
+│   └── bar_font.sh       #   Binds Ctrl+=/- to change bar font
 ├── i3status-rust/        # i3status-rust bar config
 ├── rofi/                 # Rofi launcher config
 ├── hypr/                 # Hyprland compositor config
