@@ -112,6 +112,7 @@ bindsym Print exec --no-startup-id maim -u ~/Pictures/Screenshots/$(date +%Y-%m-
 
 bindsym $mod+minus move scratchpad
 bindsym $mod+equal scratchpad show
+bindsym $mod+Shift+c exec --no-startup-id xcolor --selection clipboard
 bindsym $mod+Ctrl+equal exec --no-startup-id ~/.config/i3/bar_font.sh +
 bindsym $mod+Ctrl+minus exec --no-startup-id ~/.config/i3/bar_font.sh -
 
@@ -122,9 +123,9 @@ bar {
         status_command i3status-rs ~/.config/i3status-rust/config.toml
         separator_symbol " "
         colors {
-                background #282828
+                background #1c1f20
                 statusline #ebdbb2
-                separator #282828
+                separator #1c1f20
                 focused_workspace #282828 #282828 #d79921
                 active_workspace #282828 #282828 #ebdbb2
                 inactive_workspace #282828 #282828 #a89984

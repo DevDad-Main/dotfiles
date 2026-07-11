@@ -3,8 +3,8 @@ theme = "gruvbox-dark"
 
 [theme.overrides]
 separator = ""
-separator_bg = "#282828"
-separator_fg = "#282828"
+separator_bg = "#1c1f20"
+separator_fg = "#1c1f20"
 
 [icons]
 icons = "material-nf"
