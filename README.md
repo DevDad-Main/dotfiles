@@ -107,7 +107,7 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 ### Installation
 
 ```bash
-sudo pacman -S i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui
+sudo pacman -S i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview
 ```
 
 ### Symlink

@@ -310,7 +310,9 @@
  :leader
 
  :desc "Alternate buffer"
- "SPC" #'switch-to-prev-buffer
+ ;; Dosen't work as intended, we just overwrite the original SPC `
+ ;; "SPC" #'switch-to-prev-buffer
+ "SPC" #'evil-switch-to-windows-last-buffer
 
  :desc "Save"
  "w w" #'save-buffer

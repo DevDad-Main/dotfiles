@@ -27,3 +27,6 @@
 
 (setq org-directory "~/org/")
 (setq select-enable-clipboard t)
+
+(after! dired
+  (diredfl-mode -1))

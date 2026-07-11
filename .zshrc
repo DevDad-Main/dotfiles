@@ -1,4 +1,6 @@
 # ── Oh My Zsh ──
+[[ -n "$ZSH_VERSION" ]] || return # only run in zsh
+
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 
@@ -13,7 +15,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # ── Paths ──
-export PATH=$HOME/.local/bin:$HOME/go/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/go/bin:$HOME/.config/emacs/bin:$PATH
 export TERM=xterm-256color
 
 # ── Languages ──
@@ -88,3 +90,32 @@ export STARSHIP_CONFIG=~/.config/dotfiles/starship/starship.toml
 eval "$(starship init zsh)"
 
 fastfetch
+
+# ── Package finder (inspired by omarchy) ──
+pi() {
+  local pkgs
+  pkgs=$(pacman -Slq | fzf --multi --preview 'pacman -Sii {1}' \
+    --preview-window 'down:65%:wrap' \
+    --bind 'alt-p:toggle-preview' \
+    --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
+    --color 'pointer:green,marker:green') \
+    && [[ -n "$pkgs" ]] && echo "$pkgs" | tr '\n' ' ' | xargs sudo pacman -S
+}
+pia() {
+  local pkgs
+  pkgs=$(yay -Slqa 2>/dev/null | fzf --multi --preview 'yay -Siia {1}' \
+    --preview-window 'down:65%:wrap' \
+    --bind 'alt-p:toggle-preview' \
+    --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
+    --color 'pointer:magenta,marker:magenta') \
+    && [[ -n "$pkgs" ]] && echo "$pkgs" | sed 's/^/aur\//' | tr '\n' ' ' | xargs yay -S
+}
+pr() {
+  local pkgs
+  pkgs=$(yay -Qqe 2>/dev/null | fzf --multi --preview 'yay -Qi {1}' \
+    --preview-window 'down:65%:wrap' \
+    --bind 'alt-p:toggle-preview' \
+    --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
+    --color 'pointer:red,marker:red') \
+    && [[ -n "$pkgs" ]] && echo "$pkgs" | tr '\n' ' ' | xargs sudo pacman -Rns
+}
