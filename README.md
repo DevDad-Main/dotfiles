@@ -110,6 +110,14 @@ A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigatio
 sudo pacman -S i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip
 ```
 
+### Backup
+
+``` bash
+mkdir -p ~/config-backup
+cp -r ~/.config ~/config-backup/
+cp -r ~/.local ~/config-backup/
+```
+
 ### Symlink
 
 ```bash
@@ -142,6 +150,13 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Print` | Fullscreen screenshot (file) |
 
 Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
+
+### Reverting back to previous DE/WM config.
+
+``` bash
+cp -r ~/config-backup/.config/* ~/.config/
+cp -r ~/config-backup/.local/* ~/.local/
+```
 
 </details>
 
