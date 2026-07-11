@@ -156,6 +156,28 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 
 Wallpaper: set path in `~/.config/i3/config` under the `feh --bg-fill` line.
 
+### Gaming
+
+Steam games run well on i3 using [gamescope](https://github.com/ValveSoftware/gamescope) as a compatibility layer. Gamescope creates an isolated compositor that handles fullscreen, VRR, and HDR properly regardless of the WM.
+
+**Global launch option** (Steam → Settings → Compatibility → Launch Options):
+
+```
+gamescope -f -- %command%
+```
+
+**Per-game** (Right-click game → Properties → Launch Options):
+
+```
+gamescope -W 2560 -H 1440 -r 144 -- %command%
+```
+
+Flags:
+- `-f` — Fullscreen
+- `-W` / `-H` — Resolution width/height
+- `-r` — Refresh rate
+- `--adaptive-sync` — Enable VRR (if supported)
+
 ### Reverting back to previous DE/WM config.
 
 ``` bash
