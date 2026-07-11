@@ -38,7 +38,8 @@ format = " $icon $percentage "
 
 [[block]]
 block = "custom"
-command = "echo '    '"
+command = "~/.config/i3/powerprofile.sh"
+interval = 5
 
 [[block]]
 block = "time"
