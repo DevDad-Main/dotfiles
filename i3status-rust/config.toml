@@ -33,8 +33,9 @@ block = "sound"
 format = " $icon $volume "
 
 [[block]]
-block = "battery"
-format = " $icon $percentage "
+block = "custom"
+command = "printf '   %s%%' $(cat /sys/class/power_supply/BAT1/capacity 2>/dev/null || echo '?')"
+interval = 30
 
 [[block]]
 block = "custom"
