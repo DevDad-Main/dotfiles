@@ -130,7 +130,7 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 ### Keybindings
 
 | Key | Action |
-|---|---|
+|---|---|---|
 | `Super+Enter` | Terminal |
 | `Super+Space` | Rofi app launcher (spotlight-style) |
 | `Super+d` | Rofi app launcher |
@@ -147,6 +147,9 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+Shift+r` | Restart i3 |
 | `Super+Shift+e` | Exit i3 |
 | `Super+Ctrl+q` | Power menu (shutdown/reboot/lock/etc) |
+| `Super+Shift+b` | Toggle bar on/off |
+| `Super+Ctrl+equal` | Increase bar font size |
+| `Super+Ctrl+minus` | Decrease bar font size |
 | `Super+Shift+s` | Region screenshot (clipboard) |
 | `Super+Print` | Fullscreen screenshot (clipboard) |
 | `Print` | Fullscreen screenshot (file) |
