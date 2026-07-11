@@ -22,6 +22,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run -show-icons
 bindsym $mod+Shift+Return exec --no-startup-id thunar
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
+bindsym $mod+Shift+b bar mode toggle
 bindsym $mod+q kill
 
 bindsym $mod+h focus left
@@ -107,6 +108,8 @@ bindsym Print exec --no-startup-id maim -u ~/Pictures/Screenshots/$(date +%Y-%m-
 
 bindsym $mod+minus move scratchpad
 bindsym $mod+equal scratchpad show
+bindsym $mod+Ctrl+equal exec --no-startup-id ~/.config/i3/bar_font.sh +
+bindsym $mod+Ctrl+minus exec --no-startup-id ~/.config/i3/bar_font.sh -
 
 # bar
 bar {
@@ -135,6 +138,7 @@ client.background       #282828
 
 # autostart
 exec_always --no-startup-id killall polybar 2>/dev/null
+exec_always --no-startup-id xrandr --output HDMI-0 --left-of DP-2
 exec --no-startup-id picom -b
 exec --no-startup-id dunst
 exec --no-startup-id xset r rate 250 35
