@@ -37,8 +37,8 @@
 
 (map!
  :i "C-h" #'left-char
- :i "C-l" #'right-char
- :i "C-x" #'delete-backward-char)
+ :i "C-l" #'right-char)
+;; :i "C-x" #'delete-backward-char)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Leader‑key bindings for the evil‑mc (multiple‑cursors) integration
