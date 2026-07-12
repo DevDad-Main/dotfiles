@@ -3,7 +3,7 @@ dir="$(cd "$(dirname "$0")" && pwd)"
 local_cfg="$dir/config.local"
 
 # Defaults
-BAR_FONT=10
+BAR_FONT=8
 BAR_BG=#1c1f20
 BAR_FG=#ebdbb2
 WIN_FOCUSED=#d79921
