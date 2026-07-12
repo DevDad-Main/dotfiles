@@ -44,7 +44,7 @@ format = " $icon $volume "
 
 [[block]]
 block = "custom"
-command = "printf '   %s%%' $(cat /sys/class/power_supply/BAT1/capacity 2>/dev/null || echo '?')"
+command = "printf '   %s%s' $(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 || echo '?') $(grep -q Charging /sys/class/power_supply/AC*/uevent 2>/dev/null && echo ' ' || echo '  ')"
 interval = 30
 
 [[block]]
