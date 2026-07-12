@@ -77,3 +77,24 @@ emacs_theme_file="$emacs_theme_dir/theme.el"
   fi
   echo "(load-theme '${EMACS_THEME:-nezburn} t)"
 } > "$emacs_theme_file"
+
+# Generate Zen browser userChrome.css
+zen_dir="$dir/../zen"
+zen_chrome_src="$zen_dir/userChrome.css.base"
+zen_profile=$(grep -l "Default=1" "$HOME/.config/zen/profiles.ini" 2>/dev/null | xargs -I{} grep -B1 "Default=1" {} | grep "^Path=" | head -1 | cut -d= -f2)
+if [ -n "$zen_profile" ]; then
+  zen_chrome_dst="$HOME/.config/zen/$zen_profile/chrome/userChrome.css"
+  mkdir -p "$(dirname "$zen_chrome_dst")"
+  sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
+      -e "s|@@BAR_FG@@|$BAR_FG|g" \
+      -e "s|@@WIN_FOCUSED@@|$WIN_FOCUSED|g" \
+      -e "s|@@WIN_INACTIVE@@|$WIN_INACTIVE|g" \
+      -e "s|@@WIN_UNFOCUSED@@|$WIN_UNFOCUSED|g" \
+      -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
+      "$zen_chrome_src" > "$zen_chrome_dst"
+  # Enable legacy userChrome if not already set
+  zen_userjs="$HOME/.config/zen/$zen_profile/user.js"
+  if ! grep -q "toolkit.legacyUserProfileCustomizations" "$zen_userjs" 2>/dev/null; then
+    echo 'user_pref("toolkit.legacyUserProfileCustomizations", true);' >> "$zen_userjs"
+  fi
+fi

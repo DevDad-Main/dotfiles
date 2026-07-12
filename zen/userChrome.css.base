@@ -1,0 +1,171 @@
+/* Zen Browser Terminal Theme — Auto-generated, do not edit */
+
+:root {
+  --zen-bg: @@BAR_BG@@;
+  --zen-fg: @@BAR_FG@@;
+  --zen-accent: @@WIN_FOCUSED@@;
+  --zen-inactive: @@WIN_INACTIVE@@;
+  --zen-unfocused: @@WIN_UNFOCUSED@@;
+  --zen-dim: @@WIN_DIM@@;
+}
+
+/* Main window background */
+#main-window,
+#navigator-toolbox {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+}
+
+/* Sidebar / vertical tabs */
+#sidebar,
+#sidebar-box,
+#sidebar-header,
+.sidebar-panel {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+  border: none !important;
+}
+
+/* Tab strip (Zen vertical tabs) */
+#TabsToolbar,
+.tabbrowser-tab {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+}
+
+.tabbrowser-tab:not([selected]):not(:hover) {
+  background-color: var(--zen-bg) !important;
+  opacity: 0.85;
+}
+
+.tabbrowser-tab[selected] {
+  background-color: var(--zen-unfocused) !important;
+  color: var(--zen-fg) !important;
+}
+
+.tabbrowser-tab:hover {
+  background-color: var(--zen-inactive) !important;
+}
+
+/* Tab labels */
+.tab-label {
+  color: var(--zen-fg) !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
+  color: var(--zen-accent) !important;
+  font-weight: 600;
+}
+
+/* URL bar */
+#urlbar,
+#urlbar-background,
+#urlbar-input-container,
+.urlbar-input-box,
+.searchbar-textbox {
+  background-color: var(--zen-unfocused) !important;
+  color: var(--zen-fg) !important;
+  border: 1px solid var(--zen-inactive) !important;
+  border-radius: 4px !important;
+}
+
+#urlbar[focused] {
+  border-color: var(--zen-accent) !important;
+}
+
+#urlbar-input {
+  color: var(--zen-fg) !important;
+}
+
+/* Navigation toolbar */
+#nav-bar,
+#nav-bar-customization-target {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+  border: none !important;
+}
+
+toolbar {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+}
+
+/* Toolbarbuttons */
+toolbarbutton {
+  color: var(--zen-fg) !important;
+  fill: var(--zen-fg) !important;
+}
+
+toolbarbutton:hover {
+  background-color: var(--zen-inactive) !important;
+  color: var(--zen-accent) !important;
+}
+
+toolbarbutton[open] {
+  background-color: var(--zen-unfocused) !important;
+}
+
+/* Menu and popup panels */
+panel,
+menupopup,
+popup {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+  border: 1px solid var(--zen-inactive) !important;
+}
+
+menuitem,
+panelitem {
+  color: var(--zen-fg) !important;
+}
+
+menuitem:hover,
+panelitem:hover {
+  background-color: var(--zen-inactive) !important;
+}
+
+/* Bookmarks toolbar */
+#PersonalToolbar {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-dim) !important;
+  border: none !important;
+}
+
+/* Search bar */
+.searchbar-textbox {
+  background-color: var(--zen-unfocused) !important;
+  color: var(--zen-fg) !important;
+}
+
+/* Find bar */
+#findbar {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+}
+
+/* Status panel */
+#statuspanel-label {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-dim) !important;
+  border: 1px solid var(--zen-inactive) !important;
+}
+
+/* Scrollbars */
+scrollbar {
+  background-color: var(--zen-bg) !important;
+}
+
+scrollbar thumb {
+  background-color: var(--zen-inactive) !important;
+  border-radius: 4px !important;
+}
+
+scrollbar thumb:hover {
+  background-color: var(--zen-dim) !important;
+}
+
+/* Splitter / resizer */
+#sidebar-splitter {
+  background-color: var(--zen-inactive) !important;
+  border: none !important;
+}
