@@ -108,6 +108,22 @@
 
    ;; Dired
    `(dired-directory ((t (:foreground ,mc-silver :weight bold))))
+   `(diredfl-dir-name ((t (:foreground ,mc-silver :weight bold))))
+   `(diredfl-dir-heading ((t (:foreground ,mc-silver))))
+   `(diredfl-file-name ((t (:foreground ,mc-fg))))
+   `(diredfl-file-suffix ((t (:foreground ,mc-fg))))
+   `(diredfl-no-priv ((t (:foreground ,mc-steel))))
+   `(diredfl-read-priv ((t (:foreground ,mc-steel))))
+   `(diredfl-write-priv ((t (:foreground ,mc-silver))))
+   `(diredfl-exec-priv ((t (:foreground ,mc-green))))
+   `(diredfl-number ((t (:foreground ,mc-steel))))
+   `(diredfl-date-time ((t (:foreground ,mc-steel))))
+   `(diredfl-flag-mark ((t (:foreground ,mc-yellow :background ,mc-bg+2))))
+   `(diredfl-flag-mark-line ((t (:background ,mc-bg+2))))
+   `(diredfl-deletion ((t (:foreground ,mc-red :background ,mc-bg+2))))
+   `(diredfl-deletion-file-name ((t (:foreground ,mc-red))))
+   `(diredfl-symlink ((t (:foreground ,mc-silver))))
+   `(diredfl-autofile-name ((t (:background ,mc-bg+1))))
 
    ;; Compilation
    `(compilation-info ((t (:foreground ,mc-green))))
