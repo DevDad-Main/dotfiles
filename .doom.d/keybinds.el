@@ -93,15 +93,15 @@
 (map! :leader
       :prefix ("TAB" . "workspaces")
       "n" #'+workspace/new
-      "d" #'+workspace/delete
-      "1" #'+workspace/switch-to-0
-      "2" #'+workspace/switch-to-1
-      "3" #'+workspace/switch-to-2
-      "4" #'+workspace/switch-to-3
-      "5" #'+workspace/switch-to-4
-      "6" #'+workspace/switch-to-5
-      "7" #'+workspace/switch-to-6
-      "8" #'+workspace/switch-to-7)
+      "d" #'+workspace/kill)
+;; "1" #'+workspace/switch-to-0
+;; "2" #'+workspace/switch-to-1
+;; "3" #'+workspace/switch-to-2
+;; "4" #'+workspace/switch-to-3
+;; "5" #'+workspace/switch-to-4
+;; "6" #'+workspace/switch-to-5
+;; "7" #'+workspace/switch-to-6
+;; "8" #'+workspace/switch-to-7
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Config editing (ported from nvim <leader>v/z/o/O)

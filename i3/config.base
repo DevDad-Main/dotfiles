@@ -156,6 +156,9 @@ exec --no-startup-id picom -b --config $HOME/.config/dotfiles/picom/picom.conf
 exec --no-startup-id dunst
 exec --no-startup-id xset r rate 250 35
 exec --no-startup-id feh --bg-fill @@WALLPAPER@@
+# Needed for automatic nightshift and night light configuration
+# pgrep -a redshift -- to test its working
+exec --no-startup-id redshift -l 54.352:18.646 -t 6500:4500
 exec_always --no-startup-id amixer -c 0 sset 'Speaker' unmute 87% 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Headphone' unmute 87% 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Master' unmute 87% 2>/dev/null
