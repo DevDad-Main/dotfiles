@@ -75,5 +75,15 @@ emacs_theme_file="$emacs_theme_dir/theme.el"
   if [ -n "$CATPPUCCIN_FLAVOR" ]; then
     echo "(setq catppuccin-flavor '$CATPPUCCIN_FLAVOR)"
   fi
+  if [ "$EMACS_THEME" = "gruber-darker" ]; then
+    echo "(setq gruber-darker-override-colors-alist
+      '((\"bg\"       . \"#222222\")
+        (\"bg+1\"     . \"#2e2e2e\")
+        (\"bg+2\"     . \"#4a4246\")
+        (\"bg+3\"     . \"#505050\")
+        (\"bg+4\"     . \"#585055\")
+        (\"fg\"       . \"#d8d8e2\")
+        (\"fg+1\"     . \"#e4e4ef\")))"
+  fi
   echo "(load-theme '${EMACS_THEME:-nezburn} t)"
 } > "$emacs_theme_file"
