@@ -81,8 +81,13 @@ emacs_theme_file="$emacs_theme_dir/theme.el"
 # Generate Zen browser userChrome.css
 zen_dir="$dir/../zen"
 zen_chrome_src="$zen_dir/userChrome.css.base"
-zen_profile=$(grep -l "Default=1" "$HOME/.config/zen/profiles.ini" 2>/dev/null | xargs -I{} grep -B1 "Default=1" {} | grep "^Path=" | head -1 | cut -d= -f2)
-if [ -n "$zen_profile" ]; then
+zen_ini="$HOME/.config/zen/profiles.ini"
+# Find active profile from [Install*] section
+zen_install_section=$(grep -A1 '^\[Install' "$zen_ini" 2>/dev/null | grep "^Default=" | head -1 | cut -d= -f2)
+# Fallback to Default=1 profile
+[ -z "$zen_install_section" ] && zen_install_section=$(grep -B1 "^Default=1" "$zen_ini" 2>/dev/null | grep "^Path=" | head -1 | cut -d= -f2)
+if [ -n "$zen_install_section" ]; then
+  zen_profile="$zen_install_section"
   zen_chrome_dst="$HOME/.config/zen/$zen_profile/chrome/userChrome.css"
   mkdir -p "$(dirname "$zen_chrome_dst")"
   sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
