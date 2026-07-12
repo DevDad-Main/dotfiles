@@ -8,6 +8,9 @@ fi
 source "$local_cfg"
 BAR_FONT=${BAR_FONT:-10}
 
+# Fix empty BAR_FONT in file
+grep -q '^BAR_FONT=$' "$local_cfg" && sed -i 's/^BAR_FONT=$/BAR_FONT=10/' "$local_cfg"
+
 case "$1" in
   +) new=$((BAR_FONT + 1)) ;;
   -) new=$((BAR_FONT - 1)) ;;
