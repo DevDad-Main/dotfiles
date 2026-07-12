@@ -143,6 +143,22 @@
    `(dired-directory ((t (:foreground ,gruber-darker-niagara :weight bold))))
    `(dired-ignored ((t ,(list :foreground gruber-darker-quartz
                               :inherit 'unspecified))))
+   `(diredfl-dir-name ((t (:foreground ,gruber-darker-niagara :weight bold))))
+   `(diredfl-dir-heading ((t (:foreground ,gruber-darker-niagara))))
+   `(diredfl-file-name ((t (:foreground ,gruber-darker-fg))))
+   `(diredfl-file-suffix ((t (:foreground ,gruber-darker-fg))))
+   `(diredfl-no-priv ((t (:foreground ,gruber-darker-bg+4))))
+   `(diredfl-read-priv ((t (:foreground ,gruber-darker-bg+4))))
+   `(diredfl-write-priv ((t (:foreground ,gruber-darker-quartz))))
+   `(diredfl-exec-priv ((t (:foreground ,gruber-darker-green))))
+   `(diredfl-number ((t (:foreground ,gruber-darker-bg+4))))
+   `(diredfl-date-time ((t (:foreground ,gruber-darker-bg+4))))
+   `(diredfl-flag-mark ((t (:foreground ,gruber-darker-yellow :background ,gruber-darker-bg+1))))
+   `(diredfl-flag-mark-line ((t (:background ,gruber-darker-bg+1))))
+   `(diredfl-deletion ((t (:foreground ,gruber-darker-red :background ,gruber-darker-bg+1))))
+   `(diredfl-deletion-file-name ((t (:foreground ,gruber-darker-red))))
+   `(diredfl-symlink ((t (:foreground ,gruber-darker-yellow))))
+   `(diredfl-autofile-name ((t (:background ,gruber-darker-bg+1))))
 
    ;; Ebrowse
    `(ebrowse-root-class ((t (:foreground ,gruber-darker-niagara :weight bold))))
