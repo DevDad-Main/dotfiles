@@ -1,33 +1,29 @@
-/* Firefox/Zen browser theme — auto-generated */
+/* Firefox/Zen terminal TUI theme — auto-generated */
 
-/* Main window */
-#main-window {
-  background-color: @@BAR_BG@@ !important;
-}
-
-/* Navigation toolbar */
+/* === Colors === */
+#main-window,
 #nav-bar,
-#nav-bar-customization-target {
+#nav-bar-customization-target,
+#TabsToolbar,
+#sidebar-box,
+#sidebar-header,
+panel,
+menupopup,
+#findbar,
+#PersonalToolbar {
   background-color: @@BAR_BG@@ !important;
   color: @@BAR_FG@@ !important;
 }
 
-/* URL bar */
 #urlbar-background,
 #urlbar-input-container {
   background-color: @@WIN_UNFOCUSED@@ !important;
   color: @@BAR_FG@@ !important;
-  border-color: @@WIN_INACTIVE@@ !important;
+  border: 1px solid @@WIN_INACTIVE@@ !important;
 }
 
 #urlbar[focused] #urlbar-background {
   border-color: @@WIN_FOCUSED@@ !important;
-}
-
-/* Tab strip */
-#TabsToolbar {
-  background-color: @@BAR_BG@@ !important;
-  color: @@BAR_FG@@ !important;
 }
 
 .tabbrowser-tab {
@@ -47,19 +43,6 @@
   color: @@BAR_FG@@ !important;
 }
 
-.tabbrowser-tab[selected] .tab-label {
-  color: @@BAR_FG@@ !important;
-}
-
-/* Sidebar */
-#sidebar-box,
-#sidebar-header {
-  background-color: @@BAR_BG@@ !important;
-  color: @@BAR_FG@@ !important;
-  border-color: @@WIN_INACTIVE@@ !important;
-}
-
-/* Toolbar buttons */
 toolbarbutton {
   color: @@BAR_FG@@ !important;
   fill: @@BAR_FG@@ !important;
@@ -69,29 +52,86 @@ toolbarbutton:hover {
   background-color: @@WIN_INACTIVE@@ !important;
 }
 
-/* Menu panels */
-panel,
-menupopup {
-  background-color: @@BAR_BG@@ !important;
-  color: @@BAR_FG@@ !important;
-  border-color: @@WIN_INACTIVE@@ !important;
+/* === Terminal minimalism — hide chrome elements === */
+
+/* Hide navigation buttons (back/forward/reload/home) */
+#back-button,
+#forward-button,
+#reload-button,
+#stop-button,
+#home-button,
+#alltabs-button,
+#firefox-view-button,
+#library-button,
+#sidebar-button,
+#panic-button {
+  display: none !important;
 }
 
-/* Bookmarks toolbar */
+/* Hide bookmarks toolbar */
 #PersonalToolbar {
-  background-color: @@BAR_BG@@ !important;
-  color: @@WIN_DIM@@ !important;
+  display: none !important;
 }
 
-/* Find bar */
-#findbar {
-  background-color: @@BAR_BG@@ !important;
-  color: @@BAR_FG@@ !important;
+/* Hide title bar window controls */
+#titlebar,
+#titlebar-buttonbox {
+  display: none !important;
 }
 
-/* Arrow panels (URL dropdown, etc) */
-#urlbar-results,
-.panel-arrowcontent {
-  background-color: @@BAR_BG@@ !important;
-  color: @@BAR_FG@@ !important;
+/* Hide tab close buttons */
+.tab-close-button {
+  display: none !important;
+}
+
+/* Hide tab secondary line (container indicator etc) */
+.tab-secondary-line,
+.tab-throbber-tablist {
+  display: none !important;
+}
+
+/* Make URL bar compact */
+#urlbar-container {
+  max-width: 600px !important;
+  margin: 0 auto !important;
+}
+
+#urlbar {
+  min-height: 28px !important;
+  font-size: 13px !important;
+}
+
+/* Hide extension icons in toolbar */
+#widget-overflow-fixed-list,
+.unified-extensions-button,
+#unified-extensions-button {
+  display: none !important;
+}
+
+/* Hide downloads button */
+#downloads-button {
+  display: none !important;
+}
+
+/* Hide identity box / padlock */
+#identity-box {
+  display: none !important;
+}
+
+/* Hide tracking protection shield */
+#tracking-protection-button-container {
+  display: none !important;
+}
+
+/* Hide page action buttons */
+#page-action-buttons > :not(#urlbar-zoom-button) {
+  display: none !important;
+}
+
+/* Remove nav-bar padding to save space */
+#nav-bar {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  border: none !important;
 }
