@@ -59,6 +59,9 @@ EOF
 # Regenerate i3 config
 bash "$dots/i3/generate.sh"
 
+# Reload Emacs theme
+emacsclient --eval '(load (expand-file-name "~/.config/dotfiles/emacs/theme.el"))' 2>/dev/null || true
+
 # Apply kitty theme
 kitty_theme_file="$dots/kitty/themes/$KITTY_THEME.conf"
 if [ -f "$kitty_theme_file" ]; then
