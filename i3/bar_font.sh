@@ -6,6 +6,7 @@ if [ ! -f "$local_cfg" ]; then
 fi
 
 source "$local_cfg"
+BAR_FONT=${BAR_FONT:-10}
 
 case "$1" in
   +) new=$((BAR_FONT + 1)) ;;

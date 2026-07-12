@@ -18,6 +18,7 @@ if [ -f "$local_cfg" ]; then
     source "$local_cfg"
 fi
 
+BAR_FONT=${BAR_FONT:-10}
 sed -e "s|@@BAR_FONT@@|$BAR_FONT|g" \
     -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@BAR_FG@@|$BAR_FG|g" \

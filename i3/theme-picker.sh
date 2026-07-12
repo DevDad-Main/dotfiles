@@ -33,6 +33,7 @@ source "$themes_dir/$theme_file"
 cat > "$local_cfg" << EOF
 # Per-machine overrides - edit freely, gitignored
 BAR_FONT=$(grep "^BAR_FONT=" "$local_cfg" 2>/dev/null | cut -d= -f2)
+BAR_FONT=${BAR_FONT:-10}
 THEME=$theme_file
 BAR_BG=$BAR_BG
 BAR_FG=$BAR_FG
