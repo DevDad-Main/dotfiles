@@ -13,6 +13,7 @@ smart_borders on
 default_border pixel 1
 default_floating_border pixel 1
 for_window [class="^.*"] border pixel 1
+for_window [instance="keyhelp"] floating enable, border normal, resize set 640 560
 
 # === keys ===
 

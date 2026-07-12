@@ -1,5 +1,6 @@
 #!/bin/bash
-cat << 'EOF' | rofi -dmenu -i -p "  Keybinds  " -theme-str 'window {width: 800;} listview {lines: 20; spacing: 4px; element {horizontal-align: 0;}}' 
+tmp=$(mktemp /tmp/keybinds-XXXX)
+cat > "$tmp" << 'EOF'
 Mod+Return        ·  Terminal (kitty)
 Mod+d             ·  App launcher (rofi)
 Mod+Shift+d       ·  Command runner
@@ -39,3 +40,5 @@ Volume keys       ·  Volume up/down/mute
 Brightness keys   ·  Brightness up/down
 Media keys        ·  Play/Pause/Next/Prev
 EOF
+kitty --class keyhelp -o font_size=13 -e less "$tmp"
+rm -f "$tmp"
