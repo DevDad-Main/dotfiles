@@ -1,0 +1,15 @@
+THEME_NAME="Monochrome"
+BAR_BG=#1a1a1a
+BAR_FG=#d4d4d4
+WIN_FOCUSED=#a0a0a0
+WIN_INACTIVE=#2a2a2a
+WIN_UNFOCUSED=#161616
+WIN_URGENT=#cc7a7a
+WIN_DIM=#707070
+COLOR_GOOD=#7acc9a
+COLOR_WARNING=#ccb87a
+COLOR_CRITICAL=#cc7a7a
+WALLPAPER=$HOME/.config/dotfiles/i3/themes/jeanne-monochrome.jpg
+KITTY_THEME=monochrome
+EMACS_THEME=monochrome
+CATPPUCCIN_FLAVOR=

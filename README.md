@@ -51,7 +51,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
-- **Emacs** — Theme auto-switches to match the current i3 theme (nezburn / catppuccin / doom-one)
+- **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
 
 ### Shell & Tools
@@ -117,6 +117,7 @@ Themes are stored in `i3/themes/` as shell files:
 | `gruvbox-dark` | Gruvbox Dark — warm earthy tones |
 | `catppuccin-mocha` | Catppuccin Mocha — cool mauve/yellow accents |
 | `tokyo-night` | Tokyo Night — deep blue/night palette |
+| `monochrome` | Monochrome — charcoal greys with subtle silver accents |
 
 ### Installation
 
@@ -283,7 +284,8 @@ dotfiles/
 │   ├── themes/           #   Theme files (colors, wallpaper, kitty theme)
 │   │   ├── gruvbox-dark
 │   │   ├── catppuccin-mocha
-│   │   └── tokyo-night
+│   │   ├── tokyo-night
+│   │   └── monochrome
 │   ├── bar_font.sh       #   Binds Ctrl+=/- to change bar font
 │   ├── powermenu.sh      #   Shutdown/reboot/lock/suspend menu
 │   ├── powerprofile.sh   #   CPU power profile switcher
