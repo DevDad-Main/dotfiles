@@ -1,5 +1,7 @@
 #!/bin/bash
-rofi -dmenu -i -p "  Keybinds  " -theme-str 'window {width: 700;} listview {lines: 20; spacing: 4px;} element {padding: 4px 8px;}' << 'EOF'
+rofi -dmenu -i -p "  Keybinds  " -theme-str 'window {width: 720;} listview {lines: 20; spacing: 4px;} element {padding: 4px 8px;}' \
+  -theme-str 'element {horizontal-align: 0;}' \
+  -font "Iosevka 13" << 'EOF'
 Mod+Return           Terminal (kitty)
 Mod+d                App launcher (rofi)
 Mod+Shift+d          Command runner
