@@ -48,8 +48,10 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 ### Desktop Environment
 
 - **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), and screen dim/lock management (`$mod+Shift+Escape`)
-- **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs)
+- **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme
+- **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
+- **Emacs** — Theme auto-switches to match the current i3 theme (nezburn / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
 
 ### Shell & Tools
@@ -178,6 +180,8 @@ ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 | `Super+o` | Audio output switcher (wiremix TUI) |
 | `Super+Escape` | Lock screen immediately |
 | `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
+| `Super+Slash` | Keybind help (floating Kitty + fzf search) |
+| `Super+Shift+t` | Theme picker (rofi) |
 | `Super+Ctrl+equal` | Increase bar font size |
 | `Super+Ctrl+minus` | Decrease bar font size |
 | `Super+Shift+s` | Region screenshot (clipboard) |
@@ -189,13 +193,11 @@ ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 ```bash
 cd ~/.config/dotfiles && git pull
 bash i3/generate.sh
-mkdir -p ~/.config/picom
-ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 killall picom; picom -b --config ~/.config/dotfiles/picom/picom.conf
 i3-msg restart
 ```
 
-> Note: If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored). Re-run `generate.sh` to regenerate all configs from the updated templates.
+> `generate.sh` handles all generated configs: i3, i3status-rust, rofi, kitty theme, picom, and Emacs theme. Just make sure symlinks exist first (see [Symlinks](#symlinks)). If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored).
 
 ### Gaming
 
@@ -275,7 +277,9 @@ dotfiles/
 │   ├── config.local      #   Per-machine overrides (gitignored)
 │   ├── config            #   Generated config (gitignored)
 │   ├── generate.sh       #   Merges base + local → all configs
-│   ├── theme-picker.sh   #   Rofi theme switcher ($mod+Shift+t)
+│   ├── bar_font.sh       #   Change bar font size (Ctrl+=/-)
+│   ├── keyhelp.sh        #   Keybind help window (Mod+/)
+│   ├── theme-picker.sh   #   Rofi theme switcher (Mod+Shift+t)
 │   ├── themes/           #   Theme files (colors, wallpaper, kitty theme)
 │   │   ├── gruvbox-dark
 │   │   ├── catppuccin-mocha
@@ -294,7 +298,10 @@ dotfiles/
 │   ├── config.base.rasi  #   Template with placeholders
 │   └── config.rasi       #   Generated (gitignored)
 ├── picom/                # Picom compositor config
-│   └── picom.conf        #   dual_kawase blur, no inactive dim
+│   ├── picom.base.conf   #   Template with PICOM_FADING placeholder
+│   └── picom.conf        #   Generated (dual_kawase blur, no fade)
+├── emacs/                # Emacs config
+│   └── theme.el          #   Generated Emacs theme file
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings
 │   ├── hyprlock.conf     #   Lock screen config
