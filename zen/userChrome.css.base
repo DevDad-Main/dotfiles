@@ -1,37 +1,51 @@
-/* Zen browser theme colors — no layout changes */
-#main-window,
-#nav-bar,
-#navigator-toolbox,
-#TabsToolbar,
-#sidebar-box,
-#sidebar-header,
-toolbar,
-panel,
-menupopup,
-#findbar,
-#PersonalToolbar {
-  background-color: @@BAR_BG@@ !important;
-  color: @@BAR_FG@@ !important;
+/* Zen browser TUI theme — preserves original layout, adds TUI styling */
+
+/* === Fonts === */
+* {
+  font-family: "Iosevka Nerd Font", "SF Mono", Consolas, monospace !important;
 }
 
+/* === Main background === */
+#main-window {
+  background-color: @@BAR_BG@@ !important;
+}
+
+/* === Navigation bar (top) === */
+#nav-bar,
+#nav-bar-customization-target,
+#navigator-toolbox {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-bottom: 1px solid @@WIN_INACTIVE@@ !important;
+}
+
+/* === URL bar === */
 #urlbar-background,
-#urlbar-input-container,
-.searchbar-textbox {
+#urlbar-input-container {
   background-color: @@WIN_UNFOCUSED@@ !important;
   color: @@BAR_FG@@ !important;
-  border-color: @@WIN_INACTIVE@@ !important;
+  border: 1px solid @@WIN_INACTIVE@@ !important;
+  border-radius: 0 !important;
 }
 
 #urlbar[focused] #urlbar-background {
   border-color: @@WIN_FOCUSED@@ !important;
 }
 
+#urlbar-input {
+  color: @@BAR_FG@@ !important;
+}
+
+/* === Tab strip (Zen vertical tabs) === */
+#TabsToolbar,
 .tabbrowser-tab {
+  background-color: transparent !important;
   color: @@BAR_FG@@ !important;
 }
 
 .tabbrowser-tab[selected] {
   background-color: @@WIN_UNFOCUSED@@ !important;
+  border-left: 2px solid @@WIN_FOCUSED@@ !important;
 }
 
 .tabbrowser-tab:hover {
@@ -42,18 +56,87 @@ menupopup,
   color: @@BAR_FG@@ !important;
 }
 
+.tabbrowser-tab[selected] .tab-label {
+  color: @@BAR_FG@@ !important;
+  font-weight: 600 !important;
+}
+
+/* === Sidebar === */
+#sidebar-box,
+#sidebar-header,
+.sidebar-panel {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-right: 1px solid @@WIN_INACTIVE@@ !important;
+}
+
+/* === Toolbar buttons === */
+toolbar {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+}
+
 toolbarbutton {
   color: @@BAR_FG@@ !important;
   fill: @@BAR_FG@@ !important;
+  border-radius: 0 !important;
 }
 
 toolbarbutton:hover {
   background-color: @@WIN_INACTIVE@@ !important;
 }
 
+/* === Menus and panels === */
 panel,
 menupopup {
   background-color: @@BAR_BG@@ !important;
   color: @@BAR_FG@@ !important;
-  border-color: @@WIN_INACTIVE@@ !important;
+  border: 1px solid @@WIN_INACTIVE@@ !important;
+  border-radius: 0 !important;
+}
+
+menuitem:hover,
+panelitem:hover {
+  background-color: @@WIN_INACTIVE@@ !important;
+}
+
+/* === Find bar === */
+#findbar {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-top: 1px solid @@WIN_INACTIVE@@ !important;
+}
+
+/* === Bookmarks toolbar === */
+#PersonalToolbar {
+  background-color: @@BAR_BG@@ !important;
+  color: @@WIN_DIM@@ !important;
+  border-bottom: 1px solid @@WIN_INACTIVE@@ !important;
+}
+
+/* === URL bar results dropdown === */
+#urlbar-results,
+.urlbarView {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border: 1px solid @@WIN_INACTIVE@@ !important;
+  border-radius: 0 !important;
+}
+
+.urlbarView-row:hover {
+  background-color: @@WIN_INACTIVE@@ !important;
+}
+
+/* === Scrollbars === */
+scrollbar {
+  background-color: @@BAR_BG@@ !important;
+}
+
+scrollbar thumb {
+  background-color: @@WIN_INACTIVE@@ !important;
+  border-radius: 0 !important;
+}
+
+scrollbar thumb:hover {
+  background-color: @@WIN_DIM@@ !important;
 }
