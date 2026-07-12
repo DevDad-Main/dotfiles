@@ -19,8 +19,8 @@
 (setq doom-font (font-spec :family "Iosevka Nerd Font" :size 17 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 17))
 
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
-(add-to-list 'default-frame-alist '(alpha 95 95))
+(set-frame-parameter (selected-frame) 'alpha '(80 80))
+(add-to-list 'default-frame-alist '(alpha 80 80))
 
 (setq display-line-numbers-type 'relative)
 
