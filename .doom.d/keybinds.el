@@ -345,3 +345,18 @@
 
 (after! embark
   (setf (alist-get 'kill-buffer embark-pre-action-hooks) nil))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; allows moving lines up and down in norm/visual mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package! drag-stuff
+  :defer nil
+  :config
+  (drag-stuff-global-mode 1)
+  (map!
+   :n "M-j" #'drag-stuff-down
+   :n "M-k" #'drag-stuff-up
+   :v "M-j" #'drag-stuff-down
+   :v "M-k" #'drag-stuff-up))

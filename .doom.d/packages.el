@@ -56,3 +56,4 @@
 (package! key-chord)
 (package! catppuccin-theme)
 (package! nerd-icons-corfu)
+(package! drag-stuff)
