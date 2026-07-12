@@ -1,8 +1,6 @@
 # Dotfiles
 
-> Personal configuration files for a productive development environment on Arch Linux with Hyprland.
->
-> **Hyprland config**: Built on top of [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland) — the `hypr/` directory in this repo contains my custom overrides that layer on top of end4's setup.
+> Personal configuration files for a productive development environment on Arch Linux with i3.
 
 <details>
 <summary>🖼️ Previews</summary>
@@ -49,9 +47,10 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 
 ### Desktop Environment
 
-- **Hyprland** — Modern dynamic tiling Wayland compositor (with Quickshell integration)
-- **i3** — Minimal X11 tiling window manager with Gruvbox theme, audio output switching (`$mod+o`), and screen dim/lock management (`$mod+Shift+Escape`)
-- **Wallpapers** — Collection of desktop wallpapers
+- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), and screen dim/lock management (`$mod+Shift+Escape`)
+- **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs)
+- **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme
+- **Wallpapers** — Per-theme wallpapers in `i3/themes/`
 
 ### Shell & Tools
 
@@ -103,7 +102,19 @@ chsh -s /usr/bin/zsh
 <details>
 <summary>i3 Window Manager</summary>
 
-A minimal keyboard-driven i3 config with Gruvbox dark theme, vim-style navigation, and rofi spotlight launcher.
+A keyboard-driven i3 config with a theme system (Gruvbox Dark, Catppuccin Mocha, Tokyo Night), vim-style navigation, rofi launcher, and picom compositor with blur.
+
+### Theme System
+
+Switch themes on the fly with `$mod+Shift+t` (rofi picker). Each theme sets i3 colors, i3status-rust bar colors, Kitty terminal theme, wallpaper, and window borders.
+
+Themes are stored in `i3/themes/` as shell files:
+
+| File | Theme |
+|---|---|
+| `gruvbox-dark` | Gruvbox Dark — warm earthy tones |
+| `catppuccin-mocha` | Catppuccin Mocha — cool mauve/yellow accents |
+| `tokyo-night` | Tokyo Night — deep blue/night palette |
 
 ### Installation
 
@@ -128,12 +139,16 @@ cp -r ~/.local ~/config-backup/
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
+mkdir -p ~/.config/picom
+ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 
-# Generate the final config from template + local overrides
+# Generate configs from templates + local overrides
 ~/.config/dotfiles/i3/generate.sh
 ```
 
-> The i3 config is **generated** from `config.base` + `config.local`. After pulling git updates, re-run `generate.sh` to apply changes.
+> All configs (i3, i3status-rust, rofi) are **generated** from template files with `@@VAR@@` placeholders. After pulling git updates, re-run `generate.sh` to apply changes.
+>
+> **Per-machine overrides:** Machine-specific settings go in `~/.config/dotfiles/i3/config.local` (gitignored). Run `generate.sh` then `i3-msg restart` after editing.
 >
 > **Audio notes:** Your TV may only support stereo LPCM over HDMI. Use `Super+o` (wiremix) or the rofi audio switcher to select `output:hdmi-stereo` instead of `hdmi-surround` if you get no sound.
 >
@@ -169,9 +184,18 @@ ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 | `Super+Print` | Fullscreen screenshot (clipboard) |
 | `Print` | Fullscreen screenshot (file) |
 
-Wallpaper: set path in `~/.config/dotfiles/i3/config.base` under the `feh --bg-fill` line, then re-run `generate.sh`.
+### Syncing to another machine
 
-**Per-machine overrides:** Machine-specific settings go in `~/.config/dotfiles/i3/config.local` (gitignored). Edit the key=value pairs, then run `generate.sh` and restart i3. Currently supports `BAR_FONT` (bar font size, 6–20, default 10).
+```bash
+cd ~/.config/dotfiles && git pull
+bash i3/generate.sh
+mkdir -p ~/.config/picom
+ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
+killall picom; picom -b --config ~/.config/dotfiles/picom/picom.conf
+i3-msg restart
+```
+
+> Note: If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored). Re-run `generate.sh` to regenerate all configs from the updated templates.
 
 ### Gaming
 
@@ -228,12 +252,14 @@ ln -sf ~/.config/dotfiles/zed ~/.config/zed
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
+mkdir -p ~/.config/picom
+ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 
-# Generate the i3 config from template + local overrides
+# Generate configs from templates + local overrides
 ~/.config/dotfiles/i3/generate.sh
 ```
 
-> After pulling git updates, re-run `generate.sh` to apply any i3 template changes.
+> After pulling git updates, re-run `generate.sh` to apply any template changes.
 
 </details>
 
@@ -248,7 +274,12 @@ dotfiles/
 │   ├── config.base       #   Template config (tracked)
 │   ├── config.local      #   Per-machine overrides (gitignored)
 │   ├── config            #   Generated config (gitignored)
-│   ├── generate.sh       #   Merges base + local → config
+│   ├── generate.sh       #   Merges base + local → all configs
+│   ├── theme-picker.sh   #   Rofi theme switcher ($mod+Shift+t)
+│   ├── themes/           #   Theme files (colors, wallpaper, kitty theme)
+│   │   ├── gruvbox-dark
+│   │   ├── catppuccin-mocha
+│   │   └── tokyo-night
 │   ├── bar_font.sh       #   Binds Ctrl+=/- to change bar font
 │   ├── powermenu.sh      #   Shutdown/reboot/lock/suspend menu
 │   ├── powerprofile.sh   #   CPU power profile switcher
@@ -256,8 +287,14 @@ dotfiles/
 │       ├── screen-lock-menu.sh  #   Rofi dim/lock timeout selector
 │       ├── dim-then-lock.sh     #   Gradual dim before i3lock
 │       └── switch-audio.sh      #   Rofi card profile switcher
-├── i3status-rust/        # i3status-rust bar config
-├── rofi/                 # Rofi launcher config
+├── i3status-rust/        # i3status-rust bar config (generated)
+│   ├── config.base.toml  #   Template with placeholders
+│   └── config.toml       #   Generated (gitignored)
+├── rofi/                 # Rofi launcher config (generated)
+│   ├── config.base.rasi  #   Template with placeholders
+│   └── config.rasi       #   Generated (gitignored)
+├── picom/                # Picom compositor config
+│   └── picom.conf        #   dual_kawase blur, no inactive dim
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings
 │   ├── hyprlock.conf     #   Lock screen config
