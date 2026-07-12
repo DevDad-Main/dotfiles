@@ -11,6 +11,7 @@ WIN_INACTIVE=#504945
 WIN_UNFOCUSED=#3c3836
 WIN_URGENT=#cc241d
 WIN_DIM=#a89984
+PICOM_FADING=false
 WALLPAPER=$HOME/.config/dotfiles/i3/gruv-rocket.png
 
 if [ -f "$local_cfg" ]; then
@@ -47,6 +48,12 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
 
 # Copy rofi config to ~/.config/rofi (use temp file to avoid hardlink collision)
 cp "$dir/../rofi/config.rasi" "$HOME/.config/rofi/config.rasi" 2>/dev/null || true
+
+# Generate picom config from template
+sed -e "s|@@PICOM_FADING@@|${PICOM_FADING:-false}|g" \
+    "$dir/../picom/picom.base.conf" > "$dir/../picom/picom.conf"
+mkdir -p "$HOME/.config/picom"
+cp "$dir/../picom/picom.conf" "$HOME/.config/picom/picom.conf"
 
 # Generate kitty current-theme.conf
 kitty_theme_src="$dir/../kitty/themes/${KITTY_THEME}.conf"
