@@ -35,3 +35,15 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@COLOR_WARNING@@|${COLOR_WARNING:-#d79921}|g" \
     -e "s|@@COLOR_CRITICAL@@|${COLOR_CRITICAL:-#cc241d}|g" \
     "$dir/../i3status-rust/config.base.toml" > "$dir/../i3status-rust/config.toml"
+
+# Generate rofi config
+sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
+    -e "s|@@BAR_FG@@|$BAR_FG|g" \
+    -e "s|@@WIN_FOCUSED@@|$WIN_FOCUSED|g" \
+    -e "s|@@WIN_UNFOCUSED@@|$WIN_UNFOCUSED|g" \
+    -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
+    -e "s|@@WIN_URGENT@@|$WIN_URGENT|g" \
+    "$dir/../rofi/config.base.rasi" > "$dir/../rofi/config.rasi" 2>/dev/null
+
+# Copy rofi config to ~/.config/rofi (use temp file to avoid hardlink collision)
+cp "$dir/../rofi/config.rasi" "$HOME/.config/rofi/config.rasi" 2>/dev/null || true

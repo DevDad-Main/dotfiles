@@ -6,6 +6,7 @@ undodir/
 i3/config.local
 i3/config
 i3status-rust/config.toml
+rofi/config.rasi
 .vim/sessions/
 /sessions
 /sessions
