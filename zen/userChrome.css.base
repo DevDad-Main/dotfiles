@@ -52,6 +52,70 @@ toolbarbutton:hover {
   background-color: @@WIN_INACTIVE@@ !important;
 }
 
+/* === TUI decorations === */
+
+/* Dashed separator under the URL/toolbar area — like a tmux bar */
+#nav-bar {
+  border-bottom: 1px dashed @@WIN_INACTIVE@@ !important;
+  box-shadow: none !important;
+  padding: 2px 0 !important;
+  margin-bottom: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Dashed line above the find bar */
+#findbar {
+  border-top: 1px dashed @@WIN_DIM@@ !important;
+}
+
+/* Dashed top border on tabs toolbar */
+#TabsToolbar {
+  border-top: 1px dashed @@WIN_INACTIVE@@ !important;
+  margin-top: 0 !important;
+}
+
+/* TUI-style URL bar: boxed brackets look */
+#urlbar {
+  min-height: 26px !important;
+  font-size: 13px !important;
+  font-family: "Iosevka Nerd Font", monospace !important;
+  margin: 2px 4px !important;
+}
+
+#urlbar:not([focused]) #urlbar-background {
+  border-style: dashed !important;
+}
+
+#urlbar[focused] #urlbar-background {
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+/* Dashed separator between tabs */
+.tabbrowser-tab {
+  border-right: 1px dashed @@WIN_INACTIVE@@ !important;
+}
+
+.tabbrowser-tab:last-child {
+  border-right: none !important;
+}
+
+/* TUI-style selected tab indicator — underline instead of highlight */
+.tabbrowser-tab[selected] .tab-content {
+  border-bottom: 1px solid @@WIN_FOCUSED@@ !important;
+}
+
+/* Make toolbarbuttons look like TUI buttons with borders */
+toolbarbutton:not(#urlbar-zoom-button):not(#star-button):not(#reader-mode-button) {
+  border: 1px solid transparent !important;
+  padding: 1px 4px !important;
+  margin: 0 1px !important;
+}
+
+toolbarbutton:not(#urlbar-zoom-button):not(#star-button):not(#reader-mode-button):hover {
+  border-color: @@WIN_FOCUSED@@ !important;
+}
+
 /* === Terminal minimalism — hide chrome elements === */
 
 /* Hide navigation buttons (back/forward/reload/home) */
@@ -73,7 +137,7 @@ toolbarbutton:hover {
   display: none !important;
 }
 
-/* Hide title bar window controls */
+/* Hide title bar */
 #titlebar,
 #titlebar-buttonbox {
   display: none !important;
@@ -82,23 +146,6 @@ toolbarbutton:hover {
 /* Hide tab close buttons */
 .tab-close-button {
   display: none !important;
-}
-
-/* Hide tab secondary line (container indicator etc) */
-.tab-secondary-line,
-.tab-throbber-tablist {
-  display: none !important;
-}
-
-/* Make URL bar compact */
-#urlbar-container {
-  max-width: 600px !important;
-  margin: 0 auto !important;
-}
-
-#urlbar {
-  min-height: 28px !important;
-  font-size: 13px !important;
 }
 
 /* Hide extension icons in toolbar */
@@ -123,15 +170,7 @@ toolbarbutton:hover {
   display: none !important;
 }
 
-/* Hide page action buttons */
+/* Hide page action buttons (save, share, etc) */
 #page-action-buttons > :not(#urlbar-zoom-button) {
   display: none !important;
-}
-
-/* Remove nav-bar padding to save space */
-#nav-bar {
-  padding: 0 !important;
-  margin: 0 !important;
-  min-height: 0 !important;
-  border: none !important;
 }
