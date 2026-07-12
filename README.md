@@ -218,6 +218,10 @@ i3-msg restart
 ```
 
 > `generate.sh` handles all generated configs: i3, i3status-rust, rofi, kitty theme, picom, and Emacs theme. Just make sure symlinks exist first (see [Symlinks](#symlinks)). If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored).
+>
+> **After a pull that adds features:** install any new packages (see the i3 `pacman -S` install list above — e.g. `impala iwd` were added for the WiFi manager). Optional extras have their own setup: the [Networking section](#networking-wifi--ethernet) covers switching NetworkManager to the iwd backend for impala.
+>
+> **Per-machine settings are not synced** — `i3/config.local` is gitignored, so each machine keeps its own. Defaults kick in when it's absent: `$mod+c` opens `emacs` and the network block auto-detects the interface. Override per machine by setting `EDITOR_CMD` (code editor) or `NET_DEVICE` (pin a specific interface) there.
 
 ### Gaming
 

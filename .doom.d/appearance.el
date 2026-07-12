@@ -1,4 +1,4 @@
-j;; appearance.el -*- lexical-binding: t; -*-
+;; appearance.el -*- lexical-binding: t; -*-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Appearance
