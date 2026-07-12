@@ -29,10 +29,15 @@ theme_file=$(echo "$chosen" | grep -oP '(?<=\()[^)]+(?=\))')
 # Source the theme file
 source "$themes_dir/$theme_file"
 
+# Preserve user overrides before the file is truncated
+current_font=$(grep "^BAR_FONT=" "$local_cfg" 2>/dev/null | cut -d= -f2 | tail -1)
+current_font=${current_font:-8}
+current_fading=$(grep "^PICOM_FADING=" "$local_cfg" 2>/dev/null | cut -d= -f2)
+
 # Update config.local with new theme values
 cat > "$local_cfg" << EOF
 # Per-machine overrides - edit freely, gitignored
-BAR_FONT=$(grep "^BAR_FONT=" "$local_cfg" 2>/dev/null | cut -d= -f2 | tail -1)
+BAR_FONT=$current_font
 THEME=$theme_file
 BAR_BG=$BAR_BG
 BAR_FG=$BAR_FG
@@ -48,7 +53,7 @@ WALLPAPER=$WALLPAPER
 KITTY_THEME=$KITTY_THEME
 EMACS_THEME=$EMACS_THEME
 CATPPUCCIN_FLAVOR=$CATPPUCCIN_FLAVOR
-PICOM_FADING=$(grep "^PICOM_FADING=" "$local_cfg" 2>/dev/null | cut -d= -f2)
+PICOM_FADING=$current_fading
 EOF
 
 # Regenerate i3 config
