@@ -78,16 +78,34 @@ emacs_theme_file="$emacs_theme_dir/theme.el"
   echo "(load-theme '${EMACS_THEME:-nezburn} t)"
 } > "$emacs_theme_file"
 
-# Generate browser userChrome.css for Zen and Firefox
-generate_userchrome() {
-  local browser_name="$1"
-  local config_dir="$2"
-  local chrome_src="$dir/../zen/userChrome.css.base"
-  local ini="$config_dir/profiles.ini"
+# Deploy textfox to Firefox profile
+deploy_textfox() {
+  local profile_dir="$1"
+  local chrome_dir="$profile_dir/chrome"
 
-  # Find active profile from [Install*] section
+  # Backup existing chrome if it's not textfox
+  if [ -f "$chrome_dir/userChrome.css" ] && ! grep -q "textfox" "$chrome_dir/userChrome.css" 2>/dev/null; then
+    local bak="$profile_dir/chrome.bak"
+    [ ! -d "$bak" ] && cp -r "$chrome_dir" "$bak"
+  fi
+
+  # Copy textfox chrome files
+  mkdir -p "$chrome_dir"
+  cp -r "$dir/../zen/textfox/"* "$chrome_dir/"
+
+  # Generate config.css with theme colors
+  sed -e "s|@@BG@@|$BAR_BG|g" \
+      -e "s|@@FG@@|$BAR_FG|g" \
+      -e "s|@@ACCENT@@|$WIN_FOCUSED|g" \
+      -e "s|@@BORDER@@|$WIN_INACTIVE|g" \
+      "$dir/../zen/config.css.base" > "$chrome_dir/config.css"
+}
+
+# Generate Zen browser userChrome.css
+generate_zen_userchrome() {
+  local config_dir="$HOME/.config/zen"
+  local ini="$config_dir/profiles.ini"
   local active_profile=$(grep -A1 '^\[Install' "$ini" 2>/dev/null | grep "^Default=" | head -1 | cut -d= -f2)
-  # Fallback to Default=1 profile
   [ -z "$active_profile" ] && active_profile=$(grep -B1 "^Default=1" "$ini" 2>/dev/null | grep "^Path=" | head -1 | cut -d= -f2)
   [ -z "$active_profile" ] && return
 
@@ -99,9 +117,17 @@ generate_userchrome() {
       -e "s|@@WIN_INACTIVE@@|$WIN_INACTIVE|g" \
       -e "s|@@WIN_UNFOCUSED@@|$WIN_UNFOCUSED|g" \
       -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
-      "$chrome_src" > "$chrome_dst"
+      "$dir/../zen/userChrome.css.base" > "$chrome_dst"
+}
 
-  # Enable userChrome.css and browser toolbox
+# Enable browser prefs for custom CSS
+set_browser_prefs() {
+  local config_dir="$1"
+  local ini="$config_dir/profiles.ini"
+  local active_profile=$(grep -A1 '^\[Install' "$ini" 2>/dev/null | grep "^Default=" | head -1 | cut -d= -f2)
+  [ -z "$active_profile" ] && active_profile=$(grep -B1 "^Default=1" "$ini" 2>/dev/null | grep "^Path=" | head -1 | cut -d= -f2)
+  [ -z "$active_profile" ] && return
+
   local userjs="$config_dir/$active_profile/user.js"
   for pref in 'toolkit.legacyUserProfileCustomizations.stylesheets' 'devtools.debugger.remote-enabled' 'devtools.chrome.enabled'; do
     if ! grep -q "$pref" "$userjs" 2>/dev/null; then
@@ -110,5 +136,15 @@ generate_userchrome() {
   done
 }
 
-generate_userchrome "Zen" "$HOME/.config/zen"
-generate_userchrome "Firefox" "$HOME/.config/mozilla/firefox"
+# Firefox — deploy textfox
+firefox_profiles="$HOME/.config/mozilla/firefox/profiles.ini"
+firefox_active=$(grep -A1 '^\[Install' "$firefox_profiles" 2>/dev/null | grep "^Default=" | head -1 | cut -d= -f2)
+[ -z "$firefox_active" ] && firefox_active=$(grep -B1 "^Default=1" "$firefox_profiles" 2>/dev/null | grep "^Path=" | head -1 | cut -d= -f2)
+if [ -n "$firefox_active" ]; then
+  deploy_textfox "$HOME/.config/mozilla/firefox/$firefox_active"
+  set_browser_prefs "$HOME/.config/mozilla/firefox"
+fi
+
+# Zen — simple userChrome.css
+generate_zen_userchrome
+set_browser_prefs "$HOME/.config/zen"

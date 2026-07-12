@@ -1,12 +1,11 @@
-/* Firefox/Zen terminal TUI theme — auto-generated */
-
-/* === Colors === */
+/* Zen browser theme colors — no layout changes */
 #main-window,
 #nav-bar,
-#nav-bar-customization-target,
+#navigator-toolbox,
 #TabsToolbar,
 #sidebar-box,
 #sidebar-header,
+toolbar,
 panel,
 menupopup,
 #findbar,
@@ -16,10 +15,11 @@ menupopup,
 }
 
 #urlbar-background,
-#urlbar-input-container {
+#urlbar-input-container,
+.searchbar-textbox {
   background-color: @@WIN_UNFOCUSED@@ !important;
   color: @@BAR_FG@@ !important;
-  border: 1px solid @@WIN_INACTIVE@@ !important;
+  border-color: @@WIN_INACTIVE@@ !important;
 }
 
 #urlbar[focused] #urlbar-background {
@@ -27,7 +27,6 @@ menupopup,
 }
 
 .tabbrowser-tab {
-  background-color: transparent !important;
   color: @@BAR_FG@@ !important;
 }
 
@@ -52,125 +51,9 @@ toolbarbutton:hover {
   background-color: @@WIN_INACTIVE@@ !important;
 }
 
-/* === TUI decorations === */
-
-/* Dashed separator under the URL/toolbar area — like a tmux bar */
-#nav-bar {
-  border-bottom: 1px dashed @@WIN_INACTIVE@@ !important;
-  box-shadow: none !important;
-  padding: 2px 0 !important;
-  margin-bottom: 0 !important;
-  min-height: 0 !important;
-}
-
-/* Dashed line above the find bar */
-#findbar {
-  border-top: 1px dashed @@WIN_DIM@@ !important;
-}
-
-/* Dashed top border on tabs toolbar */
-#TabsToolbar {
-  border-top: 1px dashed @@WIN_INACTIVE@@ !important;
-  margin-top: 0 !important;
-}
-
-/* TUI-style URL bar: boxed brackets look */
-#urlbar {
-  min-height: 26px !important;
-  font-size: 13px !important;
-  font-family: "Iosevka Nerd Font", monospace !important;
-  margin: 2px 4px !important;
-}
-
-#urlbar:not([focused]) #urlbar-background {
-  border-style: dashed !important;
-}
-
-#urlbar[focused] #urlbar-background {
-  border-style: solid !important;
-  border-width: 1px !important;
-}
-
-/* Dashed separator between tabs */
-.tabbrowser-tab {
-  border-right: 1px dashed @@WIN_INACTIVE@@ !important;
-}
-
-.tabbrowser-tab:last-child {
-  border-right: none !important;
-}
-
-/* TUI-style selected tab indicator — underline instead of highlight */
-.tabbrowser-tab[selected] .tab-content {
-  border-bottom: 1px solid @@WIN_FOCUSED@@ !important;
-}
-
-/* Make toolbarbuttons look like TUI buttons with borders */
-toolbarbutton:not(#urlbar-zoom-button):not(#star-button):not(#reader-mode-button) {
-  border: 1px solid transparent !important;
-  padding: 1px 4px !important;
-  margin: 0 1px !important;
-}
-
-toolbarbutton:not(#urlbar-zoom-button):not(#star-button):not(#reader-mode-button):hover {
-  border-color: @@WIN_FOCUSED@@ !important;
-}
-
-/* === Terminal minimalism — hide chrome elements === */
-
-/* Hide navigation buttons (back/forward/reload/home) */
-#back-button,
-#forward-button,
-#reload-button,
-#stop-button,
-#home-button,
-#alltabs-button,
-#firefox-view-button,
-#library-button,
-#sidebar-button,
-#panic-button {
-  display: none !important;
-}
-
-/* Hide bookmarks toolbar */
-#PersonalToolbar {
-  display: none !important;
-}
-
-/* Hide title bar */
-#titlebar,
-#titlebar-buttonbox {
-  display: none !important;
-}
-
-/* Hide tab close buttons */
-.tab-close-button {
-  display: none !important;
-}
-
-/* Hide extension icons in toolbar */
-#widget-overflow-fixed-list,
-.unified-extensions-button,
-#unified-extensions-button {
-  display: none !important;
-}
-
-/* Hide downloads button */
-#downloads-button {
-  display: none !important;
-}
-
-/* Hide identity box / padlock */
-#identity-box {
-  display: none !important;
-}
-
-/* Hide tracking protection shield */
-#tracking-protection-button-container {
-  display: none !important;
-}
-
-/* Hide page action buttons (save, share, etc) */
-#page-action-buttons > :not(#urlbar-zoom-button) {
-  display: none !important;
+panel,
+menupopup {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-color: @@WIN_INACTIVE@@ !important;
 }

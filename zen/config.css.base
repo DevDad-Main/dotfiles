@@ -1,0 +1,18 @@
+:root {
+  --tf-bg: @@BG@@;
+  --tf-accent: @@ACCENT@@;
+  --tf-border: @@BORDER@@;
+  --tf-font-family: "Iosevka Nerd Font", "SF Mono", Consolas, monospace;
+  --tf-font-size: 14px;
+  --tf-border-width: 1px;
+  --tf-rounding: 0px;
+  --tf-text-transform: none;
+  --tf-display-horizontal-tabs: none;
+  --tf-display-window-controls: none;
+  --tf-display-nav-buttons: none;
+  --tf-display-urlbar-icons: none;
+  --tf-display-titles: flex;
+  --tf-navbar-margin: 4px 8px 2px;
+  --tf-navbar-padding: 2px;
+  --tf-bookmarks-alignment: left;
+}
