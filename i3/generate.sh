@@ -53,6 +53,7 @@ cp "$dir/../rofi/config.rasi" "$HOME/.config/rofi/config.rasi" 2>/dev/null || tr
 sed -e "s|@@PICOM_FADING@@|${PICOM_FADING:-false}|g" \
     "$dir/../picom/picom.base.conf" > "$dir/../picom/picom.conf"
 mkdir -p "$HOME/.config/picom"
+rm -f "$HOME/.config/picom/picom.conf"
 cp "$dir/../picom/picom.conf" "$HOME/.config/picom/picom.conf"
 
 # Generate kitty current-theme.conf
