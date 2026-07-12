@@ -11,3 +11,5 @@ COLOR_WARNING=#f9e2af
 COLOR_CRITICAL=#f38ba8
 WALLPAPER=$HOME/.config/dotfiles/i3/themes/pompeii-catppuccin.png
 KITTY_THEME=catppuccin-mocha
+EMACS_THEME=catppuccin
+CATPPUCCIN_FLAVOR=mocha

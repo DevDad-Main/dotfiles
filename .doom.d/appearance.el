@@ -11,8 +11,11 @@
 
 (add-to-list 'custom-theme-load-path "~/.config/dotfiles/.doom.d/")
 
-(load-theme 'nezburn t)
-;; (load-theme 'gruber-darker t)
+(defconst dotfiles-theme-file "~/.config/dotfiles/emacs/theme.el")
+(when (file-exists-p dotfiles-theme-file)
+  (load dotfiles-theme-file))
+(unless (file-exists-p dotfiles-theme-file)
+  (load-theme 'nezburn t))
 ;; (setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 15 :weight 'medium)
 ;;       doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 15))
 

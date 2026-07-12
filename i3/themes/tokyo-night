@@ -11,3 +11,4 @@ COLOR_WARNING=#e0af68
 COLOR_CRITICAL=#f7768e
 WALLPAPER=$HOME/.config/dotfiles/i3/themes/wall-tokyonight.jpg
 KITTY_THEME=tokyo-night
+EMACS_THEME=gruber-darker
