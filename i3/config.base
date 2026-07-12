@@ -116,6 +116,7 @@ bindsym $mod+Shift+c exec --no-startup-id xcolor --selection clipboard
 bindsym $mod+Shift+t exec --no-startup-id ~/.config/i3/theme-picker.sh
 bindsym $mod+Ctrl+equal exec --no-startup-id ~/.config/i3/bar_font.sh +
 bindsym $mod+Ctrl+minus exec --no-startup-id ~/.config/i3/bar_font.sh -
+bindsym $mod+slash exec --no-startup-id ~/.config/i3/keyhelp.sh
 
 # bar
 bar {
