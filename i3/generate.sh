@@ -97,9 +97,11 @@ if [ -n "$zen_install_section" ]; then
       -e "s|@@WIN_UNFOCUSED@@|$WIN_UNFOCUSED|g" \
       -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
       "$zen_chrome_src" > "$zen_chrome_dst"
-  # Enable legacy userChrome if not already set
+  # Enable userChrome.css and browser toolbox
   zen_userjs="$HOME/.config/zen/$zen_profile/user.js"
-  if ! grep -q "toolkit.legacyUserProfileCustomizations" "$zen_userjs" 2>/dev/null; then
-    echo 'user_pref("toolkit.legacyUserProfileCustomizations", true);' >> "$zen_userjs"
-  fi
+  for pref in 'toolkit.legacyUserProfileCustomizations.stylesheets' 'devtools.debugger.remote-enabled' 'devtools.chrome.enabled'; do
+    if ! grep -q "$pref" "$zen_userjs" 2>/dev/null; then
+      echo "user_pref(\"$pref\", true);" >> "$zen_userjs"
+    fi
+  done
 fi
