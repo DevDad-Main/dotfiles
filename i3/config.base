@@ -14,6 +14,7 @@ default_border pixel 1
 default_floating_border pixel 1
 for_window [class="^.*"] border pixel 1
 for_window [instance="keyhelp"] floating enable, border normal, resize set 640 560
+for_window [instance="impala"] floating enable, border normal, resize set 720 520
 
 # === keys ===
 
@@ -23,6 +24,9 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run -show-icons
 bindsym $mod+Shift+Return exec --no-startup-id thunar
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
+bindsym $mod+n exec --no-startup-id kitty --class impala -e impala
+# Code editor — set EDITOR_CMD in config.local to change (e.g. "kitty -e nvim", "code", "code-oss")
+bindsym $mod+c exec --no-startup-id @@EDITOR_CMD@@
 bindsym $mod+g exec --no-startup-id kitty -e lazygit
 bindsym $mod+Shift+b bar mode toggle
 bindsym $mod+q kill

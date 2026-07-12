@@ -21,7 +21,9 @@ Mod+Shift+r       ·  Restart i3
 Mod+Shift+e       ·  Exit i3
 Mod+Ctrl+q        ·  Power menu
 Mod+b             ·  Bluetooth
+Mod+n             ·  WiFi (impala)
 Mod+g             ·  Git (lazygit)
+Mod+c             ·  Code editor (emacs)
 Mod+o             ·  Audio output
 Mod+Escape        ·  Lock screen
 Mod+Shift+Escape  ·  Screen dim/lock settings

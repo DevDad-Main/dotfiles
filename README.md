@@ -47,9 +47,9 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 
 ### Desktop Environment
 
-- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), and screen dim/lock management (`$mod+Shift+Escape`)
+- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), and screen dim/lock management (`$mod+Shift+Escape`)
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
-- **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme
+- **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
 - **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
@@ -122,7 +122,7 @@ Themes are stored in `i3/themes/` as shell files:
 ### Installation
 
 ```bash
-sudo pacman -S xorg-server xorg-xinit xorg-xrandr xorg-xset i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui haruna gwenview maim slop xclip i3lock wiremix power-profiles-daemon
+sudo pacman -S xorg-server xorg-xinit xorg-xrandr xorg-xset i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui impala iwd haruna gwenview maim slop xclip i3lock wiremix power-profiles-daemon
 
 # AUR
 yay -S xautolock
@@ -151,11 +151,26 @@ ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 
 > All configs (i3, i3status-rust, rofi) are **generated** from template files with `@@VAR@@` placeholders. After pulling git updates, re-run `generate.sh` to apply changes.
 >
-> **Per-machine overrides:** Machine-specific settings go in `~/.config/dotfiles/i3/config.local` (gitignored). Run `generate.sh` then `i3-msg restart` after editing.
+> **Per-machine overrides:** Machine-specific settings go in `~/.config/dotfiles/i3/config.local` (gitignored). Run `generate.sh` then `i3-msg restart` after editing. For example, set `EDITOR_CMD` to change the `$mod+c` code editor — GUI apps run directly (`emacs`, `code`, `code-oss`, `zeditor`), terminal editors need a terminal (`"kitty -e nvim"`); pin the network interface with `NET_DEVICE=eth0`.
 >
 > **Audio notes:** Your TV may only support stereo LPCM over HDMI. Use `Super+o` (wiremix) or the rofi audio switcher to select `output:hdmi-stereo` instead of `hdmi-surround` if you get no sound.
 >
 > **ALSA mixer:** Speaker/Headphone outputs are automatically unmuted on i3 start. If audio cuts out after switching profiles, run `amixer -c 0 sset 'Speaker' unmute 87%`.
+
+### Networking (WiFi / Ethernet)
+
+The i3status-rust `net` block **auto-detects the active interface** — the one on the default route — so it works for both WiFi and Ethernet with no per-machine config, and follows changes live. It shows the SSID + signal strength on WiFi, or the interface name on Ethernet (with the matching icon). To pin a specific interface, set `NET_DEVICE=eth0` in `i3/config.local` (defaults to `auto`).
+
+**WiFi manager (impala):** press `$mod+n` or **left-click the network block** in the bar to open [impala](https://github.com/pythops/impala), a TUI WiFi manager. impala talks to `iwd`, so NetworkManager must use the iwd backend:
+
+```bash
+sudo pacman -S impala          # iwd is usually already installed
+sudo install -Dm644 ~/.config/dotfiles/network/wifi_backend-iwd.conf \
+  /etc/NetworkManager/conf.d/wifi_backend.conf
+sudo systemctl restart NetworkManager
+```
+
+NetworkManager keeps managing your saved connections (and their passwords) — it just drives `iwd` instead of `wpa_supplicant`. Revert by deleting that file and restarting NetworkManager.
 
 ### Keybindings
 
@@ -178,6 +193,10 @@ ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 | `Super+Shift+e` | Exit i3 |
 | `Super+Ctrl+q` | Power menu (shutdown/reboot/lock/etc) |
 | `Super+Shift+b` | Toggle bar on/off |
+| `Super+b` | Bluetooth manager (bluetui TUI) |
+| `Super+n` | WiFi manager (impala TUI) |
+| `Super+g` | Git (lazygit) |
+| `Super+c` | Code editor (configurable via `EDITOR_CMD`, default emacs) |
 | `Super+o` | Audio output switcher (wiremix TUI) |
 | `Super+Escape` | Lock screen immediately |
 | `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
@@ -304,6 +323,8 @@ dotfiles/
 │   └── picom.conf        #   Generated (dual_kawase blur, no fade)
 ├── emacs/                # Emacs config
 │   └── theme.el          #   Generated Emacs theme file
+├── network/              # NetworkManager drop-ins
+│   └── wifi_backend-iwd.conf  #   Switch NM wifi backend to iwd (for impala)
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings
 │   ├── hyprlock.conf     #   Lock screen config

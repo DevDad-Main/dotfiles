@@ -12,10 +12,21 @@ WIN_UNFOCUSED=#3c3836
 WIN_URGENT=#cc241d
 WIN_DIM=#a89984
 PICOM_FADING=false
+NET_DEVICE=auto
+EDITOR_CMD="emacs"
 WALLPAPER=$HOME/.config/dotfiles/i3/gruv-rocket.png
 
 if [ -f "$local_cfg" ]; then
     source "$local_cfg"
+fi
+
+# Network interface: leave NET_DEVICE=auto (default) to let i3status-rust
+# follow the default-route interface itself — works for wifi AND ethernet and
+# updates live. Pin a specific one in config.local (e.g. NET_DEVICE=eth0) to override.
+if [ "$NET_DEVICE" = "auto" ] || [ -z "$NET_DEVICE" ]; then
+    NET_DEVICE_LINE=""
+else
+    NET_DEVICE_LINE="device = \"$NET_DEVICE\""
 fi
 
 BAR_FONT=${BAR_FONT:-10}
@@ -28,6 +39,7 @@ sed -e "s|@@BAR_FONT@@|$BAR_FONT|g" \
     -e "s|@@WIN_URGENT@@|$WIN_URGENT|g" \
     -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
     -e "s|@@WALLPAPER@@|$WALLPAPER|g" \
+    -e "s|@@EDITOR_CMD@@|$EDITOR_CMD|g" \
     "$dir/config.base" > "$dir/config"
 
 # Generate i3status-rust config
@@ -36,6 +48,7 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@COLOR_GOOD@@|${COLOR_GOOD:-$BAR_FG}|g" \
     -e "s|@@COLOR_WARNING@@|${COLOR_WARNING:-#d79921}|g" \
     -e "s|@@COLOR_CRITICAL@@|${COLOR_CRITICAL:-#cc241d}|g" \
+    -e "s|@@NET_DEVICE_LINE@@|$NET_DEVICE_LINE|g" \
     "$dir/../i3status-rust/config.base.toml" > "$dir/../i3status-rust/config.toml"
 
 # Generate rofi config
