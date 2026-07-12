@@ -161,16 +161,34 @@ ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 
 The i3status-rust `net` block **auto-detects the active interface** — the one on the default route — so it works for both WiFi and Ethernet with no per-machine config, and follows changes live. It shows the SSID + signal strength on WiFi, or the interface name on Ethernet (with the matching icon). To pin a specific interface, set `NET_DEVICE=eth0` in `i3/config.local` (defaults to `auto`).
 
-**WiFi manager (impala):** press `$mod+n` or **left-click the network block** in the bar to open [impala](https://github.com/pythops/impala), a TUI WiFi manager. impala talks to `iwd`, so NetworkManager must use the iwd backend:
+**WiFi manager (impala):** press `$mod+n` or **left-click the network block** in the bar to open [impala](https://github.com/pythops/impala), a TUI WiFi manager. impala talks to `iwd`, so NetworkManager must use the iwd backend. Run these one at a time (each is a single command):
 
 ```bash
-sudo pacman -S impala          # iwd is usually already installed
-sudo install -Dm644 ~/.config/dotfiles/network/wifi_backend-iwd.conf \
-  /etc/NetworkManager/conf.d/wifi_backend.conf
+sudo pacman -S impala iwd
+
+# Point NetworkManager at the iwd backend
+printf '[device]\nwifi.backend=iwd\n' | sudo tee /etc/NetworkManager/conf.d/wifi_backend.conf
+
+# Stop wpa_supplicant fighting iwd for the device, and make iwd persistent
+sudo systemctl disable --now wpa_supplicant
+sudo systemctl enable --now iwd
+
+# Apply the backend switch (WiFi will drop briefly here)
 sudo systemctl restart NetworkManager
 ```
 
-NetworkManager keeps managing your saved connections (and their passwords) — it just drives `iwd` instead of `wpa_supplicant`. Revert by deleting that file and restarting NetworkManager.
+> **Both steps matter.** If you only deploy the config without disabling `wpa_supplicant`, both supplicants fight over the wireless device and impala fails with "Operation failed" / shows no networks.
+
+After the restart, WiFi drops and should auto-reconnect (NetworkManager keeps your saved password and hands it to iwd). If it doesn't come back on its own, open impala (`$mod+n`) and connect once — iwd remembers it afterwards. Verify the switch with:
+
+```bash
+nmcli -t -f DEVICE,TYPE,STATE dev | grep wifi   # want: wlan0:wifi:connected
+systemctl is-active wpa_supplicant iwd          # want: inactive  active
+```
+
+Optionally mask wpa_supplicant so nothing can re-activate it: `sudo systemctl mask wpa_supplicant`.
+
+NetworkManager keeps managing your saved connections — it just drives `iwd` instead of `wpa_supplicant`. Revert by deleting `/etc/NetworkManager/conf.d/wifi_backend.conf`, running `sudo systemctl unmask --now wpa_supplicant` (if you masked it), and restarting NetworkManager.
 
 ### Keybindings
 
@@ -327,8 +345,6 @@ dotfiles/
 │   └── picom.conf        #   Generated (dual_kawase blur, no fade)
 ├── emacs/                # Emacs config
 │   └── theme.el          #   Generated Emacs theme file
-├── network/              # NetworkManager drop-ins
-│   └── wifi_backend-iwd.conf  #   Switch NM wifi backend to iwd (for impala)
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings
 │   ├── hyprlock.conf     #   Lock screen config

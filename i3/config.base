@@ -14,7 +14,7 @@ default_border pixel 1
 default_floating_border pixel 1
 for_window [class="^.*"] border pixel 1
 for_window [instance="keyhelp"] floating enable, border normal, resize set 640 560
-for_window [instance="impala"] floating enable, border normal, resize set 720 520
+for_window [instance="impala"] floating enable, border normal, resize set 1000 680
 
 # === keys ===
 
