@@ -78,30 +78,37 @@ emacs_theme_file="$emacs_theme_dir/theme.el"
   echo "(load-theme '${EMACS_THEME:-nezburn} t)"
 } > "$emacs_theme_file"
 
-# Generate Zen browser userChrome.css
-zen_dir="$dir/../zen"
-zen_chrome_src="$zen_dir/userChrome.css.base"
-zen_ini="$HOME/.config/zen/profiles.ini"
-# Find active profile from [Install*] section
-zen_install_section=$(grep -A1 '^\[Install' "$zen_ini" 2>/dev/null | grep "^Default=" | head -1 | cut -d= -f2)
-# Fallback to Default=1 profile
-[ -z "$zen_install_section" ] && zen_install_section=$(grep -B1 "^Default=1" "$zen_ini" 2>/dev/null | grep "^Path=" | head -1 | cut -d= -f2)
-if [ -n "$zen_install_section" ]; then
-  zen_profile="$zen_install_section"
-  zen_chrome_dst="$HOME/.config/zen/$zen_profile/chrome/userChrome.css"
-  mkdir -p "$(dirname "$zen_chrome_dst")"
+# Generate browser userChrome.css for Zen and Firefox
+generate_userchrome() {
+  local browser_name="$1"
+  local config_dir="$2"
+  local chrome_src="$dir/../zen/userChrome.css.base"
+  local ini="$config_dir/profiles.ini"
+
+  # Find active profile from [Install*] section
+  local active_profile=$(grep -A1 '^\[Install' "$ini" 2>/dev/null | grep "^Default=" | head -1 | cut -d= -f2)
+  # Fallback to Default=1 profile
+  [ -z "$active_profile" ] && active_profile=$(grep -B1 "^Default=1" "$ini" 2>/dev/null | grep "^Path=" | head -1 | cut -d= -f2)
+  [ -z "$active_profile" ] && return
+
+  local chrome_dst="$config_dir/$active_profile/chrome/userChrome.css"
+  mkdir -p "$(dirname "$chrome_dst")"
   sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
       -e "s|@@BAR_FG@@|$BAR_FG|g" \
       -e "s|@@WIN_FOCUSED@@|$WIN_FOCUSED|g" \
       -e "s|@@WIN_INACTIVE@@|$WIN_INACTIVE|g" \
       -e "s|@@WIN_UNFOCUSED@@|$WIN_UNFOCUSED|g" \
       -e "s|@@WIN_DIM@@|$WIN_DIM|g" \
-      "$zen_chrome_src" > "$zen_chrome_dst"
+      "$chrome_src" > "$chrome_dst"
+
   # Enable userChrome.css and browser toolbox
-  zen_userjs="$HOME/.config/zen/$zen_profile/user.js"
+  local userjs="$config_dir/$active_profile/user.js"
   for pref in 'toolkit.legacyUserProfileCustomizations.stylesheets' 'devtools.debugger.remote-enabled' 'devtools.chrome.enabled'; do
-    if ! grep -q "$pref" "$zen_userjs" 2>/dev/null; then
-      echo "user_pref(\"$pref\", true);" >> "$zen_userjs"
+    if ! grep -q "$pref" "$userjs" 2>/dev/null; then
+      echo "user_pref(\"$pref\", true);" >> "$userjs"
     fi
   done
-fi
+}
+
+generate_userchrome "Zen" "$HOME/.config/zen"
+generate_userchrome "Firefox" "$HOME/.config/mozilla/firefox"

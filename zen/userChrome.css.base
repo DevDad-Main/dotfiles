@@ -1,115 +1,97 @@
-/* Zen Browser Terminal Theme — Auto-generated, do not edit */
-
-/* Native Firefox theme variables — Zen inherits these automatically */
-:root {
-  --lwt-accent-color: @@BAR_BG@@;
-  --lwt-text-color: @@BAR_FG@@;
-  --toolbar-bgcolor: @@BAR_BG@@;
-  --toolbar-color: @@BAR_FG@@;
-  --toolbar-field-bgcolor: @@WIN_UNFOCUSED@@;
-  --toolbar-field-color: @@BAR_FG@@;
-  --toolbar-field-focus-bgcolor: @@WIN_UNFOCUSED@@;
-  --toolbar-field-focus-color: @@BAR_FG@@;
-  --toolbar-field-border-color: @@WIN_INACTIVE@@;
-  --toolbar-field-focus-border-color: @@WIN_FOCUSED@@;
-  --urlbar-popup-bgcolor: @@BAR_BG@@;
-  --urlbar-popup-url-color: @@WIN_FOCUSED@@;
-  --tab-selected-bgcolor: @@WIN_UNFOCUSED@@;
-  --tab-hover-bgcolor: @@WIN_INACTIVE@@;
-  --tabs-border-color: @@WIN_INACTIVE@@;
-  --arrowpanel-background: @@BAR_BG@@;
-  --arrowpanel-color: @@BAR_FG@@;
-  --arrowpanel-border-color: @@WIN_INACTIVE@@;
-  --chrome-content-separator-color: @@WIN_INACTIVE@@;
-  --autocomplete-popup-background: @@BAR_BG@@;
-  --autocomplete-popup-color: @@BAR_FG@@;
-  --sidebar-background: @@BAR_BG@@;
-  --sidebar-text-color: @@BAR_FG@@;
-  --sidebar-border-color: @@WIN_INACTIVE@@;
-}
+/* Firefox/Zen browser theme — auto-generated */
 
 /* Main window */
 #main-window {
-  background-color: var(--lwt-accent-color) !important;
+  background-color: @@BAR_BG@@ !important;
 }
 
 /* Navigation toolbar */
 #nav-bar,
 #nav-bar-customization-target {
-  background-color: var(--toolbar-bgcolor) !important;
-  color: var(--toolbar-color) !important;
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
 }
 
 /* URL bar */
 #urlbar-background,
 #urlbar-input-container {
-  background-color: var(--toolbar-field-bgcolor) !important;
-  color: var(--toolbar-field-color) !important;
-  border-color: var(--toolbar-field-border-color) !important;
+  background-color: @@WIN_UNFOCUSED@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-color: @@WIN_INACTIVE@@ !important;
 }
 
 #urlbar[focused] #urlbar-background {
-  border-color: var(--toolbar-field-focus-border-color) !important;
+  border-color: @@WIN_FOCUSED@@ !important;
+}
+
+/* Tab strip */
+#TabsToolbar {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+}
+
+.tabbrowser-tab {
+  background-color: transparent !important;
+  color: @@BAR_FG@@ !important;
+}
+
+.tabbrowser-tab[selected] {
+  background-color: @@WIN_UNFOCUSED@@ !important;
+}
+
+.tabbrowser-tab:hover {
+  background-color: @@WIN_INACTIVE@@ !important;
+}
+
+.tab-label {
+  color: @@BAR_FG@@ !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
+  color: @@BAR_FG@@ !important;
 }
 
 /* Sidebar */
 #sidebar-box,
 #sidebar-header {
-  background-color: var(--sidebar-background) !important;
-  color: var(--sidebar-text-color) !important;
-  border-color: var(--sidebar-border-color) !important;
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-color: @@WIN_INACTIVE@@ !important;
 }
 
 /* Toolbar buttons */
 toolbarbutton {
-  color: var(--toolbar-color) !important;
-  fill: var(--toolbar-color) !important;
+  color: @@BAR_FG@@ !important;
+  fill: @@BAR_FG@@ !important;
 }
 
 toolbarbutton:hover {
-  background-color: var(--tab-hover-bgcolor) !important;
-}
-
-/* Tab bar (Zen vertical tabs) */
-.tabbrowser-tab {
-  background-color: transparent !important;
-  color: var(--lwt-text-color) !important;
-}
-
-.tabbrowser-tab[selected] {
-  background-color: var(--tab-selected-bgcolor) !important;
-}
-
-.tabbrowser-tab:hover {
-  background-color: var(--tab-hover-bgcolor) !important;
-}
-
-/* Tab labels */
-.tab-label {
-  color: var(--lwt-text-color) !important;
-}
-
-.tabbrowser-tab[selected] .tab-label {
-  color: var(--lwt-text-color) !important;
+  background-color: @@WIN_INACTIVE@@ !important;
 }
 
 /* Menu panels */
 panel,
-menupopup,
-.popup-notification-panel {
-  background-color: var(--arrowpanel-background) !important;
-  color: var(--arrowpanel-color) !important;
-  border-color: var(--arrowpanel-border-color) !important;
-}
-
-/* Find bar */
-#findbar {
-  background-color: var(--toolbar-bgcolor) !important;
-  color: var(--toolbar-color) !important;
+menupopup {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+  border-color: @@WIN_INACTIVE@@ !important;
 }
 
 /* Bookmarks toolbar */
 #PersonalToolbar {
-  background-color: var(--toolbar-bgcolor) !important;
-  color: var(--toolbar-color) !important;
+  background-color: @@BAR_BG@@ !important;
+  color: @@WIN_DIM@@ !important;
+}
+
+/* Find bar */
+#findbar {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
+}
+
+/* Arrow panels (URL dropdown, etc) */
+#urlbar-results,
+.panel-arrowcontent {
+  background-color: @@BAR_BG@@ !important;
+  color: @@BAR_FG@@ !important;
 }
