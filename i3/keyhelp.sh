@@ -1,5 +1,5 @@
 #!/bin/bash
-cat << 'EOF' | rofi -dmenu -i -p "  Keybinds  " -theme-str 'window {width: 800;} listview {lines: 20; spacing: 4px;}' 
+cat << 'EOF' | rofi -dmenu -i -p "  Keybinds  " -theme-str 'window {width: 800;} listview {lines: 20; spacing: 4px; element {horizontal-align: 0;}}' 
 Mod+Return        ·  Terminal (kitty)
 Mod+d             ·  App launcher (rofi)
 Mod+Shift+d       ·  Command runner
