@@ -35,4 +35,13 @@
 (after! dired
   (custom-set-faces
    '(dired-directory ((t (:background nil :foreground nil :weight normal :underline nil))))
-   '(diredfl-dir-name ((t (:background nil :foreground nil :weight normal :underline nil))))))
+   '(diredfl-dir-name ((t (:background nil :foreground nil :weight normal :underline nil))))
+   '(diredfl-no-priv ((t (:foreground nil))))
+   '(diredfl-read-priv ((t (:foreground nil))))
+   '(diredfl-write-priv ((t (:foreground nil))))
+   '(diredfl-exec-priv ((t (:foreground nil))))
+   '(diredfl-number ((t (:foreground nil))))
+   '(diredfl-date-time ((t (:foreground nil))))
+   '(diredfl-file-name ((t (:foreground nil))))
+   '(diredfl-dir-heading ((t (:foreground nil))))
+   '(header-line ((t (:background nil :foreground nil))))))
