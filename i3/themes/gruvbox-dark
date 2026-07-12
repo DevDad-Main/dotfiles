@@ -6,5 +6,5 @@ WIN_INACTIVE=#504945
 WIN_UNFOCUSED=#3c3836
 WIN_URGENT=#cc241d
 WIN_DIM=#a89984
-WALLPAPER=$HOME/Wallpapers/hyprland/gruvbox/gruv-rocket.png
+WALLPAPER=$HOME/.config/dotfiles/i3/themes/rocket-gruvbox.png
 KITTY_THEME=gruvbox-dark-hard

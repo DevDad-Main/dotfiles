@@ -6,5 +6,5 @@ WIN_INACTIVE=#45475a
 WIN_UNFOCUSED=#313244
 WIN_URGENT=#f38ba8
 WIN_DIM=#6c7086
-WALLPAPER=$HOME/Wallpapers/hyprland/onedark/10.\ One\ Dark.png
+WALLPAPER=$HOME/.config/dotfiles/i3/themes/pompeii-catppuccin.png
 KITTY_THEME=catppuccin-mocha

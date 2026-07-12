@@ -6,5 +6,5 @@ WIN_INACTIVE=#414868
 WIN_UNFOCUSED=#1a1b26
 WIN_URGENT=#f7768e
 WIN_DIM=#a9b1d6
-WALLPAPER=$HOME/Wallpapers/hyprland/tokyonight/tokyo-night.png
+WALLPAPER=$HOME/.config/dotfiles/i3/themes/wall-tokyonight.jpg
 KITTY_THEME=tokyo-night

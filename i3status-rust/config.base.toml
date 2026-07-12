@@ -6,7 +6,7 @@ bg = "@@BAR_BG@@"
 fg = "@@BAR_FG@@"
 separator = ""
 separator_bg = "@@BAR_BG@@"
-separator_fg = "@@BAR_FG@@"
+separator_fg = "@@BAR_BG@@"
 
 [icons]
 icons = "material-nf"
@@ -14,28 +14,25 @@ icons = "material-nf"
 [[block]]
 block = "cpu"
 format = " $icon $utilization "
-color = "@@WIN_FOCUSED@@"
 
 [[block]]
 block = "memory"
 format = " $icon $mem_used_percents "
-color = "@@WIN_INACTIVE@@"
 
 [[block]]
 block = "disk_space"
+path = "/"
 format = " $icon $available "
-color = "@@WIN_UNFOCUSED@@"
 
 [[block]]
 block = "net"
+device = "wlan0"
 format = " $icon $ssid $signal_strength "
 format_alt = " $icon $ip "
-color = "@@WIN_URGENT@@"
 
 [[block]]
 block = "sound"
 format = " $icon $volume "
-color = "@@WIN_DIM@@"
 
 [[block]]
 block = "custom"
@@ -50,4 +47,3 @@ interval = 5
 [[block]]
 block = "time"
 format = "  $icon  $timestamp.datetime(f:'%a %d/%m %H:%M') "
-color = "@@BAR_FG@@"
