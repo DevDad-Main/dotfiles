@@ -40,5 +40,5 @@ Volume keys       ·  Volume up/down/mute
 Brightness keys   ·  Brightness up/down
 Media keys        ·  Play/Pause/Next/Prev
 EOF
-kitty --class keyhelp -o font_size=13 -e less "$tmp"
+kitty --class keyhelp -o font_size=13 -e fzf --no-info --bind=esc:abort,enter:abort,q:abort < "$tmp"
 rm -f "$tmp"
