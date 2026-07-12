@@ -2,7 +2,7 @@
 
 set $mod Mod4
 
-font pango:Iosevka 11
+font pango:Iosevka Nerd Font 11
 
 # gaps inner 6
 # gaps outer 4
@@ -121,7 +121,7 @@ bindsym $mod+slash exec --no-startup-id ~/.config/i3/keyhelp.sh
 
 # bar
 bar {
-        font pango:Iosevka @@BAR_FONT@@
+        font pango:Iosevka Nerd Font @@BAR_FONT@@
         position top
         status_command i3status-rs ~/.config/i3status-rust/config.toml
         separator_symbol " "
