@@ -48,6 +48,15 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
 # Copy rofi config to ~/.config/rofi (use temp file to avoid hardlink collision)
 cp "$dir/../rofi/config.rasi" "$HOME/.config/rofi/config.rasi" 2>/dev/null || true
 
+# Generate kitty current-theme.conf
+kitty_theme_src="$dir/../kitty/themes/${KITTY_THEME}.conf"
+if [ -f "$kitty_theme_src" ]; then
+  cp "$kitty_theme_src" "$dir/../kitty/current-theme.conf"
+  mkdir -p "$HOME/.config/kitty"
+  cp "$kitty_theme_src" "$HOME/.config/kitty/current-theme.conf"
+  pkill -x kitty --signal SIGUSR1 2>/dev/null
+fi
+
 # Generate Emacs theme file
 emacs_theme_dir="$dir/../emacs"
 mkdir -p "$emacs_theme_dir"
