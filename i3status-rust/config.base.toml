@@ -2,8 +2,8 @@
 theme = "plain"
 
 [theme.overrides]
-bg = "@@BAR_BG@@"
-fg = "@@BAR_FG@@"
+idle_bg = "@@BAR_BG@@"
+idle_fg = "@@BAR_FG@@"
 separator = ""
 separator_bg = "@@BAR_BG@@"
 separator_fg = "@@BAR_BG@@"
