@@ -46,6 +46,7 @@ class MenuEntry:
     shell: bool = False
     confirm: bool = False
     keep_open: bool = False
+    dynamic: str = ""
 
     @property
     def is_leaf(self) -> bool:
@@ -62,7 +63,8 @@ class MenuEntry:
                    command=d.get("command"), children=kids or None,
                    disabled=d.get("disabled", False), separator=d.get("separator", False),
                    heading=d.get("heading", False), shell=d.get("shell", False),
-                   confirm=d.get("confirm", False), keep_open=d.get("keep_open", False))
+                   confirm=d.get("confirm", False), keep_open=d.get("keep_open", False),
+                   dynamic=d.get("dynamic", ""))
 
 @dataclass
 class Theme:
@@ -175,10 +177,102 @@ def load_theme(name: str) -> Theme:
             return load_theme("gruvbox-dark")
         return Theme()
 
+DESKTOP_DIRS = [
+    Path("/usr/share/applications"),
+    Path.home() / ".local/share/applications",
+]
+
+def _scan_desktop(dynamic_type: str) -> list[MenuEntry]:
+    """Scan .desktop files and return matching MenuEntry list."""
+    seen: set[str] = set()
+    entries: list[MenuEntry] = []
+    cat_map = {
+        "AudioVideo": "audio", "Audio": "audio", "Video": "video",
+        "Development": "dev", "Education": "edu", "Game": "game",
+        "Graphics": "graphics", "Network": "network",
+        "Office": "office", "Settings": "settings",
+        "System": "system", "Utility": "utility",
+        "WebBrowser": "browsers",
+    }
+
+    for d in DESKTOP_DIRS:
+        if not d.exists():
+            continue
+        for f in sorted(d.glob("*.desktop")):
+            try:
+                info = Gio.DesktopAppInfo.new_from_filename(str(f))
+                if not info or not info.should_show():
+                    continue
+                name = info.get_display_name()
+                if not name or name in seen:
+                    continue
+                seen.add(name)
+                exec_str = info.get_commandline()
+                if not exec_str:
+                    continue
+                cats = (info.get_categories() or "").split(";")
+                if dynamic_type == "apps":
+                    entries.append(MenuEntry(label=name, command=_split_exec(exec_str)))
+                else:
+                    # Match if any category maps to this dynamic_type
+                    mapped = {cat_map.get(c) for c in cats if c in cat_map}
+                    if dynamic_type in mapped:
+                        entries.append(MenuEntry(label=name, command=_split_exec(exec_str)))
+            except Exception:
+                continue
+
+    entries.sort(key=lambda e: e.label.lower())
+    return entries
+
+def _split_exec(exec_str: str) -> list[str]:
+    """Parse a .desktop Exec line into a command list, stripping field codes."""
+    parts = []
+    buf = ""
+    in_quote = None
+    i = 0
+    while i < len(exec_str):
+        ch = exec_str[i]
+        if in_quote:
+            if ch == in_quote:
+                in_quote = None
+            else:
+                buf += ch
+        elif ch in ('"', "'"):
+            in_quote = ch
+        elif ch == " ":
+            if buf:
+                parts.append(buf)
+                buf = ""
+        elif ch == "%":
+            i += 1  # skip field-code letter (%f, %F, %u, %U, etc.)
+        else:
+            buf += ch
+        i += 1
+    if buf:
+        parts.append(buf)
+    filtered = [p for p in parts if p not in ("", "/usr/bin/sh", "-c")]
+    return filtered or parts
+
+def _expand_dynamic(items: list[MenuEntry]) -> list[MenuEntry]:
+    """Replace items with dynamic=True with generated children."""
+    result = []
+    for item in items:
+        if item.dynamic:
+            result.append(MenuEntry(
+                label=item.label, icon=item.icon,
+                children=_scan_desktop(item.dynamic)))
+        elif item.children:
+            item.children = _expand_dynamic(item.children)
+            result.append(item)
+        else:
+            result.append(item)
+    return result
+
 def load_menu() -> list[MenuEntry]:
     try:
         raw = load_toml(MENU_FILE).get("menu", [])
         items = [MenuEntry.from_toml(item) for item in raw]
+        items = _expand_dynamic(items)
         logger.info("loaded %d root items", len(items))
         return items
     except Exception as e:

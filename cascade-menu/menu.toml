@@ -6,9 +6,14 @@ label = "Applications"
 icon = "\uf009"
 
 [[menu.children]]
-label = "Web Browser"
+label = "All Apps"
+icon = "\uf1de"
+dynamic = "apps"
+
+[[menu.children]]
+label = "Browsers"
 icon = "\uf269"
-command = ["firefox"]
+dynamic = "browsers"
 
 [[menu.children]]
 label = "File Manager"
