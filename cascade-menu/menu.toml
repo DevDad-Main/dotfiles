@@ -3,53 +3,53 @@
 
 [[menu]]
 label = "Applications"
-icon = "\U000f0043"
+icon = "\uf009"
 
 [[menu.children]]
 label = "Web Browser"
-icon = "\U000f043a"
+icon = "\uf269"
 command = ["firefox"]
 
 [[menu.children]]
 label = "File Manager"
-icon = "\U000f0219"
+icon = "\uf07b"
 command = ["thunar"]
 
 [[menu.children]]
 label = "Terminal"
-icon = "\U000f0492"
+icon = "\uf120"
 command = ["kitty"]
 
 [[menu.children]]
 label = "Terminal (Alacritty)"
-icon = "\U000f0492"
+icon = "\uf120"
 command = ["alacritty"]
 
 [[menu.children]]
 label = "Email"
-icon = "\U000f01e6"
+icon = "\uf0e0"
 command = ["thunderbird"]
 
 [[menu]]
 label = "Development"
-icon = "\U000f03d0"
+icon = "\uf121"
 
 [[menu.children]]
 label = "Editors"
 
 [[menu.children.children]]
 label = "Emacs"
-icon = "\U000f045b"
+icon = "\ue632"
 command = ["emacs"]
 
 [[menu.children.children]]
 label = "Neovim"
-icon = "\U000f0444"
+icon = "\ue6ae"
 command = ["kitty", "-e", "nvim"]
 
 [[menu.children.children]]
 label = "VSCode"
-icon = "\U000f0440"
+icon = "\ue8da"
 command = ["code"]
 
 [[menu.children]]
@@ -57,21 +57,21 @@ label = "Terminals"
 
 [[menu.children.children]]
 label = "Kitty"
-icon = "\U000f0492"
+icon = "\uf120"
 command = ["kitty"]
 
 [[menu.children.children]]
 label = "Alacritty"
-icon = "\U000f0492"
+icon = "\uf120"
 command = ["alacritty"]
 
 [[menu.children]]
 label = "Git"
-icon = "\U000f01f2"
+icon = "\uf1d3"
 
 [[menu.children.children]]
 label = "Lazygit"
-icon = "\U000f02a2"
+icon = "\ue702"
 command = ["kitty", "-e", "lazygit"]
 
 [[menu.children.children]]
@@ -88,7 +88,7 @@ command = ["kitty", "-e", "bash", "-lc", "read -p 'URL: ' url && git clone \"$ur
 
 [[menu.children]]
 label = "Containers"
-icon = "\U000f04e1"
+icon = "\uf21f"
 
 [[menu.children.children]]
 label = "Docker ps"
@@ -104,7 +104,7 @@ command = ["kitty", "-e", "docker", "compose", "down"]
 
 [[menu.children]]
 label = "Databases"
-icon = "\U000f0504"
+icon = "\uf1c0"
 
 [[menu.children.children]]
 label = "SQLite browser"
@@ -116,30 +116,30 @@ command = ["kitty", "-e", "pgadmin4"]
 
 [[menu]]
 label = "System"
-icon = "\U000f0314"
+icon = "\uf013"
 
 [[menu.children]]
 label = "Audio"
-icon = "\U000f04e2"
+icon = "\uf028"
 
 [[menu.children.children]]
 label = "Volume up"
-icon = "\U000f04e7"
+icon = "\uf028"
 command = ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"]
 
 [[menu.children.children]]
 label = "Volume down"
-icon = "\U000f04e9"
+icon = "\uf027"
 command = ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]
 
 [[menu.children.children]]
 label = "Toggle mute"
-icon = "\U000f04e4"
+icon = "\uf026"
 command = ["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]
 
 [[menu.children]]
 label = "Brightness"
-icon = "\U000f03e0"
+icon = "\uf185"
 
 [[menu.children.children]]
 label = "Brightness up"
@@ -151,36 +151,36 @@ command = ["brightnessctl", "set", "5%-"]
 
 [[menu.children]]
 label = "Power"
-icon = "\U000f02c5"
+icon = "\uf011"
 
 [[menu.children.children]]
 label = "Lock"
-icon = "\U000f033e"
+icon = "\uf023"
 command = ["i3lock"]
 
 [[menu.children.children]]
 label = "Suspend"
-icon = "\U000f037e"
+icon = "\uf186"
 command = ["systemctl", "suspend"]
 
 [[menu.children.children]]
 label = "Hibernate"
-icon = "\U000f037d"
+icon = "\uf186"
 command = ["systemctl", "hibernate"]
 
 [[menu.children.children]]
 label = "Reboot"
-icon = "\U000f0353"
+icon = "\uf021"
 command = ["systemctl", "reboot"]
 
 [[menu.children.children]]
 label = "Shutdown"
-icon = "\U000f0382"
+icon = "\uf011"
 command = ["systemctl", "poweroff"]
 
 [[menu.children]]
 label = "Network"
-icon = "\U000f0498"
+icon = "\uf1eb"
 
 [[menu.children.children]]
 label = "Impala"
@@ -192,21 +192,21 @@ command = ["kitty", "-e", "bluetui"]
 
 [[menu]]
 label = "Info & Tools"
-icon = "\U000f02d3"
+icon = "\uf129"
 
 [[menu.children]]
 label = "System monitor"
-icon = "\U000f04a2"
+icon = "\uf080"
 command = ["kitty", "-e", "btop"]
 
 [[menu.children]]
 label = "Process list"
-icon = "\U000f04a2"
+icon = "\uf080"
 command = ["kitty", "-e", "htop"]
 
 [[menu.children]]
 label = "Disk usage"
-icon = "\U000f0219"
+icon = "\uf07b"
 command = ["kitty", "-e", "ncdu"]
 
 [[menu.children]]
@@ -215,7 +215,7 @@ command = ["kitty", "-e", "nmtui"]
 
 [[menu.children]]
 label = "Screenshot"
-icon = "\U000f0639"
+icon = "\uf030"
 
 [[menu.children.children]]
 label = "Full screen"
@@ -232,7 +232,7 @@ command = ["maim -s | xclip -selection clipboard -t image/png"]
 
 [[menu]]
 label = "Windows"
-icon = "\U000f0b12"
+icon = "\uf2d0"
 
 [[menu.children]]
 label = "Floating toggle"
@@ -264,24 +264,24 @@ command = ["i3-msg", "layout", "toggle", "split"]
 
 [[menu]]
 label = "Cascade Menu"
-icon = "\U000f0349"
+icon = "\uf03a"
 
 [[menu.children]]
 label = "Edit config"
-icon = "\U000f0493"
+icon = "\uf013"
 command = ["$EDITOR", "/home/oliverm/.config/cascade-menu/config.toml"]
 
 [[menu.children]]
 label = "Edit menu items"
-icon = "\U000f0493"
+icon = "\uf013"
 command = ["$EDITOR", "/home/oliverm/.config/cascade-menu/menu.toml"]
 
 [[menu.children]]
 label = "Edit theme"
-icon = "\U000f0493"
+icon = "\uf013"
 command = ["$EDITOR", "/home/oliverm/.config/cascade-menu/themes/gruvbox-dark.toml"]
 
 [[menu.children]]
 label = "Reload i3"
-icon = "\U000f0215"
+icon = "\uf021"
 command = ["i3-msg", "restart"]

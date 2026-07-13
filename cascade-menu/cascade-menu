@@ -504,12 +504,16 @@ class ColumnWindow(Gtk.Window):
 
     def _on_focus_in(self, _widget, _event) -> bool:
         self._app._some_focused = True
-        # Mouse may have moved focus to a different column — re-grab on deepest
+        # Re-grab keyboard on deepest column when focus returns to cascade
         if self._app.windows:
             self._app._grab_keyboard(self._app.windows[-1])
         return False
 
     def _on_focus_out(self, _widget, _event) -> bool:
+        self._app._some_focused = False
+        # Release keyboard grab immediately so other apps get input
+        if self._app.windows:
+            self._app._ungrab_keyboard(self._app.windows[-1])
         self._app._schedule_focus_check()
         return True
 
