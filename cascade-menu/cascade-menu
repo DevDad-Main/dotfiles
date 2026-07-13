@@ -769,17 +769,19 @@ class CascadeApp(Gtk.Application):
 
     def _reposition_windows(self, base_x: int, base_y: int,
                             wa) -> bool:
-        """Reposition windows with stair-step offset and 2px gap."""
+        """Reposition windows with proportional stair-step offset."""
         if not self.windows:
             return False
         gap = 2
-        stair_y = 18
-        stair_max_y = 90
         x = base_x
-        for idx, win in enumerate(self.windows):
+        y = base_y
+        screen_h = wa.height if wa else 600
+        for win in self.windows:
             alloc = win.get_allocation()
-            win.move(x, base_y + min(idx * stair_y, stair_max_y))
+            win.move(x, y)
             x += alloc.width + gap
+            # Next column drops by ~40% of this column's height, capped to screen
+            y += min(max(alloc.height * 2 // 5, 20), screen_h - alloc.height - 20)
 
         # Keep last window on screen
         last = self.windows[-1]
