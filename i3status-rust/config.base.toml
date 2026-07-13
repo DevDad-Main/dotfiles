@@ -47,7 +47,7 @@ format = " $icon $volume "
 
 [[block]]
 block = "custom"
-command = "caps=$(xset q 2>/dev/null | grep -oP 'Caps Lock:\\s*\\K\\w+'); [ \"$caps\" = \"on\" ] && printf '   ON ' || printf ''"
+command = "caps=$(cat /sys/class/leds/input4::capslock/brightness 2>/dev/null); [ \"$caps\" = \"1\" ] && printf '   ON ' || printf ''"
 interval = 1
 
 [[block]]
