@@ -47,7 +47,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 
 ### Desktop Environment
 
-- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), and screen dim/lock management (`$mod+Shift+Escape`)
+- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps`), smart window grouping (`$mod+Ctrl+y`), and screen dim/lock management (`$mod+Shift+Escape`)
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
@@ -201,6 +201,7 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
 | `Super+y` | Toggle split direction |
+| `Super+Ctrl+y` | Smart toggle — group focused window + neighbor into nested split |
 | `Super+Shift+y` | Reset all to horizontal split |
 | `Super+s` | Stacking layout |
 | `Super+w` | Tabbed layout |
@@ -333,7 +334,8 @@ dotfiles/
 │   └── scripts/
 │       ├── screen-lock-menu.sh  #   Rofi dim/lock timeout selector
 │       ├── dim-then-lock.sh     #   Gradual dim before i3lock
-│       └── switch-audio.sh      #   Rofi card profile switcher
+│       ├── switch-audio.sh      #   Rofi card profile switcher
+│       └── smart-toggle.sh      #   Group focused window + neighbor into nested split
 ├── i3status-rust/        # i3status-rust bar config (generated)
 │   ├── config.base.toml  #   Template with placeholders
 │   └── config.toml       #   Generated (gitignored)

@@ -76,6 +76,7 @@ bindsym $mod+Ctrl+Shift+9 move container to workspace number 9, workspace number
 bindsym $mod+Ctrl+Shift+0 move container to workspace number 10, workspace number 10
 
 bindsym $mod+y layout toggle split
+bindsym $mod+Ctrl+y exec --no-startup-id ~/.config/i3/scripts/smart-toggle.sh
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+Shift+space floating toggle
@@ -162,3 +163,4 @@ exec --no-startup-id redshift -l 54.352:18.646 -t 6500:4500
 exec_always --no-startup-id amixer -c 0 sset 'Speaker' unmute 87% 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Headphone' unmute 87% 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Master' unmute 87% 2>/dev/null
+exec_always --no-startup-id setxkbmap -option ctrl:swapcaps

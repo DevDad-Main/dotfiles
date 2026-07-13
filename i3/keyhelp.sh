@@ -11,6 +11,7 @@ Mod+Shift+h/j/k/l ·  Move window
 Mod+1-0           ·  Switch workspace
 Mod+Shift+1-0     ·  Move window to workspace
 Mod+y             ·  Toggle split direction
+Mod+Ctrl+y        ·  Smart toggle — group window + neighbour into nested split
 Mod+Shift+y       ·  Reset to horizontal split
 Mod+s             ·  Stacking layout
 Mod+w             ·  Tabbed layout
