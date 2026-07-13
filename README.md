@@ -53,6 +53,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
 - **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
+- **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
 
 ### Shell & Tools
 
