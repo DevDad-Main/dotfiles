@@ -45,6 +45,7 @@ class MenuEntry:
     heading: bool = False
     shell: bool = False
     confirm: bool = False
+    keep_open: bool = False
 
     @property
     def is_leaf(self) -> bool:
@@ -61,7 +62,7 @@ class MenuEntry:
                    command=d.get("command"), children=kids or None,
                    disabled=d.get("disabled", False), separator=d.get("separator", False),
                    heading=d.get("heading", False), shell=d.get("shell", False),
-                   confirm=d.get("confirm", False))
+                   confirm=d.get("confirm", False), keep_open=d.get("keep_open", False))
 
 @dataclass
 class Theme:
@@ -685,7 +686,8 @@ class CascadeApp(Gtk.Application):
             self.execute(item)
 
     def execute(self, item: MenuEntry) -> None:
-        self.close_all()
+        if not item.keep_open:
+            self.close_all()
         try:
             cmd = item.command
             if cmd and cmd[0] == "$EDITOR":

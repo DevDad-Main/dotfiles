@@ -125,16 +125,19 @@ icon = "\uf028"
 [[menu.children.children]]
 label = "Volume up"
 icon = "\uf028"
+keep_open = true
 command = ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"]
 
 [[menu.children.children]]
 label = "Volume down"
 icon = "\uf027"
+keep_open = true
 command = ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]
 
 [[menu.children.children]]
 label = "Toggle mute"
 icon = "\uf026"
+keep_open = true
 command = ["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]
 
 [[menu.children]]
@@ -143,10 +146,12 @@ icon = "\uf185"
 
 [[menu.children.children]]
 label = "Brightness up"
+keep_open = true
 command = ["brightnessctl", "set", "+5%"]
 
 [[menu.children.children]]
 label = "Brightness down"
+keep_open = true
 command = ["brightnessctl", "set", "5%-"]
 
 [[menu.children]]
