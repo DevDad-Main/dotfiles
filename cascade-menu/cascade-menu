@@ -6,7 +6,7 @@ Each column is its own popup window, positioned side by side.
 
 from __future__ import annotations
 
-import os, sys, tomllib, subprocess, logging, signal
+import os, sys, tomllib, subprocess, logging, signal, shutil, shlex
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
@@ -109,15 +109,34 @@ class Config:
     bar_height: int = 20
     column_gap: int = 2
     log_level: str = "warn"
+    editor_cmd: list[str] = field(default_factory=lambda: _detect_editor())
+    bind_close: list[str] = field(default_factory=lambda: ["Escape", "q"])
+    bind_up: list[str] = field(default_factory=lambda: ["k", "Up"])
+    bind_down: list[str] = field(default_factory=lambda: ["j", "Down"])
+    bind_back: list[str] = field(default_factory=lambda: ["h", "Left"])
+    bind_forward: list[str] = field(default_factory=lambda: ["l", "Right"])
+    bind_execute: list[str] = field(default_factory=lambda: ["Return", "KP_Enter"])
+    bind_first: list[str] = field(default_factory=lambda: ["g"])
+    bind_last: list[str] = field(default_factory=lambda: ["G"])
+    bind_search: list[str] = field(default_factory=lambda: ["slash"])
     @classmethod
     def from_toml(cls, d: dict) -> "Config":
         cfg = cls()
-        for section in ("appearance", "behavior", "position", "logging"):
+        for section in ("appearance", "behavior", "position", "logging", "keybindings"):
             if section in d:
                 for k, v in d[section].items():
                     if hasattr(cfg, k):
                         setattr(cfg, k, v)
         return cfg
+
+def _detect_editor() -> list[str]:
+    env = os.environ.get("VISUAL") or os.environ.get("EDITOR") or ""
+    if env:
+        return shlex.split(env)
+    for ed in ["emacs", "nvim", "vim", "nano"]:
+        if shutil.which(ed):
+            return [ed]
+    return ["nvim"]
 
 # ── Loaders ───────────────────────────────────────────────────────────
 
@@ -393,26 +412,35 @@ class ColumnWindow(Gtk.Window):
 
     # ── Keyboard ──────────────────────────────────────────────────
 
+    def _keyval_set(self, *names: str) -> set[int]:
+        """Resolve config key names (e.g. 'Escape', 'q') to GDK keyvals."""
+        s: set[int] = set()
+        for name in names:
+            for k in getattr(self._app.config, f"bind_{name}", [name]):
+                kv = getattr(Gdk, f"KEY_{k}", None)
+                if kv is not None:
+                    s.add(kv)
+        return s
+
     def _on_key_press(self, _widget, event: Gdk.EventKey) -> bool:
         keyval = event.keyval
         mod = event.state & Gtk.accelerator_get_default_mod_mask()
 
-        if keyval in (Gdk.KEY_Escape,):
+        if keyval in self._keyval_set("close"):
             self._app.close_all()
             return True
 
-        if keyval == Gdk.KEY_slash:
+        if keyval in self._keyval_set("search"):
             return True
 
-        if keyval in (Gdk.KEY_j, Gdk.KEY_Down):
+        if keyval in self._keyval_set("down"):
             self._app.move_selection(self.index, 1)
             return True
-        if keyval in (Gdk.KEY_k, Gdk.KEY_Up):
+        if keyval in self._keyval_set("up"):
             self._app.move_selection(self.index, -1)
             return True
 
-        # l / Right — open submenu or execute
-        if keyval in (Gdk.KEY_l, Gdk.KEY_Right):
+        if keyval in self._keyval_set("forward"):
             col = self._app.columns[self.index]
             if col.selected < len(col.items):
                 item = col.items[col.selected]
@@ -422,13 +450,11 @@ class ColumnWindow(Gtk.Window):
                     self._app.execute(item)
             return True
 
-        # h / Left — close this column
-        if keyval in (Gdk.KEY_h, Gdk.KEY_Left):
+        if keyval in self._keyval_set("back"):
             self._app.close_submenu(self.index)
             return True
 
-        # Return — execute
-        if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
+        if keyval in self._keyval_set("execute"):
             col = self._app.columns[self.index]
             if col.selected < len(col.items):
                 item = col.items[col.selected]
@@ -438,8 +464,7 @@ class ColumnWindow(Gtk.Window):
                     self._app.execute(item)
             return True
 
-        # g — first
-        if keyval == Gdk.KEY_g and not (mod & Gdk.ModifierType.SHIFT_MASK):
+        if keyval in self._keyval_set("first"):
             items = self._app.columns[self.index].items
             self._app.columns[self.index].selected = 0
             if items and items[0].separator:
@@ -448,8 +473,7 @@ class ColumnWindow(Gtk.Window):
                 self._app._update_windows()
             return True
 
-        # G — last
-        if keyval == Gdk.KEY_G:
+        if keyval in self._keyval_set("last"):
             items = self._app.columns[self.index].items
             n = len(items)
             self._app.columns[self.index].selected = n - 1
@@ -646,14 +670,17 @@ class CascadeApp(Gtk.Application):
     def execute(self, item: MenuEntry) -> None:
         self.close_all()
         try:
+            cmd = item.command
+            if cmd and cmd[0] == "$EDITOR":
+                cmd = self.config.editor_cmd + cmd[1:]
             if item.shell:
-                subprocess.Popen(["sh", "-c", " ".join(item.command)],
+                subprocess.Popen(["sh", "-c", " ".join(cmd)],
                                  start_new_session=True,
                                  stdin=subprocess.DEVNULL,
                                  stdout=subprocess.DEVNULL,
                                  stderr=subprocess.DEVNULL)
             else:
-                subprocess.Popen(item.command, start_new_session=True,
+                subprocess.Popen(cmd, start_new_session=True,
                                  stdin=subprocess.DEVNULL,
                                  stdout=subprocess.DEVNULL,
                                  stderr=subprocess.DEVNULL)

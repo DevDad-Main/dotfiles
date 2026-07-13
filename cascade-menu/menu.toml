@@ -269,17 +269,17 @@ icon = "\U000f0349"
 [[menu.children]]
 label = "Edit config"
 icon = "\U000f0493"
-command = ["kitty", "-e", "nvim", "/home/oliverm/.config/cascade-menu/config.toml"]
+command = ["$EDITOR", "/home/oliverm/.config/cascade-menu/config.toml"]
 
 [[menu.children]]
 label = "Edit menu items"
 icon = "\U000f0493"
-command = ["kitty", "-e", "nvim", "/home/oliverm/.config/cascade-menu/menu.toml"]
+command = ["$EDITOR", "/home/oliverm/.config/cascade-menu/menu.toml"]
 
 [[menu.children]]
 label = "Edit theme"
 icon = "\U000f0493"
-command = ["kitty", "-e", "nvim", "/home/oliverm/.config/cascade-menu/themes/gruvbox-dark.toml"]
+command = ["$EDITOR", "/home/oliverm/.config/cascade-menu/themes/gruvbox-dark.toml"]
 
 [[menu.children]]
 label = "Reload i3"

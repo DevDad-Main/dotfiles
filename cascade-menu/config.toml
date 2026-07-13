@@ -1,10 +1,9 @@
 # cascade-menu configuration
 #
 # Appearance:   theme colors, fonts, opacity
-# Behavior:     keybindings, focus behavior
+# Behavior:     focus behavior, editor command
 # Position:     where the menu opens on screen
-#
-# Themes:       themes/<name>.toml in this directory
+# Keybindings:  custom keyboard shortcuts (GDK key names)
 
 [appearance]
 theme = "gruvbox-dark"
@@ -18,6 +17,9 @@ border_style = "sharp"
 [behavior]
 close_on_focus_lost = true
 restore_parent_selection = true
+# Editor to open config files ($EDITOR in menu commands)
+# Detected from $VISUAL/$EDITOR env, or auto
+# editor_cmd = ["emacs", "--no-wait"]
 
 [position]
 anchor = "top-left"
@@ -27,3 +29,15 @@ bar_height = 20
 
 [logging]
 log_level = "warn"
+
+[keybindings]
+# Each key name maps to a GDK KEY_ constant (e.g. "Escape" -> Gdk.KEY_Escape)
+# close    = ["Escape", "q"]
+# up       = ["k", "Up"]
+# down     = ["j", "Down"]
+# back     = ["h", "Left"]
+# forward  = ["l", "Right"]
+# execute  = ["Return", "KP_Enter"]
+# first    = ["g"]
+# last     = ["G"]
+# search   = ["slash"]
