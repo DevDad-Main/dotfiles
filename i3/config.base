@@ -95,7 +95,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-bindsym $mod+Shift+r exec --no-startup-id ~/.config/i3/scripts/smooth-restart.sh
+bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'exit i3?' -B 'yes' 'i3-msg exit'"
 bindsym $mod+Ctrl+q exec --no-startup-id ~/.config/i3/powermenu.sh
 
