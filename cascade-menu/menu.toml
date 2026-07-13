@@ -261,3 +261,27 @@ command = ["i3-msg", "layout", "tabbed"]
 [[menu.children]]
 label = "Layout split"
 command = ["i3-msg", "layout", "toggle", "split"]
+
+[[menu]]
+label = "Cascade Menu"
+icon = "\U000f0349"
+
+[[menu.children]]
+label = "Edit config"
+icon = "\U000f0493"
+command = ["kitty", "-e", "nvim", "/home/oliverm/.config/cascade-menu/config.toml"]
+
+[[menu.children]]
+label = "Edit menu items"
+icon = "\U000f0493"
+command = ["kitty", "-e", "nvim", "/home/oliverm/.config/cascade-menu/menu.toml"]
+
+[[menu.children]]
+label = "Edit theme"
+icon = "\U000f0493"
+command = ["kitty", "-e", "nvim", "/home/oliverm/.config/cascade-menu/themes/gruvbox-dark.toml"]
+
+[[menu.children]]
+label = "Reload i3"
+icon = "\U000f0215"
+command = ["i3-msg", "restart"]

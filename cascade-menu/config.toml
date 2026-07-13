@@ -1,26 +1,29 @@
+# cascade-menu configuration
+#
+# Appearance:   theme colors, fonts, opacity
+# Behavior:     keybindings, focus behavior
+# Position:     where the menu opens on screen
+#
+# Themes:       themes/<name>.toml in this directory
+
 [appearance]
 theme = "gruvbox-dark"
-show_footer = true
-show_breadcrumbs = true
 nerd_font_icons = true
+show_footer = true
 wrap_navigation = true
-max_menu_height = 40
-column_min_width = 28
-column_max_width = 48
+max_menu_height = 50
 opacity = 1.0
 border_style = "sharp"
 
 [behavior]
 close_on_focus_lost = true
-close_on_escape = true
 restore_parent_selection = true
 
 [position]
 anchor = "top-left"
-offset_x = 0
+offset_x = 8
 offset_y = 0
 bar_height = 20
 
 [logging]
-log_file = "/tmp/cascade-menu.log"
 log_level = "warn"

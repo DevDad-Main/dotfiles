@@ -95,7 +95,7 @@ class Config:
     show_footer: bool = True
     nerd_font_icons: bool = True
     wrap_navigation: bool = True
-    max_menu_height: int = 40
+    max_menu_height: int = 50
     column_min_width: int = 28
     column_max_width: int = 48
     opacity: float = 1.0
@@ -104,7 +104,7 @@ class Config:
     restore_parent_selection: bool = True
     close_on_focus_lost: bool = True
     anchor: str = "top-left"
-    offset_x: int = 0
+    offset_x: int = 8
     offset_y: int = 0
     bar_height: int = 20
     column_gap: int = 2
@@ -775,11 +775,12 @@ class CascadeApp(Gtk.Application):
 
     def _column_height(self, state: ColumnState) -> int:
         n = len(state.items) if state.items else 1
-        row_h = self.theme.font_size + 4
-        header = self.theme.font_size + 8
-        footer = (max(self.theme.font_size - 2, 8) + 4) if self.config.show_footer else 0
-        content_h = n * row_h + 8
-        total = header + content_h + footer
+        row_h = self.theme.font_size + 2 * self.theme.row_padding + 6
+        header_h = self.theme.font_size + 2 * (self.theme.row_padding + 1) + 6
+        footer_h = (max(self.theme.font_size - 2, 8) + 2 * self.theme.row_padding + 4) if self.config.show_footer else 0
+        border = 4
+        content_h = n * row_h + 12
+        total = border + header_h + content_h + footer_h
         max_h = self.config.max_menu_height * 20
         return min(total, max_h)
 
