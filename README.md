@@ -308,6 +308,18 @@ ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 
 </details>
 
+### Screen Tearing
+
+If you see screen tearing with i3 + picom, run the helper script:
+
+```bash
+~/.config/i3/scripts/apply-nvidia-tearfree.sh
+```
+
+This adds `ForceFullCompositionPipeline = "on"` to the NVIDIA driver config, fixing tearing at the driver level. It's safe on any machine — the config only matches NVIDIA GPUs. Log out and back in after running.
+
+Picom also has `vsync = true` enabled by default as a second layer.
+
 ## Project Structure
 
 ```
@@ -335,7 +347,8 @@ dotfiles/
 │       ├── screen-lock-menu.sh  #   Rofi dim/lock timeout selector
 │       ├── dim-then-lock.sh     #   Gradual dim before i3lock
 │       ├── switch-audio.sh      #   Rofi card profile switcher
-│       └── smart-toggle.sh      #   Group focused window + neighbor into nested split
+│       ├── smart-toggle.sh      #   Group focused window + neighbor into nested split
+│       └── apply-nvidia-tearfree.sh  #   Fix screen tearing (ForceFullCompositionPipeline)
 ├── i3status-rust/        # i3status-rust bar config (generated)
 │   ├── config.base.toml  #   Template with placeholders
 │   └── config.toml       #   Generated (gitignored)
