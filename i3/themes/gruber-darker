@@ -13,3 +13,4 @@ WALLPAPER=$HOME/.config/dotfiles/i3/themes/black.jpg
 KITTY_THEME=gruber-darker
 EMACS_THEME=gruber-darker
 CATPPUCCIN_FLAVOR=
+CASCADE_THEME=monochrome

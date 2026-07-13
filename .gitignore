@@ -13,3 +13,4 @@ kitty/current-theme.conf
 /sessions
 /sessions
 *.bak
+cascade-menu/config.local

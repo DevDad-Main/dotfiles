@@ -13,3 +13,4 @@ WALLPAPER=$HOME/.config/dotfiles/i3/themes/pompeii-catppuccin.png
 KITTY_THEME=catppuccin-mocha
 EMACS_THEME=catppuccin
 CATPPUCCIN_FLAVOR=mocha
+CASCADE_THEME=catppuccin-mocha

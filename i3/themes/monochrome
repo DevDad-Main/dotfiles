@@ -13,3 +13,4 @@ WALLPAPER=$HOME/.config/dotfiles/i3/themes/himiko-monochrome.png
 KITTY_THEME=monochrome
 EMACS_THEME=monochrome
 CATPPUCCIN_FLAVOR=
+CASCADE_THEME=monochrome

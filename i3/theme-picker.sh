@@ -54,7 +54,17 @@ KITTY_THEME=$KITTY_THEME
 EMACS_THEME=$EMACS_THEME
 CATPPUCCIN_FLAVOR=$CATPPUCCIN_FLAVOR
 PICOM_FADING=$current_fading
+CASCADE_THEME=$CASCADE_THEME
 EOF
+
+# Write cascade-menu theme override (gitignored local config)
+if [ -n "$CASCADE_THEME" ]; then
+    mkdir -p "$HOME/.config/cascade-menu"
+    cat > "$HOME/.config/cascade-menu/config.local" << EOF
+[appearance]
+theme = "$CASCADE_THEME"
+EOF
+fi
 
 # Regenerate i3 config
 bash "$dots/i3/generate.sh"

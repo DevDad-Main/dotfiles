@@ -144,9 +144,19 @@ def load_toml(path: Path) -> dict:
     with open(path, "rb") as f:
         return tomllib.load(f)
 
+LOCAL_CONFIG = CONFIG_DIR / "config.local"
+
 def load_config() -> Config:
     try:
-        return Config.from_toml(load_toml(CONFIG_FILE))
+        cfg = Config.from_toml(load_toml(CONFIG_FILE))
+        # Apply local overrides (e.g. theme from i3 theme switcher)
+        if LOCAL_CONFIG.exists():
+            local = load_toml(LOCAL_CONFIG)
+            for section in local:
+                for k, v in local[section].items():
+                    if hasattr(cfg, k):
+                        setattr(cfg, k, v)
+        return cfg
     except Exception as e:
         logger.warning("config load failed: %s", e)
         return Config()
