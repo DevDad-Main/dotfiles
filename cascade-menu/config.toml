@@ -1,37 +1,78 @@
+# ═══════════════════════════════════════════════════════════════════
 # cascade-menu configuration
+# ═══════════════════════════════════════════════════════════════════
 #
-# Appearance:   theme colors, fonts, opacity
-# Behavior:     focus behavior, editor command
-# Position:     where the menu opens on screen
-# Keybindings:  custom keyboard shortcuts (GDK key names)
+# All paths are relative to ~/.config/cascade-menu/
+#
+# Quick start:
+#   theme — pick one from themes/ (see [appearance] below)
+#   menu  — edit menu.toml to add/remove items
+#   keys  — override any keybinding under [keybindings]
+#
+# Full docs: README.md → cascade-menu section
+# ═══════════════════════════════════════════════════════════════════
 
 [appearance]
+# Theme name (matches themes/<name>.toml)
+# Options: gruvbox-dark, catppuccin-mocha, tokyo-night, nord, monochrome
 theme = "gruvbox-dark"
+
+# Use Nerd Font icons in menu items (requires a Nerd Font installed)
 nerd_font_icons = true
+
+# Show the footer bar with keybinding hints
 show_footer = true
+
+# Wrap around at top/bottom when navigating
 wrap_navigation = true
+
+# Max rows before scrolling (height = max_menu_height × 20px)
 max_menu_height = 50
+
+# Window opacity: 0.0 (invisible) → 1.0 (solid)
 opacity = 1.0
+
+# Border corners: "sharp" or "rounded"
 border_style = "sharp"
 
 [behavior]
+# Close all cascade windows when clicking outside them
 close_on_focus_lost = true
+
+# When going back to a parent column, restore the previously selected item
 restore_parent_selection = true
-# Editor to open config files ($EDITOR in menu commands)
-# Detected from $VISUAL/$EDITOR env, or auto
+
+# Default editor for $EDITOR menu commands.
+# Auto-detected from $VISUAL → $EDITOR → emacs → nvim → vim → nano
+# Examples:
+#   editor_cmd = ["emacs", "--no-wait"]       # GUI emacs
+#   editor_cmd = ["kitty", "-e", "nvim"]      # terminal nvim
+#   editor_cmd = ["emacsclient", "-c", "-n"]  # emacs daemon
+#   editor_cmd = ["code", "--wait"]           # VSCode
 # editor_cmd = ["emacs", "--no-wait"]
 
 [position]
+# Where the menu anchors on screen
+# Options: top-left, top-right, bottom-left, bottom-right, mouse
 anchor = "top-left"
+
+# Pixels from the left/top edge of the screen/bar
 offset_x = 8
 offset_y = 0
+
+# Your i3bar height (used to offset below the bar)
 bar_height = 20
 
 [logging]
+# Log verbosity: "debug", "info", "warn", "error"
 log_level = "warn"
 
 [keybindings]
-# Each key name maps to a GDK KEY_ constant (e.g. "Escape" -> Gdk.KEY_Escape)
+# Override default keys. Each key name maps to a GDK KEY_ constant.
+# Common names: a-z, 0-9, Escape, Return, Up, Down, Left, Right,
+#               KP_Enter, Tab, space, slash, period, comma
+#
+# Uncomment and change any to customize:
 # close    = ["Escape", "q"]
 # up       = ["k", "Up"]
 # down     = ["j", "Down"]
