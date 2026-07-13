@@ -494,6 +494,9 @@ class ColumnWindow(Gtk.Window):
 
     def _on_focus_in(self, _widget, _event) -> bool:
         self._app._some_focused = True
+        # Mouse may have moved focus to a different column — re-grab on deepest
+        if self._app.windows:
+            self._app._grab_keyboard(self._app.windows[-1])
         return False
 
     def _on_focus_out(self, _widget, _event) -> bool:
@@ -770,11 +773,12 @@ class CascadeApp(Gtk.Application):
         if not self.windows:
             return False
         gap = 2
-        stair_y = 4
+        stair_y = 18
+        stair_max_y = 90
         x = base_x
         for idx, win in enumerate(self.windows):
             alloc = win.get_allocation()
-            win.move(x, base_y + idx * stair_y)
+            win.move(x, base_y + min(idx * stair_y, stair_max_y))
             x += alloc.width + gap
 
         # Keep last window on screen
