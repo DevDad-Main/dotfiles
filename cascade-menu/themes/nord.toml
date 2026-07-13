@@ -1,0 +1,21 @@
+# Nord ── cascade-menu theme
+background = "#2e3440"
+alternate_bg = "#3b4252"
+foreground = "#eceff4"
+muted_fg = "#81a1c1"
+border = "#4c566a"
+active_border = "#88c0d0"
+selected_bg = "#88c0d0"
+selected_fg = "#2e3440"
+inactive_selected_bg = "#4c566a"
+inactive_selected_fg = "#eceff4"
+disabled_fg = "#616e88"
+error = "#bf616a"
+success = "#a3be8c"
+warning = "#ebcb8b"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "

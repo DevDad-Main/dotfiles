@@ -1,0 +1,21 @@
+# Gruvbox Dark ── cascade-menu theme
+background = "#1c1f20"
+alternate_bg = "#282828"
+foreground = "#ebdbb2"
+muted_fg = "#a89984"
+border = "#504945"
+active_border = "#d79921"
+selected_bg = "#d79921"
+selected_fg = "#1c1f20"
+inactive_selected_bg = "#504945"
+inactive_selected_fg = "#ebdbb2"
+disabled_fg = "#665c54"
+error = "#cc241d"
+success = "#98971a"
+warning = "#d79921"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "

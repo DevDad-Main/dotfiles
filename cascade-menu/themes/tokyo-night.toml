@@ -1,0 +1,21 @@
+# Tokyo Night ── cascade-menu theme
+background = "#1a1b26"
+alternate_bg = "#24283b"
+foreground = "#c0caf5"
+muted_fg = "#565f89"
+border = "#3b4261"
+active_border = "#7aa2f7"
+selected_bg = "#7aa2f7"
+selected_fg = "#1a1b26"
+inactive_selected_bg = "#3b4261"
+inactive_selected_fg = "#c0caf5"
+disabled_fg = "#565f89"
+error = "#f7768e"
+success = "#9ece6a"
+warning = "#e0af68"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "

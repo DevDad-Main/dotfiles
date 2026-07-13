@@ -12,3 +12,4 @@ kitty/current-theme.conf
 .vim/sessions/
 /sessions
 /sessions
+*.bak

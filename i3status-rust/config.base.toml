@@ -20,6 +20,14 @@ separator_fg = "@@BAR_BG@@"
 icons = "material-nf"
 
 [[block]]
+block = "custom"
+command = "printf ' 󰇄 '"
+interval = 86400
+[[block.click]]
+button = "left"
+cmd = "/home/oliverm/.local/bin/cascade-menu"
+
+[[block]]
 block = "cpu"
 format = " $icon $utilization "
 

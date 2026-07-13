@@ -1,0 +1,21 @@
+# Catppuccin Mocha ── cascade-menu theme
+background = "#1e1e2e"
+alternate_bg = "#181825"
+foreground = "#cdd6f4"
+muted_fg = "#a6adc8"
+border = "#45475a"
+active_border = "#f9e2af"
+selected_bg = "#f9e2af"
+selected_fg = "#1e1e2e"
+inactive_selected_bg = "#45475a"
+inactive_selected_fg = "#cdd6f4"
+disabled_fg = "#585b70"
+error = "#f38ba8"
+success = "#a6e3a1"
+warning = "#fab387"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "

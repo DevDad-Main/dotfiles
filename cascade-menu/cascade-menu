@@ -1,0 +1,838 @@
+#!/usr/bin/env python3
+"""
+cascade-menu ── Miller-column cascading menu for i3.
+Each column is its own popup window, positioned side by side.
+"""
+
+from __future__ import annotations
+
+import os, sys, tomllib, subprocess, logging, signal
+from pathlib import Path
+from dataclasses import dataclass, field
+from typing import Optional
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("Pango", "1.0")
+from gi.repository import Gtk, Gdk, Gio, GLib, Pango
+
+CONFIG_DIR = Path.home() / ".config" / "cascade-menu"
+CONFIG_FILE = CONFIG_DIR / "config.toml"
+MENU_FILE = CONFIG_DIR / "menu.toml"
+THEMES_DIR = CONFIG_DIR / "themes"
+LOG_FILE = Path("/tmp") / "cascade-menu.log"
+
+logger = logging.getLogger("cascade-menu")
+
+def setup_logging(level: str = "WARN") -> None:
+    m = {"debug": logging.DEBUG, "info": logging.INFO,
+         "warn": logging.WARNING, "error": logging.ERROR}
+    fh = logging.FileHandler(LOG_FILE)
+    fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+    logger.addHandler(fh)
+    logger.setLevel(m.get(level.lower(), logging.WARNING))
+
+# ── Data Structures ───────────────────────────────────────────────────
+
+@dataclass
+class MenuEntry:
+    label: str = ""
+    icon: str = ""
+    command: list[str] | None = None
+    children: list[MenuEntry] | None = None
+    disabled: bool = False
+    separator: bool = False
+    heading: bool = False
+    shell: bool = False
+    confirm: bool = False
+
+    @property
+    def is_leaf(self) -> bool:
+        return bool(self.command) or self.separator or self.heading
+
+    @property
+    def has_children(self) -> bool:
+        return bool(self.children) and not self.is_leaf
+
+    @classmethod
+    def from_toml(cls, d: dict) -> "MenuEntry":
+        kids = [cls.from_toml(c) for c in d.get("children", [])] if d.get("children") else None
+        return cls(label=d.get("label", ""), icon=d.get("icon", ""),
+                   command=d.get("command"), children=kids or None,
+                   disabled=d.get("disabled", False), separator=d.get("separator", False),
+                   heading=d.get("heading", False), shell=d.get("shell", False),
+                   confirm=d.get("confirm", False))
+
+@dataclass
+class Theme:
+    background: str = "#1c1f20"
+    alternate_bg: str = "#282828"
+    foreground: str = "#ebdbb2"
+    muted_fg: str = "#a89984"
+    border: str = "#504945"
+    active_border: str = "#d79921"
+    selected_bg: str = "#d79921"
+    selected_fg: str = "#1c1f20"
+    inactive_selected_bg: str = "#504945"
+    inactive_selected_fg: str = "#ebdbb2"
+    disabled_fg: str = "#665c54"
+    error: str = "#cc241d"
+    success: str = "#98971a"
+    warning: str = "#d79921"
+    font_family: str = "Iosevka Nerd Font"
+    font_size: int = 18
+    row_padding: int = 4
+    column_padding: int = 3
+    submenu_indicator: str = " \u25b6"
+    icon_spacing: str = " "
+    @classmethod
+    def from_toml(cls, d: dict) -> "Theme":
+        return cls(**{k: v for k, v in d.items() if k in cls.__dataclass_fields__})
+
+@dataclass
+class Config:
+    theme: str = "gruvbox-dark"
+    show_footer: bool = True
+    nerd_font_icons: bool = True
+    wrap_navigation: bool = True
+    max_menu_height: int = 40
+    column_min_width: int = 28
+    column_max_width: int = 48
+    opacity: float = 1.0
+    border_style: str = "sharp"
+    close_on_escape: bool = True
+    restore_parent_selection: bool = True
+    close_on_focus_lost: bool = True
+    anchor: str = "top-left"
+    offset_x: int = 0
+    offset_y: int = 0
+    bar_height: int = 20
+    column_gap: int = 2
+    log_level: str = "warn"
+    @classmethod
+    def from_toml(cls, d: dict) -> "Config":
+        cfg = cls()
+        for section in ("appearance", "behavior", "position", "logging"):
+            if section in d:
+                for k, v in d[section].items():
+                    if hasattr(cfg, k):
+                        setattr(cfg, k, v)
+        return cfg
+
+# ── Loaders ───────────────────────────────────────────────────────────
+
+def load_toml(path: Path) -> dict:
+    with open(path, "rb") as f:
+        return tomllib.load(f)
+
+def load_config() -> Config:
+    try:
+        return Config.from_toml(load_toml(CONFIG_FILE))
+    except Exception as e:
+        logger.warning("config load failed: %s", e)
+        return Config()
+
+def load_theme(name: str) -> Theme:
+    path = THEMES_DIR / f"{name}.toml"
+    if not path.exists():
+        path = THEMES_DIR / f"{name.lower().replace(' ', '-')}.toml"
+    try:
+        return Theme.from_toml(load_toml(path))
+    except Exception as e:
+        logger.warning("theme '%s' not found: %s", name, e)
+        fallback = THEMES_DIR / "gruvbox-dark.toml"
+        if fallback.exists():
+            return load_theme("gruvbox-dark")
+        return Theme()
+
+def load_menu() -> list[MenuEntry]:
+    try:
+        raw = load_toml(MENU_FILE).get("menu", [])
+        items = [MenuEntry.from_toml(item) for item in raw]
+        logger.info("loaded %d root items", len(items))
+        return items
+    except Exception as e:
+        logger.error("menu load failed: %s", e)
+        return []
+
+# ── Column State ──────────────────────────────────────────────────────
+
+@dataclass
+class ColumnState:
+    items: list[MenuEntry] = field(default_factory=list)
+    selected: int = 0
+    title: str = ""
+    parent_idx: int = -1
+
+# ── CSS ───────────────────────────────────────────────────────────────
+
+def build_css(t: Theme, config: Config) -> str:
+    radius = "4px" if config.border_style == "rounded" else "0px"
+    return f"""
+@define-color bg {t.background};
+@define-color alt-bg {t.alternate_bg};
+@define-color fg {t.foreground};
+@define-color muted {t.muted_fg};
+@define-color border {t.border};
+@define-color active-border {t.active_border};
+@define-color sel-bg {t.selected_bg};
+@define-color sel-fg {t.selected_fg};
+@define-color inact-sel-bg {t.inactive_selected_bg};
+@define-color inact-sel-fg {t.inactive_selected_fg};
+@define-color disabled {t.disabled_fg};
+window {{
+    background-color: @bg; color: @fg;
+    border: 2px solid @active-border;
+    border-radius: {radius};
+}}
+.column-header {{
+    background-color: @bg; color: @fg;
+    padding: {t.row_padding + 1}px 8px;
+    font-family: "{t.font_family}"; font-size: {t.font_size}px; font-weight: bold;
+    border-bottom: 1px solid @border;
+}}
+.column-item {{
+    background-color: @bg; color: @fg;
+    padding: {t.row_padding}px 8px;
+    font-family: "{t.font_family}"; font-size: {t.font_size}px;
+    border: none;
+}}
+.column-item:hover {{
+    background-color: alpha(@sel-bg, 0.15);
+}}
+.column-item.selected {{
+    background-color: @sel-bg; color: @sel-fg;
+}}
+.column-item.heading {{
+    color: @muted; font-weight: bold;
+    border-bottom: 1px solid @border;
+    padding-top: {t.row_padding + 2}px;
+}}
+.column-item.disabled {{
+    color: @disabled;
+}}
+.column-item.separator {{
+    background-color: @bg;
+    min-height: 6px;
+}}
+.column-footer {{
+    background-color: @bg; color: @muted;
+    padding: 2px 8px;
+    font-family: "{t.font_family}"; font-size: {max(t.font_size - 2, 8)}px;
+    border-top: 1px solid @border;
+}}
+scrollbar {{ -GtkScrollbar-has-backward-stepper: false; -GtkScrollbar-has-forward-stepper: false; }}
+scrollbar.vertical {{ background: transparent; border: none; }}
+scrollbar.vertical slider {{ min-width: 0px; background: transparent; border: none; }}
+"""
+
+# ── Column Window ─────────────────────────────────────────────────────
+
+class ColumnWindow(Gtk.Window):
+    """A single column displayed as its own popup window."""
+
+    def __init__(self, app: CascadeApp, state: ColumnState, index: int):
+        super().__init__(application=app, type=Gtk.WindowType.TOPLEVEL)
+        self._app = app
+        self.state = state
+        self.index = index
+        self.rows: list[Gtk.EventBox] = []
+
+        self.set_decorated(False)
+        self.set_resizable(False)
+        self.set_keep_above(True)
+        self.set_skip_taskbar_hint(True)
+        self.set_type_hint(Gdk.WindowTypeHint.DROPDOWN_MENU)
+        self.set_accept_focus(True)
+        self.set_position(Gtk.WindowPosition.NONE)
+
+        if self._app.config.opacity < 1.0:
+            self.set_opacity(self._app.config.opacity)
+
+        self.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK | Gdk.EventMask.KEY_PRESS_MASK)
+        self.connect("key-press-event", self._on_key_press)
+        self.connect("button-press-event", self._on_window_click)
+        self.connect("focus-in-event", self._on_focus_in)
+        self.connect("focus-out-event", self._on_focus_out)
+        self.connect("destroy", self._on_destroy)
+
+        self._key_grabbed = False
+
+        self._build_ui()
+
+    def _build_ui(self) -> None:
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+
+        # Header
+        title = self.state.title or "Menu"
+        header = Gtk.Label(label=f" {title} ")
+        header.set_xalign(0.0)
+        header.get_style_context().add_class("column-header")
+        vbox.pack_start(header, False, False, 0)
+
+        # Scrolled list
+        sw = Gtk.ScrolledWindow()
+        sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        sw.set_vexpand(True)
+
+        self.listbox = Gtk.ListBox()
+        self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.listbox.set_activate_on_single_click(False)
+        self.listbox.set_can_focus(False)
+        sw.add(self.listbox)
+        vbox.pack_start(sw, True, True, 0)
+
+        # Footer
+        if self._app.config.show_footer:
+            footer = Gtk.Label(label=" j/k nav  h back  l open  enter exec  esc close")
+            footer.set_xalign(0.5)
+            footer.get_style_context().add_class("column-footer")
+            vbox.pack_start(footer, False, False, 0)
+
+        self.add(vbox)
+        self._populate()
+
+    def _populate(self) -> None:
+        for child in self.listbox.get_children():
+            self.listbox.remove(child)
+        self.rows.clear()
+
+        for i, item in enumerate(self.state.items):
+            row = self._build_row(item, i)
+            self.rows.append(row)
+            self.listbox.add(row)
+
+        self.listbox.show_all()
+        self._highlight()
+
+    def _build_row(self, item: MenuEntry, idx: int) -> Gtk.EventBox:
+        eb = Gtk.EventBox()
+        eb.set_can_focus(False)
+        eb.connect("button-press-event", self._on_row_click, idx)
+
+        if item.separator:
+            eb.get_style_context().add_class("column-item")
+            eb.get_style_context().add_class("separator")
+            eb.add(Gtk.Label(label=""))
+            return eb
+
+        eb.get_style_context().add_class("column-item")
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+
+        icon_text = item.icon if (self._app.config.nerd_font_icons and item.icon) else " "
+        icon_lbl = Gtk.Label(label=icon_text)
+        icon_lbl.set_xalign(0.0)
+        icon_lbl.set_size_request(18, -1)
+        icon_lbl.set_can_focus(False)
+        hbox.pack_start(icon_lbl, False, False, 0)
+
+        lbl = Gtk.Label(label=item.label)
+        lbl.set_xalign(0.0)
+        lbl.set_hexpand(True)
+        lbl.set_ellipsize(Pango.EllipsizeMode.END)
+        lbl.set_can_focus(False)
+        hbox.pack_start(lbl, True, True, 0)
+
+        if item.has_children and not item.is_leaf:
+            ind = Gtk.Label(label=self._app.theme.submenu_indicator)
+            ind.set_xalign(1.0)
+            ind.set_can_focus(False)
+            hbox.pack_start(ind, False, False, 0)
+
+        eb.add(hbox)
+
+        if item.heading:
+            eb.get_style_context().add_class("heading")
+        if item.disabled:
+            eb.get_style_context().add_class("disabled")
+            eb.set_sensitive(False)
+
+        return eb
+
+    def _on_row_click(self, _eb, event, idx: int) -> bool:
+        if event.button == 1:
+            self.state.selected = idx
+            self._highlight()
+            self._app.execute_at(self.index, idx)
+        return True
+
+    def _highlight(self) -> None:
+        for i, row in enumerate(self.rows):
+            ctx = row.get_style_context()
+            if i == self.state.selected:
+                ctx.add_class("selected")
+            else:
+                ctx.remove_class("selected")
+
+    def scroll_to_selected(self) -> None:
+        if not self.rows or self.state.selected >= len(self.rows):
+            return
+        sw = None
+        for c in self.get_children():
+            if isinstance(c, Gtk.Box):
+                for child in c.get_children():
+                    if isinstance(child, Gtk.ScrolledWindow):
+                        sw = child
+                        break
+        if not sw:
+            return
+        adj = sw.get_vadjustment()
+        if not adj:
+            return
+        row = self.rows[self.state.selected]
+        alloc = row.get_allocation()
+        rh = alloc.height
+        ry = alloc.y
+        ph = adj.get_page_size()
+        cv = adj.get_value()
+        if ry < cv:
+            adj.set_value(ry)
+        elif ry + rh > cv + ph:
+            adj.set_value(ry + rh - ph)
+
+    # ── Keyboard ──────────────────────────────────────────────────
+
+    def _on_key_press(self, _widget, event: Gdk.EventKey) -> bool:
+        keyval = event.keyval
+        mod = event.state & Gtk.accelerator_get_default_mod_mask()
+
+        if keyval in (Gdk.KEY_Escape,):
+            self._app.close_all()
+            return True
+
+        if keyval == Gdk.KEY_slash:
+            return True
+
+        if keyval in (Gdk.KEY_j, Gdk.KEY_Down):
+            self._app.move_selection(self.index, 1)
+            return True
+        if keyval in (Gdk.KEY_k, Gdk.KEY_Up):
+            self._app.move_selection(self.index, -1)
+            return True
+
+        # l / Right — open submenu or execute
+        if keyval in (Gdk.KEY_l, Gdk.KEY_Right):
+            col = self._app.columns[self.index]
+            if col.selected < len(col.items):
+                item = col.items[col.selected]
+                if item.has_children:
+                    self._app.open_submenu(self.index, col.selected)
+                elif item.command:
+                    self._app.execute(item)
+            return True
+
+        # h / Left — close this column
+        if keyval in (Gdk.KEY_h, Gdk.KEY_Left):
+            self._app.close_submenu(self.index)
+            return True
+
+        # Return — execute
+        if keyval in (Gdk.KEY_Return, Gdk.KEY_KP_Enter):
+            col = self._app.columns[self.index]
+            if col.selected < len(col.items):
+                item = col.items[col.selected]
+                if item.has_children:
+                    self._app.open_submenu(self.index, col.selected)
+                elif item.command:
+                    self._app.execute(item)
+            return True
+
+        # g — first
+        if keyval == Gdk.KEY_g and not (mod & Gdk.ModifierType.SHIFT_MASK):
+            items = self._app.columns[self.index].items
+            self._app.columns[self.index].selected = 0
+            if items and items[0].separator:
+                self._app.move_selection(self.index, 1)
+            else:
+                self._app._update_windows()
+            return True
+
+        # G — last
+        if keyval == Gdk.KEY_G:
+            items = self._app.columns[self.index].items
+            n = len(items)
+            self._app.columns[self.index].selected = n - 1
+            if n > 0 and items[n - 1].separator:
+                self._app.move_selection(self.index, -1)
+            else:
+                self._app._update_windows()
+            return True
+
+        if keyval == Gdk.KEY_n and (mod & Gdk.ModifierType.CONTROL_MASK):
+            self._app.move_selection(self.index, 1)
+            return True
+        if keyval == Gdk.KEY_p and (mod & Gdk.ModifierType.CONTROL_MASK):
+            self._app.move_selection(self.index, -1)
+            return True
+
+        return False
+
+    def _on_focus_in(self, _widget, _event) -> bool:
+        self._app._some_focused = True
+        return False
+
+    def _on_focus_out(self, _widget, _event) -> bool:
+        self._app._schedule_focus_check()
+        return True
+
+    def _on_window_click(self, _widget, event) -> bool:
+        if event.button == 1:
+            self._app.close_to(self.index)
+        return False
+
+    def _on_destroy(self, _widget) -> None:
+        if self._key_grabbed:
+            self._app._ungrab_keyboard(self)
+
+# ── Application ───────────────────────────────────────────────────────
+
+class CascadeApp(Gtk.Application):
+    """Manages multiple column windows for miller-column browsing."""
+
+    def __init__(self):
+        super().__init__(
+            application_id="com.github.oliverm.cascade-menu",
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
+        )
+        self.columns: list[ColumnState] = []
+        self.windows: list[ColumnWindow] = []
+        self.config: Config = Config()
+        self.theme: Theme = Theme()
+        self.root_items: list[MenuEntry] = []
+        self._x: int = -1
+        self._y: int = -1
+        self._navigating: bool = False
+        self._some_focused: bool = False
+        self._focus_check_id: int = 0
+
+        self.connect("activate", self._on_activate)
+        self.connect("command-line", self._on_command_line)
+
+    def _on_command_line(self, _app, cmd_line) -> int:
+        args = cmd_line.get_arguments()
+        i = 1
+        while i < len(args):
+            if args[i] == "--x" and i + 1 < len(args):
+                self._x = int(args[i + 1]); i += 2
+            elif args[i] == "--y" and i + 1 < len(args):
+                self._y = int(args[i + 1]); i += 2
+            elif args[i] == "--toggle":
+                self.activate(); return 0
+            else:
+                i += 1
+        self.activate()
+        return 0
+
+    def _on_activate(self, _app) -> None:
+        if self.windows:
+            self.close_all()
+            return
+        self._load_config()
+        self._open_root()
+
+    def _load_config(self) -> None:
+        self.config = load_config()
+        setup_logging(self.config.log_level)
+        self.theme = load_theme(self.config.theme)
+        self.root_items = load_menu()
+
+        # Apply CSS globally
+        css = Gtk.CssProvider()
+        css.load_from_data(build_css(self.theme, self.config).encode())
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(), css,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+    # ── Navigation ─────────────────────────────────────────────────
+
+    def _open_root(self) -> None:
+        if not self.root_items:
+            logger.error("no menu items")
+            return
+        self.columns = [ColumnState(items=self.root_items, selected=0, title="Menu")]
+        self._create_windows()
+
+    def open_submenu(self, from_idx: int, item_idx: int) -> None:
+        if from_idx != len(self.columns) - 1:
+            return
+        state = self.columns[from_idx]
+        if item_idx >= len(state.items):
+            return
+        item = state.items[item_idx]
+        if not item.has_children:
+            return
+
+        self.columns = self.columns[:from_idx + 1]
+        new_state = ColumnState(items=item.children or [], selected=0,
+                                title=item.label, parent_idx=item_idx)
+        self.columns.append(new_state)
+        self._create_windows()
+
+    def close_submenu(self, from_idx: int) -> None:
+        if len(self.columns) <= 1:
+            self.close_all()
+            return
+        if from_idx != len(self.columns) - 1:
+            return
+        parent_idx = from_idx - 1
+        cur = self.columns[from_idx]
+        parent = self.columns[parent_idx]
+        if self.config.restore_parent_selection and cur.parent_idx >= 0:
+            parent.selected = cur.parent_idx
+        self.columns = self.columns[:from_idx]
+        self._create_windows()
+
+    def close_all(self) -> None:
+        self._some_focused = False
+        if self._focus_check_id:
+            GLib.source_remove(self._focus_check_id)
+            self._focus_check_id = 0
+        for w in list(self.windows):
+            self._ungrab_keyboard(w)
+            try:
+                w.hide()
+                w.destroy()
+            except Exception:
+                pass
+        self.windows.clear()
+        self.columns.clear()
+
+    def close_to(self, index: int) -> None:
+        """Close all window columns to the RIGHT of the given index."""
+        if index >= len(self.columns) - 1:
+            return
+        if self._focus_check_id:
+            GLib.source_remove(self._focus_check_id)
+            self._focus_check_id = 0
+        self.columns = self.columns[:index + 1]
+        self._create_windows()
+        # Focus the clicked window's column (last remaining)
+        if self.windows:
+            self.windows[-1].present()
+            # Force focus after event loop processes
+            GLib.idle_add(self.windows[-1].grab_focus)
+
+    def move_selection(self, col_idx: int, delta: int) -> None:
+        if col_idx >= len(self.columns):
+            return
+        state = self.columns[col_idx]
+        items = [i for i in state.items if not i.separator]
+        if not items:
+            return
+        n = len(state.items)
+        if self.config.wrap_navigation:
+            state.selected = (state.selected + delta) % n
+        else:
+            state.selected = max(0, min(n - 1, state.selected + delta))
+        while 0 <= state.selected < n and state.items[state.selected].separator:
+            state.selected = (state.selected + delta) % n
+        self._update_windows()
+
+    def execute_at(self, col_idx: int, item_idx: int) -> None:
+        if col_idx >= len(self.columns):
+            return
+        state = self.columns[col_idx]
+        if item_idx >= len(state.items):
+            return
+        item = state.items[item_idx]
+        if item.separator or item.heading or item.disabled:
+            return
+        if item.has_children:
+            self.open_submenu(col_idx, item_idx)
+        elif item.command:
+            self.execute(item)
+
+    def execute(self, item: MenuEntry) -> None:
+        self.close_all()
+        try:
+            if item.shell:
+                subprocess.Popen(["sh", "-c", " ".join(item.command)],
+                                 start_new_session=True,
+                                 stdin=subprocess.DEVNULL,
+                                 stdout=subprocess.DEVNULL,
+                                 stderr=subprocess.DEVNULL)
+            else:
+                subprocess.Popen(item.command, start_new_session=True,
+                                 stdin=subprocess.DEVNULL,
+                                 stdout=subprocess.DEVNULL,
+                                 stderr=subprocess.DEVNULL)
+        except Exception as e:
+            logger.error("command failed: %s", e)
+
+    # ── Window Management ──────────────────────────────────────────
+
+    def _create_windows(self) -> None:
+        self._navigating = True
+
+        # Destroy old windows and release grabs
+        for w in list(self.windows):
+            self._ungrab_keyboard(w)
+            try:
+                w.hide()
+                w.destroy()
+            except Exception:
+                pass
+        self.windows.clear()
+
+        # Create new windows
+        for i, state in enumerate(self.columns):
+            win = ColumnWindow(self, state, i)
+            self.windows.append(win)
+
+        # Size and position each window
+        self._layout_windows()
+        self._navigating = False
+
+    def _update_windows(self) -> None:
+        """Refresh existing windows without recreating them."""
+        for win in self.windows:
+            win._populate()
+            win.scroll_to_selected()
+
+    def _layout_windows(self) -> None:
+        """Position and size all column windows."""
+        if not self.windows:
+            return
+
+        # Get starting position from monitor
+        display = Gdk.Display.get_default()
+        mon = None
+        if display:
+            seat = display.get_default_seat()
+            if seat:
+                device = seat.get_pointer()
+                if device:
+                    _screen, px, py = device.get_position()
+                    mon = display.get_monitor_at_point(px, py)
+            if mon is None:
+                mon = display.get_primary_monitor()
+
+        wa = mon.get_workarea() if mon else None
+
+        base_x = self.config.offset_x
+        base_y = self.config.bar_height + self.config.offset_y
+        if wa:
+            base_x += wa.x
+            base_y += wa.y
+
+        # Set initial size at same position
+        for win, state in zip(self.windows, self.columns):
+            col_w = self._column_width(state.items)
+            col_h = self._column_height(state)
+            win.set_default_size(col_w, col_h)
+            win.resize(col_w, col_h)
+            win.move(base_x, base_y)
+
+        # Show all windows
+        for win in self.windows:
+            win.show_all()
+            win.present()
+
+        # Keyboard-only grab on the last window — captures keystrokes but not mouse
+        if self.windows:
+            last = self.windows[-1]
+            self._grab_keyboard(last)
+
+        # Reposition using actual allocated widths
+        GLib.idle_add(self._reposition_windows, base_x, base_y, wa)
+
+    def _reposition_windows(self, base_x: int, base_y: int,
+                            wa) -> bool:
+        """Reposition windows with stair-step offset and 2px gap."""
+        if not self.windows:
+            return False
+        gap = 2
+        stair_y = 4
+        x = base_x
+        for idx, win in enumerate(self.windows):
+            alloc = win.get_allocation()
+            win.move(x, base_y + idx * stair_y)
+            x += alloc.width + gap
+
+        # Keep last window on screen
+        last = self.windows[-1]
+        if wa:
+            lx, ly = last.get_position()
+            lw = last.get_allocation().width
+            if lx + lw > wa.x + wa.width:
+                last.move(wa.x + wa.width - lw, ly)
+
+        last.grab_focus()
+        return False
+
+    def _column_width(self, items: list[MenuEntry]) -> int:
+        if not items:
+            return 160
+        max_chars = 0
+        for item in items:
+            if item.separator:
+                continue
+            chars = len(item.label) + (3 if item.has_children else 0) + 2
+            max_chars = max(max_chars, chars)
+        char_w = max(self.theme.font_size * 0.6, 6.5)
+        return min(int(max_chars * char_w + 40), 400)
+
+    def _column_height(self, state: ColumnState) -> int:
+        n = len(state.items) if state.items else 1
+        row_h = self.theme.font_size + 4
+        header = self.theme.font_size + 8
+        footer = (max(self.theme.font_size - 2, 8) + 4) if self.config.show_footer else 0
+        content_h = n * row_h + 8
+        total = header + content_h + footer
+        max_h = self.config.max_menu_height * 20
+        return min(total, max_h)
+
+    # ── Focus Management ───────────────────────────────────────────
+
+    # ── Keyboard Grab ─────────────────────────────────────────────
+
+    def _grab_keyboard(self, win: ColumnWindow) -> None:
+        """Grab keyboard input so keystrokes reach our cascade windows."""
+        display = Gdk.Display.get_default()
+        if not display:
+            return
+        seat = display.get_default_seat()
+        if not seat:
+            return
+        gdk_win = win.get_window()
+        if not gdk_win:
+            return
+        status = seat.grab(gdk_win, Gdk.SeatCapabilities.KEYBOARD,
+                           False, None, None, None, None)
+        if status == Gdk.GrabStatus.SUCCESS:
+            win._key_grabbed = True
+
+    def _ungrab_keyboard(self, win: ColumnWindow) -> None:
+        if win._key_grabbed:
+            display = Gdk.Display.get_default()
+            if display:
+                seat = display.get_default_seat()
+                if seat:
+                    seat.ungrab()
+            win._key_grabbed = False
+
+    def _schedule_focus_check(self) -> None:
+        if self._focus_check_id:
+            GLib.source_remove(self._focus_check_id)
+        self._focus_check_id = GLib.timeout_add(120, self._check_focus)
+
+    def _check_focus(self) -> bool:
+        """Close all windows if no cascade window has focus."""
+        self._focus_check_id = 0
+        if self._navigating or not self.windows:
+            return False
+        if self._some_focused or not self.config.close_on_focus_lost:
+            return False
+        self.close_all()
+        return False
+
+# ── Entry Point ───────────────────────────────────────────────────────
+
+def main() -> None:
+    app = CascadeApp()
+    exit_code = app.run(sys.argv)
+    sys.exit(exit_code)
+
+if __name__ == "__main__":
+    main()

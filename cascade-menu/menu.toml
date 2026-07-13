@@ -1,0 +1,263 @@
+# cascade-menu ── Menu hierarchy
+# Nerd Font glyphs are used when available; text fallbacks are shown otherwise.
+
+[[menu]]
+label = "Applications"
+icon = "\U000f0043"
+
+[[menu.children]]
+label = "Web Browser"
+icon = "\U000f043a"
+command = ["firefox"]
+
+[[menu.children]]
+label = "File Manager"
+icon = "\U000f0219"
+command = ["thunar"]
+
+[[menu.children]]
+label = "Terminal"
+icon = "\U000f0492"
+command = ["kitty"]
+
+[[menu.children]]
+label = "Terminal (Alacritty)"
+icon = "\U000f0492"
+command = ["alacritty"]
+
+[[menu.children]]
+label = "Email"
+icon = "\U000f01e6"
+command = ["thunderbird"]
+
+[[menu]]
+label = "Development"
+icon = "\U000f03d0"
+
+[[menu.children]]
+label = "Editors"
+
+[[menu.children.children]]
+label = "Emacs"
+icon = "\U000f045b"
+command = ["emacs"]
+
+[[menu.children.children]]
+label = "Neovim"
+icon = "\U000f0444"
+command = ["kitty", "-e", "nvim"]
+
+[[menu.children.children]]
+label = "VSCode"
+icon = "\U000f0440"
+command = ["code"]
+
+[[menu.children]]
+label = "Terminals"
+
+[[menu.children.children]]
+label = "Kitty"
+icon = "\U000f0492"
+command = ["kitty"]
+
+[[menu.children.children]]
+label = "Alacritty"
+icon = "\U000f0492"
+command = ["alacritty"]
+
+[[menu.children]]
+label = "Git"
+icon = "\U000f01f2"
+
+[[menu.children.children]]
+label = "Lazygit"
+icon = "\U000f02a2"
+command = ["kitty", "-e", "lazygit"]
+
+[[menu.children.children]]
+label = "Git status"
+command = ["kitty", "-e", "bash", "-lc", "git status; read"]
+
+[[menu.children.children]]
+label = "Recent repos"
+command = ["kitty", "-e", "bash", "-lc", "cd ~/dev && ls -d */ && read"]
+
+[[menu.children.children]]
+label = "Clone repository"
+command = ["kitty", "-e", "bash", "-lc", "read -p 'URL: ' url && git clone \"$url\""]
+
+[[menu.children]]
+label = "Containers"
+icon = "\U000f04e1"
+
+[[menu.children.children]]
+label = "Docker ps"
+command = ["kitty", "-e", "docker", "ps"]
+
+[[menu.children.children]]
+label = "Docker compose up"
+command = ["kitty", "-e", "docker", "compose", "up"]
+
+[[menu.children.children]]
+label = "Docker compose down"
+command = ["kitty", "-e", "docker", "compose", "down"]
+
+[[menu.children]]
+label = "Databases"
+icon = "\U000f0504"
+
+[[menu.children.children]]
+label = "SQLite browser"
+command = ["kitty", "-e", "sqlitebrowser"]
+
+[[menu.children.children]]
+label = "PGAdmin"
+command = ["kitty", "-e", "pgadmin4"]
+
+[[menu]]
+label = "System"
+icon = "\U000f0314"
+
+[[menu.children]]
+label = "Audio"
+icon = "\U000f04e2"
+
+[[menu.children.children]]
+label = "Volume up"
+icon = "\U000f04e7"
+command = ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"]
+
+[[menu.children.children]]
+label = "Volume down"
+icon = "\U000f04e9"
+command = ["pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%"]
+
+[[menu.children.children]]
+label = "Toggle mute"
+icon = "\U000f04e4"
+command = ["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]
+
+[[menu.children]]
+label = "Brightness"
+icon = "\U000f03e0"
+
+[[menu.children.children]]
+label = "Brightness up"
+command = ["brightnessctl", "set", "+5%"]
+
+[[menu.children.children]]
+label = "Brightness down"
+command = ["brightnessctl", "set", "5%-"]
+
+[[menu.children]]
+label = "Power"
+icon = "\U000f02c5"
+
+[[menu.children.children]]
+label = "Lock"
+icon = "\U000f033e"
+command = ["i3lock"]
+
+[[menu.children.children]]
+label = "Suspend"
+icon = "\U000f037e"
+command = ["systemctl", "suspend"]
+
+[[menu.children.children]]
+label = "Hibernate"
+icon = "\U000f037d"
+command = ["systemctl", "hibernate"]
+
+[[menu.children.children]]
+label = "Reboot"
+icon = "\U000f0353"
+command = ["systemctl", "reboot"]
+
+[[menu.children.children]]
+label = "Shutdown"
+icon = "\U000f0382"
+command = ["systemctl", "poweroff"]
+
+[[menu.children]]
+label = "Network"
+icon = "\U000f0498"
+
+[[menu.children.children]]
+label = "Impala"
+command = ["kitty", "-e", "impala"]
+
+[[menu.children.children]]
+label = "Bluetooth"
+command = ["kitty", "-e", "bluetui"]
+
+[[menu]]
+label = "Info & Tools"
+icon = "\U000f02d3"
+
+[[menu.children]]
+label = "System monitor"
+icon = "\U000f04a2"
+command = ["kitty", "-e", "btop"]
+
+[[menu.children]]
+label = "Process list"
+icon = "\U000f04a2"
+command = ["kitty", "-e", "htop"]
+
+[[menu.children]]
+label = "Disk usage"
+icon = "\U000f0219"
+command = ["kitty", "-e", "ncdu"]
+
+[[menu.children]]
+label = "Network info"
+command = ["kitty", "-e", "nmtui"]
+
+[[menu.children]]
+label = "Screenshot"
+icon = "\U000f0639"
+
+[[menu.children.children]]
+label = "Full screen"
+command = ["maim", "~/Pictures/screenshots/$(date +%s).png"]
+
+[[menu.children.children]]
+label = "Select area"
+command = ["maim", "-s", "~/Pictures/screenshots/$(date +%s).png"]
+
+[[menu.children.children]]
+label = "Copy to clipboard"
+shell = true
+command = ["maim -s | xclip -selection clipboard -t image/png"]
+
+[[menu]]
+label = "Windows"
+icon = "\U000f0b12"
+
+[[menu.children]]
+label = "Floating toggle"
+command = ["i3-msg", "floating", "toggle"]
+
+[[menu.children]]
+label = "Fullscreen"
+command = ["i3-msg", "fullscreen", "toggle"]
+
+[[menu.children]]
+label = "Scratchpad"
+command = ["i3-msg", "scratchpad", "show"]
+
+[[menu.children]]
+label = "Move to scratchpad"
+command = ["i3-msg", "move", "scratchpad"]
+
+[[menu.children]]
+label = "Layout stacking"
+command = ["i3-msg", "layout", "stacking"]
+
+[[menu.children]]
+label = "Layout tabbed"
+command = ["i3-msg", "layout", "tabbed"]
+
+[[menu.children]]
+label = "Layout split"
+command = ["i3-msg", "layout", "toggle", "split"]

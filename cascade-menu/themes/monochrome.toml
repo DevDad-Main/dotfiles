@@ -1,0 +1,21 @@
+# Monochrome ── cascade-menu theme
+background = "#1a1a1a"
+alternate_bg = "#222222"
+foreground = "#d4d4d4"
+muted_fg = "#888888"
+border = "#444444"
+active_border = "#aaaaaa"
+selected_bg = "#aaaaaa"
+selected_fg = "#1a1a1a"
+inactive_selected_bg = "#444444"
+inactive_selected_fg = "#d4d4d4"
+disabled_fg = "#555555"
+error = "#cc6666"
+success = "#66cc66"
+warning = "#cccc66"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "
