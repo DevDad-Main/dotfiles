@@ -695,23 +695,28 @@ class CascadeApp(Gtk.Application):
     def _create_windows(self) -> None:
         self._navigating = True
 
-        # Destroy old windows and release grabs
-        for w in list(self.windows):
+        # Keep old windows visible while creating new ones (prevents blink)
+        old_windows = list(self.windows)
+        for w in old_windows:
             self._ungrab_keyboard(w)
+
+        # Create new windows
+        self.windows = []
+        for i, state in enumerate(self.columns):
+            win = ColumnWindow(self, state, i)
+            self.windows.append(win)
+
+        # Show new windows BEFORE destroying old ones
+        self._layout_windows()
+
+        # Now destroy old windows
+        for w in old_windows:
             try:
                 w.hide()
                 w.destroy()
             except Exception:
                 pass
-        self.windows.clear()
 
-        # Create new windows
-        for i, state in enumerate(self.columns):
-            win = ColumnWindow(self, state, i)
-            self.windows.append(win)
-
-        # Size and position each window
-        self._layout_windows()
         self._navigating = False
 
     def _update_windows(self) -> None:

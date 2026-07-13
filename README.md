@@ -50,11 +50,113 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps`), smart window grouping (`$mod+Ctrl+y`), and screen dim/lock management (`$mod+Shift+Escape`)
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
-- **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and running commands. `$mod+m` or click the 󰇄 icon on the bar. Each column is its own floating window positioned edge-to-edge with stair-step offset. Navigate with `j/k/h/l` (vim-style), `Enter` to execute, `Escape` to close. Fully themed per active i3 theme (Gruvbox, Catppuccin, Tokyo Night, Nord, Monochrome). Python GTK3 app, config at `cascade-menu/config.toml`, menu items at `cascade-menu/menu.toml`
+- **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and commands. `$mod+m` or click the 󰇄 bar icon. Each column floats with a stair-step offset. Navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Full customization below.
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
 - **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
 - **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
+
+<details>
+<summary>📋 cascade-menu — Miller-column launcher</summary>
+
+A keyboard-driven cascading menu for i3. Each column is its own floating window; navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Opens via `$mod+m` or the 󰇄 bar icon.
+
+```bash
+# Symlink
+ln -sf ~/.config/dotfiles/cascade-menu ~/.config/cascade-menu
+```
+
+#### Customization
+
+All configs live under `~/.config/cascade-menu/`.
+
+**`config.toml`** — Appearance, behavior, position, and keybindings:
+
+| Section | Key | Default | Description |
+|---|---|---|---|
+| `appearance` | `theme` | `"gruvbox-dark"` | Theme name from `themes/*.toml` |
+| `appearance` | `font_size` | 18 | Font size in px (matches 9pt at 144 DPI) |
+| `appearance` | `max_menu_height` | 50 | Max rows before scrolling (×20px) |
+| `appearance` | `opacity` | 1.0 | Window opacity (0.0–1.0) |
+| `appearance` | `border_style` | `"sharp"` | `"sharp"` or `"rounded"` |
+| `behavior` | `close_on_focus_lost` | true | Close when clicking outside |
+| `behavior` | `editor_cmd` | auto | Editor for `$EDITOR` menu commands (auto-detected from `$VISUAL`/`$EDITOR`) |
+| `position` | `offset_x` | 8 | Left margin from screen edge (px) |
+| `position` | `offset_y` | 0 | Top margin below bar (px) |
+| `position` | `bar_height` | 20 | Height of your i3bar (for initial positioning) |
+| `keybindings` | `close` | `["Escape", "q"]` | Keys to close menu |
+| `keybindings` | `up` | `["k", "Up"]` | Move selection up |
+| `keybindings` | `down` | `["j", "Down"]` | Move selection down |
+| `keybindings` | `back` | `["h", "Left"]` | Close current column / go back |
+| `keybindings` | `forward` | `["l", "Right"]` | Open submenu / execute |
+| `keybindings` | `execute` | `["Return", "KP_Enter"]` | Execute selected item |
+
+**`menu.toml`** — Define your menu items (TOML array of tables):
+
+```toml
+[[menu]]
+label = "My Apps"
+icon = "\uf0043"  # optional Nerd Font glyph
+
+[[menu.children]]
+label = "Firefox"
+command = ["firefox"]
+
+[[menu.children]]
+label = "Scripts"
+icon = "\uf0749"
+
+[[menu.children.children]]
+label = "Update system"
+command = ["kitty", "-e", "sudo pacman -Syu"]
+
+[[menu.children.children]]
+label = "Backup"
+shell = true
+command = ["rsync -av ~/Documents /mnt/backup/"]
+```
+
+Item fields:
+- `label` — Display text
+- `icon` — Nerd Font glyph (optional)
+- `command` — Program to run (`["cmd", "--arg"]`)
+- `shell` — If `true`, run through `sh -c`
+- `children` — Sub-items (makes the entry expandable)
+- `disabled` — If `true`, greyed out
+- `separator` — If `true`, draws a visual divider
+- `heading` — If `true`, bold section label
+
+**`$EDITOR` placeholder:** Menu commands starting with `$EDITOR` are expanded to the editor configured in `config.toml` (or auto-detected):
+```toml
+command = ["$EDITOR", "/path/to/file"]
+```
+
+**`themes/*.toml`** — Color palettes, one file per theme:
+
+```toml
+background = "#1c1f20"
+foreground = "#ebdbb2"
+selected_bg = "#d79921"
+selected_fg = "#1c1f20"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+```
+
+#### Keybinding reference
+
+| Key | Action |
+|---|---|
+| `j` / `Down` | Move down |
+| `k` / `Up` | Move up |
+| `l` / `Right` | Open submenu / execute |
+| `h` / `Left` | Go back / close column |
+| `Enter` | Execute selected item |
+| `g` | Jump to first item |
+| `G` | Jump to last item |
+| `q` / `Escape` | Close menu |
+
+All keys are overridable in `config.toml` → `[keybindings]`.
+</details>
 
 ### Shell & Tools
 
