@@ -21,7 +21,7 @@ icons = "material-nf"
 
 [[block]]
 block = "custom"
-command = "printf '󰇄'"
+command = "printf ' 󰇄 '"
 interval = 86400
 [[block.click]]
 button = "left"
@@ -29,43 +29,45 @@ cmd = "/home/oliverm/.local/bin/cascade-menu"
 
 [[block]]
 block = "cpu"
-format = "$icon $utilization"
+format = " $icon $utilization "
 
 [[block]]
 block = "memory"
-format = "$icon $mem_used_percents"
+format = " $icon $mem_used_percents "
 
 [[block]]
 block = "disk_space"
 path = "/"
-format = "$icon $available"
+format = " $icon $available "
 
 [[block]]
 block = "custom"
-command = "printf '│'"
+command = "printf '{\"text\":\"│\",\"state\":\"Good\"}'"
+json = true
 interval = 86400
 
 [[block]]
 block = "net"
 @@NET_DEVICE_LINE@@
-format = "$icon {$ssid $signal_strength|$device}"
-format_alt = "$icon $ip"
+format = " $icon {$ssid $signal_strength|$device} "
+format_alt = " $icon $ip "
 [[block.click]]
 button = "left"
 cmd = "kitty --class impala -e impala"
 
 [[block]]
 block = "sound"
-format = "$icon $volume"
+format = " $icon $volume "
 
 [[block]]
 block = "custom"
-command = "xset q | grep -qi 'caps lock.*on' && printf '' || printf ''"
+command = "xset q | grep -qi 'caps lock.*on' && printf '  ' || printf ''"
 interval = 1
 
 [[block]]
 block = "custom"
-command = "printf '│'"
+command = "printf '{\"text\":\"│\",\"state\":\"Warning\"}'"
+json = true
 interval = 86400
 
 [[block]]
