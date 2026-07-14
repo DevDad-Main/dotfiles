@@ -81,4 +81,3 @@ log_level = "warn"
 # execute  = ["Return", "KP_Enter"]
 # first    = ["g"]
 # last     = ["G"]
-# search   = ["slash"]

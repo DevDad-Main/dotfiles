@@ -97,7 +97,6 @@ All configs live under `~/.config/cascade-menu/`.
 | `keybindings` | `back` | `["h", "Left"]` | Close current column / go back |
 | `keybindings` | `forward` | `["l", "Right"]` | Open submenu / execute |
 | `keybindings` | `execute` | `["Return", "KP_Enter"]` | Execute selected item |
-| `keybindings` | `search` | `["slash"]` | Toggle fuzzy search |
 
 **`menu.toml`** — Define your menu items (TOML array of tables):
 
@@ -161,8 +160,7 @@ font_size = 18
 | `Enter` | Execute selected item |
 | `g` | Jump to first item |
 | `G` | Jump to last item |
-| `/` | Fuzzy search all menu items |
-| `q` / `Escape` | Close menu / exit search |
+| `q` / `Escape` | Close menu |
 
 All keys are overridable in `config.toml` → `[keybindings]`.
 </details>
