@@ -19,13 +19,8 @@ separator_fg = "@@BAR_BG@@"
 [icons]
 icons = "awesome6"
 
-[[block]]
-block = "custom"
-command = "printf ' 󰇄 '"
-interval = 86400
-[[block.click]]
-button = "left"
-cmd = "/home/oliverm/.local/bin/cascade-menu"
+[icons.overrides]
+cpu = "\U000f053b"
 
 [[block]]
 block = "cpu"
@@ -49,15 +44,15 @@ interval = 86400
 [[block]]
 block = "net"
 @@NET_DEVICE_LINE@@
-format = " $icon {$ssid $signal_strength|$device} "
-format_alt = " $icon $ip "
+format = " $icon  {$ssid $signal_strength|$device} "
+format_alt = " $icon  $ip "
 [[block.click]]
 button = "left"
 cmd = "kitty --class impala -e impala"
 
 [[block]]
 block = "sound"
-format = " $icon $volume "
+format = " $icon  $volume "
 
 [[block]]
 block = "custom"
@@ -71,8 +66,9 @@ json = true
 interval = 86400
 
 [[block]]
-block = "custom"
-command = "cap=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 || echo '?'); charging=$(grep -q Charging /sys/class/power_supply/AC*/uevent 2>/dev/null && printf ' ' || printf ''); printf ' %s%s' \"$cap\" \"$charging\""
+block = "battery"
+format = " $icon $percentage "
+not_charging_format = " $icon $percentage "
 interval = 30
 
 [[block]]
