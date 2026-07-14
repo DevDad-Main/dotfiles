@@ -59,11 +59,18 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 <details>
 <summary>📋 cascade-menu — Miller-column launcher</summary>
 
-A keyboard-driven cascading menu for i3. Each column is its own floating window; navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Opens via `$mod+m` or the 󰇄 bar icon.
+A keyboard-driven cascading menu for i3. Each column is its own floating window; navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Opens/closes via `$mod+m` (toggle) or the 󰇄 bar icon.
 
 ```bash
-# Symlink
+# Dependencies (Arch)
+sudo pacman -S python python-gobject gtk3
+
+# Symlink config directory
 ln -sf ~/.config/dotfiles/cascade-menu ~/.config/cascade-menu
+
+# Symlink binary (so $mod+m keybinding can find it)
+mkdir -p ~/.local/bin
+ln -sf ~/.config/dotfiles/cascade-menu/cascade-menu ~/.local/bin/cascade-menu
 ```
 
 #### Customization
@@ -90,6 +97,7 @@ All configs live under `~/.config/cascade-menu/`.
 | `keybindings` | `back` | `["h", "Left"]` | Close current column / go back |
 | `keybindings` | `forward` | `["l", "Right"]` | Open submenu / execute |
 | `keybindings` | `execute` | `["Return", "KP_Enter"]` | Execute selected item |
+| `keybindings` | `search` | `["slash"]` | Toggle fuzzy search |
 
 **`menu.toml`** — Define your menu items (TOML array of tables):
 
@@ -153,7 +161,8 @@ font_size = 18
 | `Enter` | Execute selected item |
 | `g` | Jump to first item |
 | `G` | Jump to last item |
-| `q` / `Escape` | Close menu |
+| `/` | Fuzzy search all menu items |
+| `q` / `Escape` | Close menu / exit search |
 
 All keys are overridable in `config.toml` → `[keybindings]`.
 </details>

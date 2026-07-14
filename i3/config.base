@@ -28,7 +28,7 @@ bindsym $mod+n exec --no-startup-id kitty --class impala -e impala
 # Code editor — set EDITOR_CMD in config.local to change (e.g. "kitty -e nvim", "code", "code-oss")
 bindsym $mod+c exec --no-startup-id @@EDITOR_CMD@@
 bindsym $mod+g exec --no-startup-id kitty -e lazygit
-bindsym $mod+m exec --no-startup-id /home/oliverm/.local/bin/cascade-menu
+bindsym $mod+m exec --no-startup-id /home/oliverm/.local/bin/cascade-menu --toggle
 bindsym $mod+Shift+b bar mode toggle
 bindsym $mod+q kill
 

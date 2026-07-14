@@ -15,6 +15,13 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("Pango", "1.0")
 from gi.repository import Gtk, Gdk, Gio, GLib, Pango
+from gi.repository import GioUnix
+
+try:
+    from gi.repository import GLibUnix
+    _sig_add = GLibUnix.signal_add
+except ImportError:
+    _sig_add = GLib.unix_signal_add
 
 CONFIG_DIR = Path.home() / ".config" / "cascade-menu"
 CONFIG_FILE = CONFIG_DIR / "config.toml"
@@ -200,7 +207,7 @@ def _scan_desktop(dynamic_type: str) -> list[MenuEntry]:
             continue
         for f in sorted(d.glob("*.desktop")):
             try:
-                info = Gio.DesktopAppInfo.new_from_filename(str(f))
+                info = GioUnix.DesktopAppInfo.new_from_filename(str(f))
                 if not info or not info.should_show():
                     continue
                 name = info.get_display_name()
@@ -348,6 +355,12 @@ window {{
 scrollbar {{ -GtkScrollbar-has-backward-stepper: false; -GtkScrollbar-has-forward-stepper: false; }}
 scrollbar.vertical {{ background: transparent; border: none; }}
 scrollbar.vertical slider {{ min-width: 0px; background: transparent; border: none; }}
+.search-box entry {{
+    background-color: @bg; color: @fg;
+    border: 1px solid @border; border-radius: {radius};
+    padding: {t.row_padding}px 8px;
+    font-family: "{t.font_family}"; font-size: {t.font_size}px;
+}}
 """
 
 # ── Column Window ─────────────────────────────────────────────────────
@@ -366,7 +379,7 @@ class ColumnWindow(Gtk.Window):
         self.set_resizable(False)
         self.set_keep_above(True)
         self.set_skip_taskbar_hint(True)
-        self.set_type_hint(Gdk.WindowTypeHint.DROPDOWN_MENU)
+        self.set_type_hint(Gdk.WindowTypeHint.UTILITY)
         self.set_accept_focus(True)
         self.set_position(Gtk.WindowPosition.NONE)
 
@@ -380,7 +393,9 @@ class ColumnWindow(Gtk.Window):
         self.connect("focus-out-event", self._on_focus_out)
         self.connect("destroy", self._on_destroy)
 
-        self._key_grabbed = False
+        self._search_box: Gtk.Box | None = None
+        self._search_entry: Gtk.Entry | None = None
+        self._saved_items: list[MenuEntry] | None = None
 
         self._build_ui()
 
@@ -394,8 +409,25 @@ class ColumnWindow(Gtk.Window):
         header.get_style_context().add_class("column-header")
         vbox.pack_start(header, False, False, 0)
 
+        # Search box (hidden by default)
+        self._search_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+        self._search_box.get_style_context().add_class("search-box")
+        search_icon = Gtk.Label(label=" \uf002 ")
+        search_icon.set_xalign(0.0)
+        search_icon.get_style_context().add_class("column-header")
+        self._search_entry = Gtk.Entry()
+        self._search_entry.set_placeholder_text("Search...")
+        self._search_entry.get_style_context().add_class("column-header")
+        self._search_entry.connect("changed", self._on_search_changed)
+        self._search_entry.connect("key-press-event", self._on_search_key_press)
+        self._search_box.pack_start(search_icon, False, False, 0)
+        self._search_box.pack_start(self._search_entry, True, True, 0)
+        vbox.pack_start(self._search_box, False, False, 0)
+        self._search_box.hide()
+
         # Scrolled list
         sw = Gtk.ScrolledWindow()
+        sw.set_can_focus(False)
         sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         sw.set_vexpand(True)
 
@@ -408,7 +440,7 @@ class ColumnWindow(Gtk.Window):
 
         # Footer
         if self._app.config.show_footer:
-            footer = Gtk.Label(label=" j/k nav  h back  l open  enter exec  esc close")
+            footer = Gtk.Label(label=" j/k nav  h back  l open  / search  enter exec  esc close")
             footer.set_xalign(0.5)
             footer.get_style_context().add_class("column-footer")
             vbox.pack_start(footer, False, False, 0)
@@ -536,6 +568,9 @@ class ColumnWindow(Gtk.Window):
             return True
 
         if keyval in self._keyval_set("search"):
+            if self._app._search_active:
+                return True
+            self._enter_search()
             return True
 
         if keyval in self._keyval_set("down"):
@@ -599,16 +634,10 @@ class ColumnWindow(Gtk.Window):
 
     def _on_focus_in(self, _widget, _event) -> bool:
         self._app._some_focused = True
-        # Re-grab keyboard on deepest column when focus returns to cascade
-        if self._app.windows:
-            self._app._grab_keyboard(self._app.windows[-1])
         return False
 
     def _on_focus_out(self, _widget, _event) -> bool:
         self._app._some_focused = False
-        # Release keyboard grab immediately so other apps get input
-        if self._app.windows:
-            self._app._ungrab_keyboard(self._app.windows[-1])
         self._app._schedule_focus_check()
         return True
 
@@ -617,20 +646,92 @@ class ColumnWindow(Gtk.Window):
             self._app.close_to(self.index)
         return False
 
+    # ── Search ────────────────────────────────────────────────────
+
+    def _enter_search(self) -> None:
+        if self._app._search_active:
+            return
+        self._app._search_active = True
+        self._saved_items = list(self.state.items)
+        self._search_box.show()
+        self._search_entry.show()
+        self._search_entry.grab_focus()
+
+    def _exit_search(self) -> None:
+        if not self._app._search_active:
+            return
+        self._app._search_active = False
+        self._search_entry.set_text("")
+        self._search_box.hide()
+        if self._saved_items is not None:
+            self.state.items = self._saved_items
+            self._saved_items = None
+        self.state.selected = 0
+        self._populate()
+        if self._app.windows:
+            self._app.windows[-1].grab_focus()
+
+    def _on_search_changed(self, entry: Gtk.Entry) -> None:
+        text = entry.get_text().lower()
+        if not text:
+            if self._saved_items is not None:
+                self.state.items = list(self._saved_items)
+            self.state.selected = 0
+            self._populate()
+            return
+        results = [(p, i) for p, i in self._app._all_items_cache
+                    if text in p.lower()]
+        search_items: list[MenuEntry] = []
+        for path, item in results:
+            search_items.append(MenuEntry(
+                label=item.label, command=item.command,
+                shell=item.shell, keep_open=item.keep_open,
+                confirm=item.confirm,
+                icon=f"{item.icon}  {path.rsplit(' > ', 1)[-1] if ' > ' in path else ''}"))
+        self.state.items = search_items if search_items else [
+            MenuEntry(label="No matches", disabled=True)]
+        self.state.selected = 0
+        self._populate()
+
+    def _on_search_key_press(self, _widget, event: Gdk.EventKey) -> bool:
+        keyval = event.keyval
+        if keyval in self._keyval_set("close"):
+            self._exit_search()
+            return True
+        if keyval in self._keyval_set("down"):
+            self._app.move_selection(self.index, 1)
+            return True
+        if keyval in self._keyval_set("up"):
+            self._app.move_selection(self.index, -1)
+            return True
+        if keyval in self._keyval_set("execute"):
+            col = self._app.columns[self.index]
+            if col and col.selected < len(col.items):
+                item = col.items[col.selected]
+                if item.command and not item.disabled:
+                    self._app.execute(item)
+            return True
+        if keyval == Gdk.KEY_Return:
+            return True
+        return False
+
     def _on_destroy(self, _widget) -> None:
-        if self._key_grabbed:
-            self._app._ungrab_keyboard(self)
+        pass
 
 # ── Application ───────────────────────────────────────────────────────
 
 class CascadeApp(Gtk.Application):
     """Manages multiple column windows for miller-column browsing."""
 
+    _instance: CascadeApp | None = None
+
     def __init__(self):
         super().__init__(
             application_id="com.github.oliverm.cascade-menu",
             flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
         )
+        CascadeApp._instance = self
+        _sig_add(GLib.PRIORITY_HIGH, signal.SIGTERM, _on_sigterm)
         self.columns: list[ColumnState] = []
         self.windows: list[ColumnWindow] = []
         self.config: Config = Config()
@@ -641,6 +742,8 @@ class CascadeApp(Gtk.Application):
         self._navigating: bool = False
         self._some_focused: bool = False
         self._focus_check_id: int = 0
+        self._search_active: bool = False
+        self._all_items_cache: list[tuple[str, MenuEntry]] = []
 
         self.connect("activate", self._on_activate)
         self.connect("command-line", self._on_command_line)
@@ -667,11 +770,25 @@ class CascadeApp(Gtk.Application):
         self._load_config()
         self._open_root()
 
+    @staticmethod
+    def _collect_all_items(items: list[MenuEntry], path: str = "") -> list[tuple[str, MenuEntry]]:
+        result: list[tuple[str, MenuEntry]] = []
+        for item in items:
+            if item.separator or item.heading or item.disabled:
+                continue
+            full_path = f"{path}{' > ' if path else ''}{item.label}"
+            if item.command:
+                result.append((full_path, item))
+            if item.children:
+                result.extend(CascadeApp._collect_all_items(item.children, full_path))
+        return result
+
     def _load_config(self) -> None:
         self.config = load_config()
         setup_logging(self.config.log_level)
         self.theme = load_theme(self.config.theme)
         self.root_items = load_menu()
+        self._all_items_cache = self._collect_all_items(self.root_items)
 
         # Apply CSS globally
         css = Gtk.CssProvider()
@@ -725,14 +842,16 @@ class CascadeApp(Gtk.Application):
             GLib.source_remove(self._focus_check_id)
             self._focus_check_id = 0
         for w in list(self.windows):
-            self._ungrab_keyboard(w)
             try:
                 w.hide()
                 w.destroy()
             except Exception:
                 pass
+        self._search_active = False
         self.windows.clear()
         self.columns.clear()
+        _cleanup_pid()
+        self.quit()
 
     def close_to(self, index: int) -> None:
         """Close all window columns to the RIGHT of the given index."""
@@ -807,8 +926,6 @@ class CascadeApp(Gtk.Application):
 
         # Keep old windows visible while creating new ones (prevents blink)
         old_windows = list(self.windows)
-        for w in old_windows:
-            self._ungrab_keyboard(w)
 
         # Create new windows
         self.windows = []
@@ -874,11 +991,6 @@ class CascadeApp(Gtk.Application):
             win.show_all()
             win.present()
 
-        # Keyboard-only grab on the last window — captures keystrokes but not mouse
-        if self.windows:
-            last = self.windows[-1]
-            self._grab_keyboard(last)
-
         # Reposition using actual allocated widths
         GLib.idle_add(self._reposition_windows, base_x, base_y, wa)
 
@@ -934,33 +1046,6 @@ class CascadeApp(Gtk.Application):
 
     # ── Focus Management ───────────────────────────────────────────
 
-    # ── Keyboard Grab ─────────────────────────────────────────────
-
-    def _grab_keyboard(self, win: ColumnWindow) -> None:
-        """Grab keyboard input so keystrokes reach our cascade windows."""
-        display = Gdk.Display.get_default()
-        if not display:
-            return
-        seat = display.get_default_seat()
-        if not seat:
-            return
-        gdk_win = win.get_window()
-        if not gdk_win:
-            return
-        status = seat.grab(gdk_win, Gdk.SeatCapabilities.KEYBOARD,
-                           False, None, None, None, None)
-        if status == Gdk.GrabStatus.SUCCESS:
-            win._key_grabbed = True
-
-    def _ungrab_keyboard(self, win: ColumnWindow) -> None:
-        if win._key_grabbed:
-            display = Gdk.Display.get_default()
-            if display:
-                seat = display.get_default_seat()
-                if seat:
-                    seat.ungrab()
-            win._key_grabbed = False
-
     def _schedule_focus_check(self) -> None:
         if self._focus_check_id:
             GLib.source_remove(self._focus_check_id)
@@ -978,9 +1063,43 @@ class CascadeApp(Gtk.Application):
 
 # ── Entry Point ───────────────────────────────────────────────────────
 
+PID_FILE = Path("/tmp") / "cascade-menu.pid"
+
+def _cleanup_pid() -> None:
+    if PID_FILE.exists():
+        try:
+            if PID_FILE.read_text().strip() == str(os.getpid()):
+                PID_FILE.unlink(missing_ok=True)
+        except (FileNotFoundError, ValueError, OSError):
+            pass
+
+def _on_sigterm() -> bool:
+    """Called from GLib main loop on SIGTERM."""
+    _cleanup_pid()
+    app = CascadeApp._instance
+    if app is not None:
+        if app.windows:
+            app.close_all()
+        else:
+            app.quit()
+    return False
+
 def main() -> None:
+    if "--toggle" in sys.argv:
+        if PID_FILE.exists():
+            try:
+                pid = int(PID_FILE.read_text().strip())
+                os.kill(pid, signal.SIGTERM)
+                return
+            except (ProcessLookupError, OSError, ValueError):
+                PID_FILE.unlink(missing_ok=True)
+    PID_FILE.write_text(str(os.getpid()))
     app = CascadeApp()
-    exit_code = app.run(sys.argv)
+    try:
+        exit_code = app.run(sys.argv)
+    finally:
+        if PID_FILE.exists() and PID_FILE.read_text().strip() == str(os.getpid()):
+            PID_FILE.unlink(missing_ok=True)
     sys.exit(exit_code)
 
 if __name__ == "__main__":
