@@ -28,7 +28,7 @@ format = " $icon $utilization "
 
 [[block]]
 block = "custom"
-command = "awk '/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {u=(t-a)/1048576; printf \"   %.2f GiB / %.2f GiB (%.0f%%)  \", u, t/1048576, (t-a)/t*100}' /proc/meminfo"
+command = "awk '/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {u=(t-a)/1048576; printf \"   %.2f/%.2f Gib (%.0f%%)  \", u, t/1048576, (t-a)/t*100}' /proc/meminfo"
 interval = 10
 
 [[block]]
@@ -57,7 +57,7 @@ format = " $icon  $volume "
 
 [[block]]
 block = "custom"
-command = "xset q | grep -qi 'caps lock.*on' && printf '  ' || printf ''"
+command = "xset q | grep -qi 'caps lock.*on' && printf ' 󰪛 ON' || printf ''"
 interval = 1
 
 [[block]]
