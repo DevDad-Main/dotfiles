@@ -2,20 +2,23 @@
 tmp=$(mktemp /tmp/keybinds-XXXX)
 cat > "$tmp" << 'EOF'
 Mod+Return        ·  Terminal (kitty)
+Mod+Space         ·  App launcher (rofi)
 Mod+d             ·  App launcher (rofi)
 Mod+Shift+d       ·  Command runner
 Mod+Shift+Return  ·  File manager (thunar)
+Mod+m             ·  Cascading menu (cascade-menu)
 Mod+q             ·  Close window
 Mod+h/j/k/l       ·  Focus left/down/up/right
 Mod+Shift+h/j/k/l ·  Move window
 Mod+1-0           ·  Switch workspace
 Mod+Shift+1-0     ·  Move window to workspace
+Mod+Ctrl+Shift+1-0 ·  Move + follow workspace
 Mod+y             ·  Toggle split direction
 Mod+Ctrl+y        ·  Smart toggle — group window + neighbour into nested split
 Mod+Shift+y       ·  Reset to horizontal split
 Mod+s             ·  Stacking layout
 Mod+w             ·  Tabbed layout
-Mod+Space         ·  Toggle floating
+Mod+Shift+Space   ·  Toggle floating
 Mod+f             ·  Toggle fullscreen
 Mod+r             ·  Resize mode (h/j/k/l)
 Mod+Shift+r       ·  Restart i3
@@ -30,6 +33,7 @@ Mod+Escape        ·  Lock screen
 Mod+Shift+Escape  ·  Screen dim/lock settings
 Mod+Slash         ·  Show this help
 Mod+Shift+t       ·  Theme picker
+Mod+Shift+c       ·  Color picker (xcolor)
 Mod+Ctrl+equal    ·  Increase bar font
 Mod+Ctrl+minus    ·  Decrease bar font
 Mod+Shift+s       ·  Region screenshot

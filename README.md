@@ -308,16 +308,23 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+Enter` | Terminal |
 | `Super+Space` | Rofi app launcher (spotlight-style) |
 | `Super+d` | Rofi app launcher |
+| `Super+Shift+d` | Command runner |
+| `Super+Shift+Return` | File manager (thunar) |
+| `Super+m` | Cascading menu (cascade-menu) |
 | `Super+q` | Kill window |
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
+| `Super+1-0` | Switch workspace |
+| `Super+Shift+1-0` | Move window to workspace |
+| `Super+Ctrl+Shift+1-0` | Move container to workspace + follow |
 | `Super+y` | Toggle split direction |
-| `Super+Ctrl+y` | Smart toggle — group focused window + neighbor into nested split |
+| `Super+Ctrl+y` | Smart toggle — group window + neighbor into nested split |
 | `Super+Shift+y` | Reset all to horizontal split |
 | `Super+s` | Stacking layout |
 | `Super+w` | Tabbed layout |
-| `Super+1-0` | Switch workspace |
-| `Super+Shift+1-0` | Move window to workspace |
+| `Super+Shift+Space` | Toggle floating |
+| `Super+f` | Toggle fullscreen |
+| `Super+grave` | Focus parent |
 | `Super+r` | Resize mode (h/j/k/l) |
 | `Super+Shift+r` | Restart i3 |
 | `Super+Shift+e` | Exit i3 |
@@ -332,11 +339,17 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
 | `Super+Slash` | Keybind help (floating Kitty + fzf search) |
 | `Super+Shift+t` | Theme picker (rofi) |
+| `Super+Shift+c` | Color picker (xcolor) |
 | `Super+Ctrl+equal` | Increase bar font size |
 | `Super+Ctrl+minus` | Decrease bar font size |
+| `Super+minus` | Move to scratchpad |
+| `Super+equal` | Show scratchpad |
 | `Super+Shift+s` | Region screenshot (clipboard) |
 | `Super+Print` | Fullscreen screenshot (clipboard) |
 | `Print` | Fullscreen screenshot (file) |
+| Volume keys | Volume up/down/mute |
+| Brightness keys | Brightness up/down |
+| Media keys | Play/Pause/Next/Prev |
 
 ### Syncing to another machine
 
