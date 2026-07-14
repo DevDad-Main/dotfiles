@@ -21,15 +21,15 @@ icons = "awesome6"
 
 [icons.overrides]
 cpu = "\uf2db"
-memory_mem = "\U000f035b"
 
 [[block]]
 block = "cpu"
 format = " $icon $utilization "
 
 [[block]]
-block = "memory"
-format = " $icon $mem_used / $mem_total "
+block = "custom"
+command = "awk '/MemTotal/ {t=$2} /MemAvailable/ {a=$2} END {u=(t-a)/1048576; printf \"   %.2f GiB / %.2f GiB (%.0f%%)  \", u, t/1048576, (t-a)/t*100}' /proc/meminfo"
+interval = 10
 
 [[block]]
 block = "disk_space"
