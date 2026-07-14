@@ -20,7 +20,8 @@ separator_fg = "@@BAR_BG@@"
 icons = "awesome6"
 
 [icons.overrides]
-cpu = "\U000f053b"
+cpu = "\uf2db"
+memory_mem = "\U000f035b"
 
 [[block]]
 block = "cpu"
@@ -67,8 +68,8 @@ interval = 86400
 
 [[block]]
 block = "battery"
-format = " $icon $percentage "
-not_charging_format = " $icon $percentage "
+format = " $icon  $percentage "
+not_charging_format = " $icon  $percentage "
 interval = 30
 
 [[block]]
