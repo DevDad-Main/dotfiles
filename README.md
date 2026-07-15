@@ -342,6 +342,7 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+Left Click` | Move window (drag) |
 | `Super+Right Click` | Resize window (drag) |
 | `Super+Shift+t` | Theme picker (rofi) |
+| `Super+Shift+w` | Wallpaper picker (rofi) |
 | `Super+Shift+c` | Color picker (xcolor) |
 | `Super+Ctrl+equal` | Increase bar font size |
 | `Super+Ctrl+minus` | Decrease bar font size |

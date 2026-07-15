@@ -36,6 +36,7 @@ Mod+Escape        ·  Lock screen
 Mod+Shift+Escape  ·  Screen dim/lock settings
 Mod+Slash         ·  Show this help
 Mod+Shift+t       ·  Theme picker
+Mod+Shift+w       ·  Wallpaper picker
 Mod+Shift+c       ·  Color picker (xcolor)
 Mod+Ctrl+equal    ·  Increase bar font
 Mod+Ctrl+minus    ·  Decrease bar font

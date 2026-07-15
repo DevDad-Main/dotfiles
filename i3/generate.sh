@@ -14,7 +14,7 @@ WIN_DIM=#a89984
 PICOM_FADING=false
 NET_DEVICE=auto
 EDITOR_CMD="emacs"
-WALLPAPER=$HOME/.config/dotfiles/i3/gruv-rocket.png
+WALLPAPER=$HOME/.config/dotfiles/i3/themes/wallpapers/gruvbox-dark/rocket-gruvbox.png
 
 if [ -f "$local_cfg" ]; then
     source "$local_cfg"
