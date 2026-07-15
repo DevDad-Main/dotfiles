@@ -12,9 +12,18 @@ smart_gaps on
 smart_borders on
 default_border pixel 1
 default_floating_border pixel 1
+hide_edge_borders dynamic
+popup_during_fullscreen smart
+workspace_auto_back_and_forth yes
+show_marks yes
+
 for_window [class="^.*"] border pixel 1
 for_window [instance="keyhelp"] floating enable, border normal, resize set 640 560
 for_window [instance="impala"] floating enable, border normal, resize set 1000 680
+for_window [class="(?i)firefox" instance="(?i)picture-in-picture"] floating enable, resize set 480 320
+for_window [class="(?i)mpv"] floating enable
+for_window [title="(?i)Save As"] floating enable
+for_window [title="(?i)Library" class="(?i)firefox"] floating enable
 
 # === keys ===
 

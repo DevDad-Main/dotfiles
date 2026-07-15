@@ -47,7 +47,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 
 ### Desktop Environment
 
-- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps`), smart window grouping (`$mod+Ctrl+y`), and screen dim/lock management (`$mod+Shift+Escape`)
+- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), `$mod+drag` to move/resize windows, audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps`), smart window grouping (`$mod+Ctrl+y`), popup dialogs in fullscreen (`popup_during_fullscreen smart`), auto-toggle back to previous workspace (`workspace_auto_back_and_forth`), automatic floating for Firefox PiP, mpv, and Save As dialogs, and screen dim/lock management (`$mod+Shift+Escape`)
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
 - **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and commands. `$mod+m` or click the 󰇄 bar icon. Each column floats with a stair-step offset. Navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Full customization below.
@@ -314,7 +314,7 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+q` | Kill window |
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
-| `Super+1-0` | Switch workspace |
+| `Super+1-0` | Switch workspace (press again to toggle back) |
 | `Super+Shift+1-0` | Move window to workspace |
 | `Super+Ctrl+Shift+1-0` | Move container to workspace + follow |
 | `Super+y` | Toggle split direction |
