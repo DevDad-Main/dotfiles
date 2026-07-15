@@ -351,8 +351,8 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+Shift+s` | Region screenshot (clipboard) |
 | `Super+Print` | Fullscreen screenshot (clipboard) |
 | `Print` | Fullscreen screenshot (file) |
-| Volume keys | Volume up/down/mute |
-| Brightness keys | Brightness up/down |
+| Volume keys / `Super+z/x/v` | Volume down/up/mute |
+| Brightness keys / `Super+[/]` | Brightness down/up |
 | Media keys | Play/Pause/Next/Prev |
 
 ### Syncing to another machine

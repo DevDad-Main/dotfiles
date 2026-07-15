@@ -49,6 +49,8 @@ Mod+grave         ·  Focus parent
 Super+Shift+b     ·  Toggle bar
 Volume keys       ·  Volume up/down/mute
 Brightness keys   ·  Brightness up/down
+Mod+z/x/v         ·  Vol down/up/mute (60% kb fallback)
+Mod+[/]           ·  Brightness down/up (60% kb fallback)
 Media keys        ·  Play/Pause/Next/Prev
 EOF
 kitty --class keyhelp -o font_size=12 sh -c "fzf --no-info --bind=esc:abort,enter:abort < '$tmp'"
