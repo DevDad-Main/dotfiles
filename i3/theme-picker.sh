@@ -49,6 +49,8 @@ custom_wall=$(echo "$saved_custom_walls" | grep "^CUSTOM_$(sanitize "$theme_file
 current_font=$(grep "^BAR_FONT=" "$local_cfg" 2>/dev/null | cut -d= -f2 | tail -1)
 current_font=${current_font:-8}
 current_fading=$(grep "^PICOM_FADING=" "$local_cfg" 2>/dev/null | cut -d= -f2)
+current_night_temp=$(grep "^NIGHT_TEMP=" "$local_cfg" 2>/dev/null | cut -d= -f2 | tail -1)
+current_night_temp=${current_night_temp:-4500}
 
 # Update config.local with new theme values
 cat > "$local_cfg" << EOF
@@ -70,6 +72,7 @@ KITTY_THEME=$KITTY_THEME
 EMACS_THEME=$EMACS_THEME
 CATPPUCCIN_FLAVOR=$CATPPUCCIN_FLAVOR
 PICOM_FADING=$current_fading
+NIGHT_TEMP=$current_night_temp
 CASCADE_THEME=$CASCADE_THEME
 EOF
 

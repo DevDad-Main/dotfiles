@@ -1,4 +1,6 @@
 #!/bin/bash
+[ -f ~/.config/i3/config.local ] && source ~/.config/i3/config.local
+TEMP=${NIGHT_TEMP:-4500}
 flag=/tmp/redshift-enabled
 if [ -f "$flag" ]; then
     redshift -x
@@ -6,6 +8,6 @@ if [ -f "$flag" ]; then
     notify-send "Night Light" "Disabled"
 else
     touch "$flag"
-    redshift -O 4500
-    notify-send "Night Light" "Enabled (4500K)"
+    redshift -O "$TEMP"
+    notify-send "Night Light" "Enabled (${TEMP}K)"
 fi

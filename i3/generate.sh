@@ -15,6 +15,7 @@ PICOM_FADING=false
 NET_DEVICE=auto
 EDITOR_CMD="emacs"
 WALLPAPER=$HOME/.config/dotfiles/i3/themes/wallpapers/gruvbox-dark/rocket-gruvbox.png
+NIGHT_TEMP=4500
 
 if [ -f "$local_cfg" ]; then
     source "$local_cfg"
