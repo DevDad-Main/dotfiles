@@ -65,6 +65,18 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
 # Copy rofi config to ~/.config/rofi (use temp file to avoid hardlink collision)
 cp "$dir/../rofi/config.rasi" "$HOME/.config/rofi/config.rasi" 2>/dev/null || true
 
+# Generate dunst config from template
+sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
+    -e "s|@@BAR_FG@@|$BAR_FG|g" \
+    -e "s|@@WIN_FOCUSED@@|$WIN_FOCUSED|g" \
+    -e "s|@@WIN_INACTIVE@@|$WIN_INACTIVE|g" \
+    -e "s|@@WIN_URGENT@@|$WIN_URGENT|g" \
+    "$dir/../dunst/dunstrc.base" > "$dir/../dunst/dunstrc"
+mkdir -p "$HOME/.config/dunst"
+cp "$dir/../dunst/dunstrc" "$HOME/.config/dunst/dunstrc"
+pkill -x dunst 2>/dev/null || true
+dunst -config "$HOME/.config/dotfiles/dunst/dunstrc" &
+
 # Generate picom config from template
 sed -e "s|@@PICOM_FADING@@|${PICOM_FADING:-false}|g" \
     "$dir/../picom/picom.base.conf" > "$dir/../picom/picom.conf"
