@@ -47,7 +47,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 
 ### Desktop Environment
 
-- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), `$mod+drag` to move/resize windows, audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps` — if a new keyboard resets this, run `$mod+Shift+r` to reapply), smart window grouping (`$mod+Ctrl+y`), popup dialogs in fullscreen (`popup_during_fullscreen smart`), auto-toggle back to previous workspace (`workspace_auto_back_and_forth`), automatic floating for Firefox PiP, mpv, and Save As dialogs, and screen dim/lock management (`$mod+Shift+Escape`)
+- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), `$mod+drag` to move/resize windows, audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps` — if a new keyboard resets this, run `$mod+Shift+r` to reapply), smart window grouping (`$mod+Ctrl+y`), popup dialogs in fullscreen (`popup_during_fullscreen smart`), auto-toggle back to previous workspace (`workspace_auto_back_and_forth`), automatic floating for Firefox PiP, mpv, and Save As dialogs, screen dim/lock management (`$mod+Shift+Escape`), and OSD notifications for volume/brightness via themed dunst with progress bars
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
 - **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and commands. `$mod+m` or click the 󰇄 bar icon. Each column floats with a stair-step offset. Navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Full customization below.
@@ -366,7 +366,7 @@ killall picom; picom -b --config ~/.config/dotfiles/picom/picom.conf
 i3-msg restart
 ```
 
-> `generate.sh` handles all generated configs: i3, i3status-rust, rofi, kitty theme, picom, and Emacs theme. Just make sure symlinks exist first (see [Symlinks](#symlinks)). If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored).
+> `generate.sh` handles all generated configs: i3, i3status-rust, rofi, kitty theme, picom, dunst, and Emacs theme. Just make sure symlinks exist first (see [Symlinks](#symlinks)). If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored).
 >
 > **After a pull that adds features:** install any new packages (see the i3 `pacman -S` install list above — e.g. `impala iwd` were added for the WiFi manager). Optional extras have their own setup: the [Networking section](#networking-wifi--ethernet) covers switching NetworkManager to the iwd backend for impala.
 >
@@ -480,7 +480,12 @@ dotfiles/
 │       ├── dim-then-lock.sh     #   Gradual dim before i3lock
 │       ├── switch-audio.sh      #   Rofi card profile switcher
 │       ├── smart-toggle.sh      #   Group focused window + neighbor into nested split
+│       ├── volume.sh            #   Volume OSD via dunst (progress bar + percentage)
+│       ├── brightness.sh        #   Brightness OSD via dunst (progress bar + percentage)
 │       └── apply-nvidia-tearfree.sh  #   Fix screen tearing (ForceFullCompositionPipeline)
+├── dunst/                # Dunst notification daemon config (generated from template)
+│   ├── dunstrc.base      #   Template with @@VAR@@ placeholders
+│   └── dunstrc           #   Generated config (gitignored)
 ├── i3status-rust/        # i3status-rust bar config (generated)
 │   ├── config.base.toml  #   Template with placeholders
 │   └── config.toml       #   Generated (gitignored)
