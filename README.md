@@ -314,6 +314,7 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+q` | Kill window |
 | `Super+h/j/k/l` | Focus left/down/up/right |
 | `Super+Shift+h/j/k/l` | Move window |
+| `Super+Tab` | Toggle back to previous workspace |
 | `Super+1-0` | Switch workspace (press again to toggle back) |
 | `Super+Shift+1-0` | Move window to workspace |
 | `Super+Ctrl+Shift+1-0` | Move container to workspace + follow |

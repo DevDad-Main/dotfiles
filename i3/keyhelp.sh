@@ -10,6 +10,7 @@ Mod+m             ·  Cascading menu (cascade-menu)
 Mod+q             ·  Close window
 Mod+h/j/k/l       ·  Focus left/down/up/right
 Mod+Shift+h/j/k/l ·  Move window
+Mod+Tab           ·  Toggle previous workspace
 Mod+1-0           ·  Switch workspace
 Mod+Shift+1-0     ·  Move window to workspace
 Mod+Ctrl+Shift+1-0 ·  Move + follow workspace
