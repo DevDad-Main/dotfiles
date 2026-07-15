@@ -186,7 +186,7 @@
        ;;yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
        (go +lsp)
-       python
+        (python +lsp)
        (rust +lsp)
        javascript
        typescript
