@@ -255,6 +255,8 @@ ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 mkdir -p ~/.config/picom
 ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
+mkdir -p ~/.config/dunst
+ln -sf ~/.config/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
 
 # Generate configs from templates + local overrides
 ~/.config/dotfiles/i3/generate.sh
@@ -427,6 +429,8 @@ ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
 mkdir -p ~/.config/picom
 ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
+mkdir -p ~/.config/dunst
+ln -sf ~/.config/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
 
 # Generate configs from templates + local overrides
 ~/.config/dotfiles/i3/generate.sh
