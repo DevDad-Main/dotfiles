@@ -233,7 +233,7 @@ Themes are stored in `i3/themes/` as shell files:
 ### Installation
 
 ```bash
-sudo pacman -S xorg-server xorg-xinit xorg-xrandr xorg-xset i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui impala iwd haruna gwenview maim slop xclip i3lock wiremix power-profiles-daemon
+sudo pacman -S xorg-server xorg-xinit xorg-xrandr xorg-xset i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui impala iwd haruna gwenview maim slop xclip i3lock wiremix power-profiles-daemon hunspell hunspell-en_gb
 
 # AUR
 yay -S xautolock

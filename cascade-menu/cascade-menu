@@ -11,6 +11,7 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
 import gi
+
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("Pango", "1.0")
@@ -19,6 +20,7 @@ from gi.repository import GioUnix
 
 try:
     from gi.repository import GLibUnix
+
     _sig_add = GLibUnix.signal_add
 except ImportError:
     _sig_add = GLib.unix_signal_add
@@ -31,15 +33,22 @@ LOG_FILE = Path("/tmp") / "cascade-menu.log"
 
 logger = logging.getLogger("cascade-menu")
 
+
 def setup_logging(level: str = "WARN") -> None:
-    m = {"debug": logging.DEBUG, "info": logging.INFO,
-         "warn": logging.WARNING, "error": logging.ERROR}
+    m = {
+        "debug": logging.DEBUG,
+        "info": logging.INFO,
+        "warn": logging.WARNING,
+        "error": logging.ERROR,
+    }
     fh = logging.FileHandler(LOG_FILE)
     fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
     logger.addHandler(fh)
     logger.setLevel(m.get(level.lower(), logging.WARNING))
 
+
 # ── Data Structures ───────────────────────────────────────────────────
+
 
 @dataclass
 class MenuEntry:
@@ -65,13 +74,25 @@ class MenuEntry:
 
     @classmethod
     def from_toml(cls, d: dict) -> "MenuEntry":
-        kids = [cls.from_toml(c) for c in d.get("children", [])] if d.get("children") else None
-        return cls(label=d.get("label", ""), icon=d.get("icon", ""),
-                   command=d.get("command"), children=kids or None,
-                   disabled=d.get("disabled", False), separator=d.get("separator", False),
-                   heading=d.get("heading", False), shell=d.get("shell", False),
-                   confirm=d.get("confirm", False), keep_open=d.get("keep_open", False),
-                   dynamic=d.get("dynamic", ""))
+        kids = (
+            [cls.from_toml(c) for c in d.get("children", [])]
+            if d.get("children")
+            else None
+        )
+        return cls(
+            label=d.get("label", ""),
+            icon=d.get("icon", ""),
+            command=d.get("command"),
+            children=kids or None,
+            disabled=d.get("disabled", False),
+            separator=d.get("separator", False),
+            heading=d.get("heading", False),
+            shell=d.get("shell", False),
+            confirm=d.get("confirm", False),
+            keep_open=d.get("keep_open", False),
+            dynamic=d.get("dynamic", ""),
+        )
+
 
 @dataclass
 class Theme:
@@ -95,9 +116,11 @@ class Theme:
     column_padding: int = 3
     submenu_indicator: str = " \u25b6"
     icon_spacing: str = " "
+
     @classmethod
     def from_toml(cls, d: dict) -> "Theme":
         return cls(**{k: v for k, v in d.items() if k in cls.__dataclass_fields__})
+
 
 @dataclass
 class Config:
@@ -128,6 +151,7 @@ class Config:
     bind_execute: list[str] = field(default_factory=lambda: ["Return", "KP_Enter"])
     bind_first: list[str] = field(default_factory=lambda: ["g"])
     bind_last: list[str] = field(default_factory=lambda: ["G"])
+
     @classmethod
     def from_toml(cls, d: dict) -> "Config":
         cfg = cls()
@@ -138,6 +162,7 @@ class Config:
                         setattr(cfg, k, v)
         return cfg
 
+
 def _detect_editor() -> list[str]:
     env = os.environ.get("VISUAL") or os.environ.get("EDITOR") or ""
     if env:
@@ -147,13 +172,17 @@ def _detect_editor() -> list[str]:
             return [ed]
     return ["nvim"]
 
+
 # ── Loaders ───────────────────────────────────────────────────────────
+
 
 def load_toml(path: Path) -> dict:
     with open(path, "rb") as f:
         return tomllib.load(f)
 
+
 LOCAL_CONFIG = CONFIG_DIR / "config.local"
+
 
 def load_config() -> Config:
     try:
@@ -170,6 +199,7 @@ def load_config() -> Config:
         logger.warning("config load failed: %s", e)
         return Config()
 
+
 def load_theme(name: str) -> Theme:
     path = THEMES_DIR / f"{name}.toml"
     if not path.exists():
@@ -183,21 +213,30 @@ def load_theme(name: str) -> Theme:
             return load_theme("gruvbox-dark")
         return Theme()
 
+
 DESKTOP_DIRS = [
     Path("/usr/share/applications"),
     Path.home() / ".local/share/applications",
 ]
+
 
 def _scan_desktop(dynamic_type: str) -> list[MenuEntry]:
     """Scan .desktop files and return matching MenuEntry list."""
     seen: set[str] = set()
     entries: list[MenuEntry] = []
     cat_map = {
-        "AudioVideo": "audio", "Audio": "audio", "Video": "video",
-        "Development": "dev", "Education": "edu", "Game": "game",
-        "Graphics": "graphics", "Network": "network",
-        "Office": "office", "Settings": "settings",
-        "System": "system", "Utility": "utility",
+        "AudioVideo": "audio",
+        "Audio": "audio",
+        "Video": "video",
+        "Development": "dev",
+        "Education": "edu",
+        "Game": "game",
+        "Graphics": "graphics",
+        "Network": "network",
+        "Office": "office",
+        "Settings": "settings",
+        "System": "system",
+        "Utility": "utility",
         "WebBrowser": "browsers",
     }
 
@@ -223,12 +262,15 @@ def _scan_desktop(dynamic_type: str) -> list[MenuEntry]:
                     # Match if any category maps to this dynamic_type
                     mapped = {cat_map.get(c) for c in cats if c in cat_map}
                     if dynamic_type in mapped:
-                        entries.append(MenuEntry(label=name, command=_split_exec(exec_str)))
+                        entries.append(
+                            MenuEntry(label=name, command=_split_exec(exec_str))
+                        )
             except Exception:
                 continue
 
     entries.sort(key=lambda e: e.label.lower())
     return entries
+
 
 def _split_exec(exec_str: str) -> list[str]:
     """Parse a .desktop Exec line into a command list, stripping field codes."""
@@ -259,20 +301,26 @@ def _split_exec(exec_str: str) -> list[str]:
     filtered = [p for p in parts if p not in ("", "/usr/bin/sh", "-c")]
     return filtered or parts
 
+
 def _expand_dynamic(items: list[MenuEntry]) -> list[MenuEntry]:
     """Replace items with dynamic=True with generated children."""
     result = []
     for item in items:
         if item.dynamic:
-            result.append(MenuEntry(
-                label=item.label, icon=item.icon,
-                children=_scan_desktop(item.dynamic)))
+            result.append(
+                MenuEntry(
+                    label=item.label,
+                    icon=item.icon,
+                    children=_scan_desktop(item.dynamic),
+                )
+            )
         elif item.children:
             item.children = _expand_dynamic(item.children)
             result.append(item)
         else:
             result.append(item)
     return result
+
 
 def load_menu() -> list[MenuEntry]:
     try:
@@ -285,7 +333,9 @@ def load_menu() -> list[MenuEntry]:
         logger.error("menu load failed: %s", e)
         return []
 
+
 # ── Column State ──────────────────────────────────────────────────────
+
 
 @dataclass
 class ColumnState:
@@ -294,7 +344,9 @@ class ColumnState:
     title: str = ""
     parent_idx: int = -1
 
+
 # ── CSS ───────────────────────────────────────────────────────────────
+
 
 def build_css(t: Theme, config: Config) -> str:
     radius = "4px" if config.border_style == "rounded" else "0px"
@@ -356,7 +408,9 @@ scrollbar.vertical {{ background: transparent; border: none; }}
 scrollbar.vertical slider {{ min-width: 0px; background: transparent; border: none; }}
 """
 
+
 # ── Column Window ─────────────────────────────────────────────────────
+
 
 class ColumnWindow(Gtk.Window):
     """A single column displayed as its own popup window."""
@@ -449,7 +503,9 @@ class ColumnWindow(Gtk.Window):
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
 
-        icon_text = item.icon if (self._app.config.nerd_font_icons and item.icon) else " "
+        icon_text = (
+            item.icon if (self._app.config.nerd_font_icons and item.icon) else " "
+        )
         icon_lbl = Gtk.Label(label=icon_text)
         icon_lbl.set_xalign(0.0)
         icon_lbl.set_size_request(18, -1)
@@ -616,7 +672,9 @@ class ColumnWindow(Gtk.Window):
     def _on_destroy(self, _widget) -> None:
         pass
 
+
 # ── Application ───────────────────────────────────────────────────────
+
 
 class CascadeApp(Gtk.Application):
     """Manages multiple column windows for miller-column browsing."""
@@ -649,11 +707,14 @@ class CascadeApp(Gtk.Application):
         i = 1
         while i < len(args):
             if args[i] == "--x" and i + 1 < len(args):
-                self._x = int(args[i + 1]); i += 2
+                self._x = int(args[i + 1])
+                i += 2
             elif args[i] == "--y" and i + 1 < len(args):
-                self._y = int(args[i + 1]); i += 2
+                self._y = int(args[i + 1])
+                i += 2
             elif args[i] == "--toggle":
-                self.activate(); return 0
+                self.activate()
+                return 0
             else:
                 i += 1
         self.activate()
@@ -676,8 +737,8 @@ class CascadeApp(Gtk.Application):
         css = Gtk.CssProvider()
         css.load_from_data(build_css(self.theme, self.config).encode())
         Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(), css,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            Gdk.Screen.get_default(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
     # ── Navigation ─────────────────────────────────────────────────
 
@@ -698,9 +759,10 @@ class CascadeApp(Gtk.Application):
         if not item.has_children:
             return
 
-        self.columns = self.columns[:from_idx + 1]
-        new_state = ColumnState(items=item.children or [], selected=0,
-                                title=item.label, parent_idx=item_idx)
+        self.columns = self.columns[: from_idx + 1]
+        new_state = ColumnState(
+            items=item.children or [], selected=0, title=item.label, parent_idx=item_idx
+        )
         self.columns.append(new_state)
         self._create_windows()
 
@@ -741,7 +803,7 @@ class CascadeApp(Gtk.Application):
         if self._focus_check_id:
             GLib.source_remove(self._focus_check_id)
             self._focus_check_id = 0
-        self.columns = self.columns[:index + 1]
+        self.columns = self.columns[: index + 1]
         self._create_windows()
         # Focus the clicked window's column (last remaining)
         if self.windows:
@@ -787,16 +849,21 @@ class CascadeApp(Gtk.Application):
             if cmd and cmd[0] == "$EDITOR":
                 cmd = self.config.editor_cmd + cmd[1:]
             if item.shell:
-                subprocess.Popen(["sh", "-c", " ".join(cmd)],
-                                 start_new_session=True,
-                                 stdin=subprocess.DEVNULL,
-                                 stdout=subprocess.DEVNULL,
-                                 stderr=subprocess.DEVNULL)
+                subprocess.Popen(
+                    ["sh", "-c", " ".join(cmd)],
+                    start_new_session=True,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
             else:
-                subprocess.Popen(cmd, start_new_session=True,
-                                 stdin=subprocess.DEVNULL,
-                                 stdout=subprocess.DEVNULL,
-                                 stderr=subprocess.DEVNULL)
+                subprocess.Popen(
+                    cmd,
+                    start_new_session=True,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
         except Exception as e:
             logger.error("command failed: %s", e)
 
@@ -875,8 +942,7 @@ class CascadeApp(Gtk.Application):
         # Reposition using actual allocated widths
         GLib.idle_add(self._reposition_windows, base_x, base_y, wa)
 
-    def _reposition_windows(self, base_x: int, base_y: int,
-                            wa) -> bool:
+    def _reposition_windows(self, base_x: int, base_y: int, wa) -> bool:
         """Reposition windows with proportional stair-step offset."""
         if not self.windows:
             return False
@@ -918,7 +984,11 @@ class CascadeApp(Gtk.Application):
         n = len(state.items) if state.items else 1
         row_h = self.theme.font_size + 2 * self.theme.row_padding + 6
         header_h = self.theme.font_size + 2 * (self.theme.row_padding + 1) + 6
-        footer_h = (max(self.theme.font_size - 2, 8) + 2 * self.theme.row_padding + 4) if self.config.show_footer else 0
+        footer_h = (
+            (max(self.theme.font_size - 2, 8) + 2 * self.theme.row_padding + 4)
+            if self.config.show_footer
+            else 0
+        )
         border = 4
         content_h = n * row_h + 12
         total = border + header_h + content_h + footer_h
@@ -942,9 +1012,11 @@ class CascadeApp(Gtk.Application):
         self.close_all()
         return False
 
+
 # ── Entry Point ───────────────────────────────────────────────────────
 
 PID_FILE = Path("/tmp") / "cascade-menu.pid"
+
 
 def _cleanup_pid() -> None:
     if PID_FILE.exists():
@@ -953,6 +1025,7 @@ def _cleanup_pid() -> None:
                 PID_FILE.unlink(missing_ok=True)
         except (FileNotFoundError, ValueError, OSError):
             pass
+
 
 def _on_sigterm() -> bool:
     """Called from GLib main loop on SIGTERM."""
@@ -964,6 +1037,7 @@ def _on_sigterm() -> bool:
         else:
             app.quit()
     return False
+
 
 def main() -> None:
     if "--toggle" in sys.argv:
@@ -982,6 +1056,7 @@ def main() -> None:
         if PID_FILE.exists() and PID_FILE.read_text().strip() == str(os.getpid()):
             PID_FILE.unlink(missing_ok=True)
     sys.exit(exit_code)
+
 
 if __name__ == "__main__":
     main()

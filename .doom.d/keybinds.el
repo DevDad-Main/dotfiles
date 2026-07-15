@@ -157,7 +157,7 @@
   (map!
    :leader
    :desc "Toggle inlay hints"
-   "h" #'lsp-toggle-inlay-hints))
+   "h" #'lsp-inlay-hints-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Line / buffer diagnostics (ported from nvim <leader>d / <leader>D)

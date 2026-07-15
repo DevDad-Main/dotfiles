@@ -185,9 +185,9 @@
        ;;web               ; the tubes
        ;;yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
-       (go +lsp)
+        (go +lsp)
         (python +lsp)
-       (rust +lsp)
+        (rust +lsp)
        javascript
        typescript
        json

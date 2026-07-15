@@ -22,3 +22,4 @@
 (load! "sql")
 (load! "corfu")
 (load! "hl-todo")
+(load! "languages")
