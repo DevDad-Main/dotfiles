@@ -12,7 +12,7 @@ while IFS= read -r f; do
     entries="$entries  $name\x00icon\x1f$f\n"
 done <<< "$wallpapers"
 
-chosen=$(printf "$entries" | rofi -dmenu -i -show-icons -p "  Wallpaper  " -theme-str 'window {width: 700;} listview {lines: 12;}')
+chosen=$(printf "$entries" | rofi -dmenu -i -show-icons -p "  Wallpaper  " -theme-str 'window {width: 800;} listview {lines: 10; spacing: 6px;} element-icon {size: 3em; vertical-align: 0.5;}' element {children: [element-icon, element-text]; spacing: 8px;})
 [ -z "$chosen" ] && exit 0
 
 sel_name=$(echo "$chosen" | sed 's/^ *//')
