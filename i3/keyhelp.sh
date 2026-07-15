@@ -3,7 +3,7 @@ tmp=$(mktemp /tmp/keybinds-XXXX)
 cat > "$tmp" << 'EOF'
 Mod+Return        ·  Terminal (kitty)
 Mod+Space         ·  App launcher (rofi)
-Mod+d             ·  App launcher (rofi)
+Mod+d             ·  Shrink window to 75% (toggle)
 Mod+Shift+d       ·  Command runner
 Mod+Shift+Return  ·  File manager (thunar)
 Mod+m             ·  Cascading menu (cascade-menu)

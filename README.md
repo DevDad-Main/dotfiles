@@ -307,7 +307,7 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 |---|---|---|
 | `Super+Enter` | Terminal |
 | `Super+Space` | Rofi app launcher (spotlight-style) |
-| `Super+d` | Rofi app launcher |
+| `Super+d` | Shrink window to 75% centered (toggle) |
 | `Super+Shift+d` | Command runner |
 | `Super+Shift+Return` | File manager (thunar) |
 | `Super+m` | Cascading menu (cascade-menu) |
