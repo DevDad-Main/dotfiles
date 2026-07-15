@@ -6,9 +6,8 @@ theme=$(grep "^THEME=" "$local_cfg" 2>/dev/null | cut -d= -f2)
 [ -z "$theme" ] && notify-send "Wallpaper Picker" "No active theme" && exit 1
 
 theme_dir="$dots/i3/themes/wallpapers/$theme"
-general_dir="$dots/i3/themes/wallpapers/general"
 
-wallpapers=$(find "$theme_dir" "$general_dir" -maxdepth 1 -type f \( -name '*.jpg' -o -name '*.png' -o -name '*.jpeg' -o -name '*.bmp' \) 2>/dev/null | sort)
+wallpapers=$(find "$theme_dir" -maxdepth 1 -type f \( -name '*.jpg' -o -name '*.png' -o -name '*.jpeg' -o -name '*.bmp' \) 2>/dev/null | sort)
 
 [ -z "$wallpapers" ] && notify-send "Wallpaper Picker" "No wallpapers for $theme" && exit 1
 
