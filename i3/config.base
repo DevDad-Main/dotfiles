@@ -24,7 +24,6 @@ for_window [class="(?i)firefox" instance="(?i)picture-in-picture"] floating enab
 for_window [class="(?i)mpv"] floating enable
 for_window [title="(?i)Save As"] floating enable
 for_window [title="(?i)Library" class="(?i)firefox"] floating enable
-for_window [class="(?i)feh"] floating enable, resize set 900 600
 
 # === keys ===
 
