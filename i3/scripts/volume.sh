@@ -1,6 +1,14 @@
 #!/bin/bash
 case "$1" in
-  up)   pactl set-sink-volume @DEFAULT_SINK@ +5% ;;
+  up)
+    vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%')
+    [ -z "$vol" ] && vol=0
+    if [ "$vol" -le 95 ]; then
+      pactl set-sink-volume @DEFAULT_SINK@ +5%
+    else
+      pactl set-sink-volume @DEFAULT_SINK@ 100%
+    fi
+    ;;
   down) pactl set-sink-volume @DEFAULT_SINK@ -5% ;;
   mute) pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
 esac
