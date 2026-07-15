@@ -1,10 +1,11 @@
 #!/bin/bash
-pid=$(pgrep -x redshift)
-if [ -n "$pid" ]; then
+flag=/tmp/redshift-enabled
+if [ -f "$flag" ]; then
     redshift -x
-    kill "$pid" 2>/dev/null
+    rm -f "$flag"
     notify-send "Night Light" "Disabled"
 else
-    redshift -O 4500 &
+    touch "$flag"
+    redshift -O 4500
     notify-send "Night Light" "Enabled (4500K)"
 fi
