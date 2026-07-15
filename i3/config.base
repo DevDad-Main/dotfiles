@@ -181,6 +181,7 @@ exec --no-startup-id feh --bg-fill @@WALLPAPER@@
 # Needed for automatic nightshift and night light configuration
 # pgrep -a redshift -- to test its working
 exec --no-startup-id redshift -l 54.352:18.646 -t 6500:4500
+bindsym $mod+Ctrl+Escape exec --no-startup-id ~/.config/i3/scripts/night-light.sh
 exec_always --no-startup-id amixer -c 0 sset 'Speaker' unmute 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Headphone' unmute 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Master' unmute 2>/dev/null

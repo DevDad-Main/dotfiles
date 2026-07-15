@@ -34,6 +34,7 @@ Mod+c             ·  Code editor (emacs)
 Mod+o             ·  Audio output
 Mod+Escape        ·  Lock screen
 Mod+Shift+Escape  ·  Screen dim/lock settings
+Mod+Ctrl+Escape   ·  Toggle night light
 Mod+Slash         ·  Show this help
 Mod+Shift+t       ·  Theme picker
 Mod+Shift+w       ·  Wallpaper picker

@@ -54,7 +54,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
 - **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
-- **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
+- **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Toggle on/off anytime with `$mod+Ctrl+Escape`. Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
 
 <details>
 <summary>📋 cascade-menu — Miller-column launcher</summary>
@@ -340,6 +340,7 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+o` | Audio output switcher (wiremix TUI) |
 | `Super+Escape` | Lock screen immediately |
 | `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
+| `Super+Ctrl+Escape` | Toggle night light on/off |
 | `Super+Slash` | Keybind help (floating Kitty + fzf search) |
 | `Super+Left Click` | Move window (drag) |
 | `Super+Right Click` | Resize window (drag) |
@@ -482,6 +483,7 @@ dotfiles/
 │       ├── smart-toggle.sh      #   Group focused window + neighbor into nested split
 │       ├── volume.sh            #   Volume OSD via dunst (progress bar + percentage)
 │       ├── brightness.sh        #   Brightness OSD via dunst (progress bar + percentage)
+│       ├── night-light.sh       #   Toggle redshift night light on/off
 │       └── apply-nvidia-tearfree.sh  #   Fix screen tearing (ForceFullCompositionPipeline)
 ├── dunst/                # Dunst notification daemon config (generated from template)
 │   ├── dunstrc.base      #   Template with @@VAR@@ placeholders
