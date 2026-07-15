@@ -31,17 +31,19 @@ source "$themes_dir/$theme_file"
 
 # Save current theme's custom wallpaper before switching
 # Save any custom wallpapers before truncating config.local
+sanitize() { echo "$1" | tr -- '-/.' '___'; }
+
 saved_custom_walls=$(grep "^CUSTOM_WALL_" "$local_cfg" 2>/dev/null)
 
 current_theme=$(grep "^THEME=" "$local_cfg" 2>/dev/null | cut -d= -f2)
 current_wall=$(grep "^WALLPAPER=" "$local_cfg" 2>/dev/null | head -1 | cut -d= -f2-)
 theme_default_wall=$(grep "^WALLPAPER=" "$themes_dir/$current_theme" 2>/dev/null | cut -d= -f2- | sed "s|\$HOME|$HOME|")
 if [ -n "$current_theme" ] && [ -n "$current_wall" ] && [ "$current_wall" != "$theme_default_wall" ]; then
-    saved_custom_walls="$saved_custom_walls"$'\n'"CUSTOM_WALL_$current_theme=$current_wall"
+    saved_custom_walls="$saved_custom_walls"$'\n'"CUSTOM_$(sanitize "$current_theme")=$current_wall"
 fi
 
 # Check for saved custom wallpaper for the new theme
-custom_wall=$(echo "$saved_custom_walls" | grep "^CUSTOM_WALL_$theme_file=" | tail -1 | cut -d= -f2-)
+custom_wall=$(echo "$saved_custom_walls" | grep "^CUSTOM_$(sanitize "$theme_file")=" | tail -1 | cut -d= -f2-)
 
 # Preserve user overrides before the file is truncated
 current_font=$(grep "^BAR_FONT=" "$local_cfg" 2>/dev/null | cut -d= -f2 | tail -1)
