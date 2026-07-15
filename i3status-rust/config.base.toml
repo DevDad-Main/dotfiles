@@ -12,9 +12,9 @@ warning_bg = "@@BAR_BG@@"
 warning_fg = "@@COLOR_WARNING@@"
 critical_bg = "@@BAR_BG@@"
 critical_fg = "@@COLOR_CRITICAL@@"
-separator = ""
+separator = " │ "
 separator_bg = "@@BAR_BG@@"
-separator_fg = "@@BAR_BG@@"
+separator_fg = "@@WIN_FOCUSED@@"
 
 [icons]
 icons = "awesome6"
@@ -37,12 +37,6 @@ path = "/"
 format = " $icon $available "
 
 [[block]]
-block = "custom"
-command = "printf '{\"text\":\"│\",\"color\":\"@@WIN_FOCUSED@@\"}'"
-json = true
-interval = 86400
-
-[[block]]
 block = "net"
 @@NET_DEVICE_LINE@@
 format = " $icon  {$ssid $signal_strength|$device} "
@@ -59,12 +53,6 @@ format = " $icon  $volume "
 block = "custom"
 command = "xset q | grep -qi 'caps lock.*on' && printf ' 󰪛 ON' || printf ''"
 interval = 1
-
-[[block]]
-block = "custom"
-command = "printf '{\"text\":\"│\",\"color\":\"@@WIN_FOCUSED@@\"}'"
-json = true
-interval = 86400
 
 [[block]]
 block = "battery"
