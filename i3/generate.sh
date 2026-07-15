@@ -48,6 +48,7 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@COLOR_GOOD@@|${COLOR_GOOD:-$BAR_FG}|g" \
     -e "s|@@COLOR_WARNING@@|${COLOR_WARNING:-#d79921}|g" \
     -e "s|@@COLOR_CRITICAL@@|${COLOR_CRITICAL:-#cc241d}|g" \
+    -e "s|@@WIN_INACTIVE@@|${WIN_INACTIVE:-#504945}|g" \
     -e "s|@@NET_DEVICE_LINE@@|$NET_DEVICE_LINE|g" \
     "$dir/../i3status-rust/config.base.toml" > "$dir/../i3status-rust/config.toml"
 
