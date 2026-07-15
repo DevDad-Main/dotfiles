@@ -20,6 +20,8 @@ Mod+s             ·  Stacking layout
 Mod+w             ·  Tabbed layout
 Mod+Shift+Space   ·  Toggle floating
 Mod+f             ·  Toggle fullscreen
+Mod+Left Click    ·  Move window (drag)
+Mod+Right Click   ·  Resize window (drag)
 Mod+r             ·  Resize mode (h/j/k/l)
 Mod+Shift+r       ·  Restart i3
 Mod+Shift+e       ·  Exit i3

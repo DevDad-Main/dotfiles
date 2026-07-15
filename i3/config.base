@@ -85,6 +85,9 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+grave focus parent
 bindsym $mod+Shift+y layout splith
 
+# mouse — hold $mod then drag to move (left-click) or resize (right-click)
+floating_modifier $mod
+
 mode "resize" {
         bindsym h resize shrink width 10 px or 10 ppt
         bindsym j resize grow height 10 px or 10 ppt

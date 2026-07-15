@@ -338,6 +338,8 @@ NetworkManager keeps managing your saved connections — it just drives `iwd` in
 | `Super+Escape` | Lock screen immediately |
 | `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
 | `Super+Slash` | Keybind help (floating Kitty + fzf search) |
+| `Super+Left Click` | Move window (drag) |
+| `Super+Right Click` | Resize window (drag) |
 | `Super+Shift+t` | Theme picker (rofi) |
 | `Super+Shift+c` | Color picker (xcolor) |
 | `Super+Ctrl+equal` | Increase bar font size |
