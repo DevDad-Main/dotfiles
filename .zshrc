@@ -119,3 +119,4 @@ pr() {
     --color 'pointer:red,marker:red') \
     && [[ -n "$pkgs" ]] && echo "$pkgs" | tr '\n' ' ' | xargs sudo pacman -Rns
 }
+export PATH="$HOME/.emacs.d/bin:$PATH"
