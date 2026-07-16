@@ -158,7 +158,9 @@
   (map!
    :leader
    :desc "Toggle hover docs"
-   "h" #'lsp-ui-doc-mode))
+   "h" #'lsp-ui-doc-mode
+   :desc "Glance hover doc"
+   "H" #'lsp-ui-doc-glance))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Line / buffer diagnostics (ported from nvim <leader>d / <leader>D)
