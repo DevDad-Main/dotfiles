@@ -73,7 +73,7 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@WIN_INACTIVE@@|$WIN_INACTIVE|g" \
     -e "s|@@WIN_URGENT@@|$WIN_URGENT|g" \
     "$dir/../dunst/dunstrc.base" > "$dir/../dunst/dunstrc"
-if [ "$(readlink -f "$HOME/.config/dunst")" != "$(readlink -f "$dir/../dunst")" ]; then
+if [ "$(readlink -f "$HOME/.config/dunst/dunstrc")" != "$(readlink -f "$dir/../dunst/dunstrc")" ]; then
   mkdir -p "$HOME/.config/dunst"
   cp "$dir/../dunst/dunstrc" "$HOME/.config/dunst/dunstrc"
 fi
