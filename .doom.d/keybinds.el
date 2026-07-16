@@ -154,10 +154,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (after! lsp-mode
+  (defface lsp-flycheck-info-unnecessary '((t (:inherit shadow))) "" :group 'lsp-mode)
   (map!
    :leader
-   :desc "Toggle inlay hints"
-   "h" #'lsp-inlay-hints-mode))
+   :desc "Toggle hover docs / inlay hints"
+   "h" #'lsp-ui-doc-glance))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Line / buffer diagnostics (ported from nvim <leader>d / <leader>D)

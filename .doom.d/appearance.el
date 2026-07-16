@@ -34,6 +34,6 @@
 
 (after! dired
   (custom-set-faces
-   '(dired-directory ((t (:background nil :foreground nil :weight normal :underline nil))))
-   '(diredfl-dir-name ((t (:background nil :foreground nil :weight normal :underline nil))))))
+   '(dired-directory ((t (:weight normal :underline nil))))
+   '(diredfl-dir-name ((t (:weight normal :underline nil))))))
 
