@@ -176,6 +176,7 @@ exec_always --no-startup-id xrandr --output HDMI-0 --left-of DP-2
 exec_always --no-startup-id xrandr --output HDMI-2 --mode 1920x1080 --rate 60 --right-of eDP-1
 exec --no-startup-id picom -b --config $HOME/.config/dotfiles/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dotfiles/dunst/dunstrc
+exec_always --no-startup-id ~/.config/i3/scripts/bluetooth-notify.sh
 exec --no-startup-id xset r rate 250 35
 exec --no-startup-id feh --bg-fill @@WALLPAPER@@
 # Needed for automatic nightshift and night light configuration

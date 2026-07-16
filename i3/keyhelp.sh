@@ -27,7 +27,7 @@ Mod+r             ·  Resize mode (h/j/k/l)
 Mod+Shift+r       ·  Restart i3
 Mod+Shift+e       ·  Exit i3
 Mod+Ctrl+q        ·  Power menu
-Mod+b             ·  Bluetooth
+Mod+b             ·  Bluetooth (bluetui)
 Mod+n             ·  WiFi (impala)
 Mod+g             ·  Git (lazygit)
 Mod+c             ·  Code editor (emacs)

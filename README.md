@@ -51,6 +51,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
 - **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
 - **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and commands. `$mod+m` or click the 󰇄 bar icon. Each column floats with a stair-step offset. Navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Full customization below.
+- **Bluetooth** — Manager via bluetui (`$mod+b`), with automatic connect/disconnect notifications
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
 - **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
@@ -484,6 +485,7 @@ dotfiles/
 │       ├── volume.sh            #   Volume OSD via dunst (progress bar + percentage)
 │       ├── brightness.sh        #   Brightness OSD via dunst (progress bar + percentage)
 │       ├── night-light.sh       #   Toggle redshift night light on/off
+│       ├── bluetooth-notify.sh  #   Notify on bluetooth connect/disconnect
 │       └── apply-nvidia-tearfree.sh  #   Fix screen tearing (ForceFullCompositionPipeline)
 ├── dunst/                # Dunst notification daemon config (generated from template)
 │   ├── dunstrc.base      #   Template with @@VAR@@ placeholders
