@@ -155,6 +155,10 @@
 
 (after! lsp-mode
   (defface lsp-flycheck-info-unnecessary '((t (:inherit shadow))) "" :group 'lsp-mode)
+  (setq lsp-ui-doc-use-childframe t
+        lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-position 'at-point
+        lsp-ui-doc-delay 0.5)
   (map!
    :leader
    :desc "Toggle hover docs"
