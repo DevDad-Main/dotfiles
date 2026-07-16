@@ -158,7 +158,7 @@
   (setq lsp-ui-doc-use-childframe t
         lsp-ui-doc-show-with-cursor t
         lsp-ui-doc-position 'at-point
-        lsp-ui-doc-delay 0.5)
+        lsp-ui-doc-delay 0.15)
   (map!
    :leader
    :desc "Toggle hover docs"
