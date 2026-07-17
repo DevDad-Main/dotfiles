@@ -87,6 +87,9 @@ mkdir -p "$HOME/.config/picom"
 rm -f "$HOME/.config/picom/picom.conf"
 cp "$dir/../picom/picom.conf" "$HOME/.config/picom/picom.conf"
 
+# Sync theme to glucose-monitor
+"$dir/scripts/glucose-theme.sh"
+
 # Generate kitty current-theme.conf
 kitty_theme_src="$dir/../kitty/themes/${KITTY_THEME}.conf"
 if [ -f "$kitty_theme_src" ]; then

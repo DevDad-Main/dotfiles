@@ -24,6 +24,8 @@ for_window [class="(?i)firefox" instance="(?i)picture-in-picture"] floating enab
 for_window [class="(?i)mpv"] floating enable
 for_window [title="(?i)Save As"] floating enable
 for_window [title="(?i)Library" class="(?i)firefox"] floating enable
+for_window [instance="glucose-monitor"] floating enable, border none, resize set 419 178, move position 0 0
+
 
 # === keys ===
 
@@ -144,6 +146,9 @@ bindsym $mod+Shift+w exec --no-startup-id ~/.config/i3/scripts/wallpaper-picker.
 bindsym $mod+Ctrl+equal exec --no-startup-id ~/.config/i3/bar_font.sh +
 bindsym $mod+Ctrl+minus exec --no-startup-id ~/.config/i3/bar_font.sh -
 bindsym $mod+slash exec --no-startup-id ~/.config/i3/keyhelp.sh
+
+# Toggle Glucose Monitor
+bindsym $mod+Shift+g exec ~/glucose-monitor/toggle.sh
 
 # bar
 bar {
