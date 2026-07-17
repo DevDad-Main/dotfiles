@@ -30,7 +30,7 @@ require("lazy").setup("plugins", {
     lazy = false,
   },
   install = {
-    colorscheme = { "neopywal", "vague" },
+    colorscheme = { "catppuccin" },
   },
   checker = {
     enabled = true,
