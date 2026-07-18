@@ -13,7 +13,7 @@ fi
 notify-send -u low "Recording" "Select a region…"
 sleep 0.3
 
-region=$(slop -f "%x %y %w %h" 2>/dev/null) || {
+region=$(slop -o -f "%x %y %w %h" 2>/dev/null) || {
     notify-send -u low "Recording" "Cancelled"
     exit 1
 }
@@ -21,7 +21,7 @@ region=$(slop -f "%x %y %w %h" 2>/dev/null) || {
 read -r x y w h <<< "$region"
 
 out="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H.%M.%S).mp4"
-ffmpeg -y -f x11grab -s "${w}x${h}" -i ":0.0+$x,$y" -r 30 "$out" &
+ffmpeg -y -framerate 30 -f x11grab -s "${w}x${h}" -i ":0.0+$x,$y" -vcodec libx264 -preset ultrafast -crf 18 "$out" &
 pid=$!
 echo "$pid" > "$PIDFILE"
 notify-send -u low "Recording" "Started → $(basename "$out")"
