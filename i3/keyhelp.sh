@@ -42,7 +42,7 @@ Mod+Shift+c       ·  Color picker (xcolor)
 Mod+Ctrl+equal    ·  Increase bar font
 Mod+Ctrl+minus    ·  Decrease bar font
 Mod+Shift+s       ·  Region screenshot
-Mod+Shift+r       ·  Toggle region recording
+Mod+Shift+v       ·  Toggle region recording
 Mod+Print         ·  Fullscreen screenshot
 Print             ·  Screenshot to file
 Mod+minus         ·  Move to scratchpad

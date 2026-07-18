@@ -137,7 +137,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+Shift+s exec --no-startup-id maim -s | tee ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H.%M.%S).png | xclip -selection clipboard -t image/png
 bindsym $mod+Print exec --no-startup-id maim -u | xclip -selection clipboard -t image/png
 bindsym Print exec --no-startup-id maim -u ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H.%M.%S).png
-bindsym $mod+Shift+r exec --no-startup-id ~/.config/dotfiles/i3/scripts/recording-toggle.sh
+bindsym $mod+Shift+v exec --no-startup-id ~/.config/dotfiles/i3/scripts/recording-toggle.sh
 
 bindsym $mod+minus move scratchpad
 bindsym $mod+equal scratchpad show
