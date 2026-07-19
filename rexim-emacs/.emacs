@@ -369,6 +369,11 @@ compilation-error-regexp-alist-alist
 (global-set-key (kbd "M-,") 'xref-find-references)
 (global-set-key (kbd "C-c r") 'eglot-rename)
 
+;; LSP speed tweaks
+(setq eldoc-idle-delay 0.3)
+(setq company-idle-delay 0.1)
+(setq eglot-send-changes-idle-time 0.1)
+
 ;; Auto-close parens, brackets, quotes
 (electric-pair-mode 1)
 
@@ -387,6 +392,14 @@ compilation-error-regexp-alist-alist
 
 ;; K in normal mode shows LSP documentation (works with eglot & tide)
 (define-key evil-normal-state-map (kbd "K") 'eldoc-doc-buffer)
+
+;; C-j/k navigation in LSP results (xref) and compile/grep buffers
+(with-eval-after-load 'xref
+  (define-key xref--xref-buffer-mode-map (kbd "C-j") 'xref-next-line)
+  (define-key xref--xref-buffer-mode-map (kbd "C-k") 'xref-prev-line))
+(with-eval-after-load 'compile
+  (define-key compilation-mode-map (kbd "C-j") 'compilation-next-error)
+  (define-key compilation-mode-map (kbd "C-k") 'compilation-previous-error))
 
 ;; C-h/l for navigating ido menus — set after ido fully loads
 (add-hook 'ido-setup-hook
