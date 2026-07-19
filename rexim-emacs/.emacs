@@ -377,6 +377,7 @@ compilation-error-regexp-alist-alist
 (evil-mode 1)
 
 ;; jj to exit insert mode
+(rc/require 'evil-escape)
 (setq evil-escape-key-sequence "jj")
 (setq evil-escape-delay 0.2)
 (evil-escape-mode 1)
