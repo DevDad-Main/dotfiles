@@ -322,12 +322,17 @@ compilation-error-regexp-alist-alist
 ;;; LSP support via eglot (built-in since Emacs 29)
 (require 'eglot)
 
-;; Use pyright for Python, lua-language-server for Lua
+;; JSON files → js-mode (no tree-sitter grammar installed)
+(add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
+
+;; Use pyright for Python, lua-language-server for Lua, vscode-json for JSON
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                '(python-mode . ("pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs
-               '(lua-mode . ("lua-language-server"))))
+               '(lua-mode . ("lua-language-server")))
+  (add-to-list 'eglot-server-programs
+               '(js-mode . ("vscode-json-languageserver" "--stdio"))))
 
 (defun rc/eglot-maybe ()
   (interactive)
@@ -337,6 +342,7 @@ compilation-error-regexp-alist-alist
 (add-hook 'rust-mode-hook 'rc/eglot-maybe)
 (add-hook 'kotlin-mode-hook 'rc/eglot-maybe)
 (add-hook 'php-mode-hook 'rc/eglot-maybe)
+(add-hook 'js-mode-hook 'rc/eglot-maybe)
 (add-hook 'java-mode-hook 'rc/eglot-maybe)
 (add-hook 'c-mode-hook 'rc/eglot-maybe)
 (add-hook 'c++-mode-hook 'rc/eglot-maybe)

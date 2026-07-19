@@ -1,0 +1,26 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/oliverm/" . "emacs-practice/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/oliverm/emacs-practice/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "main.py"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/oliverm/emacs-practice/" (27228 45498 953386 160000) "#main.py#" "#test_calculator.py#" "#notes.org#" ".gitignore" "todo.js" "notes.org" "data.json" "test_calculator.py" "main.py" "../" "./")
+
+ ("/home/oliverm/" (27228 46121 234973 415000) "emacs-practice/" ".steampid" ".steampath" ".zsh_history" ".gtkrc-2.0" "glucose-monitor/" ".zcompdump-cachyos-x8664-5.9.2.zwc" ".zcompdump-cachyos-x8664-5.9.2" ".viminfo" ".azuredatastudio/" ".zcompdump-cachyos-x8664-5.9.1.zwc" ".zcompdump-cachyos-x8664-5.9.1" ".claude.json" ".fcc/" ".shell.pre-oh-my-zsh" ".oh-my-zsh/" ".zshrc" ".fehbg" "config-backup/" "nezburn/" ".odbc.ini" "emacs-db-ui/" "odysseus/" "stderr" ".ollama/" ".doom.d/" ".emacs.d/" "getagrip.md" ".bash_history" "getagrip-website/" "handy getagrip data.txt" "query-broken-output.txt" "mossy-growing-conway.md" "getagrip-gui/" "getagrip/" "datagrip_tui/" "DE/" "todo.md" ".gitconfig" "test/" "sqlforge/" "query-quest/" "query-quest.bak/" ".terminfo/" "ttt/" "go/" "plugin.txt" "Soulframe/" ".pulse-cookie" ".steam/" ".gradle/" "icons.txt" "spring-tools.nvim/" "jtest-tui/" "neotest-java/" ".rustup/" ".vim/" ".cargo/" "tempo-devserver-debug.log" ".tempo-instance.lock" "Tempo-0.0.66.AppImage" ".mongodb/" ".sts4/" ".wget-hsts" "Wallpapers/" ".lemminx/" ".codex/" ".tempo-auth.json" "tempo/" ".pki/" ".nv/" ".agents/" ".claude/" ".m2/" "Olly/" ".ssh/" ".npm/" "ii-original-dots-backup/" "devdads-dots/" ".var/" "Projects/" "Videos/" "Pictures/" "Music/" "Documents/" "Public/" "Templates/" "Downloads/" "Desktop/" ".cache/" ".local/" ".config/" ".bashrc" ".bash_profile" ".bash_logout" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

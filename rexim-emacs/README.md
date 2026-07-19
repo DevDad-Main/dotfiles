@@ -43,11 +43,10 @@ sudo pacman -S clang               # already installed (provides clangd)
 # Rust
 sudo pacman -S rustup              # already installed (provides rust-analyzer)
 
-# Go
-sudo pacman -S go                  # then: go install golang.org/x/tools/gopls@latest
+# JSON
+sudo pacman -S vscode-json-languageserver
 
-# TypeScript
-sudo pacman -S typescript          # already configured via tide
+# TypeScript (tide bundles its own tsserver, no extra install needed)
 ```
 
 ## Cheatsheet
