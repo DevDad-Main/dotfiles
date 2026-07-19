@@ -380,6 +380,11 @@ compilation-error-regexp-alist-alist
 (rc/require 'evil)
 (evil-mode 1)
 
+;; jj to exit insert mode
+(setq evil-escape-key-sequence "jj")
+(setq evil-escape-delay 0.2)
+(evil-escape-mode 1)
+
 (load-file custom-file)
 
 ;; Override whitespace-style to hide $ and · markers
