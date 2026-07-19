@@ -125,7 +125,6 @@
 (add-hook 'erlang-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'asm-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'fasm-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'go-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'nim-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'yaml-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'porth-mode-hook 'rc/set-up-whitespace-handling)
@@ -282,7 +281,6 @@
  'toml-mode
  'nginx-mode
  'kotlin-mode
- 'go-mode
  'php-mode
  'racket-mode
  'qml-mode
@@ -337,7 +335,6 @@ compilation-error-regexp-alist-alist
 
 (add-hook 'python-mode-hook 'rc/eglot-maybe)
 (add-hook 'rust-mode-hook 'rc/eglot-maybe)
-(add-hook 'go-mode-hook 'rc/eglot-maybe)
 (add-hook 'kotlin-mode-hook 'rc/eglot-maybe)
 (add-hook 'php-mode-hook 'rc/eglot-maybe)
 (add-hook 'java-mode-hook 'rc/eglot-maybe)
@@ -357,6 +354,15 @@ compilation-error-regexp-alist-alist
 (global-set-key (kbd "M-.") 'xref-find-definitions)
 (global-set-key (kbd "M-,") 'xref-find-references)
 (global-set-key (kbd "C-c r") 'eglot-rename)
+
+;; Vim-like end of word (like 'e')
+(defun rc/end-of-word ()
+  "Move to end of current word (like vim's 'e')."
+  (interactive)
+  (forward-word)
+  (backward-word)
+  (right-char))
+(global-set-key (kbd "C-c e") 'rc/end-of-word)
 
 ;; Custom movement swap: C-j/k for up/down, C-n/p for old C-j/k
 (defvar rc/swapped-keys-map

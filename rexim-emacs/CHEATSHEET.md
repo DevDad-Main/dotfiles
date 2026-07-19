@@ -168,6 +168,12 @@ Helm navigation: `C-n`/`C-p` or `M-n`/`M-p` to move, `TAB` to preview, `RET` to 
 - `RET` to run
 - Works even for commands you don't know the key for
 
+## Naviation (word-level)
+| Key | Action |
+|---|---|
+| `M-f` / `M-b` | forward / backward word (to start of word) |
+| `C-c e` | end of current word (like vim `e`) |
+
 ## Misc extras
 | Key | Action |
 |---|---|
