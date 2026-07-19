@@ -376,11 +376,11 @@ compilation-error-regexp-alist-alist
 (rc/require 'evil)
 (evil-mode 1)
 
-;; jj to exit insert mode
-(rc/require 'evil-escape)
-(setq evil-escape-key-sequence "jj")
-(setq evil-escape-delay 0.2)
-(evil-escape-mode 1)
+;; jj to exit insert mode (only in insert state — doesn't affect visual)
+(rc/require 'key-chord)
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.2)
+(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 
 ;; Use emacs state in minibuffer so ido/helm keys aren't eaten by evil
 (add-hook 'minibuffer-setup-hook (lambda () (evil-emacs-state)))
