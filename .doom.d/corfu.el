@@ -1,13 +1,23 @@
 ;;; corfu.el -*- lexical-binding: t; -*-
 
 
-;; remove LSP delays
+;; Flycheck configuration.
 (after! flycheck
-  (setq flycheck-idle-change-delay 0.1))
+  (setq flycheck-idle-change-delay 0.1)
+
+  (flycheck-define-error-level 'lsp-flycheck-info-unnecessary
+    :severity 0
+    :compilation-level 0
+    :overlay-category 'flycheck-info-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    :fringe-face 'flycheck-fringe-info
+    :error-list-face 'flycheck-error-list-info))
+
+;; LSP configuration.
 (after! lsp-mode
-  (setq lsp-idle-delay 0.1)
-  (setq lsp-completion-enable-additional-text-edit t)
-  (setq lsp-modeline-code-actions-enable t))
+  (setq lsp-idle-delay 0.1
+        lsp-completion-enable-additional-text-edit t
+        lsp-modeline-code-actions-enable t))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
