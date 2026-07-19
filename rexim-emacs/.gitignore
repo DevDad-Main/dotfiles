@@ -2,6 +2,7 @@
 .emacs.d/smex-items
 .emacs.d/eln-cache/
 .emacs.d/auto-save-list/
+.emacs.d/ido.last
 .cache/
 .config/
 *.eln
