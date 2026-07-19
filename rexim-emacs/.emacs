@@ -388,9 +388,12 @@ compilation-error-regexp-alist-alist
 ;; K in normal mode shows LSP documentation (works with eglot & tide)
 (define-key evil-normal-state-map (kbd "K") 'eldoc-doc-buffer)
 
-;; C-h/l for navigating completion menus (ido, helm, etc.) — after evil
-(define-key ido-completion-map (kbd "C-h") 'ido-prev-match)
-(define-key ido-completion-map (kbd "C-l") 'ido-next-match)
+;; C-h/l for navigating ido menus — set after ido fully loads
+(add-hook 'ido-setup-hook
+          (lambda ()
+            (define-key ido-completion-map (kbd "C-h") 'ido-prev-match)
+            (define-key ido-completion-map (kbd "C-l") 'ido-next-match)))
+;; C-n/p also work as default ido navigation
 
 (load-file custom-file)
 
