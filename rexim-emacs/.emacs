@@ -225,25 +225,8 @@
 (rc/require 'typescript-mode)
 (add-to-list 'auto-mode-alist '("\\.mts\\'" . typescript-mode))
 
-;;; js2-mode — better JS font-lock than built-in js-mode
-(rc/require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;; js2-mode faces for gruber-darker theme
-(with-eval-after-load 'js2-mode
-  (set-face-attribute 'js2-function-call         nil :foreground "#f4d768" :weight 'bold)
-  (set-face-attribute 'js2-function-param        nil :foreground "#83a598")
-  (set-face-attribute 'js2-object-property       nil :foreground "#d3869b")
-  (set-face-attribute 'js2-object-property-access nil :foreground "#d3869b")
-  (set-face-attribute 'js2-instance-member       nil :foreground "#b8bb26")
-  (set-face-attribute 'js2-private-member        nil :foreground "#f4d768")
-  (set-face-attribute 'js2-private-function-call nil :foreground "#f4d768")
-  (set-face-attribute 'js2-external-variable     nil :foreground "#8ec07c")
-  (set-face-attribute 'js2-jsdoc-tag             nil :foreground "#96a6c8")
-  (set-face-attribute 'js2-jsdoc-type            nil :foreground "#96a6c8")
-  (set-face-attribute 'js2-jsdoc-value           nil :foreground "#96a6c8")
-  (set-face-attribute 'js2-error                 nil :foreground "#e28e4a" :underline t)
-  (set-face-attribute 'js2-warning               nil :foreground "#e28e4a" :underline '(:style wave)))
+;;; js-ts-mode — tree-sitter JS highlighting (Emacs 30+)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
 
 ;;; Tide for TypeScript/JS
 (rc/require 'tide)
@@ -256,7 +239,7 @@
 
 (add-hook 'typescript-mode-hook 'rc/turn-on-tide-and-flycheck)
 (add-hook 'js-mode-hook 'rc/turn-on-tide-and-flycheck)
-(add-hook 'js2-mode-hook 'rc/turn-on-tide-and-flycheck)
+(add-hook 'js-ts-mode-hook 'rc/turn-on-tide-and-flycheck)
 
 ;;; Proof general
 (rc/require 'proof-general)
