@@ -225,6 +225,10 @@
 (rc/require 'typescript-mode)
 (add-to-list 'auto-mode-alist '("\\.mts\\'" . typescript-mode))
 
+;;; js2-mode — better JS font-lock than built-in js-mode
+(rc/require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
 ;;; Tide for TypeScript/JS
 (rc/require 'tide)
 
@@ -236,6 +240,7 @@
 
 (add-hook 'typescript-mode-hook 'rc/turn-on-tide-and-flycheck)
 (add-hook 'js-mode-hook 'rc/turn-on-tide-and-flycheck)
+(add-hook 'js2-mode-hook 'rc/turn-on-tide-and-flycheck)
 
 ;;; Proof general
 (rc/require 'proof-general)
