@@ -393,6 +393,21 @@ compilation-error-regexp-alist-alist
 ;; K in normal mode shows LSP documentation (works with eglot & tide)
 (define-key evil-normal-state-map (kbd "K") 'eldoc-doc-buffer)
 
+;; gd / gr for go-to-definition and references (vim standard LSP keys)
+(define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
+(define-key evil-normal-state-map (kbd "g r") 'xref-find-references)
+
+(defun rc/format-buffer ()
+  "Format buffer using eglot or tide."
+  (interactive)
+  (cond ((and (bound-and-true-p eglot--managed-mode)
+              (fboundp 'eglot-format))
+         (eglot-format))
+        ((bound-and-true-p tide-mode)
+         (tide-format))
+        (t (message "No LSP formatter available"))))
+(global-set-key (kbd "C-c f") 'rc/format-buffer)
+
 ;; C-j/k navigation in LSP results (xref) and compile/grep buffers
 (with-eval-after-load 'xref
   (define-key xref--xref-buffer-mode-map (kbd "C-j") 'xref-next-line)
