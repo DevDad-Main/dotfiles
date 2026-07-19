@@ -385,6 +385,9 @@ compilation-error-regexp-alist-alist
 ;; Use emacs state in minibuffer so ido/helm keys aren't eaten by evil
 (add-hook 'minibuffer-setup-hook (lambda () (evil-emacs-state)))
 
+;; K in normal mode shows LSP documentation (works with eglot & tide)
+(define-key evil-normal-state-map (kbd "K") 'eldoc-doc-buffer)
+
 ;; C-h/l for navigating completion menus (ido, helm, etc.) — after evil
 (define-key ido-completion-map (kbd "C-h") 'ido-prev-match)
 (define-key ido-completion-map (kbd "C-l") 'ido-next-match)
