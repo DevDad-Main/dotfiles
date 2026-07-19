@@ -34,6 +34,7 @@ alias ls="lsd"
 alias v="nvim"
 alias nv="bob run nightly"
 alias ns="bob run stable"
+alias rexim='HOME=$HOME/.config/dotfiles/rexim-emacs emacs'
 alias nvo="NVIM_APPNAME=nvim_online nvim"
 alias nvt="NVIM_APPNAME=neovim nvim"
 alias mini="NVIM_APPNAME=nvim-nvchad nvim"

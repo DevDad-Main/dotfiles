@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=rexim-emacs
+Comment=Emacs with rexim's minimal config
+Exec=sh -c 'HOME="$HOME/.config/dotfiles/rexim-emacs" exec emacs "$@"' sh %F
+Icon=emacs
+Type=Application
+Categories=Development;TextEditor;
+Terminal=false
+StartupWMClass=Emacs
