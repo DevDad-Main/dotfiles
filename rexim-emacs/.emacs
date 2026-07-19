@@ -372,10 +372,6 @@ compilation-error-regexp-alist-alist
 ;; Auto-close parens, brackets, quotes
 (electric-pair-mode 1)
 
-;; C-h/l for navigating completion menus (ido, helm, etc.)
-(define-key ido-completion-map (kbd "C-h") 'ido-prev-match)
-(define-key ido-completion-map (kbd "C-l") 'ido-next-match)
-
 ;; Evil mode — full vim keybindings
 (rc/require 'evil)
 (evil-mode 1)
@@ -384,6 +380,13 @@ compilation-error-regexp-alist-alist
 (setq evil-escape-key-sequence "jj")
 (setq evil-escape-delay 0.2)
 (evil-escape-mode 1)
+
+;; Use emacs state in minibuffer so ido/helm keys aren't eaten by evil
+(add-hook 'minibuffer-setup-hook (lambda () (evil-emacs-state)))
+
+;; C-h/l for navigating completion menus (ido, helm, etc.) — after evil
+(define-key ido-completion-map (kbd "C-h") 'ido-prev-match)
+(define-key ido-completion-map (kbd "C-l") 'ido-next-match)
 
 (load-file custom-file)
 
