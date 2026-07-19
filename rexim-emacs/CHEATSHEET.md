@@ -5,55 +5,46 @@
 |---|---|
 | `C-g` | **Cancel everything** (your escape hatch) |
 
-## Movement (CUSTOM — swapped from defaults)
+## Movement (Evil mode — vim keys in normal mode)
 | Key | Action |
 |---|---|
-| `C-j` | **down** (was `C-n`) |
-| `C-k` | **up** (was `C-p`) |
-| `C-f` / `C-b` | forward / backward char |
-| `C-n` | newline-and-indent (was `C-j`) |
-| `C-p` | kill line (was `C-k`) |
-| `M-f` / `M-b` | forward / backward word |
-| `M-}` / `M-{` | forward / backward paragraph |
-| `C-v` / `M-v` | page down / page up |
-| `M-<` / `M->` | start / end of buffer |
-| `M-g g` | go to line number |
-| `C-l` | recenter screen |
-| `C-a` / `C-e` | start / end of line |
-| `M-m` | first non-whitespace on line |
+| `j` / `k` | down / up |
+| `h` / `l` | left / right |
+| `w` / `b` | word forward / backward |
+| `e` | end of word |
+| `0` / `$` | start / end of line |
+| `gg` / `G` | start / end of buffer |
+| `^` | first non-whitespace |
+| `{` / `}` | paragraph up / down |
+| `C-d` / `C-u` | half page down / up |
+| `C-f` / `C-b` | full page down / up
 
-## Editing
+## Editing (normal mode)
 | Key | Action |
 |---|---|
-| `C-d` | delete char forward |
-| `M-d` | delete word forward |
-| `C-p` | kill to end of line (kill-line) |
-| `M-k` | kill to end of sentence |
-| `C-w` | cut (kill region) |
-| `M-w` | copy |
-| `C-y` | paste (yank) |
-| `M-y` | cycle yank history (after `C-y`) |
-| `C-_` (or `C-/`) | undo |
-| `C-u C-space` | jump back to previous position |
-| `M-p` / `M-n` | move line up / down |
-| `C-,` | duplicate line |
-| `C-t` | transpose chars |
-| `M-t` | transpose words |
-| `M-u` / `M-l` | uppercase / lowercase word |
+| `i` / `a` / `o` | insert / append / open line below |
+| `I` / `A` | insert at start / end of line |
+| `dd` | delete line |
+| `yy` | yank (copy) line |
+| `p` / `P` | paste below / above |
+| `x` | delete char |
+| `dw` / `cw` | delete / change word |
+| `ciw` / `ci(` / `ci"` | change inside word / parens / quotes |
+| `diw` / `da(` | delete inside word / around parens |
+| `u` / `C-r` | undo / redo |
+| `.` | repeat last action |
 
-## Selection (visual mode equivalent)
+## Selection (visual mode)
 | Key | Action |
 |---|---|
-| `C-space` (or `C-@`) | set mark (start selection) |
-| *then move cursor* | selection extends |
-| `C-x C-x` | exchange point and mark (like `o` in vim) |
-| `C-x h` | select all |
-| `M-h` | select paragraph |
-| `C-w` | cut selected |
-| `M-w` | copy selected |
-| `C-g` | cancel selection |
-
-Rectangle / block selection (like vim `C-v`): `M-x rectangle-mark-mode` or `C-x SPC`
+| `v` | character-wise visual |
+| `V` | line-wise visual |
+| `C-v` | block visual (like rectangle) |
+| `y` | yank (copy) selected |
+| `d` | delete selected |
+| `c` | change selected |
+| `>` / `<` | indent / dedent |
+| `~` | toggle case |
 
 ## Files
 | Key | Action |
@@ -98,9 +89,19 @@ Rectangle / block selection (like vim `C-v`): `M-x rectangle-mark-mode` or `C-x 
 | Key | Action |
 |---|---|
 | `C-M-i` | manually trigger completion |
-| `C-n` / `C-p` | move through list (or `M-n` / `M-p`) |
+| `C-n` / `C-p` or `M-n` / `M-p` | move through list |
 | `TAB` or `RET` | select |
 | `C-g` | cancel |
+
+## Ido navigation (`C-x C-f`, `C-x b`, etc.)
+| Key | Action |
+|---|---|
+| `C-n` / `C-p` | next / previous option |
+| `C-h` / `C-l` | next / previous option (alternative) |
+| `C-f` | fallback to normal find-file |
+| `C-b` / `C-d` | go up directory / delete backward |
+| `TAB` | complete |
+| `RET` | select |
 
 ## LSP / Eglot (pyright for Python)
 | Key | Action |

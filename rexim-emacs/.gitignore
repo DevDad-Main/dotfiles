@@ -5,4 +5,5 @@
 .emacs.d/ido.last
 .cache/
 .config/
+.npm/
 *.eln

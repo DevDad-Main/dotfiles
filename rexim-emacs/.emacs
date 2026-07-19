@@ -225,15 +225,17 @@
 (rc/require 'typescript-mode)
 (add-to-list 'auto-mode-alist '("\\.mts\\'" . typescript-mode))
 
-;;; Tide
+;;; Tide for TypeScript/JS
 (rc/require 'tide)
 
-(defun rc/turn-on-tide-and-flycheck ()  ;Flycheck is a dependency of tide
+(defun rc/turn-on-tide-and-flycheck ()
   (interactive)
-  (tide-setup)
-  (flycheck-mode 1))
+  (unless (string-suffix-p ".json" (or (buffer-file-name) ""))
+    (tide-setup)
+    (flycheck-mode 1)))
 
 (add-hook 'typescript-mode-hook 'rc/turn-on-tide-and-flycheck)
+(add-hook 'js-mode-hook 'rc/turn-on-tide-and-flycheck)
 
 ;;; Proof general
 (rc/require 'proof-general)
@@ -342,7 +344,13 @@ compilation-error-regexp-alist-alist
 (add-hook 'rust-mode-hook 'rc/eglot-maybe)
 (add-hook 'kotlin-mode-hook 'rc/eglot-maybe)
 (add-hook 'php-mode-hook 'rc/eglot-maybe)
-(add-hook 'js-mode-hook 'rc/eglot-maybe)
+
+;; eglot for JSON files (js-mode used for .json, but .js uses tide)
+(defun rc/eglot-maybe-json ()
+  (when (string-suffix-p ".json" (or (buffer-file-name) ""))
+    (eglot-ensure)))
+(add-hook 'js-mode-hook 'rc/eglot-maybe-json)
+
 (add-hook 'java-mode-hook 'rc/eglot-maybe)
 (add-hook 'c-mode-hook 'rc/eglot-maybe)
 (add-hook 'c++-mode-hook 'rc/eglot-maybe)
@@ -361,31 +369,16 @@ compilation-error-regexp-alist-alist
 (global-set-key (kbd "M-,") 'xref-find-references)
 (global-set-key (kbd "C-c r") 'eglot-rename)
 
-;; Vim-like end of word (like 'e')
-(defun rc/end-of-word ()
-  "Move to end of current word (like vim's 'e')."
-  (interactive)
-  (forward-word)
-  (backward-word)
-  (right-char))
-(global-set-key (kbd "C-c e") 'rc/end-of-word)
+;; Auto-close parens, brackets, quotes
+(electric-pair-mode 1)
 
-;; Custom movement swap: C-j/k for up/down, C-n/p for old C-j/k
-(defvar rc/swapped-keys-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-j") 'next-line)
-    (define-key map (kbd "C-k") 'previous-line)
-    (define-key map (kbd "C-n") 'newline-and-indent)
-    (define-key map (kbd "C-p") 'kill-line)
-    map)
-  "Keymap swapping C-j/k with C-n/p.")
+;; C-h/l for navigating completion menus (ido, helm, etc.)
+(define-key ido-completion-map (kbd "C-h") 'ido-prev-match)
+(define-key ido-completion-map (kbd "C-l") 'ido-next-match)
 
-(define-minor-mode rc/swapped-keys-mode
-  "Minor mode that swaps C-j/k with C-n/p for movement."
-  :global t
-  :keymap rc/swapped-keys-map)
-
-(rc/swapped-keys-mode 1)
+;; Evil mode — full vim keybindings
+(rc/require 'evil)
+(evil-mode 1)
 
 (load-file custom-file)
 
