@@ -383,6 +383,10 @@ compilation-error-regexp-alist-alist
 (setq company-idle-delay 0.1)
 (setq eglot-send-changes-idle-time 0.1)
 
+;; Diagnostic indicators on the right side (like lsp-ui-sideline)
+(setq flycheck-indication-mode 'right-margin)
+(setq flymake-margin-indicator-position 'right-margin)
+
 ;; Auto-close parens, brackets, quotes
 (electric-pair-mode 1)
 
