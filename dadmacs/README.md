@@ -23,6 +23,9 @@ It overrides `HOME` so Emacs finds `~/.emacs` → `~/.config/dotfiles/dadmacs/.e
 - **Font**: Iosevka Nerd Font 17 (instead of Iosevka-20)
 - **LSP**: Added eglot for Python (pyright), Lua (lua-language-server), Rust, Go, C/C++ (clangd), and others
 - **Movement**: Swapped `C-j`/`C-k` for up/down, `C-n`/`C-p` for newline/kill-line
+- **LSP navigation**: `C-j`/`C-k` in company completions, xref results, and compile buffers
+- **Tree-sitter**: Level 4 font-lock enabled — function calls, properties, operators, brackets, and delimiters get distinct faces (not just keywords and strings)
+- **Theme**: Customized gruber-darker — golden functions, blue variables, purple properties, softened yellow
 - **Package fixes**: Removed `helm-git-grep`, `helm-cmd-t`, `helm-ls-git` (no longer on MELPA)
 - **Error guards**: Wrapped exotic mode `require`s (fasm-mode, simpc-mode, etc.) in `ignore-errors`
 

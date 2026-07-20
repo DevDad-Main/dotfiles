@@ -27,3 +27,6 @@
 (load! "corfu")
 (load! "hl-todo")
 (load! "languages")
+
+;; Enable level-4 tree-sitter font-lock features (function, property, operator, bracket, delimiter)
+(setq treesit-font-lock-level 4)

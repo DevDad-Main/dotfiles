@@ -208,6 +208,10 @@
    `(font-lock-variable-use-face ((t (:foreground ,gruber-darker-niagara))))
    `(font-lock-property-name-face ((t (:foreground "#d3869b"))))
    `(font-lock-number-face ((t (:foreground "#e28e4a"))))
+   `(font-lock-property-use-face ((t (:foreground "#d3869b"))))
+   `(font-lock-bracket-face ((t (:foreground ,gruber-darker-quartz))))
+   `(font-lock-delimiter-face ((t (:foreground ,gruber-darker-bg+4))))
+   `(font-lock-operator-face ((t (:foreground ,gruber-darker-fg))))
    `(font-lock-warning-face ((t (:foreground ,gruber-darker-red))))
 
    ;; Flymake

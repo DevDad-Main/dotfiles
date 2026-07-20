@@ -29,6 +29,7 @@
 (let ((dir (file-name-directory (or load-file-name (buffer-file-name)))))
   (load (expand-file-name "gruber-darker-theme.el" dir)))
 (load-theme 'gruber-darker t)
+(setq treesit-font-lock-level 4) ;; enable function, property, operator, bracket, delimiter features
 ;; (rc/require-theme 'zenburn)
 ;; (load-theme 'adwaita t)
 

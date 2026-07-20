@@ -5,46 +5,43 @@
 |---|---|
 | `C-g` | **Cancel everything** (your escape hatch) |
 
-## Movement (Evil mode — vim keys in normal mode)
+## Movement
 | Key | Action |
 |---|---|
-| `j` / `k` | down / up |
-| `h` / `l` | left / right |
-| `w` / `b` | word forward / backward |
-| `e` | end of word |
-| `0` / `$` | start / end of line |
-| `gg` / `G` | start / end of buffer |
-| `^` | first non-whitespace |
-| `{` / `}` | paragraph up / down |
-| `C-d` / `C-u` | half page down / up |
-| `C-f` / `C-b` | full page down / up
+| `C-j` / `C-k` | next / previous line |
+| `C-n` / `C-p` | newline / kill-line (Emacs default swapped) |
+| `C-f` / `C-b` | forward / backward char |
+| `M-f` / `M-b` | forward / backward word |
+| `C-a` / `C-e` | start / end of line |
+| `M-a` / `M-e` | sentence backward / forward |
+| `M-}` / `M-{` | paragraph forward / backward |
+| `C-v` / `M-v` | scroll down / up |
+| `M-<` / `M->` | start / end of buffer |
 
-## Editing (normal mode)
+## Editing
 | Key | Action |
 |---|---|
-| `i` / `a` / `o` | insert / append / open line below |
-| `I` / `A` | insert at start / end of line |
-| `dd` | delete line |
-| `yy` | yank (copy) line |
-| `p` / `P` | paste below / above |
-| `x` | delete char |
-| `dw` / `cw` | delete / change word |
-| `ciw` / `ci(` / `ci"` | change inside word / parens / quotes |
-| `diw` / `da(` | delete inside word / around parens |
-| `u` / `C-r` | undo / redo |
-| `.` | repeat last action |
+| `C-d` | delete char forward |
+| `M-d` | kill word |
+| `C-k` | kill to end of line |
+| `C-y` | yank (paste) |
+| `M-y` | cycle through yank history (after C-y) |
+| `C-/` or `C-x u` | undo |
+| `C-?` | redo |
+| `C-w` | kill region (cut) |
+| `M-w` | copy region |
+| `C-o` | open line below |
+| `C-x C-o` | delete blank lines around point |
+| `M-\\` | delete whitespace around point |
 
-## Selection (visual mode)
+## Selection
 | Key | Action |
 |---|---|
-| `v` | character-wise visual |
-| `V` | line-wise visual |
-| `C-v` | block visual (like rectangle) |
-| `y` | yank (copy) selected |
-| `d` | delete selected |
-| `c` | change selected |
-| `>` / `<` | indent / dedent |
-| `~` | toggle case |
+| `C-space` | start selection (set mark) |
+| `C-x C-x` | exchange point and mark |
+| `M-@` | mark next word |
+| `M-h` | mark paragraph |
+| `C-x h` | select all |
 
 ## Files
 | Key | Action |

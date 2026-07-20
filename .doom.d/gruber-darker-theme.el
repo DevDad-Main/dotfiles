@@ -204,6 +204,14 @@
    `(font-lock-string-face ((t (:foreground ,gruber-darker-green))))
    `(font-lock-type-face ((t (:foreground ,gruber-darker-quartz))))
    `(font-lock-variable-name-face ((t (:foreground ,gruber-darker-fg+1))))
+   `(font-lock-variable-use-face ((t (:foreground ,gruber-darker-fg+1))))
+   `(font-lock-function-call-face ((t (:foreground ,gruber-darker-niagara))))
+   `(font-lock-property-name-face ((t (:foreground ,gruber-darker-quartz))))
+   `(font-lock-property-use-face ((t (:foreground ,gruber-darker-quartz))))
+   `(font-lock-number-face ((t (:foreground ,gruber-darker-niagara))))
+   `(font-lock-bracket-face ((t (:foreground ,gruber-darker-bg+4))))
+   `(font-lock-delimiter-face ((t (:foreground ,gruber-darker-bg+4))))
+   `(font-lock-operator-face ((t (:foreground ,gruber-darker-fg))))
    `(font-lock-warning-face ((t (:foreground ,gruber-darker-red))))
 
    ;; Flymake
