@@ -26,7 +26,8 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 
-(load "~/.config/dotfiles/dadmacs/gruber-darker-theme.el")
+(let ((dir (file-name-directory (or load-file-name (buffer-file-name)))))
+  (load (expand-file-name "gruber-darker-theme.el" dir)))
 (load-theme 'gruber-darker t)
 ;; (rc/require-theme 'zenburn)
 ;; (load-theme 'adwaita t)
