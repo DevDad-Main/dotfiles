@@ -403,9 +403,22 @@ compilation-error-regexp-alist-alist
 ;; Auto-close parens, brackets, quotes
 (electric-pair-mode 1)
 
-;; Swapped C-j/C-k for navigation (no arrow keys on keyboard)
-(global-set-key (kbd "C-j") 'next-line)
-(global-set-key (kbd "C-k") 'previous-line)
+;; Evil mode — vim keybindings (j/k for navigation, no arrow keys needed)
+(rc/require 'evil)
+(evil-mode 1)
+
+;; jj to exit insert mode
+(rc/require 'key-chord)
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.2)
+(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+
+;; Emacs state in minibuffer so ido/helm keys work
+(add-hook 'minibuffer-setup-hook (lambda () (evil-emacs-state)))
+
+;; gd/gr for go-to-definition and references (vim standard)
+(define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
+(define-key evil-normal-state-map (kbd "g r") 'xref-find-references)
 
 ;; C-j/k to navigate company completions (LSP suggestions)
 (define-key company-active-map (kbd "C-j") 'company-select-next)
