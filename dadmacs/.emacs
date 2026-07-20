@@ -220,8 +220,9 @@
 
 ;; Icons in company completions (like Doom's corfu + nerd-icons)
 (rc/require 'nerd-icons)
-(rc/require 'company-nerd-icons)
-(company-nerd-icons-mode 1)
+(rc/require 'company-box)
+(setq company-box-icons-enable-all-icons t)
+(company-box-mode 1)
 
 (add-hook 'tuareg-mode-hook
           (lambda ()
