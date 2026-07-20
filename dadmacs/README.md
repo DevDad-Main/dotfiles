@@ -1,22 +1,22 @@
-# rexim-emacs
+# dadmacs
 
-Minimal Emacs config by [rexim](https://github.com/rexim/dotfiles), adapted for personal use.
+Minimal Emacs config adapted for personal use, based on [rexim](https://github.com/rexim/dotfiles).
 
 ## Usage
 
 ```bash
-rexim                    # launch
-rexim <file>             # open file
-rexim ~/emacs-practice   # open directory in dired
+dadmacs                    # launch
+dadmacs <file>             # open file
+dadmacs ~/emacs-practice   # open directory in dired
 ```
 
 The alias is defined in `.zshrc`:
 
 ```zsh
-alias rexim='HOME=$HOME/.config/dotfiles/rexim-emacs emacs'
+alias dadmacs='HOME=$HOME/.config/dotfiles/dadmacs emacs'
 ```
 
-It overrides `HOME` so Emacs finds `~/.emacs` → `~/.config/dotfiles/rexim-emacs/.emacs` and installs packages to `~/.config/dotfiles/rexim-emacs/.emacs.d/`.
+It overrides `HOME` so Emacs finds `~/.emacs` → `~/.config/dotfiles/dadmacs/.emacs` and installs packages to `~/.config/dotfiles/dadmacs/.emacs.d/`.
 
 ## Changes from upstream
 

@@ -188,9 +188,9 @@
        (go +lsp)
        (python +lsp +pyright)
        (rust +lsp)
-       javascript
-       typescript
-       json
+       (javascript +lsp)
+       (typescript +lsp)
+       (json +lsp)
        yaml
        toml
 

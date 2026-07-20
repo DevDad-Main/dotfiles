@@ -23,6 +23,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
@@ -34,7 +36,7 @@ alias ls="lsd"
 alias v="nvim"
 alias nv="bob run nightly"
 alias ns="bob run stable"
-alias rexim='HOME=$HOME/.config/dotfiles/rexim-emacs emacs'
+alias dadmacs='HOME=$HOME/.config/dotfiles/dadmacs emacs'
 alias nvo="NVIM_APPNAME=nvim_online nvim"
 alias nvt="NVIM_APPNAME=neovim nvim"
 alias mini="NVIM_APPNAME=nvim-nvchad nvim"

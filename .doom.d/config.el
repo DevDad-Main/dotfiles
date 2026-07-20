@@ -2,6 +2,10 @@
 
 (require 'doom)
 
+;; Ensure npm global binaries are in PATH (for tsserver, etc.)
+(setenv "PATH" (concat (getenv "HOME") "/.npm-global/bin:" (getenv "PATH")))
+(push "/home/oliverm/.npm-global/bin" exec-path)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Things from nvim that don't have direct Emacs equivalents:

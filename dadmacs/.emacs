@@ -216,6 +216,11 @@
 
 (global-company-mode)
 
+;; Icons in company completions (like Doom's corfu + nerd-icons)
+(rc/require 'nerd-icons)
+(rc/require 'company-nerd-icons)
+(company-nerd-icons-mode 1)
+
 (add-hook 'tuareg-mode-hook
           (lambda ()
             (interactive)

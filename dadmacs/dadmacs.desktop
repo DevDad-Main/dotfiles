@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=dadmacs
+Comment=Emacs with dadmacs minimal config
+Exec=sh -c 'HOME="$HOME/.config/dotfiles/dadmacs" exec emacs "$@"' sh %F
+Icon=emacs
+Type=Application
+Categories=Development;TextEditor;
+Terminal=false
+StartupWMClass=Emacs

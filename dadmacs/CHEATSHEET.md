@@ -1,4 +1,4 @@
-# Emacs (rexim config) Cheat Sheet
+# Emacs (dadmacs config) Cheat Sheet
 
 ## Cancel / Escape
 | Key | Action |
