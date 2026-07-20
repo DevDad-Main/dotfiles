@@ -124,6 +124,7 @@
 (add-hook 'markdown-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'haskell-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'python-mode-hook 'rc/set-up-whitespace-handling)
+(add-hook 'python-ts-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'erlang-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'asm-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'fasm-mode-hook 'rc/set-up-whitespace-handling)
@@ -341,8 +342,13 @@ compilation-error-regexp-alist-alist
 ;; JSON files → js-mode (no tree-sitter grammar installed)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
+;; Python tree-sitter mode
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+
 ;; Use pyright for Python, lua-language-server for Lua, vscode-json for JSON
 (with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(python-ts-mode . ("pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs
                '(python-mode . ("pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs
@@ -355,6 +361,7 @@ compilation-error-regexp-alist-alist
   (eglot-ensure))
 
 (add-hook 'python-mode-hook 'rc/eglot-maybe)
+(add-hook 'python-ts-mode-hook 'rc/eglot-maybe)
 (add-hook 'rust-mode-hook 'rc/eglot-maybe)
 (add-hook 'kotlin-mode-hook 'rc/eglot-maybe)
 (add-hook 'php-mode-hook 'rc/eglot-maybe)
