@@ -386,25 +386,16 @@ compilation-error-regexp-alist-alist
 ;; Auto-close parens, brackets, quotes
 (electric-pair-mode 1)
 
-;; Evil mode — full vim keybindings
-(rc/require 'evil)
-(evil-mode 1)
+;; Swapped C-j/C-k for navigation (no arrow keys on keyboard)
+(global-set-key (kbd "C-j") 'next-line)
+(global-set-key (kbd "C-k") 'previous-line)
 
-;; jj to exit insert mode (only in insert state — doesn't affect visual)
-(rc/require 'key-chord)
-(key-chord-mode 1)
-(setq key-chord-two-keys-delay 0.2)
-(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+;; C-j/k to navigate company completions (LSP suggestions)
+(define-key company-active-map (kbd "C-j") 'company-select-next)
+(define-key company-active-map (kbd "C-k") 'company-select-previous)
 
-;; Use emacs state in minibuffer so ido/helm keys aren't eaten by evil
-(add-hook 'minibuffer-setup-hook (lambda () (evil-emacs-state)))
-
-;; K in normal mode shows LSP documentation (works with eglot & tide)
-(define-key evil-normal-state-map (kbd "K") 'eldoc-doc-buffer)
-
-;; gd / gr for go-to-definition and references (vim standard LSP keys)
-(define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
-(define-key evil-normal-state-map (kbd "g r") 'xref-find-references)
+;; K for LSP documentation
+(global-set-key (kbd "K") 'eldoc-doc-buffer)
 
 (defun rc/format-buffer ()
   "Format buffer using eglot or tide."
