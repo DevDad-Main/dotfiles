@@ -26,7 +26,8 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 
-(rc/require-theme 'gruber-darker)
+(load "~/.config/dotfiles/dadmacs/gruber-darker-theme.el")
+(load-theme 'gruber-darker t)
 ;; (rc/require-theme 'zenburn)
 ;; (load-theme 'adwaita t)
 
@@ -233,10 +234,7 @@
 ;;; js-ts-mode — tree-sitter JS highlighting (Emacs 30+)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
 
-;; Tree-sitter font-lock faces gruber-darker doesn't define
-(set-face-attribute 'font-lock-function-call-face nil :foreground "#f4d768" :weight 'bold)
-(set-face-attribute 'font-lock-property-name-face nil :foreground "#d3869b")
-(set-face-attribute 'font-lock-variable-use-face  nil :foreground "#83a598")
+
 
 ;;; Tide for TypeScript/JS
 (rc/require 'tide)
