@@ -346,7 +346,7 @@ compilation-error-regexp-alist-alist
 ;; Python tree-sitter mode
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
 
-;; Use pyright for Python, lua-language-server for Lua, vscode-json for JSON
+;; LSP server configs (maps major modes to language servers)
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                '(python-ts-mode . ("pyright-langserver" "--stdio")))
@@ -355,7 +355,11 @@ compilation-error-regexp-alist-alist
   (add-to-list 'eglot-server-programs
                '(lua-mode . ("lua-language-server")))
   (add-to-list 'eglot-server-programs
-               '(js-mode . ("vscode-json-languageserver" "--stdio"))))
+               '(js-mode . ("vscode-json-languageserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(go-mode . ("gopls")))
+  (add-to-list 'eglot-server-programs
+               '(go-ts-mode . ("gopls"))))
 
 (defun rc/eglot-maybe ()
   (interactive)
@@ -420,12 +424,26 @@ compilation-error-regexp-alist-alist
 (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
 (define-key evil-normal-state-map (kbd "g r") 'xref-find-references)
 
+;; K shows LSP documentation in echo area (like Doom's +lookup/documentation)
+(defun rc/lookup-documentation ()
+  "Show LSP documentation for symbol at point in echo area.
+Works with eglot, tide, or falls back to eldoc."
+  (interactive)
+  (cond ((bound-and-true-p tide-mode)
+         (tide-documentation-at-point))
+        ((and (bound-and-true-p eglot--managed-mode)
+              (fboundp 'eglot-help-at-point))
+         (eglot-help-at-point))
+        (t
+         (eldoc-doc-buffer))))
+(define-key evil-normal-state-map (kbd "K") 'rc/lookup-documentation)
+
 ;; C-j/k to navigate company completions (LSP suggestions)
 (define-key company-active-map (kbd "C-j") 'company-select-next)
 (define-key company-active-map (kbd "C-k") 'company-select-previous)
 
-;; K for LSP documentation
-(global-set-key (kbd "K") 'eldoc-doc-buffer)
+;; K for LSP documentation (fallback for non-evil modes)
+(global-set-key (kbd "K") 'rc/lookup-documentation)
 
 (defun rc/format-buffer ()
   "Format buffer using eglot or tide."
