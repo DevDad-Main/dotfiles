@@ -9,7 +9,7 @@ if [ -f "$flag" ]; then
     nohup redshift -l "$LATLON" -t 6500:"$TEMP" >/dev/null 2>&1 &
 else
     touch "$flag"
-    pkill redshift 2>/dev/null
-    redshift -O "$TEMP"
+    pkill -9 redshift 2>/dev/null
+    redshift -P -O "$TEMP"
     notify-send "Night Light" "Enabled (${TEMP}K)"
 fi
