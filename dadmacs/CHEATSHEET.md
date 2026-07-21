@@ -79,8 +79,9 @@
 | `C-x 3` | split vertical |
 | `C-x 0` | close current window |
 | `C-x 1` | close other windows (keep current) |
-| `C-x o` | next window |
-| `C-x O` | previous window |
+| `M-o` | next window (quick, no prefix) |
+| `C-x o` | next window (traditional) |
+| `C-w h/j/k/l` | window left/down/up/right (evil normal mode) |
 | `C-x ^` | enlarge window vertically |
 | `C-x }` | widen window horizontally |
 | `M-x winner-mode` | then `C-c left` / `C-c right` to undo/redo window changes |

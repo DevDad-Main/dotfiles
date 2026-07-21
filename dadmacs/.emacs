@@ -464,6 +464,9 @@ Works with eglot, tide, or falls back to eldoc."
   (define-key compilation-mode-map (kbd "C-j") 'compilation-next-error)
   (define-key compilation-mode-map (kbd "C-k") 'compilation-previous-error))
 
+;; Quick window navigation: M-o to cycle windows
+(global-set-key (kbd "M-o") 'other-window)
+
 ;; C-h/l for navigating ido menus — set after ido fully loads
 (add-hook 'ido-setup-hook
           (lambda ()
