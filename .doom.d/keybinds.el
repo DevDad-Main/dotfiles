@@ -4,12 +4,8 @@
 ;; Escape insert mode with jj
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package! key-chord
-  :config
-  (key-chord-mode 1)
-  (setq key-chord-two-keys-delay 0.2)
-  (key-chord-define evil-insert-state-map "jj"
-                    #'evil-normal-state))
+(setq evil-escape-key-sequence "jj"
+      evil-escape-delay 0.4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Window navigation (like Neovim)
