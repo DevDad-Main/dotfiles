@@ -16,14 +16,25 @@
   (load dotfiles-theme-file))
 (unless (file-exists-p dotfiles-theme-file)
   (load-theme 'nezburn t))
+
+(set-frame-parameter (selected-frame) 'alpha '(90 90))
+(add-to-list 'default-frame-alist '(alpha 90 90))
+
+(defvar +transparency--enabled t)
+
+(defun +toggle-transparency ()
+  (interactive)
+  (if (setq +transparency--enabled (not +transparency--enabled))
+      (progn
+        (set-frame-parameter nil 'alpha '(90 90))
+        (message "Transparency enabled"))
+    (set-frame-parameter nil 'alpha '(100 100))
+    (message "Transparency disabled")))
 ;; (setq doom-font (font-spec :family "IoskeleyMono Nerd Font" :size 15 :weight 'medium)
 ;;       doom-variable-pitch-font (font-spec :family "IoskeleyMono Nerd Font" :size 15))
 
 (setq doom-font (font-spec :family "Iosevka Nerd Font" :size 17 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 17))
-
-(set-frame-parameter (selected-frame) 'alpha '(80 80))
-(add-to-list 'default-frame-alist '(alpha 80 80))
 
 (setq display-line-numbers-type 'relative)
 

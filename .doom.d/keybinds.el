@@ -7,6 +7,8 @@
 (setq evil-escape-key-sequence "jj"
       evil-escape-delay 0.4)
 
+(map! :n "s-t" #'+toggle-transparency)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Window navigation (like Neovim)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
