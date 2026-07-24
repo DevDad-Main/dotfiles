@@ -154,18 +154,8 @@ bindsym $mod+Shift+g exec ~/glucose-monitor/toggle.sh
 # bar
 bar {
         font pango:Iosevka Nerd Font @@BAR_FONT@@
-        position top
-        status_command i3status-rs ~/.config/i3status-rust/config.toml
-        separator_symbol " "
-        colors {
-                background @@BAR_BG@@
-                statusline @@BAR_FG@@
-                separator @@BAR_BG@@
-                focused_workspace @@BAR_BG@@ @@BAR_BG@@ @@WIN_FOCUSED@@
-                active_workspace @@BAR_BG@@ @@BAR_BG@@ @@BAR_FG@@
-                inactive_workspace @@BAR_BG@@ @@BAR_BG@@ @@WIN_DIM@@
-                urgent_workspace @@BAR_BG@@ @@BAR_BG@@ @@WIN_URGENT@@
-        }
+        position bottom
+        status_command i3status -c $HOME/.config/dotfiles/i3/i3status.conf
 }
 
 # window colors
