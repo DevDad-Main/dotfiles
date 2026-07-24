@@ -30,7 +30,7 @@ require("lazy").setup("plugins", {
     lazy = false,
   },
   install = {
-    colorscheme = { "catppuccin" },
+     colorscheme = { "gruber-darker" },
   },
   checker = {
     enabled = true,
@@ -45,4 +45,3 @@ require("config.keymaps")
 require("config.autocmds")
 require("config.diagnostics")
 require("ui")
-
