@@ -36,8 +36,8 @@
 ;; (setq doom-font (font-spec :family "Iosevka Nerd Font" :size 17 :weight 'medium)
 ;;       doom-variable-pitch-font (font-spec :family "Iosevka Nerd Font" :size 17))
 
-(setq doom-font (font-spec :family "CozetteVector" :size 19)
-      doom-variable-pitch-font (font-spec :family "CozetteVector" :size 19))
+(setq doom-font (font-spec :family "DepartureMono Nerd Font Mono" :size 16)
+      doom-variable-pitch-font (font-spec :family "DepartureMono Nerd Font Mono" :size 16))
 
 (setq display-line-numbers-type 'relative)
 
