@@ -7,7 +7,12 @@
 (setq evil-escape-key-sequence "jj"
       evil-escape-delay 0.4)
 
-(map! :n "s-t" #'+toggle-transparency)
+(map!
+ :n "s-t" #'+toggle-transparency)
+
+;; C-a / C-e for beginning/end of line in normal mode
+(map! :n "C-a" #'evil-beginning-of-line
+      :n "C-e" #'evil-end-of-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Window navigation (like Neovim)
@@ -154,7 +159,7 @@
 (after! lsp-mode
   (defface lsp-flycheck-info-unnecessary '((t (:inherit shadow))) "" :group 'lsp-mode)
   (setq lsp-ui-doc-use-childframe t
-        lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-show-with-cursor nil
         lsp-ui-doc-position 'at-point
         lsp-ui-doc-delay 0.15)
   (map!
