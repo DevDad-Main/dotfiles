@@ -72,6 +72,11 @@
 
 (map!
  :leader
+ :desc "Shell command"
+ "." #'shell-command)
+
+(map!
+ :leader
  :desc "Yank to clipboard"
  "y" #'+default/yank-to-clipboard)
 
