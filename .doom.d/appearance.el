@@ -17,6 +17,16 @@
 (unless (file-exists-p dotfiles-theme-file)
   (load-theme 'nezburn t))
 
+;; Use underline instead of background for LSP reference highlights in
+;; doom-tomorrow-night (the background highlight is intrusive)
+(defun +doom-tomorrow-night-faces ()
+  (custom-theme-set-faces 'doom-tomorrow-night
+    '(lsp-face-highlight-textual ((t (:underline t :background nil :weight normal))))
+    '(lsp-face-highlight-read ((t (:underline t :background nil :weight normal))))
+    '(lsp-face-highlight-write ((t (:underline t :background nil :weight normal))))))
+(when (custom-theme-enabled-p 'doom-tomorrow-night)
+  (+doom-tomorrow-night-faces))
+
 ;; Match comment color to Tomorrow Night palette
 (custom-set-faces!
   '(font-lock-comment-face :foreground "#969896")
@@ -37,7 +47,8 @@
         (setq doom-theme 'gruber-darker))
     (disable-theme 'gruber-darker)
     (load-theme 'doom-tomorrow-night t)
-    (setq doom-theme 'doom-tomorrow-night)))
+    (setq doom-theme 'doom-tomorrow-night)
+    (+doom-tomorrow-night-faces)))
 
 (defun +toggle-transparency ()
   (interactive)
