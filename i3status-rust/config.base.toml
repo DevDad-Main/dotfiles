@@ -46,7 +46,7 @@ interval = 86400
 block = "net"
 @@NET_DEVICE_LINE@@
 format = " $icon  {$ssid $signal_strength|$device} "
-format_alt = " $icon  $ip "
+format_alt = " $icon  192.168.1.69 (totally-real-network) "
 [[block.click]]
 button = "left"
 cmd = "kitty --class impala -e impala"
