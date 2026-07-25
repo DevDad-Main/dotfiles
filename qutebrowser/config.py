@@ -11,6 +11,3 @@ config.bind('k', 'move-to-prev-line', mode='caret')
 config.bind('J', 'scroll down', mode='caret')
 config.bind('K', 'scroll up', mode='caret')
 
-# caret mode: half-page scroll
-config.bind('<Ctrl-d>', 'scroll-page 0 0.5', mode='caret')
-config.bind('<Ctrl-u>', 'scroll-page 0 -0.5', mode='caret')
