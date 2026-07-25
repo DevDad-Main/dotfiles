@@ -1,0 +1,46 @@
+/* rofi 2.0 compatibility overrides */
+/* Prevents rofi's internal default light theme from bleeding through */
+
+* {
+  background: @bg0;
+  foreground: @fg0;
+  lightbg: @bg1;
+  lightfg: @fg1;
+  separatorcolor: @bg1;
+
+  normal-background: transparent;
+  normal-foreground: @fg0;
+  urgent-background: @red;
+  urgent-foreground: @bg0;
+  active-background: @blue;
+  active-foreground: @bg0;
+
+  alternate-normal-background: transparent;
+  alternate-normal-foreground: @fg0;
+  alternate-urgent-background: @red;
+  alternate-urgent-foreground: @bg0;
+  alternate-active-background: @blue;
+  alternate-active-foreground: @bg0;
+
+  selected-normal-background: @red-trans;
+  selected-normal-foreground: @red;
+  selected-urgent-background: @red;
+  selected-urgent-foreground: @bg0;
+  selected-active-background: @blue;
+  selected-active-foreground: @bg0;
+}
+
+listview {
+  padding: 0;
+  scrollbar: false;
+  spacing: 0;
+}
+
+scrollbar {
+  handle-color: @blue;
+}
+
+entry {
+  placeholder: "Search...";
+  placeholder-color: #52494e;
+}

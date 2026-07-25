@@ -1,0 +1,8 @@
+@import "config/font"
+@import "config/general"
+@import "config/icons"
+@import "config/disable-prompt"
+@import "config/rofi2"
+@import "colorscheme/oliverm"
+
+@import "themes/hidrot"
