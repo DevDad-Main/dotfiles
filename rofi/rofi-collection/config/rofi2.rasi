@@ -34,6 +34,8 @@ listview {
   padding: 0;
   scrollbar: false;
   spacing: 0;
+  dynamic: true;
+  fixed-height: false;
 }
 
 scrollbar {
