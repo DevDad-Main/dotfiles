@@ -10,6 +10,11 @@
 (map!
  :n "s-t" #'+toggle-transparency)
 
+;; Toggle theme between doom-tomorrow-night and gruber-darker
+(map! :leader
+      :desc "Toggle theme"
+      "t T" #'+toggle-theme)
+
 ;; C-a / C-e for beginning/end of line in normal mode
 (map! :n "C-a" #'evil-beginning-of-line
       :n "C-e" #'evil-end-of-line)

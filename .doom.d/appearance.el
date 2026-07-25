@@ -17,10 +17,27 @@
 (unless (file-exists-p dotfiles-theme-file)
   (load-theme 'nezburn t))
 
+;; Match comment color to Tomorrow Night palette
+(custom-set-faces!
+  '(font-lock-comment-face :foreground "#969896")
+  '(font-lock-comment-delimiter-face :foreground "#969896"))
+
 (set-frame-parameter (selected-frame) 'alpha '(90 90))
 (add-to-list 'default-frame-alist '(alpha 90 90))
 
 (defvar +transparency--enabled t)
+
+(defun +toggle-theme ()
+  "Toggle between doom-tomorrow-night and gruber-darker."
+  (interactive)
+  (if (custom-theme-enabled-p 'doom-tomorrow-night)
+      (progn
+        (disable-theme 'doom-tomorrow-night)
+        (load-theme 'gruber-darker t)
+        (setq doom-theme 'gruber-darker))
+    (disable-theme 'gruber-darker)
+    (load-theme 'doom-tomorrow-night t)
+    (setq doom-theme 'doom-tomorrow-night)))
 
 (defun +toggle-transparency ()
   (interactive)
