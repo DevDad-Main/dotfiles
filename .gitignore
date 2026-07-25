@@ -14,3 +14,4 @@ kitty/current-theme.conf
 /sessions
 *.bak
 cascade-menu/config.local
+qutebrowser/autoconfig.yml

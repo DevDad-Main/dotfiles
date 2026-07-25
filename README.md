@@ -35,7 +35,7 @@
 
 ## Overview
 
-Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland compositor), Yazi file manager, Zsh, Starship, Fastfetch, Zed editor, and more.
+Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland compositor), Yazi file manager, Qutebrowser, Zsh, Starship, Fastfetch, Zed editor, and more.
 
 ## Features
 
@@ -53,6 +53,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and commands. `$mod+m` or click the 󰇄 bar icon. Each column floats with a stair-step offset. Navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Full customization below.
 - **Bluetooth** — Manager via bluetui (`$mod+b`), with automatic connect/disconnect notifications
 - **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
+- **Qutebrowser** — Vim-style keyboard-driven browser with custom caret mode bindings (`j`/`k` for cursor movement, `C-d`/`C-u` for half-page scroll, `;y` to yank image URLs)
 - **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
 - **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Toggle on/off anytime with `$mod+Ctrl+Escape` (default 4500K, override via `NIGHT_TEMP` in config.local). Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
@@ -254,6 +255,7 @@ cp -r ~/.local ~/config-backup/
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
+ln -sf ~/.config/dotfiles/qutebrowser ~/.config/qutebrowser
 mkdir -p ~/.config/picom
 ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 mkdir -p ~/.config/dunst
@@ -429,6 +431,7 @@ ln -sf ~/.config/dotfiles/zed ~/.config/zed
 ln -sf ~/.config/dotfiles/i3 ~/.config/i3
 ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
 ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
+ln -sf ~/.config/dotfiles/qutebrowser ~/.config/qutebrowser
 mkdir -p ~/.config/picom
 ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
 mkdir -p ~/.config/dunst
@@ -490,6 +493,7 @@ dotfiles/
 ├── dunst/                # Dunst notification daemon config (generated from template)
 │   ├── dunstrc.base      #   Template with @@VAR@@ placeholders
 │   └── dunstrc           #   Generated config (gitignored)
+├── qutebrowser/           # Qutebrowser keyboard-driven browser config
 ├── i3status-rust/        # i3status-rust bar config (generated)
 │   ├── config.base.toml  #   Template with placeholders
 │   └── config.toml       #   Generated (gitignored)
