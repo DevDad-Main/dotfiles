@@ -2,6 +2,7 @@
 
 configuration {
   kb-accept-entry: "Return,KP_Enter";
+  kb-remove-to-eol: "";
   kb-row-down: "Control+j,Down";
   kb-row-up: "Control+k,Up";
 }
