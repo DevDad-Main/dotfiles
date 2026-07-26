@@ -174,7 +174,7 @@ exec --no-startup-id picom -b --config $HOME/.config/dotfiles/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dotfiles/dunst/dunstrc
 exec_always --no-startup-id ~/.config/i3/scripts/bluetooth-notify.sh
 exec --no-startup-id xset r rate 250 35
-exec --no-startup-id feh --bg-fill @@WALLPAPER@@
+exec --no-startup-id ~/.config/i3/scripts/init-wallpaper.sh
 # Needed for automatic nightshift and night light configuration
 # pgrep -a redshift -- to test its working
 exec --no-startup-id redshift -l 54.352:18.646 -t 6500:4500

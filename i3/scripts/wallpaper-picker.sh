@@ -29,7 +29,12 @@ done <<< "$wallpapers"
 
 [ -z "$wallpaper" ] && notify-send "Wallpaper Picker" "File not found" && exit 1
 
-feh --bg-fill "$wallpaper"
+read w h <<< $(identify -format "%w %h" "$wallpaper" 2>/dev/null)
+if [ "$h" -gt "$w" ]; then
+  feh --bg-center --image-bg black "$wallpaper"
+else
+  feh --bg-fill "$wallpaper"
+fi
 sed -i "s|^WALLPAPER=.*|WALLPAPER=$wallpaper|" "$local_cfg" 2>/dev/null || \
     echo "WALLPAPER=$wallpaper" >> "$local_cfg"
 notify-send "Wallpaper" "$(basename "$wallpaper")"
