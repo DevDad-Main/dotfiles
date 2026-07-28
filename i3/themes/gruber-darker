@@ -13,4 +13,6 @@ WALLPAPER=$HOME/.config/dotfiles/i3/themes/wallpapers/gruber-darker/creation-of-
 KITTY_THEME=gruber-darker
 EMACS_THEME=gruber-darker
 CATPPUCCIN_FLAVOR=
+ROFI_PURPLE=#d3869b
+ROFI_AQUA=#8ec07c
 CASCADE_THEME=monochrome

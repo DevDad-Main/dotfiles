@@ -12,4 +12,6 @@ COLOR_CRITICAL=#cc241d
 WALLPAPER=$HOME/.config/dotfiles/i3/themes/wallpapers/gruvbox-dark/rocket-gruvbox.png
 KITTY_THEME=gruvbox-dark-hard
 EMACS_THEME=nezburn
+ROFI_PURPLE=#b16286
+ROFI_AQUA=#689d6a
 CASCADE_THEME=gruvbox-dark

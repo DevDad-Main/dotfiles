@@ -63,6 +63,30 @@ sed -e "s|@@BAR_BG@@|$BAR_BG|g" \
     -e "s|@@WIN_URGENT@@|$WIN_URGENT|g" \
     "$dir/../rofi/config.base.rasi" > "$dir/../rofi/config.rasi" 2>/dev/null
 
+# Generate rofi colorscheme from theme variables
+rofi_colorscheme="$dir/../rofi/rofi-collection/colorscheme/oliverm.rasi"
+cat > "$rofi_colorscheme" << ROFIEOF
+* {
+  bg0: $BAR_BG;
+  bg1: $WIN_UNFOCUSED;
+  fg0: $BAR_FG;
+  fg1: $WIN_DIM;
+
+  red: $WIN_URGENT;
+  red-trans: ${WIN_URGENT}15;
+  green: $COLOR_GOOD;
+  green-trans: ${COLOR_GOOD}15;
+  yellow: $COLOR_WARNING;
+  yellow-trans: ${COLOR_WARNING}15;
+  blue: $WIN_FOCUSED;
+  blue-trans: ${WIN_FOCUSED}15;
+  purple: ${ROFI_PURPLE:-$WIN_URGENT};
+  purple-trans: ${ROFI_PURPLE:-$WIN_URGENT}15;
+  aqua: ${ROFI_AQUA:-$COLOR_GOOD};
+  aqua-trans: ${ROFI_AQUA:-$COLOR_GOOD}15;
+}
+ROFIEOF
+
 # Copy rofi config to ~/.config/rofi (use temp file to avoid hardlink collision)
 cp "$dir/../rofi/config.rasi" "$HOME/.config/rofi/config.rasi" 2>/dev/null || true
 

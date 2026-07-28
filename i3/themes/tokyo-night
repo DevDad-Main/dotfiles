@@ -12,4 +12,6 @@ COLOR_CRITICAL=#f7768e
 WALLPAPER=$HOME/.config/dotfiles/i3/themes/wallpapers/tokyo-night/wall-tokyonight.jpg
 KITTY_THEME=tokyo-night
 EMACS_THEME=doom-one
+ROFI_PURPLE=#bb9af7
+ROFI_AQUA=#7dcfff
 CASCADE_THEME=tokyo-night

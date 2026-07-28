@@ -2,18 +2,18 @@
   bg0: #1e1e1e;
   bg1: #181818;
   fg0: #e4e4ef;
-  fg1: #e4e4ef;
+  fg1: #52494e;
 
   red: #f43841;
   red-trans: #f4384115;
-  green: #b8bb26;
-  green-trans: #b8bb2615;
+  green: #73c936;
+  green-trans: #73c93615;
   yellow: #ffdd33;
   yellow-trans: #ffdd3315;
   blue: #ffdd33;
   blue-trans: #ffdd3315;
-  purple: #d3869b;
-  purple-trans: #d3869b15;
-  aqua: #8ec07c;
-  aqua-trans: #8ec07c15;
+  purple: #f43841;
+  purple-trans: #f4384115;
+  aqua: #73c936;
+  aqua-trans: #73c93615;
 }

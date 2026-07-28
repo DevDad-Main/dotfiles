@@ -67,7 +67,7 @@
   aqua: #8ec07c;
   aqua-trans: #8ec07c15;
 }")))
-      (message "Rofi scheme set to %s" variant))))
+      (message "Rofi colors synced to %s" variant))))
 
 ;; --- startup theme load ---
 
