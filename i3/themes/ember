@@ -1,0 +1,17 @@
+THEME_NAME="Ember"
+BAR_BG=#1a0f08
+BAR_FG=#eeddc0
+WIN_FOCUSED=#ff9e2e
+WIN_INACTIVE=#3a2b21
+WIN_UNFOCUSED=#20150c
+WIN_URGENT=#ff3b1f
+WIN_DIM=#96755f
+COLOR_GOOD=#9db06a
+COLOR_WARNING=#fdbd28
+COLOR_CRITICAL=#ff0b06
+WALLPAPER=$HOME/.config/dotfiles/i3/themes/wallpapers/ember/wallpaperflare.com_wallpaper.jpg
+KITTY_THEME=ember
+EMACS_THEME=ember
+ROFI_PURPLE=#d75a1e
+ROFI_AQUA=#fdbd28
+CASCADE_THEME=ember

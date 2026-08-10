@@ -19,7 +19,8 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "auto" -- only show when git signs exist
 vim.o.foldcolumn = "0" -- no reserved fold gutter
 
-vim.opt.winborder = "single"
+-- vim.opt.winborder = "single"
+vim.opt.winborder = "none"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -48,7 +49,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.o.autoread = true
 vim.g.mapleader = " "
 -- vim.g.mapleader = ","
-vim.g.sql_completion = 'sql'
+vim.g.sql_completion = "sql"
 vim.opt.fillchars:append({ eob = " " })
 
 -- UFO fold handler

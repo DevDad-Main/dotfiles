@@ -1,7 +1,7 @@
 return {
   {
     "mcauley-penney/techbase.nvim",
-    enabled = true,
+    enabled = false,
     priority = 1000,
     opts = {
       transparent = true,

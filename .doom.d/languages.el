@@ -4,3 +4,7 @@
 (after! python
   (set-formatter! 'ruff '("ruff" "format" "-") :modes '(python-mode))
   (setq apheleia-formatter 'ruff))
+
+
+(use-package gdscript-mode
+  :hook (gdscript-mode . eglot-ensure))

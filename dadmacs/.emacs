@@ -478,3 +478,5 @@ Works with eglot, tide, or falls back to eldoc."
 
 ;; Override whitespace-style to hide $ and · markers
 (setq whitespace-style '(face tabs spaces trailing space-before-tab indentation empty))
+
+(setq global-whitespace-mode :false)

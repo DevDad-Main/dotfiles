@@ -1,0 +1,21 @@
+# Ember ── cascade-menu theme
+background = "#1a0f08"
+alternate_bg = "#2a1c12"
+foreground = "#eeddc0"
+muted_fg = "#96755f"
+border = "#3a2b21"
+active_border = "#ff9e2e"
+selected_bg = "#ff9e2e"
+selected_fg = "#1a0f08"
+inactive_selected_bg = "#3a2b21"
+inactive_selected_fg = "#eeddc0"
+disabled_fg = "#5f4c3a"
+error = "#ff3b1f"
+success = "#9db06a"
+warning = "#fdbd28"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "

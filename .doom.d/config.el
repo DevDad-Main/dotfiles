@@ -30,3 +30,8 @@
 
 ;; Enable level-4 tree-sitter font-lock features (function, property, operator, bracket, delimiter)
 (setq treesit-font-lock-level 4)
+
+;; Don't auto-enable whitespace-mode to highlight tabs/indentation markers in
+;; buffers whose indent style differs from indent-tabs-mode. That only adds
+;; noisy glyphs at the start of every line. +trim and +guess still work.
+(remove-hook 'after-change-major-mode-hook #'+whitespace-highlight-incorrect-indentation-h)

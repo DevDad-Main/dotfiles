@@ -52,7 +52,7 @@ return {
       },
     })
 
-    vim.cmd.colorscheme("catppuccin-mocha")
+    -- vim.cmd.colorscheme("catppuccin-mocha")
     apply_theme_overrides()
 
     local orig = vim.lsp.util.open_floating_preview

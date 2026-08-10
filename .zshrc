@@ -123,3 +123,4 @@ pr() {
     && [[ -n "$pkgs" ]] && echo "$pkgs" | tr '\n' ' ' | xargs sudo pacman -Rns
 }
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.usagi/bin:$PATH"

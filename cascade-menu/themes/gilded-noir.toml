@@ -1,0 +1,21 @@
+# Gilded Noir ── cascade-menu theme
+background = "#0B0B0C"
+alternate_bg = "#131316"
+foreground = "#C3B285"
+muted_fg = "#6A6249"
+border = "#202027"
+active_border = "#D4AF37"
+selected_bg = "#D4AF37"
+selected_fg = "#0B0B0C"
+inactive_selected_bg = "#191920"
+inactive_selected_fg = "#C3B285"
+disabled_fg = "#5A5443"
+error = "#8C4A32"
+success = "#A88C46"
+warning = "#866C2C"
+font_family = "Iosevka Nerd Font"
+font_size = 18
+row_padding = 4
+column_padding = 3
+submenu_indicator = " \u25b6"
+icon_spacing = " "
