@@ -369,6 +369,30 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Smart RET: split empty bracket pairs on Enter
+;; {|}  →  {
+;;         |
+;;         }
+;; Falls back to newline-and-indent when not inside an empty pair.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun +smart-ret-dwim ()
+  "Insert a newline; if inside an empty delimiter pair, split it."
+  (interactive)
+  (if (and (memq (char-before) '(?\( ?\{ ?\[))
+           (eq (char-after) (matching-paren (char-before))))
+      (let ((open (char-before)))
+        (newline-and-indent)
+        (save-excursion
+          (newline-and-indent))
+        (indent-according-to-mode))
+    (newline-and-indent)))
+
+(map! :gi "RET" #'+smart-ret-dwim
+      :gi [return] #'+smart-ret-dwim)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; allows moving lines up and down in norm/visual mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
