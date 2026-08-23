@@ -33,4 +33,15 @@
 (after! csharp-mode
   ;; Don't let OmniSharp choke trying to resolve every Unity package; rely on
   ;; the .sln/.csproj that rider2emacs tricks Unity into generating.
-  (setq lsp-auto-guess-root t))
+  (setq lsp-auto-guess-root t)
+
+  ;; Force CSharpier as the C# formatter. By default Doom's format module
+  ;; delegates to the LSP server's formatter in lsp-managed buffers (via
+  ;; `+format-with-lsp-toggle-h', which only fires when `apheleia-formatter' is
+  ;; nil). Setting it buffer-locally to `csharpier' here prevents that takeover,
+  ;; so `SPC =' (`+format/buffer' -> `apheleia-format-buffer') and format-on-save
+  ;; both run CSharpier instead of OmniSharp's (optionless) formatting. Requires
+  ;; `dotnet tool install -g csharpier'.
+  (add-hook 'csharp-mode-hook
+            (defun +unity-csharp-use-csharpier-h ()
+              (setq-local apheleia-formatter 'csharpier))))

@@ -6,6 +6,10 @@
 (setenv "PATH" (concat (getenv "HOME") "/.npm-global/bin:" (getenv "PATH")))
 (push "/home/oliverm/.npm-global/bin" exec-path)
 
+;; .NET global tools (csharpier for C# formatting, shader-ls, etc.)
+(setenv "PATH" (concat (getenv "HOME") "/.dotnet/tools:" (getenv "PATH")))
+(push "/home/oliverm/.dotnet/tools" exec-path)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Things from nvim that don't have direct Emacs equivalents:
