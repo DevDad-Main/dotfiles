@@ -2,6 +2,24 @@
 
 > Personal configuration files for a productive development environment on Arch Linux with i3.
 
+## Quick Links
+
+| Section | Link |
+|---|---|
+| 🖼️ Previews | [Jump](#previews) |
+| 🖥️ Desktop Environment (i3) | [Jump](#desktop-environment) |
+| 📋 cascade-menu | [Jump](#cascade-menu) |
+| 🐚 Shell & Tools | [Jump](#shell--tools) |
+| 🎮 Unity (Doom Emacs) | [Jump](#unity) |
+| 📦 Installation | [Jump](#installation) |
+| 🔗 Symlinks | [Jump](#symlinks) |
+| ⌨️ Keybindings | [Jump](#keybindings) |
+| 🔄 Syncing to another machine | [Jump](#syncing-to-another-machine) |
+| 🎮 Gaming | [Jump](#gaming) |
+| 📁 Project Structure | [Jump](#project-structure) |
+
+<a id="previews"></a>
+
 <details>
 <summary>🖼️ Previews</summary>
 
@@ -58,6 +76,7 @@ Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland composito
 - **Wallpapers** — Per-theme wallpapers in `i3/themes/`
 - **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Toggle on/off anytime with `$mod+Ctrl+Escape` (default 4500K, override via `NIGHT_TEMP` in config.local). Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
 
+<a id="cascade-menu"></a>
 <details>
 <summary>📋 cascade-menu — Miller-column launcher</summary>
 
@@ -177,30 +196,36 @@ All keys are overridable in `config.toml` → `[keybindings]`.
 - **Zed** — Editor configuration
 - **Toggle Record** — Screen recording toggle script
 
+<a id="unity"></a>
 <details>
 <summary>🎮 Unity (Doom Emacs integration)</summary>
 
-Sets up Doom Emacs as the external editor for the Unity game engine, with OmniSharp LSP for C# and `shader-mode` highlighting for ShaderLab. Unity is tricked into generating Rider-style `.sln`/`.csproj` files (the best variant for OmniSharp) via the `rider2emacs` shim, which then opens files in `emacsclient`.
+Sets up Doom Emacs as the external editor for the Unity game engine, with OmniSharp LSP for C#, CSharpier formatting, and `shader-mode` highlighting for ShaderLab. Unity is tricked into generating Rider-style `.sln`/`.csproj` files (the best variant for OmniSharp) via the `rider2emacs` shim, which then opens files in `emacsclient`.
 
 A patched fork of `rider2emacs` lives in `rider2emacs/` (v0.1.2). The patch adds `-c` (create-frame) to the `emacsclient` call: Unity launches the external editor **without a controlling TTY**, and without `-c` `emacsclient` loads the file into the daemon invisibly — so double-clicking a script appeared to do nothing. With `-c`, each open spawns a focused GUI frame.
 
 Doom config lives in `.doom.d/`:
 - `init.el` — `(csharp +lsp +unity)` module enabled
 - `packages.el` — `unity.el` (from GitHub, not on MELPA) and `lsp-shader`
-- `unity.el` — enables `unity-mode` (auto-moves `.meta` files), a `project-find-functions` backend that finds the project root from the `.sln`, and (commented-out) optional ShaderLab LSP
+- `unity.el` — enables `unity-mode` (auto-moves `.meta` files), a `project-find-functions` backend that finds the project root from the `.sln`, forces CSharpier as the C# formatter (so `SPC =` and format-on-save don't fall back to OmniSharp's no-op formatting), and (commented-out) optional ShaderLab LSP
+- `config.el` — adds `~/.dotnet/tools` to `exec-path` so the daemon finds CSharpier / `shader-ls`
 
 ```bash
-# 1. .NET 8 SDK — required by OmniSharp-roslyn
+# 1. .NET 8 SDK — required by OmniSharp-roslyn and CSharpier
 sudo pacman -S dotnet-sdk-8.0
 
 # 2. rider2emacs (patched fork) — the shim Unity's External Editor points at
 cargo install --path ~/.config/dotfiles/rider2emacs --force
 # ~/.cargo/bin must be on PATH (already in .zshrc)
+
+# 3. CSharpier — C# formatter for SPC = and format-on-save
+dotnet tool install -g csharpier
+# ~/.dotnet/tools must be on PATH (already in .zshrc)
 ```
 
 In Unity (per project): `Edit ▸ Preferences ▸ External Tools` → set **External Script Editor** → `Browse…` → `/home/<user>/.cargo/bin/rider2emacs`. Leave **External Script Editor Args** empty (the shim handles them). Optionally untick the "Generate `.csproj` files for:" subsets you don't need — OmniSharp otherwise tries to resolve every Unity package.
 
-Run the Emacs daemon so `emacsclient` has a server to attach to:
+The Emacs daemon auto-starts with i3 (see `i3/config.base`), so `emacsclient` always has a server to attach to. To start it manually on a non-i3 session:
 
 ```bash
 emacs --daemon
@@ -212,11 +237,11 @@ Sync Doom after pulling the config on a new machine:
 doom sync
 ```
 
-On first `.cs` open, lsp-mode will offer to install the `omnisharp` server — accept.
+On first `.cs` open, lsp-mode will offer to install the `omnisharp` server — accept. `SPC =` (`+format/buffer`) and format-on-save will run CSharpier automatically.
 
 > **ShaderLab LSP (optional, currently non-functional):** `shader-ls` 0.1.3 targets the EOL `net7.0` runtime and won't run on a net8-only install (Arch dropped net7). The auto-hook in `unity.el` is commented out as a result; `shader-mode` still provides syntax highlighting. To re-enable, install a compatible net7 runtime and uncomment the `lsp-shader` block in `.doom.d/unity.el`.
 
-> **PATH:** `.zshrc` exports `~/.cargo/bin` and `~/.dotnet/tools` so `rider2emacs` and `shader-ls` are found across machines.
+> **PATH:** `.zshrc` exports `~/.cargo/bin` and `~/.dotnet/tools` so `rider2emacs`, `csharpier`, and `shader-ls` are found across machines.
 
 </details>
 
@@ -548,6 +573,18 @@ dotfiles/
 │   └── picom.conf        #   Generated (dual_kawase blur, no fade)
 ├── emacs/                # Emacs config
 │   └── theme.el          #   Generated Emacs theme file
+├── .doom.d/              # Doom Emacs configuration
+│   ├── init.el           #   Module selection (csharp +lsp +unity, etc.)
+│   ├── packages.el       #   Package declarations (unity.el, lsp-shader, etc.)
+│   ├── config.el         #   Main config (loads unity.el, languages.el, etc.)
+│   ├── unity.el          #   Unity integration (unity-mode, CSharpier, project root)
+│   ├── languages.el      #   Per-language overrides (python ruff, gdscript eglot)
+│   ├── keybinds.el       #   Custom keybindings
+│   ├── appearance.el     #   Theme/appearance settings
+│   └── ...               #   Other config files (corfu, sql, shell, themes)
+├── rider2emacs/          # Patched fork of rider2emacs (v0.1.2, adds -c create-frame)
+│   ├── Cargo.toml        #   Rust package manifest
+│   └── src/main.rs       #   Shim: translates Rider CLI args → emacsclient
 ├── hypr/                 # Hyprland compositor config
 │   ├── hyprland/         #   Window manager settings
 │   ├── hyprlock.conf     #   Lock screen config
