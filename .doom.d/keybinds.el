@@ -377,16 +377,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun +smart-ret-dwim ()
-  "Insert a newline; if inside an empty delimiter pair, split it."
+  "Insert a newline; if inside an empty delimiter pair, split it.
+Does nothing special in the minibuffer / completion popups — RET
+there should confirm the selection, not split brackets."
   (interactive)
-  (if (and (memq (char-before) '(?\( ?\{ ?\[))
-           (eq (char-after) (matching-paren (char-before))))
-      (let ((open (char-before)))
-        (newline-and-indent)
-        (save-excursion
-          (newline-and-indent))
-        (indent-according-to-mode))
-    (newline-and-indent)))
+  (if (or (minibufferp) (bound-and-true-p completion-in-region-mode))
+      (call-interactively #'exit-minibuffer)
+    (if (and (memq (char-before) '(?\( ?\{ ?\[))
+             (eq (char-after) (matching-paren (char-before))))
+        (progn
+          (newline-and-indent)
+          (save-excursion
+            (newline-and-indent))
+          (indent-according-to-mode))
+      (newline-and-indent))))
 
 (map! :gi "RET" #'+smart-ret-dwim
       :gi [return] #'+smart-ret-dwim)
