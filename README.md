@@ -177,6 +177,47 @@ All keys are overridable in `config.toml` → `[keybindings]`.
 - **Zed** — Editor configuration
 - **Toggle Record** — Screen recording toggle script
 
+<details>
+<summary>🎮 Unity (Doom Emacs integration)</summary>
+
+Sets up Doom Emacs as the external editor for the Unity game engine, with OmniSharp LSP for C# and `shader-mode` highlighting for ShaderLab. Unity is tricked into generating Rider-style `.sln`/`.csproj` files (the best variant for OmniSharp) via the `rider2emacs` shim, which then opens files in `emacsclient`.
+
+Doom config lives in `.doom.d/`:
+- `init.el` — `(csharp +lsp +unity)` module enabled
+- `packages.el` — `unity.el` (from GitHub, not on MELPA) and `lsp-shader`
+- `unity.el` — enables `unity-mode` (auto-moves `.meta` files), a `project-find-functions` backend that finds the project root from the `.sln`, and (commented-out) optional ShaderLab LSP
+
+```bash
+# 1. .NET 8 SDK — required by OmniSharp-roslyn
+sudo pacman -S dotnet-sdk-8.0
+
+# 2. rider2emacs — the shim Unity's External Editor points at
+cargo install rider2emacs
+# ~/.cargo/bin must be on PATH (already in .zshrc)
+```
+
+In Unity (per project): `Edit ▸ Preferences ▸ External Tools` → set **External Script Editor** → `Browse…` → `/home/<user>/.cargo/bin/rider2emacs`. Leave **External Script Editor Args** empty (the shim handles them). Optionally untick the "Generate `.csproj` files for:" subsets you don't need — OmniSharp otherwise tries to resolve every Unity package.
+
+Run the Emacs daemon so `emacsclient` has a server to attach to:
+
+```bash
+emacs --daemon
+```
+
+Sync Doom after pulling the config on a new machine:
+
+```bash
+doom sync
+```
+
+On first `.cs` open, lsp-mode will offer to install the `omnisharp` server — accept.
+
+> **ShaderLab LSP (optional, currently non-functional):** `shader-ls` 0.1.3 targets the EOL `net7.0` runtime and won't run on a net8-only install (Arch dropped net7). The auto-hook in `unity.el` is commented out as a result; `shader-mode` still provides syntax highlighting. To re-enable, install a compatible net7 runtime and uncomment the `lsp-shader` block in `.doom.d/unity.el`.
+
+> **PATH:** `.zshrc` exports `~/.cargo/bin` and `~/.dotnet/tools` so `rider2emacs` and `shader-ls` are found across machines.
+
+</details>
+
 ## Requirements
 
 - Arch Linux (recommended) or other Linux distribution

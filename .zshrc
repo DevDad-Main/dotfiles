@@ -124,3 +124,10 @@ pr() {
 }
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.usagi/bin:$PATH"
+
+# Unity CLI
+case ":${PATH}:" in *:"$HOME/.local/bin":*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# .NET global tools (shader-ls, etc.)
+export PATH="$HOME/.dotnet/tools:$PATH"

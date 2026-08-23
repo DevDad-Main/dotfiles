@@ -56,3 +56,13 @@
 (package! catppuccin-theme)
 (package! nerd-icons-corfu)
 (package! drag-stuff)
+
+;; Unity game engine integration.
+;; unity.el is not on MELPA, so pull it straight from GitHub.
+(package! unity
+  :recipe (:host github :repo "elizagamedev/unity.el"))
+
+;; LSP client for Unity ShaderLab (.shader / .cginc) via shader-ls.
+;; Requires `dotnet tool install -g shader-ls'. Only activates on
+;; shader-mode buffers, so it stays out of the way otherwise.
+(package! lsp-shader)
