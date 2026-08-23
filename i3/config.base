@@ -183,3 +183,6 @@ exec_always --no-startup-id amixer -c 0 sset 'Speaker' unmute 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Headphone' unmute 2>/dev/null
 exec_always --no-startup-id amixer -c 0 sset 'Master' unmute 2>/dev/null
 exec_always --no-startup-id setxkbmap -option ctrl:swapcaps
+
+# Emacs daemon for emacsclient (Unity/rider2emacs integration)
+exec --no-startup-id emacs --daemon
