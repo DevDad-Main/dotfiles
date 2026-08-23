@@ -12,7 +12,7 @@
 [package]
 edition = "2021"
 name = "rider2emacs"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Eliza Velasquez"]
 description = "Translates JetBrains Rider invocations to emacsclient invocations (for Unity)"
 homepage = "https://github.com/elizagamedev/rider2emacs/"

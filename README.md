@@ -202,7 +202,9 @@ All keys are overridable in `config.toml` → `[keybindings]`.
 
 Sets up Doom Emacs as the external editor for the Unity game engine, with OmniSharp LSP for C#, CSharpier formatting, and `shader-mode` highlighting for ShaderLab. Unity is tricked into generating Rider-style `.sln`/`.csproj` files (the best variant for OmniSharp) via the `rider2emacs` shim, which then opens files in `emacsclient`.
 
-A patched fork of `rider2emacs` lives in `rider2emacs/` (v0.1.2). The patch adds `-c` (create-frame) to the `emacsclient` call: Unity launches the external editor **without a controlling TTY**, and without `-c` `emacsclient` loads the file into the daemon invisibly — so double-clicking a script appeared to do nothing. With `-c`, each open spawns a focused GUI frame.
+A patched fork of `rider2emacs` lives in `rider2emacs/` (v0.1.3). The patch:
+- Adds `-c` (create-frame) only when no Emacs frame is already open — Unity launches the external editor **without a controlling TTY**, so without `-c` `emacsclient` loads the file into the daemon invisibly.
+- When a frame already exists, reuses it and raises it to focus — so double-clicking another script opens it in the same window instead of spawning a new one each time.
 
 Doom config lives in `.doom.d/`:
 - `init.el` — `(csharp +lsp +unity)` module enabled

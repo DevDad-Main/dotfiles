@@ -108,10 +108,6 @@ fn try_main() -> Result<()> {
     if !options.wait {
         args.push(String::from("-n"));
     }
-    // Always create a new GUI frame. Unity launches the external editor
-    // without a controlling TTY, so without `-c` emacsclient loads the file
-    // into the daemon invisibly and no window appears.
-    args.push(String::from("-c"));
     for file_target in options.file_targets {
         match file_target.column {
             Some(column) => args.push(format!("+{}:{}", file_target.line.unwrap_or(1), column)),
@@ -124,17 +120,31 @@ fn try_main() -> Result<()> {
     }
 
     // Spawn process.
+    //
+    // On Unix: check whether the daemon already has a visible frame. If it
+    // does, open the file in that frame (no `-c`) and raise it so it gets
+    // focus. If no visible frame exists, pass `-c` to create one — Unity
+    // launches the external editor without a controlling TTY, so without `-c`
+    // emacsclient would load the file into the daemon invisibly.
+    let escaped_args = args
+        .iter()
+        .map(|x| shell_escape::unix::escape(Cow::Borrowed(x)))
+        .collect::<Vec<_>>()
+        .join(" ");
     let status = if cfg!(target_os = "windows") {
-        Command::new("emacsclientw").args(&args).status()
+        let mut win_args = Vec::from([String::from("-c")]);
+        win_args.extend(args);
+        Command::new("emacsclientw").args(&win_args).status()
     } else {
         Command::new("sh")
             .arg("-c")
             .arg(format!(
-                "emacsclient {}",
-                args.iter()
-                    .map(|x| shell_escape::unix::escape(Cow::Borrowed(x)))
-                    .collect::<Vec<_>>()
-                    .join(" ")
+                "F=$(emacsclient -e '(visible-frame-list)' 2>/dev/null); \
+                 case \"$F\" in ''|nil) C=-c;; *) C=;; esac; \
+                 emacsclient $C {args} && \
+                 [ -z \"$C\" ] && emacsclient -n -e \
+                 '(select-frame-set-input-focus (selected-frame))' >/dev/null 2>&1",
+                args = escaped_args,
             ))
             .status()
     }?;
