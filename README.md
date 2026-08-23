@@ -203,8 +203,11 @@ All keys are overridable in `config.toml` → `[keybindings]`.
 Sets up Doom Emacs as the external editor for the Unity game engine, with OmniSharp LSP for C#, CSharpier formatting, and `shader-mode` highlighting for ShaderLab. Unity is tricked into generating Rider-style `.sln`/`.csproj` files (the best variant for OmniSharp) via the `rider2emacs` shim, which then opens files in `emacsclient`.
 
 A patched fork of `rider2emacs` lives in `rider2emacs/` (v0.1.3). The patch:
-- Adds `-c` (create-frame) only when no Emacs frame is already open — Unity launches the external editor **without a controlling TTY**, so without `-c` `emacsclient` loads the file into the daemon invisibly.
-- When a frame already exists, reuses it and raises it to focus — so double-clicking another script opens it in the same window instead of spawning a new one each time.
+- Always creates a fresh GUI frame with `-c` and deletes any stale frames — Unity launches the external editor **without a controlling TTY**, so without `-c` `emacsclient` loads the file into the daemon invisibly.
+- Deletes old frames (including iconified ones) after creating the new one, so only one Emacs window is ever visible.
+- Works around i3 not honoring Emacs' de-iconify request: instead of reusing an iconified frame (which would stay hidden), always creates a fresh one.
+
+**Closing the Emacs window won't kill the daemon.** The Doom config sets `confirm-kill-emacs` in daemon mode: clicking the window close button (or `C-x C-c`) prompts "Kill the Emacs daemon? (no = just close this frame)". Answering "no" iconifies the frame — the daemon survives and the next Unity file open creates a fresh window. To kill the daemon without prompting: `emacsclient -e "(kill-emacs)"` or `C-u C-x C-c`.
 
 Doom config lives in `.doom.d/`:
 - `init.el` — `(csharp +lsp +unity)` module enabled

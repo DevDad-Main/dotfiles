@@ -121,11 +121,14 @@ fn try_main() -> Result<()> {
 
     // Spawn process.
     //
-    // On Unix: check whether the daemon already has a visible frame. If it
-    // does, open the file in that frame (no `-c`) and raise it so it gets
-    // focus. If no visible frame exists, pass `-c` to create one — Unity
-    // launches the external editor without a controlling TTY, so without `-c`
-    // emacsclient would load the file into the daemon invisibly.
+    // Always create a new GUI frame with `-c`, then delete any other frames so
+    // only one Emacs window is visible at a time. This works around two issues:
+    // 1) Unity launches the external editor without a controlling TTY, so
+    //    without `-c` emacsclient loads the file into the daemon invisibly.
+    // 2) i3 doesn't honor Emacs' `make-frame-visible' request to de-iconify a
+    //    frame, so reusing an iconified frame would leave the window hidden.
+    //    By always creating a fresh frame and deleting stale ones (including
+    //    iconified ones), we guarantee a visible window on every open.
     let escaped_args = args
         .iter()
         .map(|x| shell_escape::unix::escape(Cow::Borrowed(x)))
@@ -139,11 +142,12 @@ fn try_main() -> Result<()> {
         Command::new("sh")
             .arg("-c")
             .arg(format!(
-                "F=$(emacsclient -e '(visible-frame-list)' 2>/dev/null); \
-                 case \"$F\" in ''|nil) C=-c;; *) C=;; esac; \
-                 emacsclient $C {args} && \
-                 [ -z \"$C\" ] && emacsclient -n -e \
-                 '(select-frame-set-input-focus (selected-frame))' >/dev/null 2>&1",
+                "emacsclient -c -n {args} && \
+                 emacsclient -n -e \
+                 '(let ((new (selected-frame))) \
+                   (dolist (f (frame-list)) \
+                     (unless (eq f new) (ignore-errors (delete-frame f)))) \
+                   (select-frame-set-input-focus new))' >/dev/null 2>&1",
                 args = escaped_args,
             ))
             .status()
