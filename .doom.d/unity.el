@@ -67,8 +67,8 @@
 ;; Keep the daemon alive when closing the last GUI frame. Without this, the X
 ;; window-manager close button (and `C-x C-c') calls `save-buffers-kill-emacs',
 ;; which kills the entire daemon process. In daemon mode, ask before killing;
-;; if declined, delete the frame (the window closes, daemon survives, and
-;; `rider2emacs' creates a fresh frame on the next Unity file open). To kill
+;; if declined, make the frame invisible (the X window closes, daemon survives,
+;; and `rider2emacs' creates a fresh frame on the next Unity file open). To kill
 ;; the daemon without prompting, use `emacsclient -e "(kill-emacs)"' or
 ;; `C-u M-x save-buffers-kill-emacs'.
 (when (daemonp)
@@ -76,5 +76,5 @@
         (lambda (&optional _)
           (if (y-or-n-p "Kill the Emacs daemon? (no = just close this frame) ")
               t
-            (condition-case _ (delete-frame (selected-frame) t) (error nil))
+            (ignore-errors (make-frame-invisible (selected-frame)))
             nil))))
