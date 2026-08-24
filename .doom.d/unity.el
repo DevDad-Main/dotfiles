@@ -44,7 +44,18 @@
   ;; `dotnet tool install -g csharpier'.
   (add-hook 'csharp-mode-hook
             (defun +unity-csharp-use-csharpier-h ()
-              (setq-local apheleia-formatter 'csharpier))))
+              (setq-local apheleia-formatter 'csharpier)))
+
+  ;; Show Unity/C# doc strings in the minibuffer as the cursor moves over
+  ;; symbols (eldoc hover). OmniSharp registers textDocument/hover dynamically
+  ;; and returns XML doc summaries for Unity APIs (e.g. Transform.Translate).
+  (setq lsp-eldoc-enable-hover t
+        lsp-eldoc-render-all nil)
+
+  ;; Bind K directly to lsp-describe-thing-at-point in csharp buffers so
+  ;; pressing K on a Unity method/property shows its full documentation in a
+  ;; help buffer (signature + XML doc summary).
+  (map! :map csharp-mode-map :n "K" #'lsp-describe-thing-at-point))
 
 ;; Keep the daemon alive when closing the last GUI frame. Without this, the X
 ;; window-manager close button (and `C-x C-c') calls `save-buffers-kill-emacs',

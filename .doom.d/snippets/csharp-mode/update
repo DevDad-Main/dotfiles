@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Update
+# key: update
+# --
+void Update()
+{
+    $0
+}

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: try/catch
+# key: try
+# --
+try
+{
+    $0
+}
+catch (${1:System.Exception} ${2:e})
+{
+    ${3:throw;}
+}

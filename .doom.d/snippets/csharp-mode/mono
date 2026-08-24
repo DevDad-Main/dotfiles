@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: MonoBehaviour script
+# key: mono
+# --
+using UnityEngine;
+
+public class ${1:$( yas-text)} : MonoBehaviour
+{
+    void Start()
+    {
+        $0
+    }
+
+    void Update()
+    {
+    }
+}

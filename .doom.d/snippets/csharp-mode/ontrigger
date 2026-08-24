@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: OnTriggerEnter
+# key: ontrigger
+# --
+void OnTriggerEnter(Collider other)
+{
+    $0
+}
