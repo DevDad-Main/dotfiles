@@ -57,6 +57,25 @@
   ;; help buffer (signature + XML doc summary).
   (map! :map csharp-mode-map :n "K" #'lsp-describe-thing-at-point)
 
+  ;; Auto-insert parentheses after completing a method name. OmniSharp returns
+  ;; completions as plain text (insertTextFormat 1) with just the label — no
+  ;; snippet, no parens. This advice fires after lsp-mode inserts a completion
+  ;; item: if it was a Method (kind 2) or Function (kind 3), append () and
+  ;; place cursor between them so you can type args immediately. Signature help
+  ;; (parameter hints) activates automatically via lsp-signature-auto-activate.
+  (defun +unity-csharp-auto-parens-h (candidate &rest _)
+    "Add () after a method/function completion if not already present."
+    (when (derived-mode-p 'csharp-mode)
+      (let* ((props (text-properties-at 0 candidate))
+             (item (plist-get props 'lsp-completion-item))
+             (kind (when item (lsp:completion-item-kind? item))))
+        (when (and (memq kind '(2 3))   ; 2=Method, 3=Function
+                   (not (eq (char-after) ?\()))
+          (insert "()")
+          (backward-char 1)))))
+  (with-eval-after-load 'lsp-completion
+    (advice-add #'lsp-completion--exit-fn :after #'+unity-csharp-auto-parens-h))
+
   ;; Surface yasnippet snippets in corfu completion alongside LSP suggestions.
   ;; `yasnippet-capf' is a CAPF that offers snippet keys (for, mono, start,
   ;; etc.) as completion candidates — selecting one expands it inline.
