@@ -173,7 +173,7 @@
         lsp-ui-doc-position 'at-point
         lsp-ui-doc-delay 0.15)
   (map!
-   :n "grn" #'lsp-rename
+   :n "gR" #'lsp-rename
    :leader
    :desc "Toggle hover docs"
    "h" #'lsp-ui-doc-mode

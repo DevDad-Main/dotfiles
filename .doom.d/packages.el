@@ -71,3 +71,8 @@
 ;; set as SUPERMAVEN_API_KEY (or run `M-x supermaven-use-free` to be prompted).
 (package! supermaven
   :recipe (:host github :repo "crazywolf132/supermaven.el"))
+
+;; Tailwind CSS language server client for lsp-mode.
+;; Provides class autocomplete, hover docs & jump-to-def in React/Next.js/CSS.
+(package! lsp-tailwindcss
+  :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))

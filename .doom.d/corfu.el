@@ -19,6 +19,18 @@
         lsp-completion-enable-additional-text-edit t
         lsp-modeline-code-actions-enable t))
 
+;; Tailwind CSS IntelliSense (class autocomplete, hover docs, jump-to-def)
+;; in React/Next.js/CSS buffers. Runs as an lsp-mode add-on alongside the
+;; main TS/JS server. Requires the language server: `M-x lsp-install-server`
+;; then pick `tailwindcss`.
+(use-package! lsp-tailwindcss
+  :when (modulep! +lsp)
+  :init (setq lsp-tailwindcss-add-on-mode t)
+  :config
+  (dolist (m '(css-mode css-ts-mode typescript-mode typescript-ts-mode
+               tsx-ts-mode js2-mode js-ts-mode html-mode web-mode))
+    (add-to-list 'lsp-tailwindcss-major-modes m)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Corfu kind icon completion ported from nvim config
