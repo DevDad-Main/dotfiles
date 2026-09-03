@@ -6,6 +6,6 @@ return {
     require("gruber-darker").setup({
       transparent = true,
     })
-    vim.cmd.colorscheme("gruber-darker")
+    -- vim.cmd.colorscheme("gruber-darker")
   end,
 }

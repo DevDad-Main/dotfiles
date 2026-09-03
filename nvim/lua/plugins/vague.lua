@@ -5,6 +5,6 @@ return {
   enabled = true,
   config = function()
     require("vague").setup({ transparent = true })
-    -- vim.cmd("colorscheme vague")
+    vim.cmd("colorscheme vague")
   end,
 }

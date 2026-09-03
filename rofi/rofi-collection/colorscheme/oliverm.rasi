@@ -1,19 +1,19 @@
 * {
-  bg0: #1d1f21;
-  bg1: #1d1f21;
-  fg0: #c5c8c6;
-  fg1: #c5c8c6;
+  bg0: #1c1f20;
+  bg1: #3c3836;
+  fg0: #ebdbb2;
+  fg1: #a89984;
 
-  red: #cc6666;
-  red-trans: #cc666615;
-  green: #b5bd68;
-  green-trans: #b5bd6815;
-  yellow: #f0c674;
-  yellow-trans: #f0c67415;
-  blue: #81a2be;
-  blue-trans: #81a2be15;
-  purple: #b294bb;
-  purple-trans: #b294bb15;
-  aqua: #8abeb7;
-  aqua-trans: #8abeb715;
+  red: #cc241d;
+  red-trans: #cc241d15;
+  green: #ebdbb2;
+  green-trans: #ebdbb215;
+  yellow: #d79921;
+  yellow-trans: #d7992115;
+  blue: #d79921;
+  blue-trans: #d7992115;
+  purple: #cc241d;
+  purple-trans: #cc241d15;
+  aqua: #ebdbb2;
+  aqua-trans: #ebdbb215;
 }

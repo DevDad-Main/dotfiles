@@ -66,3 +66,8 @@
 ;; Requires `dotnet tool install -g shader-ls'. Only activates on
 ;; shader-mode buffers, so it stays out of the way otherwise.
 (package! lsp-shader)
+
+;; AI inline completion (free tier). Free API key from app.supermaven.com,
+;; set as SUPERMAVEN_API_KEY (or run `M-x supermaven-use-free` to be prompted).
+(package! supermaven
+  :recipe (:host github :repo "crazywolf132/supermaven.el"))

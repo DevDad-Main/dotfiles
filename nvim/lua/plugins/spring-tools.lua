@@ -1,6 +1,6 @@
 return {
   -- "DevDad-Main/spring-tools.nvim",
-  dir = "~/spring-tools.nvim",
+  -- dir = "~/spring-tools.nvim",
   config = function()
     require("spring-tools").setup({
       sidebar = {

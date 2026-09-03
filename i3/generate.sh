@@ -74,16 +74,16 @@ cat > "$rofi_colorscheme" << ROFIEOF
 
   red: $WIN_URGENT;
   red-trans: ${WIN_URGENT}15;
-  green: $COLOR_GOOD;
-  green-trans: ${COLOR_GOOD}15;
-  yellow: $COLOR_WARNING;
-  yellow-trans: ${COLOR_WARNING}15;
+  green: ${COLOR_GOOD:-$BAR_FG};
+  green-trans: ${COLOR_GOOD:-$BAR_FG}15;
+  yellow: ${COLOR_WARNING:-#d79921};
+  yellow-trans: ${COLOR_WARNING:-#d79921}15;
   blue: $WIN_FOCUSED;
   blue-trans: ${WIN_FOCUSED}15;
   purple: ${ROFI_PURPLE:-$WIN_URGENT};
   purple-trans: ${ROFI_PURPLE:-$WIN_URGENT}15;
-  aqua: ${ROFI_AQUA:-$COLOR_GOOD};
-  aqua-trans: ${ROFI_AQUA:-$COLOR_GOOD}15;
+  aqua: ${ROFI_AQUA:-${COLOR_GOOD:-$BAR_FG}};
+  aqua-trans: ${ROFI_AQUA:-${COLOR_GOOD:-$BAR_FG}}15;
 }
 ROFIEOF
 

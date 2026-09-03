@@ -40,3 +40,28 @@
 ;; buffers whose indent style differs from indent-tabs-mode. That only adds
 ;; noisy glyphs at the start of every line. +trim and +guess still work.
 (remove-hook 'after-change-major-mode-hook #'+whitespace-highlight-incorrect-indentation-h)
+
+
+;; --- AI completion: Supermaven (free tier) ---
+(use-package! supermaven
+  :config
+  ;; One persistent sm-agent process for the whole Emacs session (like nvim).
+  ;; supermaven-auto-start is disabled so supermaven-mode's per-buffer body
+  ;; doesn't kill/restart the single process on every prog-mode buffer.
+  (setq supermaven-auto-start nil)
+  (setq supermaven-ignore-filetypes '("org" "txt" "md"))
+  ;; Never re-download/overwrite an in-use sm-agent binary at boot. Without
+  ;; this, supermaven--ensure-binary re-fetches on every startup and can hit
+  ;; "Text file busy" while the previous daemon still has the file open.
+  (when (fboundp 'supermaven--ensure-binary)
+    (advice-add 'supermaven--ensure-binary :around
+                (lambda (orig &rest args)
+                  (let ((bin (and (fboundp 'supermaven--get-binary-path)
+                                  (supermaven--get-binary-path))))
+                    (if (and bin (file-executable-p bin))
+                        (setq supermaven-binary-path bin)
+                      (apply orig args))))))
+  (supermaven-start)
+  (supermaven-use-free)
+  (global-supermaven-mode +1)
+  (message "Supermaven started (free version, single process)"))
