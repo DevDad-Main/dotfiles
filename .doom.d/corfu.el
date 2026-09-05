@@ -19,6 +19,12 @@
         lsp-completion-enable-additional-text-edit t
         lsp-modeline-code-actions-enable t))
 
+;; Don't auto-show the lsp-ui doc popup over the code while browsing
+;; completion candidates. You can still request docs manually with `K`.
+(after! lsp-ui
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-doc-show-with-cursor nil))
+
 ;; Tailwind CSS IntelliSense (class autocomplete, hover docs, jump-to-def)
 ;; in React/Next.js/CSS buffers. Runs as an lsp-mode add-on alongside the
 ;; main TS/JS server. Requires the language server: `M-x lsp-install-server`
@@ -31,6 +37,13 @@
                tsx-ts-mode js2-mode js-ts-mode html-mode web-mode))
     (add-to-list 'lsp-tailwindcss-major-modes m)))
 
+;; --- Snippet completion: auto-insert () for functions ---
+;; tsserver returns function completions as snippets (e.g. `foo(${1:args})`).
+;; `lsp-enable-snippet' (default t) makes lsp-mode expand them via yasnippet
+;; so accepting a function completion inserts `()` and lets TAB hop through
+;; the args. Set it explicitly so a server or future default can't turn it off.
+(after! lsp-mode
+  (setq lsp-enable-snippet t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Corfu kind icon completion ported from nvim config

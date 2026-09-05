@@ -170,7 +170,7 @@ vim.cmd([[
 -- end, { desc = "Toggles PrettyTS Show All Errors" })
 
 -- Toggle Supermaven
--- map("n", "<leader>ts", "<cmd>SupermavenToggle<cr>", { desc = "Toggles Supermaven" })
+map("n", "<leader>ts", "<cmd>SupermavenToggle<cr>", { desc = "Toggles Supermaven" })
 
 -- Initiate Pounce
 map({ "n", "v" }, "h", ":Pounce<CR>", { silent = true, desc = "Pounce" })

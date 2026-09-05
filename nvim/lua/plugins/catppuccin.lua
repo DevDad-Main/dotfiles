@@ -30,7 +30,7 @@ return {
   "catppuccin/nvim",
   name = "catppuccin",
   lazy = false,
-  priority = 1000,
+  priority = 1,
   enabled = true,
   config = function()
     local theme_group = vim.api.nvim_create_augroup("UserThemeTweaks", { clear = true })
@@ -52,7 +52,7 @@ return {
       },
     })
 
-    -- vim.cmd.colorscheme("catppuccin-mocha")
+    vim.cmd.colorscheme("catppuccin-mocha")
     apply_theme_overrides()
 
     local orig = vim.lsp.util.open_floating_preview

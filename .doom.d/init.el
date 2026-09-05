@@ -183,15 +183,15 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
+        web               ; the tubes
        ;;yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
        (go +lsp)
        (python +lsp +pyright)
        (rust +lsp)
-       (javascript +lsp)
-       (typescript +lsp)
-       (json +lsp)
+        (javascript +lsp +tree-sitter)
+        (typescript +lsp +tree-sitter)
+        (json +lsp)
        yaml
        toml
 

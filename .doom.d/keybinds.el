@@ -15,6 +15,17 @@
       :desc "Toggle theme"
       "t T" #'+toggle-theme)
 
+;; Refresh projectile cache + restart LSP workspace in one keystroke.
+;; Useful after generating files outside Emacs (npm install, scaffolding, etc.)
+(map! :leader
+      :desc "Refresh workspace"
+      "p r" (lambda! ()
+              (interactive)
+              (projectile-invalidate-cache nil)
+              (when (bound-and-true-p lsp-mode)
+                (lsp-workspace-restart))
+              (message "Project cache cleared, LSP workspace restarted")))
+
 ;; C-a / C-e for beginning/end of line in normal mode
 (map! :n "C-a" #'evil-beginning-of-line
       :n "C-e" #'evil-end-of-line)

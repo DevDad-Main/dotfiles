@@ -131,3 +131,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # .NET global tools (shader-ls, etc.)
 export PATH="$HOME/.dotnet/tools:$PATH"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<

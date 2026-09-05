@@ -42,26 +42,33 @@
 (remove-hook 'after-change-major-mode-hook #'+whitespace-highlight-incorrect-indentation-h)
 
 
-;; --- AI completion: Supermaven (free tier) ---
-(use-package! supermaven
+;; --- Auto-closing tags (emmet) in React/TSX via the :lang web module ---
+;; The :lang web module hooks emmet-mode into rjsx-mode/web-mode, but our
+;; React+TSX files open in tsx-ts-mode/typescript-ts-mode (tree-sitter), so we
+;; opt emmet-mode in there too. Type `<div` then TAB to expand to `<div></div>`.
+(after! emmet-mode
+  (add-hook! 'tsx-ts-mode-hook #'emmet-mode)
+  (add-hook! 'typescript-ts-mode-hook #'emmet-mode)
+  (add-hook! 'js-ts-mode-hook #'emmet-mode)
+  (setq emmet-move-cursor-between-quotes t)
+  (map! :map emmet-mode-keymap
+        [tab] #'+web/indent-or-yas-or-emmet-expand
+        "M-E" #'emmet-expand-line))
+
+;; --- AI completion: Codeium (free tier) ---
+;; Ghost-text style completions via corfu. Replaces a broken supermaven.el fork.
+;; First-time setup: `M-x codeium-install`, then `M-x codeium-auth` (opens a
+;; browser to register for a free API key).
+(use-package! codeium
   :config
-  ;; One persistent sm-agent process for the whole Emacs session (like nvim).
-  ;; supermaven-auto-start is disabled so supermaven-mode's per-buffer body
-  ;; doesn't kill/restart the single process on every prog-mode buffer.
-  (setq supermaven-auto-start nil)
-  (setq supermaven-ignore-filetypes '("org" "txt" "md"))
-  ;; Never re-download/overwrite an in-use sm-agent binary at boot. Without
-  ;; this, supermaven--ensure-binary re-fetches on every startup and can hit
-  ;; "Text file busy" while the previous daemon still has the file open.
-  (when (fboundp 'supermaven--ensure-binary)
-    (advice-add 'supermaven--ensure-binary :around
-                (lambda (orig &rest args)
-                  (let ((bin (and (fboundp 'supermaven--get-binary-path)
-                                  (supermaven--get-binary-path))))
-                    (if (and bin (file-executable-p bin))
-                        (setq supermaven-binary-path bin)
-                      (apply orig args))))))
-  (supermaven-start)
-  (supermaven-use-free)
-  (global-supermaven-mode +1)
-  (message "Supermaven started (free version, single process)"))
+  (setq use-dialog-box nil)
+  (setq codeium-mode-line-enable
+        (lambda (api) (not (memq api '(CancelRequest Heartbeat AcceptCompletion)))))
+  (add-to-list 'mode-line-format '(:eval (car-safe codeium-mode-line)) t)
+  (setq codeium-api-enabled
+        (lambda (api)
+          (memq api '(GetCompletions Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))))
+  (setq codeium-metadata-enabled nil)
+  (setq codeium-documentation-enable nil)
+  (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
+  (add-hook 'after-init-hook #'codeium-init))
