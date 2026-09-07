@@ -30,7 +30,7 @@ require("lazy").setup("plugins", {
     lazy = false,
   },
   install = {
-     colorscheme = { "catppuccin-mocha" },
+    -- colorscheme = { "catppuccin-mocha" },
   },
   checker = {
     enabled = true,

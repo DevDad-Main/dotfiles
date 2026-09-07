@@ -39,8 +39,24 @@ return {
         }),
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-k>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, { "i" }),
+        ["<C-j>"] = cmp.mapping(function(fallback)
+          local line = vim.api.nvim_win_get_cursor(0)[1]
+          local last_line = vim.api.nvim_buf_line_count(0)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif line == last_line then
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>o", true, false, true), "n", false)
+          else
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>j", true, false, true), "n", false)
+          end
+        end, { "i" }),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),

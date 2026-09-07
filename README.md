@@ -1,611 +1,317 @@
 # Dotfiles
 
-> Personal configuration files for a productive development environment on Arch Linux with i3.
+> Personal configuration files for a keyboard-driven dev environment on Arch Linux — i3 + Hyprland, Neovim, Doom Emacs, Tmux, and more.
 
-## Quick Links
+- 💾 [One-shot installer](#-quick-install) — fresh machine to full setup in one command
+- ⌨️ [Keybindings](#-keybindings) · 🔗 [Symlinks](#-what-gets-installed) · 🧩 [Customisation](#-customisation)
+- 📱 [cascade-menu](#-cascade-menu-miller-column-launcher) · 🎮 [Unity ←→ Doom Emacs](#-unity--doom-emacs) · 🌐 [WiFi (impala/iwd)](#-wifi--ethernet)
 
-| Section | Link |
-|---|---|
-| 🖼️ Previews | [Jump](#previews) |
-| 🖥️ Desktop Environment (i3) | [Jump](#desktop-environment) |
-| 📋 cascade-menu | [Jump](#cascade-menu) |
-| 🐚 Shell & Tools | [Jump](#shell--tools) |
-| 🎮 Unity (Doom Emacs) | [Jump](#unity) |
-| 📦 Installation | [Jump](#installation) |
-| 🔗 Symlinks | [Jump](#symlinks) |
-| ⌨️ Keybindings | [Jump](#keybindings) |
-| 🔄 Syncing to another machine | [Jump](#syncing-to-another-machine) |
-| 🎮 Gaming | [Jump](#gaming) |
-| 📁 Project Structure | [Jump](#project-structure) |
+---
 
-<a id="previews"></a>
+## ✨ Quick install
 
-<details>
-<summary>🖼️ Previews</summary>
-
-### Neovim
-
-![Nvim Tree](previews/nvim-tree.png)
-
-**Nvim Tree** — File explorer with modern icons, git integration, and project browsing.
-
-![Nvim Tree Preview with Telescope](previews/nvim-tree-previews.png)
-
-**File Preview** — Integrated file preview powered by Telescope for quick content inspection.
-
-![Full LSP Support](previews/full-lsp-support-for-all-languages.png)
-
-**LSP Support** — Full language server protocol integration across all languages with diagnostics, completion, and code actions.
-
-![Pounce Jumping](previews/pounce-better-jumping.png)
-
-**Pounce** — Lightning-fast buffer navigation with semantic matching for precise cursor movement.
-
-![Telescope Keymaps](previews/telescope-search-keymaps.png)
-
-**Telescope** — Fuzzy-find everything: keymaps, buffers, files, and more with extensible pickers.
-
-![FZF with Frecency](previews/fff-fuzzy-file-finder-with-frecency.png)
-
-**Frecency-based Fuzzy Finder** — Smart file search that learns your frequent and recent files.
-
-</details>
-
-## Overview
-
-Configurations for Neovim (multiple variants), Tmux, Hyprland (Wayland compositor), Yazi file manager, Qutebrowser, Zsh, Starship, Fastfetch, Zed editor, and more.
-
-## Features
-
-### Neovim Configurations
-
-- **nvim** — Main configuration with lazy.nvim, treesitter, telescope, nvim-tree
-- **neovim** — Alternative config with lazy.nvim, fzf-lua, mini.files, nvim-tree
-- **neovim-nvchad** — NvChad-based configuration
-
-### Desktop Environment
-
-- **i3** — X11 tiling window manager with theme system (Gruvbox Dark / Catppuccin Mocha / Tokyo Night), `$mod+drag` to move/resize windows, audio output switching (`$mod+o`), WiFi manager (`$mod+n`, impala), Caps Lock remapped to Ctrl (`setxkbmap -option ctrl:swapcaps` — if a new keyboard resets this, run `$mod+Shift+r` to reapply), smart window grouping (`$mod+Ctrl+y`), popup dialogs in fullscreen (`popup_during_fullscreen smart`), auto-toggle back to previous workspace (`workspace_auto_back_and_forth`), automatic floating for Firefox PiP, mpv, and Save As dialogs, screen dim/lock management (`$mod+Shift+Escape`), and OSD notifications for volume/brightness via themed dunst with progress bars
-- **Picom** — Compositor with `dual_kawase` blur for glass effect on transparent windows (Kitty, Emacs), fading toggleable via `PICOM_FADING` in config.local
-- **i3status-rust** — Configurable status bar with CPU, memory, disk, network, sound, battery, power profile, and clock blocks — all themed per active theme. The network block auto-detects the active interface (WiFi or Ethernet); left-click it to open the impala WiFi manager
-- **cascade-menu** — Keyboard-driven cascading (Miller-column) menu for launching apps and commands. `$mod+m` or click the 󰇄 bar icon. Each column floats with a stair-step offset. Navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Full customization below.
-- **Bluetooth** — Manager via bluetui (`$mod+b`), with automatic connect/disconnect notifications
-- **Rofi** — App launcher and keybind help (`$mod+/`) — themed per active theme
-- **Qutebrowser** — Vim-style keyboard-driven browser with custom caret mode bindings (`j`/`k` for cursor movement, `C-d`/`C-u` for half-page scroll, `;y` to yank image URLs)
-- **Emacs** — Theme auto-switches to match the current i3 theme (custom monochrome / gruber-darker / catppuccin / doom-one)
-- **Wallpapers** — Per-theme wallpapers in `i3/themes/`
-- **Redshift** — Auto-starts with i3 for night light (6500K→4500K). Toggle on/off anytime with `$mod+Ctrl+Escape` (default 4500K, override via `NIGHT_TEMP` in config.local). Runs via geolocation hardcoded in `i3/config.base`; adjust with `pgrep -a redshift` to verify it's active.
-
-<a id="cascade-menu"></a>
-<details>
-<summary>📋 cascade-menu — Miller-column launcher</summary>
-
-A keyboard-driven cascading menu for i3. Each column is its own floating window; navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Opens/closes via `$mod+m` (toggle) or the 󰇄 bar icon.
+Install everything on a fresh Arch-based machine (Arch, CachyOS, EndeavourOS, …) with one command:
 
 ```bash
-# Dependencies (Arch)
-sudo pacman -S python python-gobject gtk3
-
-# Symlink config directory
-ln -sf ~/.config/dotfiles/cascade-menu ~/.config/cascade-menu
-
-# Symlink binary (so $mod+m keybinding can find it)
-mkdir -p ~/.local/bin
-ln -sf ~/.config/dotfiles/cascade-menu/cascade-menu ~/.local/bin/cascade-menu
+curl -fsSL https://raw.githubusercontent.com/DevDad-Main/dotfiles/main/install/bootstrap.sh | bash
 ```
 
-#### Customization
+That single pipe will:
+1. Clone this repo to `~/.config/dotfiles`
+2. Ask which components you want (i3 desktop, Hyprland, browsers, dev tools, gaming, …)
+3. Install packages from the official repos (and AUR via `yay`/`paru` if you want) with a live progress bar
+4. Symlink all configs into place (backing up anything existing first)
+5. Set up Oh My Zsh + plugins, Tmux + TPM, Neovim (lazy.nvim), Doom Emacs, NVM, and more
+6. Configure NetworkManager → iwd for `impala`
 
-All configs live under `~/.config/cascade-menu/`.
+Pass flags/modes straight through the one-liner:
 
-**`config.toml`** — Appearance, behavior, position, and keybindings:
+```bash
+# Update an existing machine (git pull + regenerate every templated config)
+curl -fsSL https://raw.githubusercontent.com/DevDad-Main/dotfiles/main/install/bootstrap.sh | bash -s -- update
 
-| Section | Key | Default | Description |
-|---|---|---|---|
-| `appearance` | `theme` | `"gruvbox-dark"` | Theme name from `themes/*.toml` |
-| `appearance` | `font_size` | 18 | Font size in px (matches 9pt at 144 DPI) |
-| `appearance` | `max_menu_height` | 50 | Max rows before scrolling (×20px) |
-| `appearance` | `opacity` | 1.0 | Window opacity (0.0–1.0) |
-| `appearance` | `border_style` | `"sharp"` | `"sharp"` or `"rounded"` |
-| `behavior` | `close_on_focus_lost` | true | Close when clicking outside |
-| `behavior` | `editor_cmd` | auto | Editor for `$EDITOR` menu commands (auto-detected from `$VISUAL`/`$EDITOR`) |
-| `position` | `offset_x` | 8 | Left margin from screen edge (px) |
-| `position` | `offset_y` | 0 | Top margin below bar (px) |
-| `position` | `bar_height` | 20 | Height of your i3bar (for initial positioning) |
-| `keybindings` | `close` | `["Escape", "q"]` | Keys to close menu |
-| `keybindings` | `up` | `["k", "Up"]` | Move selection up |
-| `keybindings` | `down` | `["j", "Down"]` | Move selection down |
-| `keybindings` | `back` | `["h", "Left"]` | Close current column / go back |
-| `keybindings` | `forward` | `["l", "Right"]` | Open submenu / execute |
-| `keybindings` | `execute` | `["Return", "KP_Enter"]` | Execute selected item |
-
-**`menu.toml`** — Define your menu items (TOML array of tables):
-
-```toml
-[[menu]]
-label = "My Apps"
-icon = "\uf0043"  # optional Nerd Font glyph
-
-[[menu.children]]
-label = "Firefox"
-command = ["firefox"]
-
-[[menu.children]]
-label = "Scripts"
-icon = "\uf0749"
-
-[[menu.children.children]]
-label = "Update system"
-command = ["kitty", "-e", "sudo pacman -Syu"]
-
-[[menu.children.children]]
-label = "Backup"
-shell = true
-command = ["rsync -av ~/Documents /mnt/backup/"]
+# Preview what would be installed, change nothing
+curl -fsSL https://raw.githubusercontent.com/DevDad-Main/dotfiles/main/install/bootstrap.sh | bash -s -- --dry-run
 ```
 
-Item fields:
-- `label` — Display text
-- `icon` — Nerd Font glyph (optional)
-- `command` — Program to run (`["cmd", "--arg"]`)
-- `shell` — If `true`, run through `sh -c`
-- `children` — Sub-items (makes the entry expandable)
-- `disabled` — If `true`, greyed out
-- `separator` — If `true`, draws a visual divider
-- `heading` — If `true`, bold section label
+### Installer flags
 
-**`$EDITOR` placeholder:** Menu commands starting with `$EDITOR` are expanded to the editor configured in `config.toml` (or auto-detected):
-```toml
-command = ["$EDITOR", "/path/to/file"]
-```
+| Flag | What it does |
+|---|---|
+| *(no arg)* | Full interactive install — asks which components, installs, links, configures |
+| `update` | `git pull` + re-run `i3/generate.sh` + re-link symlinks. Safe anytime. |
+| `--minimal` | Non-interactive: shell + editors only, no AUR |
+| `--dry-run` | Show the plan without changing anything |
+| `--no-aur` | Skip AUR packages entirely (official repos only) |
+| `-h`, `--help` | Show usage |
 
-**`themes/*.toml`** — Color palettes, one file per theme:
+> **Already cloned the repo?** Just run `bash install/install.sh` (or `… install/install.sh update`).
+>
+> **Overrides:** `DOTFILES_DIR` (where to clone/config) and `REPO_URL` (a fork) are honoured by the bootstrap script.
 
-```toml
-background = "#1c1f20"
-foreground = "#ebdbb2"
-selected_bg = "#d79921"
-selected_fg = "#1c1f20"
-font_family = "Iosevka Nerd Font"
-font_size = 18
-```
+---
 
-#### Keybinding reference
+## 🗺 What's included
+
+| Area | Tools |
+|---|---|
+| **Window managers** | i3 (X11, primary) · Hyprland (Wayland) · Picom (dual_kawase blur) |
+| **Terminals** | Kitty (primary) · Foot (Hyprland fallback) |
+| **Editors** | Neovim (lazy.nvim, 60+ plugins) · Doom Emacs (Unity/`.NET`) · Zed · Vim |
+| **Shell** | Zsh + Oh My Zsh, Starship prompt, Fastfetch system info |
+| **Multiplexer** | Tmux + TPM (resurrect, continuum, cpu/mem, navigator) |
+| **Files** | Yazi (TUI) · Thunar (GUI) |
+| **Browsers** | Qutebrowser (vim-style) · Firefox + textfox CSS · Zen Browser (userChrome) |
+| **Launcher / menus** | Rofi · Cascade-menu (Miller-column launcher) |
+| **Notifications / bar** | Dunst (themed, progress OSDs) · i3status-rust |
+| **Audio** | wiremix (output switcher) · pulseaudio · playerctl · EasyEffects |
+| **Screen record / shot** | gpu-screen-recorder · maim (X11) · grim/slurp/hyprshot (Wayland) |
+| **Security / locks** | i3lock · Hyprlock · xautolock · redshift (night light) |
+| **Utility TUIs** | bluetui (Bluetooth) · impala (WiFi) · wiremix · btop · fzf · lazygit · lsd · bat · fd |
+| **Dev toolchains** | Node/NVM · Bun · Go · Rust · .NET 8 · Java · Docker · Python · clang/lldb |
+
+---
+
+## 🧩 Highlights
+
+### Theme system (i3)
+
+The whole desktop re-themes in one go — i3 borders, i3status-rust bar, rofi, dunst, kitty, Emacs, wallpapers — via `$mod+Shift+t` (rofi picker).
+
+Themes: **Gruvbox Dark** · **Catppuccin Mocha** · **Tokyo Night** · **Monochrome**
+
+### Keyboard-first i3
+
+- Vim-style window navigation, drag-to-move/resize with the mouse
+- OSD volume/brightness progress bars (dunst), screen dim/lock menu, power menu
+- Smart window grouping (`$mod+Ctrl+y`), floating-vs-tiling auto rules for PiP/`Save As` dialogs
+- Caps Lock → Ctrl (remapped on start; re-apply with `$mod+Shift+r` if a new keyboard resets it)
+- `$mod+o` audio output switcher · `$mod+b` Bluetooth · `$mod+n` WiFi (impala)
+
+---
+
+## ⌨️ Keybindings
 
 | Key | Action |
 |---|---|
-| `j` / `Down` | Move down |
-| `k` / `Up` | Move up |
-| `l` / `Right` | Open submenu / execute |
-| `h` / `Left` | Go back / close column |
-| `Enter` | Execute selected item |
-| `g` | Jump to first item |
-| `G` | Jump to last item |
-| `q` / `Escape` | Close menu |
+| `Super+Enter` | Terminal · `Super+Space` app launcher (rofi) |
+| `Super+Shift+Return` | File manager (thunar) |
+| `Super+m` | Cascade menu · `Super+/` keybind help |
+| `Super+q` | Kill window |
+| `Super+h/j/k/l` | Focus · `Super+Shift+h/j/k/l` move window |
+| `Super+1-0` | Switch workspace (press again to toggle back) |
+| `Super+Shift+1-0` | Move window to workspace |
+| `Super+y` / `Super+Ctrl+y` | Toggle split / smart-group window + neighbour |
+| `Super+s` / `Super+w` | Stacking / tabbed layout |
+| `Super+Shift+Space` | Toggle floating · `Super+f` fullscreen · `Super+grave` focus parent |
+| `Super+r` | Resize mode (h/j/k/l) |
+| `Super+Shift+r` | Restart i3 · `Super+Shift+e` exit i3 |
+| `Super+Ctrl+q` | Power menu (shutdown/reboot/lock/…) |
+| `Super+Shift+b` | Toggle bar |
+| `Super+b` | Bluetooth (bluetui) · `Super+n` WiFi (impala) · `Super+g` git (lazygit) |
+| `Super+c` | Code editor (configurable, default `emacs`) |
+| `Super+o` | Audio output switcher (wiremix) |
+| `Super+Escape` | Lock · `Super+Shift+Escape` dim/lock menu · `Super+Ctrl+Escape` night light |
+| `Super+Shift+t` | Theme picker · `Super+Shift+w` wallpaper picker · `Super+Shift+c` color picker |
+| `Super+Ctrl+equal/+-` | Bar font size |
+| `Super+-` / `Super+=` | Scratchpad move/show |
+| `Super+Shift+s` | Region screenshot (clipboard) · `Super+Print` / `Print` fullscreen (clipboard/file) |
+| Volume / brightness / media keys | OSD-controlled |
 
-All keys are overridable in `config.toml` → `[keybindings]`.
+---
+
+## 🔄 What gets installed
+
+The installer's symlinks (each source is in this repo):
+
+| Repo dir | Installed to |
+|---|---|
+| `nvim/` | `~/.config/nvim` |
+| `i3/` | `~/.config/i3` |
+| `i3status-rust/` | `~/.config/i3status-rust` |
+| `rofi/` | `~/.config/rofi` |
+| `hypr/` | `~/.config/hypr` |
+| `kitty/` | `~/.config/kitty` |
+| `tmux/` | `~/.config/tmux` |
+| `yazi/`, `qutebrowser/`, `starship/`, `fastfetch/`, `zed/`, `zen/`, `dunst/`, `picom/` | `~/.config/<name>` |
+| `cascade-menu/` | `~/.config/cascade-menu` + binary → `~/.local/bin/` |
+| `dadmacs/` | `~/.config/dadmacs` |
+| `.doom.d/` | `~/.doom.d` **and** `~/.config/doom` (Doom v3) |
+| `.zshrc` | `~/.zshrc` |
+
+Anything already at those paths is **backed up** to `~/.dotfiles-backup-<timestamp>` before linking, never overwritten.
+
+Configs that are **generated** from templates (i3, i3status-rust, rofi, dunst, picom, kitty theme, Emacs theme, Zen/Firefox CSS) are produced by `i3/generate.sh` — run automatically by the installer, and on every `update`.
+
+---
+
+## 🛠 Customisation
+
+### Per-machine overrides
+
+Machine-specific settings live in `i3/config.local` (**gitignored** — never synced):
+
+```bash
+BAR_FONT=8
+THEME=catppuccin-mocha
+EDITOR_CMD="kitty -e nvim"      # $mod+c → code editor
+NET_DEVICE=eth0                  # pin status-bar network interface (default: auto)
+PICOM_FADING=true                # enable window fading
+NIGHT_TEMP=4500
+WALLPAPER=/path/to/wallpaper.png
+```
+
+Edit `config.local`, then re-run `bash install/install.sh update` (or `~/.config/dotfiles/i3/generate.sh` and `i3-msg restart`).
+
+### Theme picker
+
+`$mod+Shift+t` opens a rofi theme switcher; pick and the whole desktop re-themes.
+
+---
+
+<details>
+<summary><b>📋 cascade-menu — Miller-column launcher</b> <i>(click to expand)</i></summary>
+
+A keyboard-driven cascading menu for i3. Each column is its own floating window; navigate with `j/k/h/l`, execute with `Enter`, close with `q`/`Escape`. Opens via `$mod+m`.
+
+Config lives in `~/.config/cascade-menu/`:
+
+- **`config.toml`** — appearance (theme, font_size, opacity, border_style), position (offset_x/y, bar_height), keybindings (close/up/down/back/execute)
+- **`menu.toml`** — items: `label`, `icon` (Nerd Font glyph), `command`, `shell` (run via `sh -c`), `children`, `disabled`, `separator`, `heading`. Commands starting `$EDITOR` expand to your configured editor.
+- **`themes/*.toml`** — color palettes (`background`, `foreground`, `selected_bg`, `selected_fg`, `font_family`, `font_size`)
+
+Example item:
+
+```toml
+[[menu.children]]
+label = "Update system"
+command = ["kitty", "-e", "sudo pacman -Syu"]
+```
+
 </details>
 
-### Shell & Tools
-
-- **Zsh** — Oh My Zsh with plugins (autosuggestions, syntax highlighting, fzf-tab)
-- **Starship** — Cross-shell prompt
-- **Fastfetch** — System information tool
-- **Tmux** — Terminal multiplexer with plugins
-- **Yazi** — Modern file manager with custom plugins
-- **Zed** — Editor configuration
-- **Toggle Record** — Screen recording toggle script
-
-<a id="unity"></a>
 <details>
-<summary>🎮 Unity (Doom Emacs integration)</summary>
+<summary><b>🎮 Unity ←→ Doom Emacs</b> <i>(external editor for the Unity engine; click to expand)</i></summary>
 
-Sets up Doom Emacs as the external editor for the Unity game engine, with OmniSharp LSP for C#, CSharpier formatting, and `shader-mode` highlighting for ShaderLab. Unity is tricked into generating Rider-style `.sln`/`.csproj` files (the best variant for OmniSharp) via the `rider2emacs` shim, which then opens files in `emacsclient`.
-
-A patched fork of `rider2emacs` lives in `rider2emacs/` (v0.1.3). The patch:
-- Always creates a fresh GUI frame with `-c` and deletes any stale frames — Unity launches the external editor **without a controlling TTY**, so without `-c` `emacsclient` loads the file into the daemon invisibly.
-- Deletes old frames (including iconified ones) after creating the new one, so only one Emacs window is ever visible.
-- Works around i3 not honoring Emacs' de-iconify request: instead of reusing an iconified frame (which would stay hidden), always creates a fresh one.
-
-**Closing the Emacs window won't kill the daemon.** The Doom config sets `confirm-kill-emacs` in daemon mode: clicking the window close button (or `C-x C-c`) prompts "Kill the Emacs daemon? (no = just close this frame)". Answering "no" iconifies the frame — the daemon survives and the next Unity file open creates a fresh window. To kill the daemon without prompting: `emacsclient -e "(kill-emacs)"` or `C-u C-x C-c`.
-
-Doom config lives in `.doom.d/`:
-- `init.el` — `(csharp +lsp +unity)` module enabled
-- `packages.el` — `unity.el` (from GitHub, not on MELPA) and `lsp-shader`
-- `unity.el` — enables `unity-mode` (auto-moves `.meta` files), a `project-find-functions` backend that finds the project root from the `.sln`, forces CSharpier as the C# formatter (so `SPC =` and format-on-save don't fall back to OmniSharp's no-op formatting), and (commented-out) optional ShaderLab LSP
-- `config.el` — adds `~/.dotnet/tools` to `exec-path` so the daemon finds CSharpier / `shader-ls`
+Sets up Doom Emacs as Unity's external editor with OmniSharp LSP (C#), CSharpier formatting, ShaderLab highlighting, via the patched [`rider2emacs`](rider2emacs/) shim (generates Rider-style `.sln`/`.csproj` for Unity, opens files in `emacsclient -c`).
 
 ```bash
-# 1. .NET 8 SDK — required by OmniSharp-roslyn and CSharpier
+# Post-install steps the installer runs (or run manually):
 sudo pacman -S dotnet-sdk-8.0
-
-# 2. rider2emacs (patched fork) — the shim Unity's External Editor points at
 cargo install --path ~/.config/dotfiles/rider2emacs --force
-# ~/.cargo/bin must be on PATH (already in .zshrc)
-
-# 3. CSharpier — C# formatter for SPC = and format-on-save
 dotnet tool install -g csharpier
-# ~/.dotnet/tools must be on PATH (already in .zshrc)
-```
-
-In Unity (per project): `Edit ▸ Preferences ▸ External Tools` → set **External Script Editor** → `Browse…` → `/home/<user>/.cargo/bin/rider2emacs`. Leave **External Script Editor Args** empty (the shim handles them). Optionally untick the "Generate `.csproj` files for:" subsets you don't need — OmniSharp otherwise tries to resolve every Unity package.
-
-The Emacs daemon auto-starts with i3 (see `i3/config.base`), so `emacsclient` always has a server to attach to. To start it manually on a non-i3 session:
-
-```bash
-emacs --daemon
-```
-
-Sync Doom after pulling the config on a new machine:
-
-```bash
 doom sync
 ```
 
-On first `.cs` open, lsp-mode will offer to install the `omnisharp` server — accept. `SPC =` (`+format/buffer`) and format-on-save will run CSharpier automatically.
+- The Emacs daemon auto-starts with i3, so `emacsclient` always has a server.
+- Closing the window won't kill the daemon — answering "no" just closes the frame.
+- On first `.cs` open, lsp-mode offers to install `omnisharp` — accept.
+- The Doom config lives in `.doom.d/` (linked to `~/.config/doom`): modules for corfu, lsp, tree-sitter, evil, org, docker, plus `unity.el` (auto-moves `.meta` files, forces CSharpier) and a custom theme set.
+- `dadmacs/` is a separate vanilla-Emacs (evil-mode) config run via the `dadmacs` alias with its own HOME.
 
-> **ShaderLab LSP (optional, currently non-functional):** `shader-ls` 0.1.3 targets the EOL `net7.0` runtime and won't run on a net8-only install (Arch dropped net7). The auto-hook in `unity.el` is commented out as a result; `shader-mode` still provides syntax highlighting. To re-enable, install a compatible net7 runtime and uncomment the `lsp-shader` block in `.doom.d/unity.el`.
-
-> **PATH:** `.zshrc` exports `~/.cargo/bin` and `~/.dotnet/tools` so `rider2emacs`, `csharpier`, and `shader-ls` are found across machines.
-
-</details>
-
-## Requirements
-
-- Arch Linux (recommended) or other Linux distribution
-- Terminal with true color and undercurl support (kitty, wezterm, alacritty)
-- Nerd Font v3.0+
-- Neovim >= 0.9.0 (for Neovim configs)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/DevDad-Main/dotfiles.git ~/.config/dotfiles
-```
-
-### Shell Setup
-
-<details>
-<summary>Zsh Configuration</summary>
-
-```bash
-# Install Zsh and Oh My Zsh
-sudo pacman -S zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Install plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-
-# Symlink dotfiles config and set as default shell
-ln -sf ~/.config/dotfiles/.zshrc ~/.zshrc
-chsh -s /usr/bin/zsh
-```
+> **ShaderLab LSP** is currently disabled (needs EOL .NET 7 runtime). `shader-mode` still provides highlighting.
 
 </details>
 
 <details>
-<summary>i3 Window Manager</summary>
+<summary><b>🌐 WiFi / Ethernet (impala + iwd)</b> <i>(click to expand)</i></summary>
 
-A keyboard-driven i3 config with a theme system (Gruvbox Dark, Catppuccin Mocha, Tokyo Night), vim-style navigation, rofi launcher, and picom compositor with blur.
+The i3status-rust `net` block auto-detects the active interface (WiFi or Ethernet) — no per-machine config. `$mod+n` or clicking the network block opens **impala**, a TUI WiFi manager that talks to `iwd`.
 
-### Theme System
-
-Switch themes on the fly with `$mod+Shift+t` (rofi picker). Each theme sets i3 colors, i3status-rust bar colors, Kitty terminal theme, wallpaper, and window borders.
-
-Themes are stored in `i3/themes/` as shell files:
-
-| File | Theme |
-|---|---|
-| `gruvbox-dark` | Gruvbox Dark — warm earthy tones |
-| `catppuccin-mocha` | Catppuccin Mocha — cool mauve/yellow accents |
-| `tokyo-night` | Tokyo Night — deep blue/night palette |
-| `monochrome` | Monochrome — charcoal greys with subtle silver accents |
-
-### Installation
+The installer configures NetworkManager to use the `iwd` backend and disables `wpa_supplicant` (both steps matter):
 
 ```bash
-sudo pacman -S xorg-server xorg-xinit xorg-xrandr xorg-xset i3-wm i3status-rust rofi kitty picom dunst feh brightnessctl playerctl bluetui impala iwd haruna gwenview maim slop xclip i3lock wiremix power-profiles-daemon hunspell hunspell-en_gb alsa-utils xorg-setxkbmap pulseaudio libnotify redshift thunar lazygit fzf
-
-# AUR / pip / npm
-yay -S xautolock xcolor
-```
-
-### Backup
-
-``` bash
-mkdir -p ~/config-backup
-cp -r ~/.config ~/config-backup/
-cp -r ~/.local ~/config-backup/
-```
-
-### Symlink
-
-```bash
-ln -sf ~/.config/dotfiles/i3 ~/.config/i3
-ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
-ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
-ln -sf ~/.config/dotfiles/qutebrowser ~/.config/qutebrowser
-mkdir -p ~/.config/picom
-ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
-mkdir -p ~/.config/dunst
-ln -sf ~/.config/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
-
-# Generate configs from templates + local overrides
-~/.config/dotfiles/i3/generate.sh
-```
-
-> All configs (i3, i3status-rust, rofi) are **generated** from template files with `@@VAR@@` placeholders. After pulling git updates, re-run `generate.sh` to apply changes.
->
-> **Per-machine overrides:** Machine-specific settings go in `~/.config/dotfiles/i3/config.local` (gitignored). Run `generate.sh` then `i3-msg restart` after editing. For example, set `EDITOR_CMD` to change the `$mod+c` code editor — GUI apps run directly (`emacs`, `code`, `code-oss`, `zeditor`), terminal editors need a terminal (`"kitty -e nvim"`); pin the network interface with `NET_DEVICE=eth0`.
->
-> **Audio notes:** Your TV may only support stereo LPCM over HDMI. Use `Super+o` (wiremix) or the rofi audio switcher to select `output:hdmi-stereo` instead of `hdmi-surround` if you get no sound.
->
-> **ALSA mixer:** Speaker/Headphone outputs are automatically unmuted on i3 start. If audio cuts out after switching profiles, run `amixer -c 0 sset 'Speaker' unmute 87%`.
-
-### Networking (WiFi / Ethernet)
-
-The i3status-rust `net` block **auto-detects the active interface** — the one on the default route — so it works for both WiFi and Ethernet with no per-machine config, and follows changes live. It shows the SSID + signal strength on WiFi, or the interface name on Ethernet (with the matching icon). To pin a specific interface, set `NET_DEVICE=eth0` in `i3/config.local` (defaults to `auto`).
-
-**WiFi manager (impala):** press `$mod+n` or **left-click the network block** in the bar to open [impala](https://github.com/pythops/impala), a TUI WiFi manager. impala talks to `iwd`, so NetworkManager must use the iwd backend. Run these one at a time (each is a single command):
-
-```bash
-sudo pacman -S impala iwd
-
-# Point NetworkManager at the iwd backend
-printf '[device]\nwifi.backend=iwd\n' | sudo tee /etc/NetworkManager/conf.d/wifi_backend.conf
-
-# Stop wpa_supplicant fighting iwd for the device, and make iwd persistent
+printf '[device]\nwifi.backend=iwd\n' | sudo tee /etc/NetworkManager/conf.d/wifi_backend.conf >/dev/null
 sudo systemctl disable --now wpa_supplicant
 sudo systemctl enable --now iwd
-
-# Apply the backend switch (WiFi will drop briefly here)
 sudo systemctl restart NetworkManager
 ```
 
-> **Both steps matter.** If you only deploy the config without disabling `wpa_supplicant`, both supplicants fight over the wireless device and impala fails with "Operation failed" / shows no networks.
+Verify: `nmcli -t -f DEVICE,TYPE,STATE dev | grep wifi` → want `wlan0:wifi:connected`, and `systemctl is-active wpa_supplicant iwd` → `inactive active`.
 
-After the restart, WiFi drops and should auto-reconnect (NetworkManager keeps your saved password and hands it to iwd). If it doesn't come back on its own, open impala (`$mod+n`) and connect once — iwd remembers it afterwards. Verify the switch with:
+</details>
 
-```bash
-nmcli -t -f DEVICE,TYPE,STATE dev | grep wifi   # want: wlan0:wifi:connected
-systemctl is-active wpa_supplicant iwd          # want: inactive  active
-```
+<details>
+<summary><b>🎮 Gaming</b> <i>(click to expand)</i></summary>
 
-Optionally mask wpa_supplicant so nothing can re-activate it: `sudo systemctl mask wpa_supplicant`.
-
-NetworkManager keeps managing your saved connections — it just drives `iwd` instead of `wpa_supplicant`. Revert by deleting `/etc/NetworkManager/conf.d/wifi_backend.conf`, running `sudo systemctl unmask --now wpa_supplicant` (if you masked it), and restarting NetworkManager.
-
-### Keybindings
-
-| Key | Action |
-|---|---|---|
-| `Super+Enter` | Terminal |
-| `Super+Space` | Rofi app launcher (spotlight-style) |
-| `Super+d` | Shrink window to 75% centered (toggle) |
-| `Super+Shift+d` | Command runner |
-| `Super+Shift+Return` | File manager (thunar) |
-| `Super+m` | Cascading menu (cascade-menu) |
-| `Super+q` | Kill window |
-| `Super+h/j/k/l` | Focus left/down/up/right |
-| `Super+Shift+h/j/k/l` | Move window |
-| `Super+Tab` | Toggle back to previous workspace |
-| `Super+1-0` | Switch workspace (press again to toggle back) |
-| `Super+Shift+1-0` | Move window to workspace |
-| `Super+Ctrl+Shift+1-0` | Move container to workspace + follow |
-| `Super+y` | Toggle split direction |
-| `Super+Ctrl+y` | Smart toggle — group window + neighbor into nested split |
-| `Super+Shift+y` | Reset all to horizontal split |
-| `Super+s` | Stacking layout |
-| `Super+w` | Tabbed layout |
-| `Super+Shift+Space` | Toggle floating |
-| `Super+f` | Toggle fullscreen |
-| `Super+grave` | Focus parent |
-| `Super+r` | Resize mode (h/j/k/l) |
-| `Super+Shift+r` | Restart i3 |
-| `Super+Shift+e` | Exit i3 |
-| `Super+Ctrl+q` | Power menu (shutdown/reboot/lock/etc) |
-| `Super+Shift+b` | Toggle bar on/off |
-| `Super+b` | Bluetooth manager (bluetui TUI) |
-| `Super+n` | WiFi manager (impala TUI) |
-| `Super+g` | Git (lazygit) |
-| `Super+c` | Code editor (configurable via `EDITOR_CMD`, default emacs) |
-| `Super+o` | Audio output switcher (wiremix TUI) |
-| `Super+Escape` | Lock screen immediately |
-| `Super+Shift+Escape` | Screen dim/lock menu (rofi) |
-| `Super+Ctrl+Escape` | Toggle night light on/off |
-| `Super+Slash` | Keybind help (floating Kitty + fzf search) |
-| `Super+Left Click` | Move window (drag) |
-| `Super+Right Click` | Resize window (drag) |
-| `Super+Shift+t` | Theme picker (rofi) |
-| `Super+Shift+w` | Wallpaper picker (rofi) |
-| `Super+Shift+c` | Color picker (xcolor) |
-| `Super+Ctrl+equal` | Increase bar font size |
-| `Super+Ctrl+minus` | Decrease bar font size |
-| `Super+minus` | Move to scratchpad |
-| `Super+equal` | Show scratchpad |
-| `Super+Shift+s` | Region screenshot (clipboard) |
-| `Super+Print` | Fullscreen screenshot (clipboard) |
-| `Print` | Fullscreen screenshot (file) |
-| Volume keys / `Super+z/x/v` | Volume down/up/mute |
-| Brightness keys / `Super+[/]` | Brightness down/up |
-| Media keys | Play/Pause/Next/Prev |
-
-### Syncing to another machine
+Steam games run well on i3 via **gamescope**:
 
 ```bash
-cd ~/.config/dotfiles && git pull
-bash i3/generate.sh
-killall picom; picom -b --config ~/.config/dotfiles/picom/picom.conf
-i3-msg restart
-```
-
-> `generate.sh` handles all generated configs: i3, i3status-rust, rofi, kitty theme, picom, dunst, and Emacs theme. Just make sure symlinks exist first (see [Symlinks](#symlinks)). If you have local overrides in `i3/config.local`, they won't be overwritten by `git pull` (it's gitignored).
->
-> **After a pull that adds features:** install any new packages (see the i3 `pacman -S` install list above — e.g. `impala iwd` were added for the WiFi manager). Optional extras have their own setup: the [Networking section](#networking-wifi--ethernet) covers switching NetworkManager to the iwd backend for impala.
->
-> **Per-machine settings are not synced** — `i3/config.local` is gitignored, so each machine keeps its own. Defaults kick in when it's absent: `$mod+c` opens `emacs` and the network block auto-detects the interface. Override per machine by setting `EDITOR_CMD` (code editor) or `NET_DEVICE` (pin a specific interface) there.
-
-### Gaming
-
-Steam games run well on i3 using [gamescope](https://github.com/ValveSoftware/gamescope) as a compatibility layer. Gamescope creates an isolated compositor that handles fullscreen, VRR, and HDR properly regardless of the WM.
-
-**Global launch option** (Steam → Settings → Compatibility → Launch Options):
-
-```
+# Steam → Settings → Compatibility → Launch options:
 gamescope -f -- %command%
 ```
 
-**Per-game** (Right-click game → Properties → Launch Options):
+Flags: `-f` fullscreen · `-W 2560 -H 1440 -r 144` resolution/refresh · `--adaptive-sync` VRR.
+
+</details>
+
+<details>
+<summary><b>🖼 Screen tearing fix</b> <i>(click to expand)</i></summary>
+
+If i3 + picom tears on NVIDIA:
+
+```bash
+~/.config/i3/scripts/apply-nvidia-tearfree.sh   # adds ForceFullCompositionPipeline
+```
+
+Safe on any machine (matches NVIDIA GPUs only). Log out/in after. Picom also runs `vsync = true`.
+
+</details>
+
+---
+
+## 📁 Project structure
 
 ```
-gamescope -W 2560 -H 1440 -r 144 -- %command%
+dotfiles/
+├── install/               # ⭐ the installer
+│   ├── bootstrap.sh       #   curl | bash entry point (clones + hands off)
+│   ├── install.sh         #   main installer (modes, progress bar, questions)
+│   ├── packages.sh        #   component groups → pacman / AUR package lists
+│   ├── setup.sh           #   symlinks, shell/tmux/doom/npm post-install steps
+│   └── lib/ui.sh          #   colors, progress bar, prompts
+├── i3/                    # primary DE
+│   ├── config.base        #   template (tracked) → config (generated)
+│   ├── config.local       #   per-machine overrides (gitignored)
+│   ├── generate.sh        #   merges base + local → all generated configs
+│   ├── themes/            #   gruvbox-dark · catppuccin-mocha · tokyo-night · monochrome
+│   └── scripts/           #   powermenu, dim-then-lock, volume/brightness OSD, …
+├── hypr/                  # Wayland DE (quickshell-based)
+├── nvim/                  # main editor config (lazy.nvim)
+├── .doom.d/               # Doom Emacs config (Unity/.NET focus)
+├── dadmacs/               # vanilla Emacs config (evil-mode)
+├── rider2emacs/           # patched Unity→Emacs shim (Rust)
+├── cascade-menu/          # Miller-column launcher (Python/GTK)
+├── kitty/ tmux/ yazi/ qutebrowser/ starship/ fastfetch/ zed/ zen/ dunst/ picom/ rofi/ i3status-rust/
+├── .vim/                  # legacy Vim config
+├── .zshrc
+└── toggle_record.sh        # gpu-screen-recorder toggle
 ```
 
-Flags:
-- `-f` — Fullscreen
-- `-W` / `-H` — Resolution width/height
-- `-r` — Refresh rate
-- `--adaptive-sync` — Enable VRR (if supported)
+---
 
-### Reverting back to previous DE/WM config.
+## 🔄 Syncing to another machine
 
-``` bash
+```bash
+cd ~/.config/dotfiles && bash install/install.sh update
+```
+
+Or via the one-liner: `curl -fsSL …/install/bootstrap.sh | bash -s -- update`
+
+`update` pulls from git, re-creates symlinks, and regenerates all templated configs — your per-machine `config.local` is never touched (it's gitignored).
+
+### Backup / revert
+
+```bash
+# Snapshot current configs before a big change
+mkdir -p ~/config-backup && cp -r ~/.config ~/config-backup/ && cp -r ~/.local ~/config-backup/
+
+# Restore
 cp -r ~/config-backup/.config/* ~/.config/
 cp -r ~/config-backup/.local/* ~/.local/
 ```
 
-</details>
-
-### Using this config with end4's Hyprdots
-
-```bash
-# Replace end4's hypr config with my custom overrides
-mv ~/.config/hypr ~/.config/hypr.bak && ln -s ~/.config/dotfiles/hypr ~/.config/hypr
-```
-
-### Symlinks
-
-<details>
-<summary>Create Configuration Symlinks</summary>
-
-```bash
-# Create symlinks for each configuration
-ln -sf ~/.config/dotfiles/nvim ~/.config/nvim
-ln -sf ~/.config/dotfiles/tmux ~/.config/tmux
-ln -sf ~/.config/dotfiles/yazi ~/.config/yazi
-ln -sf ~/.config/dotfiles/hypr ~/.config/hypr
-ln -sf ~/.config/dotfiles/starship ~/.config/starship
-ln -sf ~/.config/dotfiles/fastfetch ~/.config/fastfetch
-ln -sf ~/.config/dotfiles/zed ~/.config/zed
-ln -sf ~/.config/dotfiles/i3 ~/.config/i3
-ln -sf ~/.config/dotfiles/rofi ~/.config/rofi
-ln -sf ~/.config/dotfiles/i3status-rust ~/.config/i3status-rust
-ln -sf ~/.config/dotfiles/qutebrowser ~/.config/qutebrowser
-mkdir -p ~/.config/picom
-ln -sf ~/.config/dotfiles/picom/picom.conf ~/.config/picom/picom.conf
-mkdir -p ~/.config/dunst
-ln -sf ~/.config/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
-
-# Generate configs from templates + local overrides
-~/.config/dotfiles/i3/generate.sh
-```
-
-> After pulling git updates, re-run `generate.sh` to apply any template changes.
-
-</details>
-
-### Screen Tearing
-
-If you see screen tearing with i3 + picom, run the helper script:
-
-```bash
-~/.config/i3/scripts/apply-nvidia-tearfree.sh
-```
-
-This adds `ForceFullCompositionPipeline = "on"` to the NVIDIA driver config, fixing tearing at the driver level. It's safe on any machine — the config only matches NVIDIA GPUs. Log out and back in after running.
-
-Picom also has `vsync = true` enabled by default as a second layer.
-
-## Project Structure
-
-```
-dotfiles/
-├── nvim/                 # Main Neovim configuration
-├── neovim/               # Alternative Neovim configuration
-├── neovim-nvchad/        # NvChad-based Neovim config
-├── i3/                   # i3 window manager config
-│   ├── config.base       #   Template config (tracked)
-│   ├── config.local      #   Per-machine overrides (gitignored)
-│   ├── config            #   Generated config (gitignored)
-│   ├── generate.sh       #   Merges base + local → all configs
-│   ├── bar_font.sh       #   Change bar font size (Ctrl+=/-)
-│   ├── keyhelp.sh        #   Keybind help window (Mod+/)
-│   ├── theme-picker.sh   #   Rofi theme switcher (Mod+Shift+t)
-│   ├── themes/           #   Theme files (colors, wallpaper, kitty theme)
-│   │   ├── gruvbox-dark
-│   │   ├── catppuccin-mocha
-│   │   ├── tokyo-night
-│   │   └── monochrome
-│   ├── bar_font.sh       #   Binds Ctrl+=/- to change bar font
-│   ├── powermenu.sh      #   Shutdown/reboot/lock/suspend menu
-│   ├── powerprofile.sh   #   CPU power profile switcher
-│   └── scripts/
-│       ├── screen-lock-menu.sh  #   Rofi dim/lock timeout selector
-│       ├── dim-then-lock.sh     #   Gradual dim before i3lock
-│       ├── switch-audio.sh      #   Rofi card profile switcher
-│       ├── smart-toggle.sh      #   Group focused window + neighbor into nested split
-│       ├── volume.sh            #   Volume OSD via dunst (progress bar + percentage)
-│       ├── brightness.sh        #   Brightness OSD via dunst (progress bar + percentage)
-│       ├── night-light.sh       #   Toggle redshift night light on/off
-│       ├── bluetooth-notify.sh  #   Notify on bluetooth connect/disconnect
-│       └── apply-nvidia-tearfree.sh  #   Fix screen tearing (ForceFullCompositionPipeline)
-├── dunst/                # Dunst notification daemon config (generated from template)
-│   ├── dunstrc.base      #   Template with @@VAR@@ placeholders
-│   └── dunstrc           #   Generated config (gitignored)
-├── qutebrowser/           # Qutebrowser keyboard-driven browser config
-├── i3status-rust/        # i3status-rust bar config (generated)
-│   ├── config.base.toml  #   Template with placeholders
-│   └── config.toml       #   Generated (gitignored)
-├── rofi/                 # Rofi launcher config (generated)
-│   ├── config.base.rasi  #   Template with placeholders
-│   └── config.rasi       #   Generated (gitignored)
-├── picom/                # Picom compositor config
-│   ├── picom.base.conf   #   Template with PICOM_FADING placeholder
-│   └── picom.conf        #   Generated (dual_kawase blur, no fade)
-├── emacs/                # Emacs config
-│   └── theme.el          #   Generated Emacs theme file
-├── .doom.d/              # Doom Emacs configuration
-│   ├── init.el           #   Module selection (csharp +lsp +unity, etc.)
-│   ├── packages.el       #   Package declarations (unity.el, lsp-shader, etc.)
-│   ├── config.el         #   Main config (loads unity.el, languages.el, etc.)
-│   ├── unity.el          #   Unity integration (unity-mode, CSharpier, project root)
-│   ├── languages.el      #   Per-language overrides (python ruff, gdscript eglot)
-│   ├── keybinds.el       #   Custom keybindings
-│   ├── appearance.el     #   Theme/appearance settings
-│   └── ...               #   Other config files (corfu, sql, shell, themes)
-├── rider2emacs/          # Patched fork of rider2emacs (v0.1.2, adds -c create-frame)
-│   ├── Cargo.toml        #   Rust package manifest
-│   └── src/main.rs       #   Shim: translates Rider CLI args → emacsclient
-├── hypr/                 # Hyprland compositor config
-│   ├── hyprland/         #   Window manager settings
-│   ├── hyprlock.conf     #   Lock screen config
-│   ├── hypridle.conf     #   Idle management config
-│   └── custom/           #   Custom scripts
-├── tmux/                 # Tmux configuration
-├── yazi/                 # Yazi file manager config
-├── starship/             # Starship prompt config
-├── fastfetch/            # Fastfetch system info config
-├── zed/                  # Zed editor config
-├── wallpapers/           # Desktop wallpapers
-├── .vim/                 # Legacy Vim configuration
-├── .zshrc                # Zsh shell configuration
-├── toggle_record.sh      # Screen recording toggle script
-└── README.md             # This file
-```
+---
 
 ## License
 

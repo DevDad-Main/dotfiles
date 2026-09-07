@@ -31,7 +31,7 @@ return {
   name = "catppuccin",
   lazy = false,
   priority = 1,
-  enabled = true,
+  enabled = false,
   config = function()
     local theme_group = vim.api.nvim_create_augroup("UserThemeTweaks", { clear = true })
     vim.api.nvim_create_autocmd("ColorScheme", {
