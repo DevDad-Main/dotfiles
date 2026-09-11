@@ -1,1 +1,3 @@
-require("ui.statusline")
+-- Custom statusline disabled: replaced by the ported if.nvim statusline
+-- (see lua/plugins/zz-if-ui.lua). To restore, re-enable the line below.
+-- require("ui.statusline")
