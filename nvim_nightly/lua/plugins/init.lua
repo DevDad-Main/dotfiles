@@ -16,6 +16,7 @@ vim.pack.add({
   "https://github.com/nvim-lualine/lualine.nvim",
   "https://github.com/mawkler/modicator.nvim",
   "https://github.com/kevinhwang91/nvim-ufo",
+  "https://github.com/kevinhwang91/promise-async",
   "https://github.com/rebelot/kanagawa.nvim",
 
   -- LSP, completion, and formatting

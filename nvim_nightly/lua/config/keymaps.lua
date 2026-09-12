@@ -66,8 +66,8 @@ vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move s
 
 -- Copy file path / selection reference for pasting into AI chats
 local function copy_ref(opts)
-  -- "%" is the current buffer's file name; ":." makes it relative to the cwd
-  local path = vim.fn.expand("%:.")
+  -- "%" is the current buffer's file name; ":p" expands it to the absolute path
+  local path = vim.fn.expand("%:p")
   -- ref is what ends up in the clipboard; start with just the path
   local ref = path
 
