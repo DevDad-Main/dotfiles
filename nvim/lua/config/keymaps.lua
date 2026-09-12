@@ -78,7 +78,7 @@ map("i", "jj", "<ESC>", { desc = "Escape Insert Mode Quicker" })
 
 map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" }) -- show  diagnostics for file
 
-map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" }) -- show diagnostics for line
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })                  -- show diagnostics for line
 
 function git_files()
   if builtin then
