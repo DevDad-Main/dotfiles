@@ -6,10 +6,10 @@ local function lens(render, pos_list, nearest, wkg_i, _)
 	local cur_ratio = "(" .. ("%d/%d"):format(wkg_i, #pos_list) .. ")"
 	local chunks = {
 		{ "   ", "Ignore" },
-		{ [[ "]], hl },
-
-		{ pattern, hl },
-		{ [[" ]], hl },
+		{ " ", hl },
+		{ " ", hl },
+		{ '"' .. pattern .. '"', hl },
+		{ " ", hl },
 		{ cur_ratio, hl },
 		{ " ", hl },
 	}
