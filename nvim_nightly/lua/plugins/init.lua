@@ -68,6 +68,7 @@ vim.pack.add({
     version = vim.version.range("^9"),
   },
   "https://github.com/saecki/crates.nvim",
+  "https://github.com/alexghergh/nvim-tmux-navigation",
 
   -- Developer utilities
   "https://github.com/chrisgrieser/nvim-chainsaw",
@@ -76,6 +77,7 @@ vim.pack.add({
 
 require("plugins.blink")
 require("plugins.colorscheme")
+require("plugins.inlay_hints")
 require("plugins.hlslens")
 require("plugins.diagnostics")
 require("plugins.dired")
@@ -93,4 +95,5 @@ require("plugins.rust")
 require("plugins.quicker")
 require("plugins.testing")
 require("plugins.todo")
+require("plugins.tmux")
 require("plugins.ufo")
