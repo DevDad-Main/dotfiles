@@ -113,7 +113,7 @@ map({ "n" }, "<leader>c", "1z=")
 map({ "n" }, "<C-q>", ":copen<CR>", { silent = true })
 map({ "n" }, "<leader>w", "<Cmd>update<CR>", { desc = "Write the current buffer." })
 map({ "n" }, "<leader>q", "<Cmd>:quit<CR>", { desc = "Quit the current buffer." })
-map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write." })
+-- map({ "n" }, "<leader>Q", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write." })
 -- map({ "n" }, "<C-f>", "<Cmd>Open .<CR>", { desc = "Open current directory in Finder." })
 map({ "n" }, "<leader><leader>", ":edit #<CR>", { desc = "Alternate file" })
 
